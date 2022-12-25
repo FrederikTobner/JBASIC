@@ -1,0 +1,16 @@
+/**
+* \mainpage Main Page
+* \section intro_sec Introduction
+* Welcome to the technical documentation of the JBASIC interpreter. <br>
+* JBASIC is a simple scripting language, heavily inspired by [BASIC](https://en.wikipedia.org/wiki/BASIC).
+* \section license_sec Testing
+* The interpreter is tested using JUNIT.
+* For testing a cellox program is executed and the standard output is redirected.
+* The string is compared with the expected output after the program was executed.
+* \section license_sec License
+* Copyright &copy; 2022 by <a href="mailto:f.tobner@gmail.com">Frederik Tobner</a>. <br>
+* Permission to use, copy, modify, and distribute this software and its documentation under the terms of the GNU General Public License is hereby granted. <br>
+* No representations are made about the suitability of this software for any purpose. <br>
+* It is provided "as is" without express or implied warranty. <br>
+* See the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License</a> for more details.
+*/

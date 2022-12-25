@@ -13,6 +13,11 @@
  * License for more details.                                                *
  ****************************************************************************/
 
+ /**
+ * @file ErrorListener.java
+ * @brief Print parser errors to the given stderr..
+ */
+
 package org.jbasic;
 
 import org.antlr.v4.runtime.BaseErrorListener;
@@ -22,16 +27,21 @@ import org.antlr.v4.runtime.Recognizer;
 import java.io.PrintStream;
 
 /**
- * Print parser errors to the given stderr.
+ * @brief Print parser errors to the given stderr..
  */
 public class ErrorListener extends BaseErrorListener {
 
+    /// The standard error output stream
     private final PrintStream stderr;
 
+    /// @brief Constructor of the error listener
+    /// @param stderr The standard error output stream the error listener writes to
     public ErrorListener(PrintStream stderr) {
         this.stderr = stderr;
     }
 
+
+     /// @brief Reports a syntax error
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer,
                             Object offendingSymbol,

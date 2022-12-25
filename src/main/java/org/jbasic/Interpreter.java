@@ -1,3 +1,22 @@
+/****************************************************************************
+ * Copyright (C) 2022 by Frederik Tobner                                    *
+ *                                                                          *
+ * This file is part of JBASIC.                                             *
+ *                                                                          *
+ * Permission to use, copy, modify, and distribute this software and its    *
+ * documentation under the terms of the GNU General Public License is       *
+ * hereby granted.                                                          *
+ * No representations are made about the suitability of this software for   *
+ * any purpose.                                                             *
+ * It is provided "as is" without express or implied warranty.              *
+ * See the <"https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public  *
+ * License for more details.                                                *
+ ****************************************************************************/
+
+/**
+ * @file Interpreter.java
+ * @brief The JBASIC interpreter
+ */
 package org.jbasic;
 
 import basic.JBasicLexer;
@@ -15,7 +34,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- * The entry point of the interpreter.
+ * @brief The JBASIC interpreter
  */
 public class Interpreter {
 
@@ -24,12 +43,22 @@ public class Interpreter {
     private final PrintStream stderrPrint;
     private Memory memory;
 
+    /**
+     * @brief Constructor a new Interpreter object instance
+     * @param stdin The standard input stream used by the interpreter
+     * @param stdout The standard output stream used by the interpreter
+     * @param stderr The standard error stream used by the interpreter
+     */
     public Interpreter(InputStream stdin, OutputStream stdout, OutputStream stderr) {
         this.stdin = stdin;
         this.stdoutPrint = new PrintStream(stdout, true);
         this.stderrPrint = new PrintStream(stderr, true);
     }
 
+    /**
+     * @brief Executes a JBASIC program
+     * @param programInput The JBASIC program that is executed
+     */
     public void run(InputStream programInput) throws IOException {
         // Wrapping the sourcecode in a ANTLRInputStream
         ANTLRInputStream input = new ANTLRInputStream(programInput);
@@ -70,10 +99,16 @@ public class Interpreter {
         }
     }
 
+    /**
+     * @brief Gets the memory associated with the interpreter
+     * @return The memory of the interpreter
+     * @details The memory associated with the interpreter is a simple hashtable that stores all the variables that are declared in the program
+     */
     public Memory getMemory() {
         return memory;
     }
 
+    /// Deallocates the memory used by the interpreter
     public void clear() {
         memory.free();
     }

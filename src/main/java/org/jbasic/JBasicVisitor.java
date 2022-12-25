@@ -1,3 +1,9 @@
+/**
+ * @file JBasicVisitor.java
+ * @brief The ANTLR visitor.
+ * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
+ */
+
 package org.jbasic;
 
 import basic.JBasicBaseVisitor;
@@ -11,7 +17,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 /**
- * The ANTLR visitor. This does the actual job of executing the program.
+ * @brief The ANTLR visitor.
+ * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
  */
 public class JBasicVisitor extends JBasicBaseVisitor<Value> {
 
@@ -48,9 +55,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     }
 
     @Override
-    public Value visitString(JBasicParser.StringContext context) {
-        String value = context.getText();
-        return new Value(value.substring(1, value.length() - 1));
+    public Value visitId(JBasicParser.IdContext context) {
+        String id = context.getText();
+        return memory.get(id);
     }
 
     @Override
@@ -59,9 +66,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     }
 
     @Override
-    public Value visitId(JBasicParser.IdContext context) {
-        String id = context.getText();
-        return memory.get(id);
+    public Value visitString(JBasicParser.StringContext context) {
+        String value = context.getText();
+        return new Value(value.substring(1, value.length() - 1));
     }
 
     //region Statements
@@ -220,7 +227,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     public Value visitAthFunction(JBasicParser.AthFunctionContext context) {
         Value argument = visit(context.expression());
         if (argument.isNumber()) {
-            return new Value(CoreUtils.atanh(argument.internalNumber()));
+            return new Value(CoreUtils.arcTangentHyperbolic(argument.internalNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -314,7 +321,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
             try {
                 return new Value(Long.parseLong(str));
             } catch (NumberFormatException e) {
-                return Value.NaN;
+                return Value.CreateNotANumberValue;
             }
         }
         return argument;
@@ -323,7 +330,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitIsnanFunction(JBasicParser.IsnanFunctionContext context) {
         Value argument = visit(context.expression());
-        return argument.isNaN() ? Value.TRUE : Value.FALSE;
+        return argument.isNaN() ? Value.CreateTrueValue : Value.CreateFalseValue;
     }
     //endregion
 
@@ -367,14 +374,6 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
         Value left = visit(context.expression(0));
         Value right = visit(context.expression(1));
         return left.or(right, context);
-    }
-
-    @Override
-    public Value visitExpExpression(JBasicParser.ExpExpressionContext context) {
-        Value left = visit(context.expression(0));
-        Value right = visit(context.expression(1));
-        // TODO which one is left and which is right ?
-        return left.expression(right, context);
     }
 
     @Override

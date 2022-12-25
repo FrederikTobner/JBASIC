@@ -13,10 +13,15 @@
  * License for more details.                                                *
  ****************************************************************************/
 
+/**
+ * @file ExitLoopException.java
+ * @brief Forces exit from loop.
+ */
+
 package org.jbasic;
 
 /**
- * Forces exit from loop.
+ * @brief Forces exit from loop.
  */
 public class ExitLoopException extends RuntimeException {
 }

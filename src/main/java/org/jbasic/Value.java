@@ -13,6 +13,11 @@
  * License for more details.                                                *
  ****************************************************************************/
 
+ /**
+ * @file Value.java
+ * @brief Value class that encapsulates numeric and string values and the corresponding operations.
+ */
+
 package org.jbasic;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -21,14 +26,17 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 
 /**
- * Value class that encapsulates numeric and string values and the
- * corresponding operations.
+ * @brief Value class 
+ * @detials The class encapsulates numeric and string values and the corresponding operations.
  */
 public class Value {
 
-    public static final Value FALSE = new Value(0);
-    public static final Value TRUE = new Value(1);
-    public static final Value NaN = new Value(null, true);
+    /// Creates a new False Value
+    public static final Value CreateFalseValue = new Value(0);
+    /// Creates a new true value
+    public static final Value CreateTrueValue = new Value(1);
+    /// Creates a new not a number value
+    public static final Value CreateNotANumberValue = new Value(null, true);
 
     private final Object value;
     private boolean isNaN;
@@ -141,48 +149,58 @@ public class Value {
         if (isNumber() && right.isNumber()) {
             return relEval(right, Objects::equals, context);
         } else if (isString() && right.isString()) {
-            return internalString().equals(right.internalString()) ? TRUE : FALSE;
+            return internalString().equals(right.internalString()) ? CreateTrueValue : CreateFalseValue;
         }
-        return FALSE;
+        return CreateFalseValue;
     }
 
     public Value notEqual(Value right, ParserRuleContext context) {
         Value eq = equal(right, context);
-        return eq.equal(TRUE, context) == TRUE ? FALSE : TRUE;
+        return eq.equal(CreateTrueValue, context) == CreateTrueValue ? CreateFalseValue : CreateTrueValue;
     }
 
     private Value relEval(Value right, BiFunction<Double, Double, Boolean> comparison, ParserRuleContext context) {
         assertNumber(context);
         right.assertNumber(context);
         if (comparison.apply(internalNumber(), right.internalNumber())) {
-            return TRUE;
+            return CreateTrueValue;
         }
-        return FALSE;
+        return CreateFalseValue;
     }
 
     public Value not(ParserRuleContext context) {
         assertNumber(context);
         if (internalNumber() == 0) {
-            return TRUE;
+            return CreateTrueValue;
         }
-        return FALSE;
+        return CreateFalseValue;
     }
 
+    /**
+     * Interprets the value as part of an and expression
+     * @param right The value right of the currently evaluated value
+     * @param context The parsing context of the Value instance
+     * @return True if the value and the right value are truthy
+     */
     public Value and(Value right, ParserRuleContext context) {
-        return isTrue(context) && right.isTrue(context) ? TRUE : FALSE;
+        return isTrue(context) && right.isTrue(context) ? CreateTrueValue : CreateFalseValue;
     }
 
+    /**
+     * Interprets the value as part of an or expression
+     * @param right The value right of the currently evaluated value
+     * @param context The parsing context of the Value instance
+     * @return True if the value or the right value are truthy
+     */
     public Value or(Value right, ParserRuleContext context) {
-        return isTrue(context) || right.isTrue(context) ? TRUE : FALSE;
+        return isTrue(context) || right.isTrue(context) ? CreateTrueValue : CreateFalseValue;
     }
 
-    public Value expression(Value right, ParserRuleContext context) {
-        assertNumber(context);
-        right.assertNumber(context);
-        return new Value(Math.round(Math.pow(internalNumber(), right.internalNumber())));
-    }
-
-
+    /**
+     * Determines whether a Value instance and another java object are equal
+     * @param o The object that is compared with the Value instance
+     * @return A boolean value that indicates whether the two values are equal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -194,6 +212,7 @@ public class Value {
         return Objects.equals(value, value1.value);
     }
 
+    /// Computes the hashcode of a value instance
     @Override
     public int hashCode() {
         int result = value != null ? value.hashCode() : 0;

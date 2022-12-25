@@ -5,7 +5,6 @@ MULTIPLY : '*' ;
 DIVIDE : '/' ;
 ADD : '+' ;
 SUBTRACT : '-' ;
-EXP : '^' ;
 MODULO : 'MOD' ;
 
 // logical

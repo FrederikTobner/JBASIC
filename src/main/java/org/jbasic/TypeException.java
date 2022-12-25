@@ -13,13 +13,20 @@
  * License for more details.                                                *
  ****************************************************************************/
 
+ /**
+ * @file TypeException.java
+ * @brief Type mismatch error.
+ */
+
 package org.jbasic;
 
 /**
- * Type mismatch error.
+ * @brief Type mismatch error.
  */
 public class TypeException extends InterpreterException {
 
+    /// Constructor of a type exception
+    /// @param message The error mesaage of the type exception
     public TypeException(String message) {
         super(message);
     }

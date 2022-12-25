@@ -13,37 +13,52 @@
  * License for more details.                                                *
  ****************************************************************************/
 
+/**
+ * @file CoreUtils.java
+ * @brief Core utility methods.
+ */
+
 package org.jbasic;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.text.DecimalFormat;
 
+
 /**
- * Utility methods.
+ * @brief Core utility methods
+ * @details The core uitlity mehtods of the interpreter
  */
 public class CoreUtils {
 
+    /// Decimal output format for numerical values
     public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
 
+    /// Formats an error message with the line and the position in the line where the error occured
+    /// @param line The line where the error occured
+    /// @param The position in the line where the error occured
+    /// @param message The error message that is displayed
     public static String formatErrorMessage(int line, int positionInLine, String message) {
         return "Error at [" + line + ", " + positionInLine + "]: " + message;
     }
 
+    /// Adds line information and the position in the line to an InterpreterException
+    /// @param exception The InterpreterException where that is enriched
+    /// @param context The ParserRRuleContext where the error occured
     public static void addLocation(InterpreterException exception, ParserRuleContext context) {
         exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 
-    public static double atanh(double a) {
-        final double mult;
-        // check the sign bit of the raw representation to handle -0
-        if (Double.doubleToRawLongBits(a) < 0) {
-            a = Math.abs(a);
-            mult = -0.5d;
+    /// Areatangens hyperbolicus, the inverse functions of tangent hyperbolicus
+    /// @param value The value applied to the function
+    public static double arcTangentHyperbolic(double value) {
+        final double multiplicand;
+        if (Double.doubleToRawLongBits(value) < 0) {
+            value = Math.abs(value);
+            multiplicand = -0.5d;
         } else {
-            mult = 0.5d;
+            multiplicand = 0.5d;
         }
-        return mult * Math.log((1.0d + a) / (1.0d - a));
+        return multiplicand * Math.log((1.0d + value) / (1.0d - value));
     }
-
 }

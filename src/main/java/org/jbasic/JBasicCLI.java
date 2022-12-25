@@ -13,6 +13,11 @@
  * License for more details.                                                *
  ****************************************************************************/
 
+ /**
+ * @file JBasicCli.java
+ * @brief The command line interface of the interpreter
+ */
+
 package org.jbasic;
 
 import java.io.FileInputStream;
@@ -20,9 +25,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * The command line.
+ * @brief The command line interface of the interpreter
  */
-public class JBasicCli {
+public class JBasicCLI {
 
     public static void main(String[] args) {
         InputStream inputStream = null;

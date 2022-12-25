@@ -13,10 +13,15 @@
  * License for more details.                                                *
  ****************************************************************************/
 
+/**
+ * @file InterpreterException.java
+ * @brief Base exception for interpreter runtime errors.
+ */
+
 package org.jbasic;
 
 /**
- * Base exception for interpreter runtime errors.
+ * @brief Base exception for interpreter runtime errors.
  */
 public abstract class InterpreterException extends RuntimeException {
 
