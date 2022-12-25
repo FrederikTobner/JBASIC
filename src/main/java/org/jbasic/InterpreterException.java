@@ -34,6 +34,6 @@ public abstract class InterpreterException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return Utils.formatErrorMessage(line, positionInLine, super.getMessage());
+        return CoreUtils.formatErrorMessage(line, positionInLine, super.getMessage());
     }
 }

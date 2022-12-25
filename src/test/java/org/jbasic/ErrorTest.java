@@ -17,41 +17,21 @@ package org.jbasic;
 
 import org.junit.Test;
 
-import java.time.format.DecimalStyle;
-
 import static org.junit.Assert.assertEquals;
 
-public class OperatorTests extends JBasicTest {
+public class ErrorTest extends JBasicTest{
 
     @Test
-    public void testAdd() {
-        test("operator/add.bas",
-                (result) -> assertEquals("3" + System.lineSeparator(), result.output));
+    public void testSyntaxError() {
+        test("error/syntax_error.bas",
+                (result) -> assertEquals("Error at [2, 4]: Syntax error",
+                        result.error.trim()));
     }
 
     @Test
-    public void testSubtract() {
-        test("operator/subtract.bas",
-                (result) -> assertEquals("1" + System.lineSeparator(), result.output));
-    }
-
-    @Test
-    public void testMultiply() {
-        test("operator/multiply.bas",
-                (result) -> assertEquals("6" + System.lineSeparator(), result.output));
-    }
-
-    @Test
-    public void testDivide() {
-        test("operator/divide.bas",
-                (result) -> assertEquals("2" + System.lineSeparator() +
-                                "3" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() + "5" + System.lineSeparator(),
-                                result.output));
-    }
-
-    @Test
-    public void testModulo() {
-        test("operator/modulo.bas",
-                (result) -> assertEquals("2" + System.lineSeparator(), result.output));
+    public void testTypeError() {
+        test("error/type_error.bas",
+                (result) -> assertEquals("Error at [2, 6]: Couldn't evaluate numeric expression. Value \"1\" is not a number",
+                        result.error.trim()));
     }
 }

@@ -27,6 +27,7 @@ function
     : absFunction
     | acsFunction
     | asnFunction
+    | athFunction
     | atnFunction
     | cosFunction
     | expFunction
@@ -61,6 +62,10 @@ acsFunction
 
 asnFunction
     : ASN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+athFunction
+    : ATH_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
 
 atnFunction

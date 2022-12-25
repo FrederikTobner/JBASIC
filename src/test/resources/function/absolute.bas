@@ -1,1 +1,1 @@
-PRINT ABS(2.5)
+PRINT ABS(2.5 - 5)

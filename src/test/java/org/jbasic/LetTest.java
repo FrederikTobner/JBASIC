@@ -15,23 +15,31 @@
 
 package org.jbasic;
 
-import org.antlr.v4.runtime.ParserRuleContext;
+import org.junit.Test;
 
-import java.text.DecimalFormat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-/**
- * Utility methods.
- */
-public class Utils {
+public class LetTest extends JBasicTest {
 
-    public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
-
-    public static String formatErrorMessage(int line, int positionInLine, String message) {
-        return "Error at [" + line + ", " + positionInLine + "]: " + message;
+    @Test
+    public void testString() {
+        test("let/string.bas", (result) -> {
+            assertTrue(result.interpreter.getMemory().get("string").isString());
+            assertEquals("foo", result.interpreter.getMemory().get("string").internalString());
+        });
     }
 
-    public static void addLocation(InterpreterException exception, ParserRuleContext context) {
-        exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
+    @Test
+    public void testNumeric() {
+        test("let/numeric.bas", (result) -> {
+            assertTrue(result.interpreter.getMemory().get("numeric").isNumber());
+            assertEquals(123.0, result.interpreter.getMemory().get("numeric").internalNumber(), 0.0001f);
+        });
     }
 
+    @Test
+    public void testNotANumber() {
+        test("let/not_a_number.bas", (result) -> assertTrue(result.interpreter.getMemory().get("nan").isNaN()));
+    }
 }

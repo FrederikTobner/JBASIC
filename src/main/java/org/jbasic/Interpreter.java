@@ -61,7 +61,7 @@ public class Interpreter {
         catch (ParseCancellationException e) {
             if (e.getCause() instanceof InputMismatchException) {
                 InputMismatchException inputEx = (InputMismatchException)e.getCause();
-                String msg = Utils.formatErrorMessage(
+                String msg = CoreUtils.formatErrorMessage(
                         inputEx.getOffendingToken().getLine(),
                         inputEx.getOffendingToken().getCharPositionInLine(),
                         "Syntax error");

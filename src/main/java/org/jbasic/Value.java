@@ -79,7 +79,7 @@ public class Value {
     private void assertNumber(ParserRuleContext context) {
         if (!isNumber()) {
             TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" + value + "\" is not a number");
-            Utils.addLocation(typeException, context);
+            CoreUtils.addLocation(typeException, context);
             throw typeException;
         }
     }
@@ -101,10 +101,10 @@ public class Value {
             return new Value(internalString() + right.internalString());
         }
         else if (isString() && right.isNumber()) {
-            return new Value(internalString() + Utils.numericalOutputFormat.format(right.internalNumber()));
+            return new Value(internalString() + CoreUtils.numericalOutputFormat.format(right.internalNumber()));
         }
         else if (isNumber() && right.isString()) {
-            return new Value(Utils.numericalOutputFormat.format(internalNumber()) + right.internalString());
+            return new Value(CoreUtils.numericalOutputFormat.format(internalNumber()) + right.internalString());
         }
         else {
             return arithmeticEvaluation(right, Double::sum, context);

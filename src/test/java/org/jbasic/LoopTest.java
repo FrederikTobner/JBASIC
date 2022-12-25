@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class LoopTests extends JBasicTest {
+public class LoopTest extends JBasicTest {
 
     @Test
     public void testForContinue() {

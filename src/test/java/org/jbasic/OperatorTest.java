@@ -17,18 +17,41 @@ package org.jbasic;
 
 import org.junit.Test;
 
+import java.time.format.DecimalStyle;
+
 import static org.junit.Assert.assertEquals;
 
-public class IOTests extends JBasicTest {
+public class OperatorTest extends JBasicTest {
 
     @Test
-    public void testInput() {
-        test("IO/input.bas", "JBASIC\n",
-                (result) -> assertEquals("Name:  Hello JBASIC" + System.lineSeparator(), result.output));
+    public void testAdd() {
+        test("operator/add.bas",
+                (result) -> assertEquals("3" + System.lineSeparator(), result.output));
     }
 
     @Test
-    public void testPrint() {
-        test("IO/output.bas", (result) -> assertEquals("Hello world!" + System.lineSeparator(), result.output));
+    public void testSubtract() {
+        test("operator/subtract.bas",
+                (result) -> assertEquals("1" + System.lineSeparator(), result.output));
+    }
+
+    @Test
+    public void testMultiply() {
+        test("operator/multiply.bas",
+                (result) -> assertEquals("6" + System.lineSeparator(), result.output));
+    }
+
+    @Test
+    public void testDivide() {
+        test("operator/divide.bas",
+                (result) -> assertEquals("2" + System.lineSeparator() +
+                                "3" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() + "5" + System.lineSeparator(),
+                                result.output));
+    }
+
+    @Test
+    public void testModulo() {
+        test("operator/modulo.bas",
+                (result) -> assertEquals("2" + System.lineSeparator(), result.output));
     }
 }

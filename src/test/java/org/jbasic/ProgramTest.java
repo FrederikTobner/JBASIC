@@ -18,28 +18,12 @@ package org.jbasic;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-public class LetTests extends JBasicTest {
-
-    @Test
-    public void testString() {
-        test("let/string.bas", (result) -> {
-            assertTrue(result.interpreter.getMemory().get("string").isString());
-            assertEquals("foo", result.interpreter.getMemory().get("string").internalString());
-        });
-    }
+public class ProgramTest extends JBasicTest{
 
     @Test
-    public void testNumeric() {
-        test("let/numeric.bas", (result) -> {
-            assertTrue(result.interpreter.getMemory().get("numeric").isNumber());
-            assertEquals(123.0, result.interpreter.getMemory().get("numeric").internalNumber(), 0.0001f);
-        });
-    }
-
-    @Test
-    public void testNotANumber() {
-        test("let/not_a_number.bas", (result) -> assertTrue(result.interpreter.getMemory().get("nan").isNaN()));
+    public void testGcdEuclid() {
+        test("program/greatest_common_divider.bas", "9" + System.lineSeparator() + "12" + System.lineSeparator(),
+                (result) -> assertEquals("A= B= GCD=3" + System.lineSeparator(), result.output));
     }
 }

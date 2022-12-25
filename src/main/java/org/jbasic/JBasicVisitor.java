@@ -94,7 +94,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     public Value visitPrintStatement(JBasicParser.PrintStatementContext context) {
         Value value = visit(context.expression());
         if (value.isNumber()) {
-            printStream.println(Utils.numericalOutputFormat.format(value.internalNumber()));
+            printStream.println(CoreUtils.numericalOutputFormat.format(value.internalNumber()));
         } else {
             printStream.println(value.internalString());
         }
@@ -211,6 +211,16 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
         Value argument = visit(context.expression());
         if (argument.isNumber()) {
             return new Value(Math.asin(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitAthFunction(JBasicParser.AthFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(CoreUtils.atanh(argument.internalNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }

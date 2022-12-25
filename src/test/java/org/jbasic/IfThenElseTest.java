@@ -17,37 +17,29 @@ package org.jbasic;
 
 import org.junit.Test;
 
-import java.time.format.DecimalStyle;
-
 import static org.junit.Assert.assertEquals;
 
-public class FunctionTests extends JBasicTest{
+public class IfThenElseTest extends JBasicTest {
 
     @Test
-    public void testLenFunction() {
-        test("function/length.bas",
-                (result) -> assertEquals("6" + System.lineSeparator(), result.output));
-    }
-
-    @Test
-    public void testValFunction() {
-        test("function/value.bas",
-                (result) -> assertEquals("1" + System.lineSeparator() +
-                                "3" + System.lineSeparator(),
+    public void testSimpleIfTrue() {
+        test("ifThenElse/simple_if_true.bas",
+                (result) -> assertEquals("one" + System.lineSeparator() +
+                                "two" + System.lineSeparator(),
                         result.output));
     }
 
     @Test
-    public void testIsNotANumberFunction() {
-        test("function/is_not_a_number.bas",
-                (result) -> assertEquals("1" + System.lineSeparator(), result.output));
+    public void testSimpleIfFalse() {
+        test("ifThenElse/simple_if_false.bas",
+                (result) -> assertEquals("three" + System.lineSeparator(), result.output));
     }
 
     @Test
-    public void testAbsFunction() {
-        test("function/absolute.bas",
-                (result) -> assertEquals("2" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
-                        "5" + System.lineSeparator(),
+    public void testIfElse() {
+        test("ifThenElse/if_else.bas",
+                (result) -> assertEquals("true" + System.lineSeparator() +
+                                "false" + System.lineSeparator(),
                         result.output));
     }
 }

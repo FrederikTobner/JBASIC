@@ -1,0 +1,1 @@
+PRINT LOG(10)

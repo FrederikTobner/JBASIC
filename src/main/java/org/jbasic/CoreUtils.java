@@ -15,31 +15,35 @@
 
 package org.jbasic;
 
-import org.junit.Test;
+import org.antlr.v4.runtime.ParserRuleContext;
 
-import static org.junit.Assert.assertEquals;
+import java.text.DecimalFormat;
 
-public class IfThenElseTests extends JBasicTest {
+/**
+ * Utility methods.
+ */
+public class CoreUtils {
 
-    @Test
-    public void testSimpleIfTrue() {
-        test("ifThenElse/simple_if_true.bas",
-                (result) -> assertEquals("one" + System.lineSeparator() +
-                                "two" + System.lineSeparator(),
-                        result.output));
+    public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
+
+    public static String formatErrorMessage(int line, int positionInLine, String message) {
+        return "Error at [" + line + ", " + positionInLine + "]: " + message;
     }
 
-    @Test
-    public void testSimpleIfFalse() {
-        test("ifThenElse/simple_if_false.bas",
-                (result) -> assertEquals("three" + System.lineSeparator(), result.output));
+    public static void addLocation(InterpreterException exception, ParserRuleContext context) {
+        exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 
-    @Test
-    public void testIfElse() {
-        test("ifThenElse/if_else.bas",
-                (result) -> assertEquals("true" + System.lineSeparator() +
-                                "false" + System.lineSeparator(),
-                        result.output));
+    public static double atanh(double a) {
+        final double mult;
+        // check the sign bit of the raw representation to handle -0
+        if (Double.doubleToRawLongBits(a) < 0) {
+            a = Math.abs(a);
+            mult = -0.5d;
+        } else {
+            mult = 0.5d;
+        }
+        return mult * Math.log((1.0d + a) / (1.0d - a));
     }
+
 }

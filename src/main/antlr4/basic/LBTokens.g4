@@ -30,6 +30,7 @@ RIGHT_PARENTHESIS : ')' ;
 ABS_FUNCTION             : 'ABS' | 'abs' ;
 ACS_FUNCTION             : 'ACS' | 'acs' ;
 ASN_FUNCTION             : 'ASN' | 'asn' ;
+ATH_FUNCTION             : 'ATH' | 'ath' ;
 ATN_FUNCTION             : 'ATN' | 'atn' ;
 COS_FUNCTION             : 'COS' | 'cos' ;
 EXP_FUNCTION             : 'EXP' | 'exp' ;
