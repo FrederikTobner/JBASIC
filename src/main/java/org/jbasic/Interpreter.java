@@ -20,21 +20,17 @@ import java.io.PrintStream;
 public class Interpreter {
 
     private final InputStream stdin;
-    private final OutputStream stdout;
-    private final OutputStream stderr;
     private final PrintStream stdoutPrint;
     private final PrintStream stderrPrint;
     private Memory memory;
 
     public Interpreter(InputStream stdin, OutputStream stdout, OutputStream stderr) {
         this.stdin = stdin;
-        this.stdout = stdout;
-        this.stderr = stderr;
         this.stdoutPrint = new PrintStream(stdout, true);
         this.stderrPrint = new PrintStream(stderr, true);
     }
 
-    public Value run(InputStream programInput) throws IOException {
+    public void run(InputStream programInput) throws IOException {
         ANTLRInputStream input = new ANTLRInputStream(programInput);
         JBasicLexer lexer = new JBasicLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -43,9 +39,9 @@ public class Interpreter {
         parser.removeErrorListeners();
         parser.addErrorListener(new ErrorListener(stderrPrint));
         try {
-            ParseTree tree = parser.prog();
+            ParseTree tree = parser.program();
             memory = new Memory();
-            JBasicVisitor eval = new JBasicVisitor(memory, stdin, stdoutPrint, stderrPrint);
+            JBasicVisitor eval = new JBasicVisitor(memory, stdin, stdoutPrint);
             eval.visit(tree);
         }
         catch (InterpreterException e) {
@@ -61,7 +57,6 @@ public class Interpreter {
                 stderrPrint.println(msg);
             }
         }
-        return null;
     }
 
     public Memory getMemory() {

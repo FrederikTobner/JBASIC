@@ -1,7 +1,7 @@
 grammar JBasic;
 import LBExpression, LBTokens;
 
-prog: block EOF;
+program: block EOF;
 
 statement
     : letstmt

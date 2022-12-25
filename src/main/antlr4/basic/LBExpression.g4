@@ -1,7 +1,7 @@
 grammar LBExpression;
 import LBTokens;
 
-prog: stat+;
+program: stat+;
 
 stat
     : expression NEWLINE

@@ -18,24 +18,22 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
 
     private final InputStream stdin;
     private final PrintStream stdout;
-    private PrintStream stderr;
     private final Memory memory;
 
     private PrintStream printStream;
     private BufferedReader inputStream;
 
-    public JBasicVisitor(Memory memory, InputStream stdin, PrintStream stdout, PrintStream stderr) {
+    public JBasicVisitor(Memory memory, InputStream stdin, PrintStream stdout) {
         this.stdin = stdin;
         this.stdout = stdout;
-        this.stderr = stderr;
         this.memory = memory;
     }
 
     @Override
-    public Value visitProg(JBasicParser.ProgContext ctx) {
+    public Value visitProgram(JBasicParser.ProgramContext ctx) {
         init();
         try {
-            return super.visitProg(ctx);
+            return super.visitProgram(ctx);
         } finally {
             cleanup();
         }
@@ -243,8 +241,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
             try {
                 visit(ctx.block());
             }
-            catch (ContinueLoopException e) {
-                continue;
+            catch (ContinueLoopException ignored) {
             }
             catch (ExitLoopException e) {
                 break;
@@ -260,8 +257,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
             try {
                 visit(ctx.block());
             }
-            catch (ContinueLoopException e) {
-                continue;
+            catch (ContinueLoopException ignored) {
             }
             catch (ExitLoopException e) {
                 break;
@@ -280,8 +276,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
             try {
                 visit(ctx.block());
             }
-            catch (ContinueLoopException e) {
-                continue;
+            catch (ContinueLoopException ignored) {
             }
             catch (ExitLoopException e) {
                 break;

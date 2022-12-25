@@ -1,3 +1,18 @@
+/****************************************************************************
+ * Copyright (C) 2022 by Frederik Tobner                                    *
+ *                                                                          *
+ * This file is part of JBASIC.                                             *
+ *                                                                          *
+ * Permission to use, copy, modify, and distribute this software and its    *
+ * documentation under the terms of the GNU General Public License is       *
+ * hereby granted.                                                          *
+ * No representations are made about the suitability of this software for   *
+ * any purpose.                                                             *
+ * It is provided "as is" without express or implied warranty.              *
+ * See the <"https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public  *
+ * License for more details.                                                *
+ ****************************************************************************/
+
 package org.jbasic;
 
 import org.junit.Test;
@@ -10,9 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Consumer;
 
-/**
- * Created by matei on 2/23/17.
- */
 public class JBasicTest {
 
     private static class Result {
@@ -54,9 +66,7 @@ public class JBasicTest {
 
     @Test
     public void testPrint() {
-        test("print.bas", (result) -> {
-            assertEquals("Hello world!" + System.lineSeparator(), result.output);
-        });
+        test("print.bas", (result) -> assertEquals("Hello world!" + System.lineSeparator(), result.output));
     }
 
     @Test
@@ -71,11 +81,10 @@ public class JBasicTest {
     }
 
     @Test
-    public void testForSimple() {
-        test("for_simple.bas", (result) -> {
-            assertEquals("1" + System.lineSeparator() + "2" + System.lineSeparator() + "3"
-                    + System.lineSeparator() +"4" + System.lineSeparator() +"5" + System.lineSeparator(), result.output);
-        });
+    public void testSimpleFor() {
+        test("simple_for.bas",
+                (result) -> assertEquals("1" + System.lineSeparator() + "2" + System.lineSeparator() + "3"
+                + System.lineSeparator() +"4" + System.lineSeparator() +"5" + System.lineSeparator(), result.output));
     }
 
     @Test
@@ -97,92 +106,85 @@ public class JBasicTest {
     }
 
     @Test
-    public void testIfSimpleTrue() {
-        test("if_simple_true.bas",
+    public void testSimpleIfTrue() {
+        test("simple_if_true.bas",
                 (result) -> assertEquals("one" + System.lineSeparator() +
                 "two" + System.lineSeparator(),
                 result.output));
     }
 
     @Test
-    public void testIfSimpleFalse() {
-        test("if_simple_false.bas",
+    public void testSimpleIfFalse() {
+        test("simple_if_false.bas",
                 (result) -> assertEquals("three" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testIfElse() {
-        test("if_else.bas", (result) -> {
-            assertEquals("true" + System.lineSeparator() +
-                    "false" + System.lineSeparator(),
-                    result.output);
-        });
+        test("if_else.bas",
+                (result) -> assertEquals("true" + System.lineSeparator() +
+                "false" + System.lineSeparator(),
+                result.output));
     }
 
     @Test
     public void testWhile() {
-        test("while.bas", (result) -> {
-            assertEquals("1" + System.lineSeparator() +
-                    "2" + System.lineSeparator() +
-                    "3" + System.lineSeparator() +
-                    "4"+ System.lineSeparator(),
-                    result.output);
-        });
+        test("while.bas",
+                (result) -> assertEquals("1" + System.lineSeparator() +
+                "2" + System.lineSeparator() +
+                "3" + System.lineSeparator() +
+                "4"+ System.lineSeparator(),
+                result.output));
     }
 
     @Test
     public void testRepeat() {
-        test("repeat.bas", (result) -> {
-            assertEquals("1" + System.lineSeparator() +
-                    "2" + System.lineSeparator() +
-                    "3" + System.lineSeparator() +
-                    "4" + System.lineSeparator(),
-                    result.output);
-        });
+        test("repeat.bas",
+                (result) -> assertEquals("1" + System.lineSeparator() +
+                "2" + System.lineSeparator() +
+                "3" + System.lineSeparator() +
+                "4" + System.lineSeparator(),
+                result.output));
     }
 
     @Test
-    public void testSyntaxErr() {
-        test("syntax_err.bas", (result) -> {
-            assertEquals("Error at [1, 4]: Syntax error",
-                    result.error.trim());
-        });
+    public void testSyntaxError() {
+        test("syntax_error.bas",
+                (result) -> assertEquals("Error at [1, 4]: Syntax error",
+                result.error.trim()));
     }
 
     @Test
-    public void testTypeErr() {
-        test("type_err.bas", (result) -> {
-            assertEquals("Error at [0, 0]: Couldn't evaluate numeric expression. Value \"1\" is not a number",
-                    result.error.trim());
-        });
+    public void testTypeError() {
+        test("type_error.bas",
+                (result) -> assertEquals("Error at [0, 0]: Couldn't evaluate numeric expression. Value \"1\" is not a number",
+                result.error.trim()));
     }
 
     @Test
     public void testFunctions() {
-        test("functions.bas", (result) -> {
-            assertEquals("123" + System.lineSeparator() +
-                    "5" + System.lineSeparator() +
-                    "1" + System.lineSeparator(), result.output);
-        });
+        test("functions.bas",
+                (result) -> assertEquals("123" + System.lineSeparator() +
+                "5" + System.lineSeparator() +
+                "1" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testOperations() {
-        test("operations.bas", (result) -> {
-            assertEquals("3" + System.lineSeparator() +
-                    "1" + System.lineSeparator() +
-                    "6" + System.lineSeparator() +
-                    "2" + System.lineSeparator() +
-                    "3" + System.lineSeparator() +
-                    "2" + System.lineSeparator(), result.output);
-        });
+        test("operations.bas",
+                (result) -> assertEquals("3" + System.lineSeparator() +
+                "1" + System.lineSeparator() +
+                "6" + System.lineSeparator() +
+                "2" + System.lineSeparator() +
+                "3" + System.lineSeparator() +
+                "2" + System.lineSeparator(),
+                result.output));
     }
 
     @Test
     public void testInput() {
-        test("input.bas", "Little Basic\n", (result) -> {
-            assertEquals("Name:  Hello Little Basic" + System.lineSeparator(), result.output);
-        });
+        test("input.bas", "Little Basic\n",
+                (result) -> assertEquals("Name:  Hello Little Basic" + System.lineSeparator(), result.output));
     }
 
     @Test
