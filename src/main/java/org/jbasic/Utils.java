@@ -15,13 +15,23 @@
 
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
+import java.text.DecimalFormat;
+
 /**
  * Utility methods.
  */
 public class Utils {
 
+    public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
+
     public static String formatErrorMessage(int line, int positionInLine, String message) {
         return "Error at [" + line + ", " + positionInLine + "]: " + message;
+    }
+
+    public static void addLocation(InterpreterException exception, ParserRuleContext context) {
+        exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 
 }

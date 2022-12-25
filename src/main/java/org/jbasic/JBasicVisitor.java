@@ -1,9 +1,8 @@
 package org.jbasic;
 
-import basic.LBExpressionParser;
 import basic.JBasicBaseVisitor;
 import basic.JBasicParser;
-import org.antlr.v4.runtime.ParserRuleContext;
+import basic.LBExpressionParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,13 +55,114 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
 
     @Override
     public Value visitNumber(JBasicParser.NumberContext context) {
-        return new Value(Long.parseLong(context.getText()));
+        return new Value(Double.parseDouble(context.getText()));
     }
 
     @Override
     public Value visitId(JBasicParser.IdContext context) {
         String id = context.getText();
         return memory.get(id);
+    }
+
+    //region Statements
+
+    @Override
+    public Value visitStatement(JBasicParser.StatementContext context) {
+        return super.visitStatement(context);
+    }
+
+    @Override
+    public Value visitIfStatement(JBasicParser.IfStatementContext context) {
+        Value condition = visit(context.expression());
+        if (condition.isTrue(context)) {
+            return visit(context.block());
+        } else {
+            for (JBasicParser.ElifStatementContext elifContext : context.elifStatement()) {
+                condition = visit(elifContext.expression());
+                if (condition.isTrue(context)) {
+                    return visit(elifContext.block());
+                }
+            }
+            if (context.elseStatement() != null) {
+                return visit(context.elseStatement().block());
+            }
+        }
+        return condition;
+    }
+
+    @Override
+    public Value visitPrintStatement(JBasicParser.PrintStatementContext context) {
+        Value value = visit(context.expression());
+        if (value.isNumber()) {
+            printStream.println(Utils.numericalOutputFormat.format(value.internalNumber()));
+        } else {
+            printStream.println(value.internalString());
+        }
+        return value;
+    }
+
+    @Override
+    public Value visitInputStatement(JBasicParser.InputStatementContext context) {
+        printStream.print(visit(context.string()).internalString() + " ");
+        String variableName = context.variableDeclaration().getText();
+        try {
+            String line = inputStream.readLine();
+            Value val = new Value(line);
+            memory.assign(variableName, val);
+            return val;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Value visitForStatement(JBasicParser.ForStatementContext context) {
+        String variableName = context.variableDeclaration().variableName().ID().getText();
+        Value start = visit(context.expression(0));
+        Value end = visit(context.expression(1));
+        Value step = context.expression(2) != null ? visit(context.expression(2)) : new Value(1);
+        for (double i = start.internalNumber(); i <= end.internalNumber(); i = i + step.internalNumber()) {
+            memory.assign(variableName, new Value(i));
+            try {
+                visit(context.block());
+            } catch (ContinueLoopException ignored) {
+            } catch (ExitLoopException e) {
+                break;
+            }
+        }
+        return new Value(0);
+    }
+
+    @Override
+    public Value visitWhileStatement(JBasicParser.WhileStatementContext context) {
+        Value condition = visit(context.expression());
+        while (condition.isTrue(context)) {
+            try {
+                visit(context.block());
+            } catch (ContinueLoopException ignored) {
+            } catch (ExitLoopException e) {
+                break;
+            } finally {
+                condition = visit(context.expression());
+            }
+        }
+        return new Value(0);
+    }
+
+    @Override
+    public Value visitRepeatStatement(JBasicParser.RepeatStatementContext context) {
+        Value condition;
+        do {
+            try {
+                visit(context.block());
+            } catch (ContinueLoopException ignored) {
+            } catch (ExitLoopException e) {
+                break;
+            } finally {
+                condition = visit(context.expression());
+            }
+        } while (condition.isFalse(context));
+        return new Value(0);
     }
 
     @Override
@@ -74,29 +174,17 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     }
 
     @Override
-    public Value visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
-        Value left = visit(context.expression(0));
-        Value right = visit(context.expression(1));
-        if (context.op.getType() == LBExpressionParser.MULTIPLY) {
-            return left.multiply(right);
-        } else if (context.op.getType() == LBExpressionParser.DIVIDE) {
-            return left.divide(right);
-        } else {
-            return left.modulo(right);
-        }
+    public Value visitContinueStatement(JBasicParser.ContinueStatementContext context) {
+        throw new ContinueLoopException();
     }
 
     @Override
-    public Value visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
-        Value left = visit(context.expression(0));
-        Value right = visit(context.expression(1));
-        if (context.op.getType() == LBExpressionParser.ADD) {
-            return left.add(right);
-        } else {
-            return left.subtract(right);
-        }
+    public Value visitExitStatement(JBasicParser.ExitStatementContext context) {
+        throw new ExitLoopException();
     }
+    //endregion
 
+    //region Functions
     @Override
     public Value visitLenFunction(JBasicParser.LenFunctionContext context) {
         Value argument = visit(context.expression());
@@ -136,11 +224,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
         Value argument = visit(context.expression());
         return argument.isNaN() ? Value.TRUE : Value.FALSE;
     }
+    //endregion
 
-    @Override
-    public Value visitStatement(JBasicParser.StatementContext context) {
-        return super.visitStatement(context);
-    }
+    //region Expressions
 
     @Override
     public Value visitRelExpression(JBasicParser.RelExpressionContext context) {
@@ -148,42 +234,38 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
         Value right = visit(context.expression(1));
         switch (context.op.getType()) {
             case LBExpressionParser.GREATER_THEN:
-                return left.greaterThen(right);
+                return left.greaterThen(right, context);
             case LBExpressionParser.GREATER_THEN_EQUAL:
-                return left.greaterThenEqual(right);
+                return left.greaterThenEqual(right, context);
             case LBExpressionParser.LESS_THEN:
-                return left.lessThen(right);
+                return left.lessThen(right, context);
             case LBExpressionParser.LESS_THEN_EQUAL:
-                return left.lessThenEqual(right);
+                return left.lessThenEqual(right, context);
             case LBExpressionParser.EQUALS:
-                return left.equal(right);
+                return left.equal(right, context);
             default:
-                return left.notEqual(right);
+                return left.notEqual(right, context);
         }
-    }
-
-    private void addLocation(InterpreterException exception, ParserRuleContext context) {
-        exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 
     @Override
     public Value visitNotExpression(JBasicParser.NotExpressionContext context) {
         Value value = visit(context.expression());
-        return value.not();
+        return value.not(context);
     }
 
     @Override
     public Value visitAndExpression(JBasicParser.AndExpressionContext context) {
         Value left = visit(context.expression(0));
         Value right = visit(context.expression(1));
-        return left.and(right);
+        return left.and(right, context);
     }
 
     @Override
     public Value visitOrExpression(JBasicParser.OrExpressionContext context) {
         Value left = visit(context.expression(0));
         Value right = visit(context.expression(1));
-        return left.or(right);
+        return left.or(right, context);
     }
 
     @Override
@@ -191,111 +273,33 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
         Value left = visit(context.expression(0));
         Value right = visit(context.expression(1));
         // TODO which one is left and which is right ?
-        return left.expression(right);
+        return left.expression(right, context);
     }
 
     @Override
-    public Value visitIfStatement(JBasicParser.IfStatementContext context) {
-        Value condition = visit(context.expression());
-        if (condition.isTrue()) {
-            return visit(context.block());
+    public Value visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
+        Value left = visit(context.expression(0));
+        Value right = visit(context.expression(1));
+        if (context.op.getType() == LBExpressionParser.MULTIPLY) {
+            return left.multiply(right, context);
+        } else if (context.op.getType() == LBExpressionParser.DIVIDE) {
+            return left.divide(right, context);
         } else {
-            for (JBasicParser.ElifStatementContext elifContext : context.elifStatement()) {
-                condition = visit(elifContext.expression());
-                if (condition.isTrue()) {
-                    return visit(elifContext.block());
-                }
-            }
-            if (context.elseStatement() != null) {
-                return visit(context.elseStatement().block());
-            }
+            return left.modulo(right, context);
         }
-        return condition;
     }
 
     @Override
-    public Value visitPrintStatement(JBasicParser.PrintStatementContext context) {
-        Value value = visit(context.expression());
-        if (value.isNumber()) {
-            printStream.println(value.internalNumber());
+    public Value visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
+        Value left = visit(context.expression(0));
+        Value right = visit(context.expression(1));
+        if (context.op.getType() == LBExpressionParser.ADD) {
+            return left.add(right, context);
         } else {
-            printStream.println(value.internalString());
-        }
-        return value;
-    }
-
-    @Override
-    public Value visitInputStatement(JBasicParser.InputStatementContext context) {
-        printStream.print(visit(context.string()).internalString() + " ");
-        String variableName = context.variableDeclaration().getText();
-        try {
-            String line = inputStream.readLine();
-            Value val = new Value(line);
-            memory.assign(variableName, val);
-            return val;
-        } catch (IOException e) {
-            throw new RuntimeException(e); // TODO
+            return left.subtract(right, context);
         }
     }
 
-    @Override
-    public Value visitForStatement(JBasicParser.ForStatementContext context) {
-        String variableName = context.variableDeclaration().variableName().ID().getText();
-        Value start = visit(context.expression(0));
-        Value end = visit(context.expression(1));
-        Value step = context.expression(2) != null ? visit(context.expression(2)) : new Value(1);
-        for (long i = start.internalNumber(); i <= end.internalNumber(); i = i + step.internalNumber()) {
-            memory.assign(variableName, new Value(i));
-            try {
-                visit(context.block());
-            } catch (ContinueLoopException ignored) {
-            } catch (ExitLoopException e) {
-                break;
-            }
-        }
-        return new Value(0);
-    }
-
-    @Override
-    public Value visitWhileStatement(JBasicParser.WhileStatementContext context) {
-        Value condition = visit(context.expression());
-        while (condition.isTrue()) {
-            try {
-                visit(context.block());
-            } catch (ContinueLoopException ignored) {
-            } catch (ExitLoopException e) {
-                break;
-            } finally {
-                condition = visit(context.expression());
-            }
-        }
-        return new Value(0);
-    }
-
-    @Override
-    public Value visitRepeatStatement(JBasicParser.RepeatStatementContext context) {
-        Value condition;
-        do {
-            try {
-                visit(context.block());
-            } catch (ContinueLoopException ignored) {
-            } catch (ExitLoopException e) {
-                break;
-            } finally {
-                condition = visit(context.expression());
-            }
-        } while (condition.isFalse());
-        return new Value(0);
-    }
-
-    @Override
-    public Value visitContinueStatement(JBasicParser.ContinueStatementContext context) {
-        throw new ContinueLoopException();
-    }
-
-    @Override
-    public Value visitExitStatement(JBasicParser.ExitStatementContext context) {
-        throw new ExitLoopException();
-    }
+    //endregion
 
 }

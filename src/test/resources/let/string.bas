@@ -1,0 +1,1 @@
+LET string = "foo"

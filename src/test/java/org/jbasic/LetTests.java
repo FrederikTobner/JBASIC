@@ -18,20 +18,28 @@ package org.jbasic;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class ErrorTests extends JBasicTest{
+public class LetTests extends JBasicTest {
 
     @Test
-    public void testSyntaxError() {
-        test("error/syntax_error.bas",
-                (result) -> assertEquals("Error at [2, 4]: Syntax error",
-                        result.error.trim()));
+    public void testString() {
+        test("let/string.bas", (result) -> {
+            assertTrue(result.interpreter.getMemory().get("string").isString());
+            assertEquals("foo", result.interpreter.getMemory().get("string").internalString());
+        });
     }
 
     @Test
-    public void testTypeError() {
-        test("error/type_error.bas",
-                (result) -> assertEquals("Error at [2, 6]: Couldn't evaluate numeric expression. Value \"1\" is not a number",
-                        result.error.trim()));
+    public void testNumeric() {
+        test("let/numeric.bas", (result) -> {
+            assertTrue(result.interpreter.getMemory().get("numeric").isNumber());
+            assertEquals(123.0, result.interpreter.getMemory().get("numeric").internalNumber(), 0.0001f);
+        });
+    }
+
+    @Test
+    public void testNotANumber() {
+        test("let/not_a_number.bas", (result) -> assertTrue(result.interpreter.getMemory().get("nan").isNaN()));
     }
 }

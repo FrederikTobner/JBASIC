@@ -15,6 +15,8 @@
 
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 import java.util.Objects;
 import java.util.function.BiFunction;
 
@@ -35,7 +37,7 @@ public class Value {
         this.value = value;
     }
 
-    public Value(long value) {
+    public Value(double value) {
         this.value = value;
     }
 
@@ -44,8 +46,8 @@ public class Value {
         this.isNaN = isNaN;
     }
 
-    public long internalNumber() {
-        return (long)value;
+    public double internalNumber() {
+        return (double)value;
     }
 
     public String internalString() {
@@ -57,124 +59,126 @@ public class Value {
     }
 
     public boolean isNumber() {
-        return value instanceof Long;
+        return value instanceof Double;
     }
 
     public boolean isNaN() {
         return isNaN;
     }
 
-    public boolean isTrue() {
-        assertNumber();
+    public boolean isTrue(ParserRuleContext context) {
+        assertNumber(context);
         return internalNumber() != 0;
     }
 
-    public boolean isFalse() {
-        assertNumber();
+    public boolean isFalse(ParserRuleContext context) {
+        assertNumber(context);
         return internalNumber() == 0;
     }
 
-    private void assertNumber() {
+    private void assertNumber(ParserRuleContext context) {
         if (!isNumber()) {
-            throw new TypeException("Couldn't evaluate numeric expression. Value \"" + value + "\" is not a number");
+            TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" + value + "\" is not a number");
+            Utils.addLocation(typeException, context);
+            throw typeException;
         }
     }
 
-    public Value multiply(Value right) {
-        return arithmeticEvaluation(right, (l, r) -> l * r);
+    public Value multiply(Value right, ParserRuleContext context) {
+        return arithmeticEvaluation(right, (l, r) -> l * r, context);
     }
 
-    public Value divide(Value right) {
-        return arithmeticEvaluation(right, (l, r) -> l / r);
+    public Value divide(Value right, ParserRuleContext context) {
+        return arithmeticEvaluation(right, (l, r) -> l / r, context);
     }
 
-    public Value modulo(Value right) {
-        return arithmeticEvaluation(right, (l, r) -> l % r);
+    public Value modulo(Value right, ParserRuleContext context) {
+        return arithmeticEvaluation(right, (l, r) -> l % r, context);
     }
 
-    public Value add(Value right) {
+    public Value add(Value right, ParserRuleContext context) {
         if (isString() && right.isString()) {
             return new Value(internalString() + right.internalString());
         }
         else if (isString() && right.isNumber()) {
-            return new Value(internalString() + right.internalNumber());
+            return new Value(internalString() + Utils.numericalOutputFormat.format(right.internalNumber()));
         }
         else if (isNumber() && right.isString()) {
-            return new Value(internalNumber() + right.internalString());
+            return new Value(Utils.numericalOutputFormat.format(internalNumber()) + right.internalString());
         }
         else {
-            return arithmeticEvaluation(right, Long::sum);
+            return arithmeticEvaluation(right, Double::sum, context);
         }
     }
 
-    public Value subtract(Value right) {
-        return arithmeticEvaluation(right, (l, r) -> l - r);
+    public Value subtract(Value right, ParserRuleContext context) {
+        return arithmeticEvaluation(right, (l, r) -> l - r, context);
     }
 
-    private Value arithmeticEvaluation(Value right, BiFunction<Long, Long, Long> operator) {
-        assertNumber();
-        right.assertNumber();
+    private Value arithmeticEvaluation(Value right, BiFunction<Double, Double, Double> operator, ParserRuleContext context) {
+        assertNumber(context);
+        right.assertNumber(context);
         return new Value(operator.apply(internalNumber(), right.internalNumber()));
     }
 
-    public Value greaterThen(Value right) {
-        return relEval(right, (l, r) -> l > r);
+    public Value greaterThen(Value right, ParserRuleContext context) {
+        return relEval(right, (l, r) -> l > r, context);
     }
 
-    public Value greaterThenEqual(Value right) {
-        return relEval(right, (l, r) -> l >= r);
+    public Value greaterThenEqual(Value right, ParserRuleContext context) {
+        return relEval(right, (l, r) -> l >= r, context);
     }
 
-    public Value lessThen(Value right) {
-        return relEval(right, (l, r) -> l < r);
+    public Value lessThen(Value right, ParserRuleContext context) {
+        return relEval(right, (l, r) -> l < r, context);
     }
 
-    public Value lessThenEqual(Value right) {
-        return relEval(right, (l, r) -> l <= r);
+    public Value lessThenEqual(Value right, ParserRuleContext context) {
+        return relEval(right, (l, r) -> l <= r, context);
     }
 
-    public Value equal(Value right) {
+    public Value equal(Value right, ParserRuleContext context) {
         if (isNumber() && right.isNumber()) {
-            return relEval(right, Objects::equals);
+            return relEval(right, Objects::equals, context);
         } else if (isString() && right.isString()) {
             return internalString().equals(right.internalString()) ? TRUE : FALSE;
         }
         return FALSE;
     }
 
-    public Value notEqual(Value right) {
-        Value eq = equal(right);
-        return eq.equal(TRUE) == TRUE ? FALSE : TRUE;
+    public Value notEqual(Value right, ParserRuleContext context) {
+        Value eq = equal(right, context);
+        return eq.equal(TRUE, context) == TRUE ? FALSE : TRUE;
     }
 
-    private Value relEval(Value right, BiFunction<Long, Long, Boolean> comparison) {
-        assertNumber();
-        right.assertNumber();
+    private Value relEval(Value right, BiFunction<Double, Double, Boolean> comparison, ParserRuleContext context) {
+        assertNumber(context);
+        right.assertNumber(context);
         if (comparison.apply(internalNumber(), right.internalNumber())) {
             return TRUE;
         }
         return FALSE;
     }
 
-    public Value not() {
-        assertNumber();
+    public Value not(ParserRuleContext context) {
+        assertNumber(context);
         if (internalNumber() == 0) {
             return TRUE;
         }
         return FALSE;
     }
 
-    public Value and(Value right) {
-        return isTrue() && right.isTrue() ? TRUE : FALSE;
+    public Value and(Value right, ParserRuleContext context) {
+        return isTrue(context) && right.isTrue(context) ? TRUE : FALSE;
     }
 
-    public Value or(Value right) {
-        return isTrue() || right.isTrue() ? TRUE : FALSE;
+    public Value or(Value right, ParserRuleContext context) {
+        return isTrue(context) || right.isTrue(context) ? TRUE : FALSE;
     }
 
-    public Value expression(Value right) {
-        assertNumber();
-        right.assertNumber();
+    public Value expression(Value right, ParserRuleContext context) {
+        assertNumber(context);
+        right.assertNumber(context);
         return new Value(Math.round(Math.pow(internalNumber(), right.internalNumber())));
     }
 

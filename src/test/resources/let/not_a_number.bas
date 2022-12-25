@@ -1,0 +1,1 @@
+LET nan = VAL("Not A Number")

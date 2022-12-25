@@ -1,1 +1,0 @@
-PRINT ABS(2)
