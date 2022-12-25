@@ -21,7 +21,7 @@ package org.jbasic;
 public abstract class InterpreterException extends RuntimeException {
 
     private int line;
-    private int posInLine;
+    private int positionInLine;
 
     public InterpreterException(String message) {
         super(message);
@@ -29,11 +29,11 @@ public abstract class InterpreterException extends RuntimeException {
 
     public void setLocation(int line, int posInLine) {
         this.line = line;
-        this.posInLine = posInLine;
+        this.positionInLine = posInLine;
     }
 
     @Override
     public String getMessage() {
-        return Utils.formatErrorMessage(line, posInLine, super.getMessage());
+        return Utils.formatErrorMessage(line, positionInLine, super.getMessage());
     }
 }

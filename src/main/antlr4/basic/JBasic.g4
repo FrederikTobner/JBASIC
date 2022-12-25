@@ -4,73 +4,73 @@ import LBExpression, LBTokens;
 program: block EOF;
 
 statement
-    : letstmt
-    | printstmt
-    | inputstmt
-    | ifstmt
-    | forstmt
-    | whilestmt
-    | repeatstmt
-    | continuestmt
-    | exitstmt
+    : letStatement
+    | printStatement
+    | inputStatement
+    | ifStatement
+    | forStatement
+    | whileStatement
+    | repeatStatement
+    | continueStatement
+    | exitStatement
     | COMMENT;
 
 block
     : (statement (NEWLINE+ | EOF))*
     ;
 
-letstmt
-    : LET? vardecl EQ expression
+letStatement
+    : LET? variableDeclaration EQUALS expression
     ;
 
-vardecl
-    : varname varsuffix?
+variableDeclaration
+    : variableName variableSuffix?
     ;
 
-varname
+variableName
     : ID
     ;
 
-varsuffix
+variableSuffix
     : DOLLAR
     ;
 
-printstmt
+printStatement
     : PRINT expression;
 
-inputstmt
-    : INPUT string vardecl
+inputStatement
+    : INPUT string variableDeclaration
     ;
 
-ifstmt
-    : IF expression NEWLINE* THEN NEWLINE+ block elifstmt* elsestmt? END
+ifStatement
+    : IF expression NEWLINE* THEN NEWLINE+ block elifStatement* elseStatement? END
     ;
 
-elifstmt
+elifStatement
     : ELSE IF expression NEWLINE* THEN NEWLINE+ block
     ;
 
-elsestmt
+elseStatement
     : ELSE NEWLINE+ block
     ;
 
-forstmt
-    : FOR vardecl EQ expression TO expression (STEP expression)? NEWLINE+ block NEXT
+forStatement
+    : FOR variableDeclaration EQUALS expression TO expression (STEP expression)? NEWLINE+ block NEXT
     ;
 
-whilestmt
+whileStatement
     : WHILE expression NEWLINE+ block END
     ;
 
-repeatstmt
+repeatStatement
     : REPEAT NEWLINE+ block NEWLINE* UNTIL expression
     ;
 
-continuestmt
+continueStatement
     : CONTINUE
     ;
 
-exitstmt
+exitStatement
     : EXIT
     ;
 

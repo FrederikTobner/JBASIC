@@ -13,7 +13,6 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-
 package org.jbasic;
 
 import java.util.Objects;
@@ -81,16 +80,16 @@ public class Value {
         }
     }
 
-    public Value mul(Value right) {
-        return arithmeticEval(right, (l, r) -> l * r);
+    public Value multiply(Value right) {
+        return arithmeticEvaluation(right, (l, r) -> l * r);
     }
 
-    public Value div(Value right) {
-        return arithmeticEval(right, (l, r) -> l / r);
+    public Value divide(Value right) {
+        return arithmeticEvaluation(right, (l, r) -> l / r);
     }
 
-    public Value mod(Value right) {
-        return arithmeticEval(right, (l, r) -> l % r);
+    public Value modulo(Value right) {
+        return arithmeticEvaluation(right, (l, r) -> l % r);
     }
 
     public Value add(Value right) {
@@ -104,37 +103,37 @@ public class Value {
             return new Value(internalNumber() + right.internalString());
         }
         else {
-            return arithmeticEval(right, Long::sum);
+            return arithmeticEvaluation(right, Long::sum);
         }
     }
 
-    public Value sub(Value right) {
-        return arithmeticEval(right, (l, r) -> l - r);
+    public Value subtract(Value right) {
+        return arithmeticEvaluation(right, (l, r) -> l - r);
     }
 
-    private Value arithmeticEval(Value right, BiFunction<Long, Long, Long> operator) {
+    private Value arithmeticEvaluation(Value right, BiFunction<Long, Long, Long> operator) {
         assertNumber();
         right.assertNumber();
         return new Value(operator.apply(internalNumber(), right.internalNumber()));
     }
 
-    public Value gt(Value right) {
+    public Value greaterThen(Value right) {
         return relEval(right, (l, r) -> l > r);
     }
 
-    public Value gte(Value right) {
+    public Value greaterThenEqual(Value right) {
         return relEval(right, (l, r) -> l >= r);
     }
 
-    public Value lt(Value right) {
+    public Value lessThen(Value right) {
         return relEval(right, (l, r) -> l < r);
     }
 
-    public Value lte(Value right) {
+    public Value lessThenEqual(Value right) {
         return relEval(right, (l, r) -> l <= r);
     }
 
-    public Value eq(Value right) {
+    public Value equal(Value right) {
         if (isNumber() && right.isNumber()) {
             return relEval(right, Objects::equals);
         } else if (isString() && right.isString()) {
@@ -143,9 +142,9 @@ public class Value {
         return FALSE;
     }
 
-    public Value neq(Value right) {
-        Value eq = eq(right);
-        return eq.equals(TRUE) ? FALSE : TRUE;
+    public Value notEqual(Value right) {
+        Value eq = equal(right);
+        return eq.equal(TRUE) == TRUE ? FALSE : TRUE;
     }
 
     private Value relEval(Value right, BiFunction<Long, Long, Boolean> comparison) {
@@ -173,7 +172,7 @@ public class Value {
         return isTrue() || right.isTrue() ? TRUE : FALSE;
     }
 
-    public Value exp(Value right) {
+    public Value expression(Value right) {
         assertNumber();
         right.assertNumber();
         return new Value(Math.round(Math.pow(internalNumber(), right.internalNumber())));
@@ -197,6 +196,5 @@ public class Value {
         result = 31 * result + (isNaN ? 1 : 0);
         return result;
     }
-
 
 }

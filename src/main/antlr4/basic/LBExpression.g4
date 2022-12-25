@@ -1,36 +1,36 @@
 grammar LBExpression;
 import LBTokens;
 
-program: stat+;
+program: statement+;
 
-stat
+statement
     : expression NEWLINE
     | NEWLINE
     ;
 
 expression
-    : string                                    # StringExpr
-    | number                                    # NumberExpr
-    | func                                      # FuncExpr
-    | id                                        # IdExpr
-    | (LPAREN expression RPAREN)                # ParenExpr
-    | expression op=(MUL|DIV|MOD) expression    # MulDivExpr
-    | expression op=(ADD|SUB) expression        # AddSubExpr
-    | expression op=(GTE|GT|LTE|LT|EQ|NEQ) expression   # RelExpr
-    | NOT expression                            # NotExpr
-    | expression AND expression                 # AndExpr
-    | expression OR expression                  # OrExpr
-    | <assoc=right> expression EXP expression   # ExpExpr
+    : string                                                                                                    # StringExpression
+    | number                                                                                                    # NumberExpression
+    | function                                                                                                  # FuncExpression
+    | id                                                                                                        # IdExpression
+    | (LEFT_PARENTHESIS expression RIGHT_PARENTHESIS)                                                           # ParenExpression
+    | expression op=(MULTIPLY|DIVIDE|MODULO) expression                                                         # MulDivExpression
+    | expression op=(ADD|SUBTRACT) expression                                                                   # AddSubExpression
+    | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # RelExpression
+    | NOT expression                                                                                            # NotExpression
+    | expression AND expression                                                                                 # AndExpression
+    | expression OR expression                                                                                  # OrExpression
+    | <assoc=right> expression EXP expression                                                                   # ExpExpression
     ;
 
-func
-    : lenfunc
-    | valfunc
-    | isnanfunc
+function
+    : lenFunction
+    | valFunction
+    | isnanFunction
     ;
 
 string
-    : STRINGLITERAL
+    : STRING_LITERAL
     ;
 
 number
@@ -41,16 +41,16 @@ id
     : ID
     ;
 
-lenfunc
-    : LEN LPAREN expression RPAREN
+lenFunction
+    : LEN LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
 
-valfunc
-    : VAL LPAREN expression RPAREN
+valFunction
+    : VAL LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
 
-isnanfunc
-    : ISNAN LPAREN expression RPAREN
+isnanFunction
+    : ISNAN LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
 
 //exprlist

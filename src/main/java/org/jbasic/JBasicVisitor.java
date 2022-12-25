@@ -30,10 +30,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     }
 
     @Override
-    public Value visitProgram(JBasicParser.ProgramContext ctx) {
+    public Value visitProgram(JBasicParser.ProgramContext context) {
         init();
         try {
-            return super.visitProgram(ctx);
+            return super.visitProgram(context);
         } finally {
             cleanup();
         }
@@ -49,201 +49,197 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     }
 
     @Override
-    public Value visitString(JBasicParser.StringContext ctx) {
-        String value = ctx.getText();
+    public Value visitString(JBasicParser.StringContext context) {
+        String value = context.getText();
         return new Value(value.substring(1, value.length() - 1));
     }
 
     @Override
-    public Value visitNumber(JBasicParser.NumberContext ctx) {
-        return new Value(Long.parseLong(ctx.getText()));
+    public Value visitNumber(JBasicParser.NumberContext context) {
+        return new Value(Long.parseLong(context.getText()));
     }
 
     @Override
-    public Value visitId(JBasicParser.IdContext ctx) {
-        String id = ctx.getText();
+    public Value visitId(JBasicParser.IdContext context) {
+        String id = context.getText();
         return memory.get(id);
     }
 
     @Override
-    public Value visitLetstmt(JBasicParser.LetstmtContext ctx) {
-        String variableName = ctx.vardecl().varname().ID().getText();
-        Value value = visit(ctx.expression());
+    public Value visitLetStatement(JBasicParser.LetStatementContext context) {
+        String variableName = context.variableDeclaration().variableName().ID().getText();
+        Value value = visit(context.expression());
         memory.assign(variableName, value);
         return value;
     }
 
     @Override
-    public Value visitMulDivExpr(JBasicParser.MulDivExprContext ctx) {
-        Value left = visit(ctx.expression(0));
-        Value right = visit(ctx.expression(1));
-        if (ctx.op.getType() == LBExpressionParser.MUL) {
-            return left.mul(right);
-        } else if (ctx.op.getType() == LBExpressionParser.DIV) {
-            return left.div(right);
+    public Value visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
+        Value left = visit(context.expression(0));
+        Value right = visit(context.expression(1));
+        if (context.op.getType() == LBExpressionParser.MULTIPLY) {
+            return left.multiply(right);
+        } else if (context.op.getType() == LBExpressionParser.DIVIDE) {
+            return left.divide(right);
         } else {
-            return left.mod(right);
+            return left.modulo(right);
         }
     }
 
     @Override
-    public Value visitAddSubExpr(JBasicParser.AddSubExprContext ctx) {
-        Value left = visit(ctx.expression(0));
-        Value right = visit(ctx.expression(1));
-        if (ctx.op.getType() == LBExpressionParser.ADD) {
+    public Value visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
+        Value left = visit(context.expression(0));
+        Value right = visit(context.expression(1));
+        if (context.op.getType() == LBExpressionParser.ADD) {
             return left.add(right);
         } else {
-            return left.sub(right);
+            return left.subtract(right);
         }
     }
 
     @Override
-    public Value visitLenfunc(JBasicParser.LenfuncContext ctx) {
-        Value arg = visit(ctx.expression());
-        if (arg.isString()) {
-            return new Value(arg.internalString().length());
+    public Value visitLenFunction(JBasicParser.LenFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isString()) {
+            return new Value(argument.internalString().length());
         } else {
             throw new TypeException("Couldn't evaluate LEN(). Argument is not a string");
         }
     }
 
     @Override
-    public Value visitValfunc(JBasicParser.ValfuncContext ctx) {
-        Value arg = visit(ctx.expression());
-        if (arg.isString()) {
-            String str = arg.internalString();
+    public Value visitValFunction(JBasicParser.ValFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isString()) {
+            String str = argument.internalString();
             try {
                 return new Value(Long.parseLong(str));
             } catch (NumberFormatException e) {
                 return Value.NaN;
             }
         }
-        return arg;
+        return argument;
     }
 
     @Override
-    public Value visitIsnanfunc(JBasicParser.IsnanfuncContext ctx) {
-        Value arg = visit(ctx.expression());
-        return arg.isNaN() ? Value.TRUE : Value.FALSE;
+    public Value visitIsnanFunction(JBasicParser.IsnanFunctionContext context) {
+        Value argument = visit(context.expression());
+        return argument.isNaN() ? Value.TRUE : Value.FALSE;
     }
 
     @Override
-    public Value visitStatement(JBasicParser.StatementContext ctx) {
-            return super.visitStatement(ctx);
+    public Value visitStatement(JBasicParser.StatementContext context) {
+        return super.visitStatement(context);
     }
 
     @Override
-    public Value visitRelExpr(JBasicParser.RelExprContext ctx) {
-        Value left = visit(ctx.expression(0));
-        Value right = visit(ctx.expression(1));
-        switch (ctx.op.getType()) {
-            case LBExpressionParser.GT:
-                return left.gt(right);
-            case LBExpressionParser.GTE:
-                return left.gte(right);
-            case LBExpressionParser.LT:
-                return left.lt(right);
-            case LBExpressionParser.LTE:
-                return left.lte(right);
-            case LBExpressionParser.EQ:
-                return left.eq(right);
+    public Value visitRelExpression(JBasicParser.RelExpressionContext context) {
+        Value left = visit(context.expression(0));
+        Value right = visit(context.expression(1));
+        switch (context.op.getType()) {
+            case LBExpressionParser.GREATER_THEN:
+                return left.greaterThen(right);
+            case LBExpressionParser.GREATER_THEN_EQUAL:
+                return left.greaterThenEqual(right);
+            case LBExpressionParser.LESS_THEN:
+                return left.lessThen(right);
+            case LBExpressionParser.LESS_THEN_EQUAL:
+                return left.lessThenEqual(right);
+            case LBExpressionParser.EQUALS:
+                return left.equal(right);
             default:
-                return left.neq(right);
+                return left.notEqual(right);
         }
     }
 
-    private void addLocation(InterpreterException ex, ParserRuleContext ctx) {
-        ex.setLocation(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+    private void addLocation(InterpreterException exception, ParserRuleContext context) {
+        exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 
     @Override
-    public Value visitNotExpr(JBasicParser.NotExprContext ctx) {
-        Value value = visit(ctx.expression());
+    public Value visitNotExpression(JBasicParser.NotExpressionContext context) {
+        Value value = visit(context.expression());
         return value.not();
     }
 
     @Override
-    public Value visitAndExpr(JBasicParser.AndExprContext ctx) {
-        Value left = visit(ctx.expression(0));
-        Value right = visit(ctx.expression(1));
+    public Value visitAndExpression(JBasicParser.AndExpressionContext context) {
+        Value left = visit(context.expression(0));
+        Value right = visit(context.expression(1));
         return left.and(right);
     }
 
     @Override
-    public Value visitOrExpr(JBasicParser.OrExprContext ctx) {
-        Value left = visit(ctx.expression(0));
-        Value right = visit(ctx.expression(1));
+    public Value visitOrExpression(JBasicParser.OrExpressionContext context) {
+        Value left = visit(context.expression(0));
+        Value right = visit(context.expression(1));
         return left.or(right);
     }
 
     @Override
-    public Value visitExpExpr(JBasicParser.ExpExprContext ctx) {
-        Value left = visit(ctx.expression(0));
-        Value right = visit(ctx.expression(1));
+    public Value visitExpExpression(JBasicParser.ExpExpressionContext context) {
+        Value left = visit(context.expression(0));
+        Value right = visit(context.expression(1));
         // TODO which one is left and which is right ?
-        return left.exp(right);
+        return left.expression(right);
     }
 
     @Override
-    public Value visitIfstmt(JBasicParser.IfstmtContext ctx) {
-        Value condition = visit(ctx.expression());
+    public Value visitIfStatement(JBasicParser.IfStatementContext context) {
+        Value condition = visit(context.expression());
         if (condition.isTrue()) {
-            return visit(ctx.block());
+            return visit(context.block());
         } else {
-            for(JBasicParser.ElifstmtContext elifCtx : ctx.elifstmt()) {
-                condition = visit(elifCtx.expression());
+            for (JBasicParser.ElifStatementContext elifContext : context.elifStatement()) {
+                condition = visit(elifContext.expression());
                 if (condition.isTrue()) {
-                    return visit(elifCtx.block());
+                    return visit(elifContext.block());
                 }
             }
-            if (ctx.elsestmt() != null) {
-                return visit(ctx.elsestmt().block());
+            if (context.elseStatement() != null) {
+                return visit(context.elseStatement().block());
             }
         }
         return condition;
     }
 
     @Override
-    public Value visitPrintstmt(JBasicParser.PrintstmtContext ctx) {
-        Value value = visit(ctx.expression());
+    public Value visitPrintStatement(JBasicParser.PrintStatementContext context) {
+        Value value = visit(context.expression());
         if (value.isNumber()) {
             printStream.println(value.internalNumber());
-        }
-        else {
+        } else {
             printStream.println(value.internalString());
         }
         return value;
     }
 
     @Override
-    public Value visitInputstmt(JBasicParser.InputstmtContext ctx) {
-        printStream.print(visit(ctx.string()).internalString() + " ");
-        String varname = ctx.vardecl().getText();
+    public Value visitInputStatement(JBasicParser.InputStatementContext context) {
+        printStream.print(visit(context.string()).internalString() + " ");
+        String variableName = context.variableDeclaration().getText();
         try {
             String line = inputStream.readLine();
             Value val = new Value(line);
-            memory.assign(varname, val);
+            memory.assign(variableName, val);
             return val;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e); // TODO
         }
     }
 
     @Override
-    public Value visitForstmt(JBasicParser.ForstmtContext ctx) {
-        String varname = ctx.vardecl().varname().ID().getText();
-        Value start = visit(ctx.expression(0));
-        Value end = visit(ctx.expression(1));
-        Value step = ctx.expression(2) != null ? visit(ctx.expression(2)) : new Value(1);
+    public Value visitForStatement(JBasicParser.ForStatementContext context) {
+        String variableName = context.variableDeclaration().variableName().ID().getText();
+        Value start = visit(context.expression(0));
+        Value end = visit(context.expression(1));
+        Value step = context.expression(2) != null ? visit(context.expression(2)) : new Value(1);
         for (long i = start.internalNumber(); i <= end.internalNumber(); i = i + step.internalNumber()) {
-            memory.assign(varname, new Value(i));
+            memory.assign(variableName, new Value(i));
             try {
-                visit(ctx.block());
-            }
-            catch (ContinueLoopException ignored) {
-            }
-            catch (ExitLoopException e) {
+                visit(context.block());
+            } catch (ContinueLoopException ignored) {
+            } catch (ExitLoopException e) {
                 break;
             }
         }
@@ -251,50 +247,44 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     }
 
     @Override
-    public Value visitWhilestmt(JBasicParser.WhilestmtContext ctx) {
-        Value cond = visit(ctx.expression());
-        while (cond.isTrue()) {
+    public Value visitWhileStatement(JBasicParser.WhileStatementContext context) {
+        Value condition = visit(context.expression());
+        while (condition.isTrue()) {
             try {
-                visit(ctx.block());
-            }
-            catch (ContinueLoopException ignored) {
-            }
-            catch (ExitLoopException e) {
+                visit(context.block());
+            } catch (ContinueLoopException ignored) {
+            } catch (ExitLoopException e) {
                 break;
-            }
-            finally {
-                cond = visit(ctx.expression());
+            } finally {
+                condition = visit(context.expression());
             }
         }
         return new Value(0);
     }
 
     @Override
-    public Value visitRepeatstmt(JBasicParser.RepeatstmtContext ctx) {
-        Value cond;
+    public Value visitRepeatStatement(JBasicParser.RepeatStatementContext context) {
+        Value condition;
         do {
             try {
-                visit(ctx.block());
-            }
-            catch (ContinueLoopException ignored) {
-            }
-            catch (ExitLoopException e) {
+                visit(context.block());
+            } catch (ContinueLoopException ignored) {
+            } catch (ExitLoopException e) {
                 break;
+            } finally {
+                condition = visit(context.expression());
             }
-            finally {
-                cond = visit(ctx.expression());
-            }
-        } while (cond.isFalse());
+        } while (condition.isFalse());
         return new Value(0);
     }
 
     @Override
-    public Value visitContinuestmt(JBasicParser.ContinuestmtContext ctx) {
+    public Value visitContinueStatement(JBasicParser.ContinueStatementContext context) {
         throw new ContinueLoopException();
     }
 
     @Override
-    public Value visitExitstmt(JBasicParser.ExitstmtContext ctx) {
+    public Value visitExitStatement(JBasicParser.ExitStatementContext context) {
         throw new ExitLoopException();
     }
 

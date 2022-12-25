@@ -21,8 +21,8 @@ package org.jbasic;
  */
 public class Utils {
 
-    public static String formatErrorMessage(int line, int posInLine, String message) {
-        return "Error at [" + line + ", " + posInLine + "]: " + message;
+    public static String formatErrorMessage(int line, int positionInLine, String message) {
+        return "Error at [" + line + ", " + positionInLine + "]: " + message;
     }
 
 }

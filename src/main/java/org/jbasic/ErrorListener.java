@@ -36,9 +36,9 @@ public class ErrorListener extends BaseErrorListener {
     public void syntaxError(Recognizer<?, ?> recognizer,
                             Object offendingSymbol,
                             int line,
-                            int charPositionInLine,
-                            String msg,
-                            RecognitionException e) {
-        stderr.println(msg);
+                            int characterPositionInLine,
+                            String message,
+                            RecognitionException exception) {
+        stderr.println(message);
     }
 }
