@@ -23,6 +23,7 @@ package org.jbasic;
 /**
  * @brief Base exception for interpreter runtime errors.
  */
+@SuppressWarnings("serial")
 public abstract class InterpreterException extends RuntimeException {
 
     private int line;

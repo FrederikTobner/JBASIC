@@ -23,10 +23,11 @@ package org.jbasic;
 /**
  * @brief Type mismatch error.
  */
+@SuppressWarnings("serial")
 public class TypeException extends InterpreterException {
 
     /// Constructor of a type exception
-    /// @param message The error mesaage of the type exception
+    /// @param message The error message of the type exception
     public TypeException(String message) {
         super(message);
     }

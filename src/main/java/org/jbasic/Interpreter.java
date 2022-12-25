@@ -38,9 +38,13 @@ import java.io.PrintStream;
  */
 public class Interpreter {
 
+    /// The standard input stream used by the interpreter
     private final InputStream stdin;
+    /// The standard output stream used by the interpreter
     private final PrintStream stdoutPrint;
+    /// The standard error output stream used by the interpreter
     private final PrintStream stderrPrint;
+    /// The Memory object instance used to store variables
     private Memory memory;
 
     /**

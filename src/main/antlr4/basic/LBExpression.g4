@@ -20,7 +20,6 @@ expression
     | NOT expression                                                                                            # NotExpression
     | expression AND expression                                                                                 # AndExpression
     | expression OR expression                                                                                  # OrExpression
-    | <assoc=right> expression EXP expression                                                                   # ExpExpression
     ;
 
 function

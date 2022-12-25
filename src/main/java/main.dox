@@ -5,7 +5,7 @@
 * JBASIC is a simple scripting language, heavily inspired by [BASIC](https://en.wikipedia.org/wiki/BASIC).
 * \section license_sec Testing
 * The interpreter is tested using JUNIT.
-* For testing a cellox program is executed and the standard output is redirected.
+* For testing a JBASIC program is executed and the standard output is redirected.
 * The string is compared with the expected output after the program was executed.
 * \section license_sec License
 * Copyright &copy; 2022 by <a href="mailto:f.tobner@gmail.com">Frederik Tobner</a>. <br>

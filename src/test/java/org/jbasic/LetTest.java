@@ -25,7 +25,7 @@ public class LetTest extends JBasicTest {
     @Test
     public void testString() {
         test("let/string.bas", (result) -> {
-            assertTrue(result.interpreter.getMemory().get("string").isString());
+            assertTrue(result.interpreter.getMemory().get("string").isAString());
             assertEquals("foo", result.interpreter.getMemory().get("string").internalString());
         });
     }
@@ -33,13 +33,13 @@ public class LetTest extends JBasicTest {
     @Test
     public void testNumeric() {
         test("let/numeric.bas", (result) -> {
-            assertTrue(result.interpreter.getMemory().get("numeric").isNumber());
+            assertTrue(result.interpreter.getMemory().get("numeric").isANumber());
             assertEquals(123.0, result.interpreter.getMemory().get("numeric").internalNumber(), 0.0001f);
         });
     }
 
     @Test
     public void testNotANumber() {
-        test("let/not_a_number.bas", (result) -> assertTrue(result.interpreter.getMemory().get("nan").isNaN()));
+        test("let/not_a_number.bas", (result) -> assertTrue(result.interpreter.getMemory().get("nan").isNotANumber()));
     }
 }

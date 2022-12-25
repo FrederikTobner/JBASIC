@@ -29,11 +29,15 @@ import java.io.InputStream;
  */
 public class JBasicCLI {
 
+    /**
+     * Main entry point of the interpreter
+     * @param args The arguments the interpreter that were provided by the user
+     */
     public static void main(String[] args) {
         InputStream inputStream = null;
         Interpreter interpreter = null;
         try {
-            if (args.length == 0) {
+            if (args.length != 1) {
                 System.out.println("Usage: JBASIC <script>");
                 System.exit(-1);
             }

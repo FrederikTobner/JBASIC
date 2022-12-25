@@ -27,7 +27,7 @@ import java.util.function.BiFunction;
 
 /**
  * @brief Value class 
- * @detials The class encapsulates numeric and string values and the corresponding operations.
+ * @details The class encapsulates numeric and string values and the corresponding operations.
  */
 public class Value {
 
@@ -36,10 +36,10 @@ public class Value {
     /// Creates a new true value
     public static final Value CreateTrueValue = new Value(1);
     /// Creates a new not a number value
-    public static final Value CreateNotANumberValue = new Value(null, true);
+    public static final Value CreateNotANumberValue = new Value(null);
 
+    /// Underlying value
     private final Object value;
-    private boolean isNaN;
 
     public Value(String value) {
         this.value = value;
@@ -49,9 +49,8 @@ public class Value {
         this.value = value;
     }
 
-    private Value(Object value, boolean isNaN) {
+    private Value(Object value) {
         this.value = value;
-        this.isNaN = isNaN;
     }
 
     public double internalNumber() {
@@ -62,16 +61,16 @@ public class Value {
         return (String)value;
     }
 
-    public boolean isString() {
+    public boolean isAString() {
         return value instanceof String;
     }
 
-    public boolean isNumber() {
+    public boolean isANumber() {
         return value instanceof Double;
     }
 
-    public boolean isNaN() {
-        return isNaN;
+    public boolean isNotANumber() {
+        return !(value instanceof Double);
     }
 
     public boolean isTrue(ParserRuleContext context) {
@@ -85,7 +84,7 @@ public class Value {
     }
 
     private void assertNumber(ParserRuleContext context) {
-        if (!isNumber()) {
+        if (!isANumber()) {
             TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" + value + "\" is not a number");
             CoreUtils.addLocation(typeException, context);
             throw typeException;
@@ -105,13 +104,13 @@ public class Value {
     }
 
     public Value add(Value right, ParserRuleContext context) {
-        if (isString() && right.isString()) {
+        if (isAString() && right.isAString()) {
             return new Value(internalString() + right.internalString());
         }
-        else if (isString() && right.isNumber()) {
+        else if (isAString() && right.isANumber()) {
             return new Value(internalString() + CoreUtils.numericalOutputFormat.format(right.internalNumber()));
         }
-        else if (isNumber() && right.isString()) {
+        else if (isANumber() && right.isAString()) {
             return new Value(CoreUtils.numericalOutputFormat.format(internalNumber()) + right.internalString());
         }
         else {
@@ -146,9 +145,9 @@ public class Value {
     }
 
     public Value equal(Value right, ParserRuleContext context) {
-        if (isNumber() && right.isNumber()) {
+        if (isANumber() && right.isANumber()) {
             return relEval(right, Objects::equals, context);
-        } else if (isString() && right.isString()) {
+        } else if (isAString() && right.isAString()) {
             return internalString().equals(right.internalString()) ? CreateTrueValue : CreateFalseValue;
         }
         return CreateFalseValue;
@@ -208,7 +207,7 @@ public class Value {
 
         Value value1 = (Value) o;
 
-        if (isNaN != value1.isNaN) return false;
+        if (this.isNotANumber() != value1.isNotANumber()) return false;
         return Objects.equals(value, value1.value);
     }
 
@@ -216,7 +215,7 @@ public class Value {
     @Override
     public int hashCode() {
         int result = value != null ? value.hashCode() : 0;
-        result = 31 * result + (isNaN ? 1 : 0);
+        result = 31 * result + (isNotANumber() ? 1 : 0);
         return result;
     }
 

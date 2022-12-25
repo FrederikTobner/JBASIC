@@ -27,7 +27,7 @@ import java.text.DecimalFormat;
 
 /**
  * @brief Core utility methods
- * @details The core uitlity mehtods of the interpreter
+ * @details The core utility methods of the interpreter
  */
 public class CoreUtils {
 
@@ -49,8 +49,10 @@ public class CoreUtils {
         exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 
-    /// Areatangens hyperbolicus, the inverse functions of tangent hyperbolicus
-    /// @param value The value applied to the function
+    /*
+     * Areatangens hyperbolicus, the inverse functions of tangent hyperbolicus
+     * @param value The value applied to the function
+     */
     public static double arcTangentHyperbolic(double value) {
         final double multiplicand;
         if (Double.doubleToRawLongBits(value) < 0) {
