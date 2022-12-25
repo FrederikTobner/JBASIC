@@ -27,6 +27,7 @@ function
     : lenFunction
     | valFunction
     | isnanFunction
+    | absFunction
     ;
 
 string
@@ -53,6 +54,6 @@ isnanFunction
     : ISNAN LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
 
-//exprlist
-//    : expression (COMMA expression)*
-//    ;
+absFunction
+    : ABS LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;

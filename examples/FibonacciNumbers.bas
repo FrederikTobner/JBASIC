@@ -1,10 +1,7 @@
-LET MAX = 5000
 LET X = 0 : LET Y = 1
-IF (X > MAX) THEN GOTO 10
-PRINT X
-X = X + Y
-IF (Y > MAX) THEN GOTO 10
-PRINT Y
-Y = X + Y
-GOTO 3
-END
+FOR I = 0 TO 20
+    PRINT X
+    X = X + Y
+    PRINT Y
+    Y = X + Y
+NEXT

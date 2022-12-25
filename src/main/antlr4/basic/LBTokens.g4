@@ -27,9 +27,10 @@ LEFT_PARENTHESIS : '(' ;
 RIGHT_PARENTHESIS : ')' ;
 
 // functions
-LEN : 'LEN' | 'len' ;
-VAL : 'VAL' | 'val' ;
+LEN     : 'LEN' | 'len' ;
+VAL     : 'VAL' | 'val' ;
 ISNAN   : 'ISNAN' | 'isnan' ;
+ABS     : 'ABS' | 'abs' ;
 
 // keywords
 PRINT       : 'PRINT' | 'print' ;
@@ -60,6 +61,3 @@ STRING_LITERAL   : '"' ~ ["\r\n]* '"' ;
 DOLLAR          : '$' ;
 NEWLINE         :'\r'? '\n' ;               // return newlines to parser (end-statement signal)
 WHITE_SPACE     : [ \t]+ -> skip ;          // toss out whitespace
-//NUMBER
-//    : ('0' .. '9') + (('e' | 'E') NUMBER)*
-//    ;

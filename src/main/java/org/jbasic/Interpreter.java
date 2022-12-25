@@ -31,18 +31,29 @@ public class Interpreter {
     }
 
     public void run(InputStream programInput) throws IOException {
+        // Wrapping the sourcecode in a ANTLRInputStream
         ANTLRInputStream input = new ANTLRInputStream(programInput);
+        // Initializing a newly created lexer object with the ANTLRInputStream
         JBasicLexer lexer = new JBasicLexer(input);
+        // Creating a stream of tokens with the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
+        // Creating a parser object with the stream of tokens
         JBasicParser parser = new JBasicParser(tokens);
+        // Default bailout error strategy
         parser.setErrorHandler(new BailErrorStrategy());
+        // Removing default error listeners
         parser.removeErrorListeners();
+        // Adding our own error listener
         parser.addErrorListener(new ErrorListener(stderrPrint));
         try {
+            // We create an abstract syntax tree from the tokens
             ParseTree tree = parser.program();
+            // Memory used by the program
             memory = new Memory();
-            JBasicVisitor eval = new JBasicVisitor(memory, stdin, stdoutPrint);
-            eval.visit(tree);
+            // Creating the visitor to visit the nodes in the abstract syntax tree
+            JBasicVisitor visitor = new JBasicVisitor(memory, stdin, stdoutPrint);
+            // Executing the program with the visitor
+            visitor.visit(tree);
         }
         catch (InterpreterException e) {
             stderrPrint.println(e.getMessage());

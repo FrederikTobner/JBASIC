@@ -108,6 +108,16 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     }
 
     @Override
+    public Value visitAbsFunction(JBasicParser.AbsFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.abs(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
     public Value visitValFunction(JBasicParser.ValFunctionContext context) {
         Value argument = visit(context.expression());
         if (argument.isString()) {
