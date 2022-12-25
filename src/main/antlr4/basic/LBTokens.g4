@@ -27,10 +27,19 @@ LEFT_PARENTHESIS : '(' ;
 RIGHT_PARENTHESIS : ')' ;
 
 // functions
-LEN     : 'LEN' | 'len' ;
-VAL     : 'VAL' | 'val' ;
-ISNAN   : 'ISNAN' | 'isnan' ;
-ABS     : 'ABS' | 'abs' ;
+ABS_FUNCTION             : 'ABS' | 'abs' ;
+ACS_FUNCTION             : 'ACS' | 'acs' ;
+ASN_FUNCTION             : 'ASN' | 'asn' ;
+ATN_FUNCTION             : 'ATN' | 'atn' ;
+COS_FUNCTION             : 'COS' | 'cos' ;
+EXP_FUNCTION             : 'EXP' | 'exp' ;
+ISNAN_FUNCTION           : 'ISNAN' | 'isnan' ;
+LEN_FUNCTION             : 'LEN' | 'len' ;
+LOG_FUNCTION             : 'LOG' | 'log' ;
+SIN_FUNCTION             : 'SIN' | 'sin' ;
+SQR_FUNCTION             : 'SQR' | 'sqr' ;
+TAN_FUNCTION             : 'TAN' | 'tan' ;
+VAL_FUNCTION             : 'VAL' | 'val' ;
 
 // keywords
 PRINT       : 'PRINT' | 'print' ;

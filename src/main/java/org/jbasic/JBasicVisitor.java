@@ -185,6 +185,67 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     //endregion
 
     //region Functions
+
+    @Override
+    public Value visitAbsFunction(JBasicParser.AbsFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.abs(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitAcsFunction(JBasicParser.AcsFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.acos(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitAsnFunction(JBasicParser.AsnFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.asin(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitAtnFunction(JBasicParser.AtnFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.atan(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitCosFunction(JBasicParser.CosFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.cos(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitExpFunction(JBasicParser.ExpFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.exp(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
     @Override
     public Value visitLenFunction(JBasicParser.LenFunctionContext context) {
         Value argument = visit(context.expression());
@@ -196,10 +257,40 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     }
 
     @Override
-    public Value visitAbsFunction(JBasicParser.AbsFunctionContext context) {
+    public Value visitLogFunction(JBasicParser.LogFunctionContext context) {
         Value argument = visit(context.expression());
         if (argument.isNumber()) {
-            return new Value(Math.abs(argument.internalNumber()));
+            return new Value(Math.log(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitSinFunction(JBasicParser.SinFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.sin(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitSqrFunction(JBasicParser.SqrFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.sqrt(argument.internalNumber()));
+        } else {
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+        }
+    }
+
+    @Override
+    public Value visitTanFunction(JBasicParser.TanFunctionContext context) {
+        Value argument = visit(context.expression());
+        if (argument.isNumber()) {
+            return new Value(Math.tan(argument.internalNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }

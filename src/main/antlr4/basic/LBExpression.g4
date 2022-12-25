@@ -24,10 +24,19 @@ expression
     ;
 
 function
-    : lenFunction
-    | valFunction
+    : absFunction
+    | acsFunction
+    | asnFunction
+    | atnFunction
+    | cosFunction
+    | expFunction
     | isnanFunction
-    | absFunction
+    | lenFunction
+    | logFunction
+    | sinFunction
+    | sqrFunction
+    | tanFunction
+    | valFunction
     ;
 
 string
@@ -42,18 +51,54 @@ id
     : ID
     ;
 
-lenFunction
-    : LEN LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+absFunction
+    : ABS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
 
-valFunction
-    : VAL LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+acsFunction
+    : ACS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+asnFunction
+    : ASN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+atnFunction
+    : ATN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+cosFunction
+    : COS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+expFunction
+    : EXP_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
 
 isnanFunction
-    : ISNAN LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    : ISNAN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
 
-absFunction
-    : ABS LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+lenFunction
+    : LEN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+logFunction
+    : LOG_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+sinFunction
+    : SIN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+sqrFunction
+    : SQR_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+tanFunction
+    : TAN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+    ;
+
+valFunction
+    : VAL_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
     ;
