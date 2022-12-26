@@ -13,19 +13,20 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-package org.jbasic;
+package org.jbasic.functions;
 
+import org.jbasic.JBasicBaseTest;
 import org.junit.Test;
 
 import java.time.format.DecimalStyle;
 
 import static org.junit.Assert.assertEquals;
 
-public class FunctionTest extends JBasicTest{
+public class MathFunctionTest extends JBasicBaseTest {
 
     @Test
     public void testAbsFunction() {
-        test("function/absolute.bas",
+        test("functions/math/absolute.bas",
                 (result) -> assertEquals("2" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "5" + System.lineSeparator(),
                         result.output));
@@ -33,21 +34,21 @@ public class FunctionTest extends JBasicTest{
 
     @Test
     public void testAcsFunction() {
-        test("function/arc_cosine.bas",
+        test("functions/math/arc_cosine.bas",
                 (result) -> assertEquals("1" + System.lineSeparator(),
                         result.output));
     }
 
     @Test
     public void testAsnFunction() {
-        test("function/arc_sine.bas",
+        test("functions/math/arc_sine.bas",
                 (result) -> assertEquals("1" + System.lineSeparator(),
                         result.output));
     }
 
     @Test
     public void testAthFunction() {
-        test("function/arc_hyperbolic_tangent.bas",
+        test("functions/math/arc_hyperbolic_tangent.bas",
                 (result) -> assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "5" + System.lineSeparator(),
                         result.output));
@@ -55,7 +56,7 @@ public class FunctionTest extends JBasicTest{
 
     @Test
     public void testAtnFunction() {
-        test("function/arc_tangent.bas",
+        test("functions/math/arc_tangent.bas",
                 (result) -> assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "5" + System.lineSeparator(),
                         result.output));
@@ -63,7 +64,7 @@ public class FunctionTest extends JBasicTest{
 
     @Test
     public void testCosFunction() {
-        test("function/cosine.bas",
+        test("functions/math/cosine.bas",
                 (result) -> assertEquals("-0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "4" + System.lineSeparator(),
                         result.output));
@@ -71,27 +72,15 @@ public class FunctionTest extends JBasicTest{
 
     @Test
     public void testExpFunction() {
-        test("function/exponential.bas",
+        test("functions/math/exponential.bas",
                 (result) -> assertEquals("22026" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "5" + System.lineSeparator(),
                         result.output));
     }
 
     @Test
-    public void testIsNotANumberFunction() {
-        test("function/is_not_a_number.bas",
-                (result) -> assertEquals("1" + System.lineSeparator(), result.output));
-    }
-
-    @Test
-    public void testLenFunction() {
-        test("function/length.bas",
-                (result) -> assertEquals("6" + System.lineSeparator(), result.output));
-    }
-
-    @Test
     public void testLogFunction() {
-        test("function/natural_logarithm.bas",
+        test("functions/math/natural_logarithm.bas",
                 (result) -> assertEquals("2" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "3" + System.lineSeparator(),
                         result.output));
@@ -99,7 +88,7 @@ public class FunctionTest extends JBasicTest{
 
     @Test
     public void testSinFunction() {
-        test("function/sine.bas",
+        test("functions/math/sine.bas",
                 (result) -> assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "9" + System.lineSeparator(),
                         result.output));
@@ -107,24 +96,17 @@ public class FunctionTest extends JBasicTest{
 
     @Test
     public void testSqrFunction() {
-        test("function/square_root.bas",
+        test("functions/math/square_root.bas",
                 (result) -> assertEquals("2" + System.lineSeparator(),
                         result.output));
     }
 
     @Test
     public void testTanFunction() {
-        test("function/tangent.bas",
+        test("functions/math/tangent.bas",
                 (result) -> assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "6" + System.lineSeparator(),
                         result.output));
     }
 
-    @Test
-    public void testValFunction() {
-        test("function/value.bas",
-                (result) -> assertEquals("1" + System.lineSeparator() +
-                                "3" + System.lineSeparator(),
-                        result.output));
-    }
 }

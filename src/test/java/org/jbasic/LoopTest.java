@@ -19,11 +19,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class LoopTest extends JBasicTest {
+public class LoopTest extends JBasicBaseTest {
 
     @Test
     public void testForContinue() {
-        test("loop/for_continue.bas",
+        test("loops/for_continue.bas",
                 (result) -> assertEquals("3" + System.lineSeparator() +
                                 "4" + System.lineSeparator() +
                                 "5" + System.lineSeparator(),
@@ -32,7 +32,7 @@ public class LoopTest extends JBasicTest {
 
     @Test
     public void testForExit() {
-        test("loop/for_exit.bas",
+        test("loops/for_exit.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator(),
@@ -41,7 +41,7 @@ public class LoopTest extends JBasicTest {
 
     @Test
     public void testRepeat() {
-        test("loop/repeat.bas",
+        test("loops/repeat.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator() +
@@ -51,18 +51,18 @@ public class LoopTest extends JBasicTest {
 
     @Test
     public void testSimpleFor() {
-        test("loop/simple_for.bas",
+        test("loops/simple_for.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() + "2" + System.lineSeparator() + "3"
-                        + System.lineSeparator() +"4" + System.lineSeparator() +"5" + System.lineSeparator(), result.output));
+                        + System.lineSeparator() + "4" + System.lineSeparator() + "5" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testWhile() {
-        test("loop/while.bas",
+        test("loops/while.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator() +
-                                "4"+ System.lineSeparator(),
+                                "4" + System.lineSeparator(),
                         result.output));
     }
 }

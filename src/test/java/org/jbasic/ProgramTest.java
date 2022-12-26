@@ -19,11 +19,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ProgramTest extends JBasicTest{
+public class ProgramTest extends JBasicBaseTest {
 
     @Test
     public void testGreatestCommonDivider() {
         test("program/greatest_common_divider.bas", "9" + System.lineSeparator() + "12" + System.lineSeparator(),
-                (result) -> assertEquals("A= B= GCD=3" + System.lineSeparator(), result.output));
+                (result) -> assertEquals("A= B= 3" + System.lineSeparator(), result.output));
     }
 }

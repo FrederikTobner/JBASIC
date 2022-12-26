@@ -21,12 +21,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Consumer;
 
-public class JBasicTest {
+public class JBasicBaseTest {
 
     protected static class Result {
 
         protected JBasicInterpreter interpreter;
-        protected String output;
+        public String output;
         protected String error;
 
         public Result(JBasicInterpreter interpreter, String output, String error) {

@@ -32,7 +32,7 @@ variableName
     ;
 
 variableSuffix
-    : DOLLAR
+    : DOLLAR_SIGN
     ;
 
 printStatement

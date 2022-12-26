@@ -10,4 +10,4 @@ WHILE b > 0
     b = t
 END
 
-PRINT "GCD=" + a
+PRINT a

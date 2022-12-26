@@ -20,7 +20,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class LetTest extends JBasicTest {
+public class LetTest extends JBasicBaseTest {
 
     @Test
     public void testString() {

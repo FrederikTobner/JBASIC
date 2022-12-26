@@ -21,37 +21,37 @@ import java.time.format.DecimalStyle;
 
 import static org.junit.Assert.assertEquals;
 
-public class OperatorTest extends JBasicTest {
+public class OperatorTest extends JBasicBaseTest {
 
     @Test
     public void testAdd() {
-        test("operator/add.bas",
+        test("operators/add.bas",
                 (result) -> assertEquals("3" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testSubtract() {
-        test("operator/subtract.bas",
+        test("operators/subtract.bas",
                 (result) -> assertEquals("1" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testMultiply() {
-        test("operator/multiply.bas",
+        test("operators/multiply.bas",
                 (result) -> assertEquals("6" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testDivide() {
-        test("operator/divide.bas",
+        test("operators/divide.bas",
                 (result) -> assertEquals("2" + System.lineSeparator() +
                                 "3" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() + "5" + System.lineSeparator(),
-                                result.output));
+                        result.output));
     }
 
     @Test
     public void testModulo() {
-        test("operator/modulo.bas",
+        test("operators/modulo.bas",
                 (result) -> assertEquals("2" + System.lineSeparator(), result.output));
     }
 }

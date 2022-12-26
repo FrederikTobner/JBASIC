@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class IfThenElseTest extends JBasicTest {
+public class IfThenElseTest extends JBasicBaseTest {
 
     @Test
     public void testSimpleIfTrue() {

@@ -9,17 +9,17 @@ statement
     ;
 
 expression
-    : string                                                                                                    # StringExpression
-    | number                                                                                                    # NumberExpression
+    : expression op=(ADD|SUBTRACT) expression                                                                   # AddSubExpression
+    | expression AND expression                                                                                 # AndExpression
     | function                                                                                                  # FuncExpression
     | id                                                                                                        # IdExpression
-    | (LEFT_PARENTHESIS expression RIGHT_PARENTHESIS)                                                           # ParenExpression
     | expression op=(MULTIPLY|DIVIDE|MODULO) expression                                                         # MulDivExpression
-    | expression op=(ADD|SUBTRACT) expression                                                                   # AddSubExpression
-    | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # RelExpression
     | NOT expression                                                                                            # NotExpression
-    | expression AND expression                                                                                 # AndExpression
+    | number                                                                                                    # NumberExpression
     | expression OR expression                                                                                  # OrExpression
+    | (LEFT_PARENTHESIS expression RIGHT_PARENTHESIS)                                                           # ParenExpression
+    | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # RelExpression
+    | string                                                                                                    # StringExpression
     ;
 
 function
@@ -40,69 +40,52 @@ function
     ;
 
 string
-    : STRING_LITERAL
-    ;
+    : STRING_LITERAL ;
 
 number
-    : NUMBER
-    ;
+    : NUMBER ;
 
 id
-    : ID
-    ;
+    : ID ;
 
 absFunction
-    : ABS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : ABS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 acsFunction
-    : ACS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : ACS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 asnFunction
-    : ASN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : ASN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 athFunction
-    : ATH_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : ATH_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 atnFunction
-    : ATN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : ATN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 cosFunction
-    : COS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : COS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 expFunction
-    : EXP_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : EXP_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 isnanFunction
-    : ISNAN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : ISNAN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 lenFunction
-    : LEN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : LEN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 logFunction
-    : LOG_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : LOG_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 sinFunction
-    : SIN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : SIN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 sqrFunction
-    : SQR_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : SQR_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 tanFunction
-    : TAN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : TAN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 valFunction
-    : VAL_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
-    ;
+    : VAL_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;

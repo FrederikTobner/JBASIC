@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class IOTest extends JBasicTest {
+public class IOTest extends JBasicBaseTest {
 
     @Test
     public void testInput() {

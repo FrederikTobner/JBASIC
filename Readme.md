@@ -5,7 +5,8 @@
 Simple Interpreter for the JBASIC programming language written in Java using [ANTLR4](https://www.antlr.org/)
 and [hamcrest](http://hamcrest.org/JavaHamcrest/).
 
-JBASIC is heavily inspired by [BASIC](https://en.wikipedia.org/wiki/BASIC).
+JBASIC is a simple general purpose, high-level scripting language heavily inspired
+by [BASIC](https://en.wikipedia.org/wiki/BASIC).
 
 ## Table of Contents
 
@@ -18,39 +19,60 @@ JBASIC is heavily inspired by [BASIC](https://en.wikipedia.org/wiki/BASIC).
 
 ## Overview
 
-JBASIC is dialect of 'BASIC' (Beginners' All-purpose Symbolic Instruction Code) a family of general-purpose, high-level programming languages.
-The main focus of the 'BASIC' languages is ease of use.
+JBASIC is dialect of 'BASIC' (Beginners' All-purpose Symbolic Instruction Code) a family of general-purpose, high-level
+programming languages.
+
+## Operators
+
+### Binary operators
+
+| Operator | Description                                      |
+|----------|--------------------------------------------------|
+| +        | Computes the sum of two values.                  |
+| -        | Subtracts the second value from the first value. |
+| *        | Multiplies the two values.                       |
+| /        | Divides the first value with the second value.   |
+
+### Unary operators
+
+| Operator | Description              |
+|----------|--------------------------|
+| !        | Inverts a logical value. |
 
 ## Keywords
 
+The language features the following keywords
+
 ### Data manipulation
 
-| Keyword | Description                                                                                                                                                                                           |
-|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| LET     | assigns a value (which may be the result of an expression) to a variable. In most dialects of BASIC, LET is optional, and a line with no other identifiable keyword will assume the keyword to be LET |
+| Keyword | Description                                                               |
+|---------|---------------------------------------------------------------------------|
+| LET     | Assigns a value (which may be the result of an expression) to a variable. |
 
 ### Input and output
 
 | Keyword | Description                                                                                |
 |---------|--------------------------------------------------------------------------------------------|
-| INPUT   | asks the user to enter the value of a variable. The statement may include a prompt message |
-| PRINT   | displays a message on the screen or other output device                                    |
+| INPUT   | Asks the user to enter the value of a variable. The statement may include a prompt message |
+| PRINT   | Displays a message on the screen or other output device                                    |
 
 ### Program flow control
 
-| Keyword(s)                          | Description                                                                                                                                                                                                                      |
-|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| IF ... THEN ... {ELSE}              | used to perform comparisons or make decisions. Early dialects only allowed a line number after the THEN, but later versions allowed any valid statement to follow. ELSE was not widely supported, especially in earlier versions |
-| FOR ... TO ... {STEP} ... NEXT      | repeat a section of code a given number of times. A variable that acts as a counter, the "index", is available within the loop                                                                                                   |
-| WHILE ... WEND and REPEAT ... UNTIL | repeat a section of code a given number of times. A variable that acts as a counter, the "index", is available within the loop                                                                                                   |
+| Keyword(s)                         | Description                                        |
+|------------------------------------|----------------------------------------------------|
+| IF ... THEN ... {ELSE}             | Used to perform comparisons or make decisions.     |
+| FOR ... TO ... {STEP} ... NEXT     | Repeats a section of code a given number of times. |
+| WHILE ... END and REPEAT ... UNTIL | Repeats a section of code a given number of times. |
 
 ### Miscellaneous
 
-| Keyword | Description                                                                                                                                   |
-|---------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| REM     | holds a programmer's comment or REMark; often used to give a title to the program and to help identify the purpose of a given section of code |
+| Keyword | Description                                                                                         |
+|---------|-----------------------------------------------------------------------------------------------------|
+| REM     | holds a programmer's comment or remark used to help identify the purpose of a given section of code |
 
 ## Functions
+
+JBASIC offers numerous functions to perform various tasks
 
 ### Mathematical
 
@@ -81,13 +103,16 @@ The interpreter is built using maven
 
     mvn install
 
+and uses the JDK version 11.
+
 ## How it works
 
 The interpretation of a program is performed in the following stages
 
 * Lexical analysis: We iterate over all the characters in the source code and group them together to tokens
-* Parsing: Next we parse the linear sequence of tokens we have created in the previous step to create an abstract syntax tree
-* Execution: To execute a JBASIC program we visit all the nodes in our abstract syntax tree and execute them
+* Parsing: Next we parse the linear sequence of tokens we have created in the previous step to create an abstract syntax
+  tree
+* Execution: To execute a JBASIC program we visit all the nodes in our abstract syntax tree and evaluate them
 
 ## License
 

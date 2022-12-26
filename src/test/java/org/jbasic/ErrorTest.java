@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ErrorTest extends JBasicTest{
+public class ErrorTest extends JBasicBaseTest {
 
     @Test
     public void testSyntaxError() {

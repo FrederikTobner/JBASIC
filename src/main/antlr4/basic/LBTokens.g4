@@ -1,24 +1,24 @@
 lexer grammar LBTokens; // note "lexer grammar"
 
 // operators
-MULTIPLY : '*' ;
-DIVIDE : '/' ;
 ADD : '+' ;
-SUBTRACT : '-' ;
+DIVIDE : '/' ;
 MODULO : 'MOD' ;
+MULTIPLY : '*' ;
+SUBTRACT : '-' ;
 
 // logical
-NOT_EQUAL : '<>' ;
-GREATER_THEN_EQUAL : '>=' ;
-LESS_THEN_EQUAL : '<=' ;
-GREATER_THEN  : '>' ;
-LESS_THEN  : '<' ;
 EQUALS  : '=' ;
+GREATER_THEN  : '>' ;
+GREATER_THEN_EQUAL : '>=' ;
+LESS_THEN  : '<' ;
+LESS_THEN_EQUAL : '<=' ;
+NOT_EQUAL : '!=' ;
 
 // relational
 AND : 'AND' | 'and' ;
+NOT : '!' ;
 OR  : 'OR' | 'or' ;
-NOT : 'NOT' | 'not' ;
 
 // other
 COMMA  : ',' ;
@@ -42,31 +42,31 @@ TAN_FUNCTION             : 'TAN' | 'tan' ;
 VAL_FUNCTION             : 'VAL' | 'val' ;
 
 // keywords
-PRINT       : 'PRINT' | 'print' ;
-INPUT       : 'INPUT' | 'input' ;
-LET         : 'LET' | 'let' ;
-REM         : 'REM' | 'rem' ;
-IF          : 'IF' | 'if' ;
-THEN        : 'THEN' | 'then' ;
+CONTINUE    : 'CONTINUE' | 'continue' ;
 ELSE        : 'ELSE' | 'else' ;
 END         : 'END' | 'end';
-FOR         : 'FOR' | 'for' ;
-WHILE       : 'WHILE' | 'while' ;
-REPEAT      : 'REPEAT' | 'repeat' ;
-UNTIL       : 'UNTIL' | 'until' ;
-STEP        : 'STEP' | 'step' ;
-NEXT        : 'NEXT' | 'next' ;
-TO          : 'TO' | 'to' ;
-CONTINUE    : 'CONTINUE' | 'continue' ;
 EXIT        : 'EXIT' | 'exit' ;
+FOR         : 'FOR' | 'for' ;
+IF          : 'IF' | 'if' ;
+INPUT       : 'INPUT' | 'input' ;
+LET         : 'LET' | 'let' ;
+NEXT        : 'NEXT' | 'next' ;
+PRINT       : 'PRINT' | 'print' ;
+REM         : 'REM' | 'rem' ;
+REPEAT      : 'REPEAT' | 'repeat' ;
+STEP        : 'STEP' | 'step' ;
+THEN        : 'THEN' | 'then' ;
+TO          : 'TO' | 'to' ;
+UNTIL       : 'UNTIL' | 'until' ;
+WHILE       : 'WHILE' | 'while' ;
 
 // comments
 COMMENT : REM ~[\r\n]* ;
 
 // literals
+DOLLAR_SIGN     : '$' ;
 ID              : [a-zA-Z]+ ;               // match identifiers
-NUMBER          : [0-9]+ ('.' [0-9]+)?;     // match integers
-STRING_LITERAL   : '"' ~ ["\r\n]* '"' ;
-DOLLAR          : '$' ;
 NEWLINE         :'\r'? '\n' ;               // return newlines to parser (end-statement signal)
+NUMBER          : [0-9]+ ('.' [0-9]+)?;     // match integers
+STRING_LITERAL  : '"' ~ ["\r\n]* '"' ;
 WHITE_SPACE     : [ \t]+ -> skip ;          // toss out whitespace
