@@ -48,7 +48,7 @@ public class MathFunctionTest extends JBasicBaseTest {
 
     @Test
     public void testAthFunction() {
-        test("functions/math/arc_hyperbolic_tangent.bas",
+        test("functions/math/area_tangent_hyperbolicus.bas",
                 (result) -> assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "5" + System.lineSeparator(),
                         result.output));
