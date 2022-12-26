@@ -44,6 +44,11 @@ The main focus of the 'BASIC' languages is ease of use.
 | FOR ... TO ... {STEP} ... NEXT      | repeat a section of code a given number of times. A variable that acts as a counter, the "index", is available within the loop                                                                                                   |
 | WHILE ... WEND and REPEAT ... UNTIL | repeat a section of code a given number of times. A variable that acts as a counter, the "index", is available within the loop                                                                                                   |
 
+### Miscellaneous
+
+| Keyword | Description                                                                                                                                   |
+|---------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| REM     | holds a programmer's comment or REMark; often used to give a title to the program and to help identify the purpose of a given section of code |
 
 ## Functions
 
@@ -76,11 +81,13 @@ The interpreter is built using maven
 
     mvn install
 
-The JAR will be located in the /target directory
-
 ## How it works
 
 The interpretation of a program is performed in the following stages
+
+* Lexical analysis: We iterate over all the characters in the source code and group them together to tokens
+* Parsing: Next we parse the linear sequence of tokens we have created in the previous step to create an abstract syntax tree
+* Execution: To execute a JBASIC program we visit all the nodes in our abstract syntax tree and execute them
 
 ## License
 

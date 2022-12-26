@@ -164,7 +164,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
         Value start = visit(context.expression(0));
         Value end = visit(context.expression(1));
         Value step = context.expression(2) != null ? visit(context.expression(2)) : new Value(1);
-        for (double i = start.internalNumber(); i <= end.internalNumber(); i = i + step.internalNumber()) {
+        for (double i = start.underlyingNumber(); i <= end.underlyingNumber(); i = i + step.underlyingNumber()) {
             memory.assign(variableName, new Value(i));
             try {
                 visit(context.block());
@@ -185,12 +185,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitIfStatement(JBasicParser.IfStatementContext context) {
         Value condition = visit(context.expression());
-        if (condition.isTrue(context)) {
+        if (condition.isTruthy(context)) {
             return visit(context.block());
         } else {
             for (JBasicParser.ElifStatementContext elifContext : context.elifStatement()) {
                 condition = visit(elifContext.expression());
-                if (condition.isTrue(context)) {
+                if (condition.isTruthy(context)) {
                     return visit(elifContext.block());
                 }
             }
@@ -209,7 +209,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      */
     @Override
     public Value visitInputStatement(JBasicParser.InputStatementContext context) {
-        printStream.print(visit(context.string()).internalString() + " ");
+        printStream.print(visit(context.string()).underlyingString() + " ");
         String variableName = context.variableDeclaration().getText();
         try {
             String line = inputStream.readLine();
@@ -244,10 +244,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitPrintStatement(JBasicParser.PrintStatementContext context) {
         Value value = visit(context.expression());
-        if (value.isANumber()) {
-            printStream.println(CoreUtils.numericalOutputFormat.format(value.internalNumber()));
+        if (value.isANumericalValue()) {
+            printStream.println(CoreUtils.numericalOutputFormat.format(value.underlyingNumber()));
         } else {
-            printStream.println(value.internalString());
+            printStream.println(value.underlyingString());
         }
         return value;
     }
@@ -270,7 +270,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
             } finally {
                 condition = visit(context.expression());
             }
-        } while (condition.isFalse(context));
+        } while (condition.isFalsy(context));
         return new Value(0);
     }
 
@@ -283,7 +283,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitWhileStatement(JBasicParser.WhileStatementContext context) {
         Value condition = visit(context.expression());
-        while (condition.isTrue(context)) {
+        while (condition.isTruthy(context)) {
             try {
                 visit(context.block());
             } catch (ContinueLoopException ignored) {
@@ -308,8 +308,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitAbsFunction(JBasicParser.AbsFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.abs(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.abs(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -324,8 +324,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitAcsFunction(JBasicParser.AcsFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.acos(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.acos(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ACS(). Argument is not a number");
         }
@@ -340,8 +340,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitAsnFunction(JBasicParser.AsnFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.asin(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.asin(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ASN(). Argument is not a number");
         }
@@ -356,8 +356,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitAthFunction(JBasicParser.AthFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(CoreUtils.arcTangentHyperbolic(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(CoreUtils.arcTangentHyperbolic(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ATH(). Argument is not a number");
         }
@@ -372,8 +372,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitAtnFunction(JBasicParser.AtnFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.atan(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.atan(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ATN(). Argument is not a number");
         }
@@ -388,8 +388,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitCosFunction(JBasicParser.CosFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.cos(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.cos(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate COS(). Argument is not a number");
         }
@@ -404,8 +404,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitExpFunction(JBasicParser.ExpFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.exp(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.exp(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate EXP(). Argument is not a number");
         }
@@ -420,7 +420,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitIsnanFunction(JBasicParser.IsnanFunctionContext context) {
         Value argument = visit(context.expression());
-        return argument.isNotANumber() ? Value.CreateTrueValue : Value.CreateFalseValue;
+        return argument.isNotANumericalValue() ? Value.CreateTrueValue : Value.CreateFalseValue;
     }
 
     /**
@@ -432,8 +432,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitLenFunction(JBasicParser.LenFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isAString()) {
-            return new Value(argument.internalString().length());
+        if (argument.isAStringValue()) {
+            return new Value(argument.underlyingString().length());
         } else {
             throw new TypeException("Couldn't evaluate LEN(). Argument is not a string");
         }
@@ -448,8 +448,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitLogFunction(JBasicParser.LogFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.log(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.log(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -464,8 +464,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitSinFunction(JBasicParser.SinFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.sin(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.sin(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -480,8 +480,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitSqrFunction(JBasicParser.SqrFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.sqrt(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.sqrt(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -496,8 +496,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitTanFunction(JBasicParser.TanFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isANumber()) {
-            return new Value(Math.tan(argument.internalNumber()));
+        if (argument.isANumericalValue()) {
+            return new Value(Math.tan(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -512,8 +512,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
     @Override
     public Value visitValFunction(JBasicParser.ValFunctionContext context) {
         Value argument = visit(context.expression());
-        if (argument.isAString()) {
-            String str = argument.internalString();
+        if (argument.isAStringValue()) {
+            String str = argument.underlyingString();
             try {
                 return new Value(Long.parseLong(str));
             } catch (NumberFormatException e) {
