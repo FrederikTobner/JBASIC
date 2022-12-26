@@ -14,12 +14,13 @@ expression
     | function                                                                                                  # FuncExpression
     | id                                                                                                        # IdExpression
     | expression op=(MULTIPLY|DIVIDE|MODULO) expression                                                         # MulDivExpression
+    | SUBTRACT expression                                                                                       # NegateExpression
     | NOT expression                                                                                            # NotExpression
-    | number                                                                                                    # NumberExpression
+    | numericLiteral                                                                                            # NumericLiteralExpression
     | expression OR expression                                                                                  # OrExpression
     | (LEFT_PARENTHESIS expression RIGHT_PARENTHESIS)                                                           # ParenExpression
     | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # RelExpression
-    | string                                                                                                    # StringExpression
+    | stringLiteral                                                                                             # StringLiteralExpression
     ;
 
 function
@@ -39,11 +40,11 @@ function
     | valFunction
     ;
 
-string
+stringLiteral
     : STRING_LITERAL ;
 
-number
-    : NUMBER ;
+numericLiteral
+    : NUMERIC_LITERAL ;
 
 id
     : ID ;

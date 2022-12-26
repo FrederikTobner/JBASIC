@@ -3,7 +3,7 @@ lexer grammar LBTokens; // note "lexer grammar"
 // operators
 ADD : '+' ;
 DIVIDE : '/' ;
-MODULO : 'MOD' ;
+MODULO : '%' ;
 MULTIPLY : '*' ;
 SUBTRACT : '-' ;
 
@@ -64,9 +64,9 @@ WHILE       : 'WHILE' | 'while' ;
 COMMENT : REM ~[\r\n]* ;
 
 // literals
-DOLLAR_SIGN     : '$' ;
-ID              : [a-zA-Z]+ ;               // match identifiers
-NEWLINE         :'\r'? '\n' ;               // return newlines to parser (end-statement signal)
-NUMBER          : [0-9]+ ('.' [0-9]+)?;     // match integers
-STRING_LITERAL  : '"' ~ ["\r\n]* '"' ;
-WHITE_SPACE     : [ \t]+ -> skip ;          // toss out whitespace
+DOLLAR_SIGN         : '$' ;
+ID                  : [a-zA-Z]+ ;                   // match identifiers
+NEWLINE             :'\r'? '\n' ;                   // return newlines to parser (end-statement signal)
+NUMERIC_LITERAL     : [0-9]+ ('.' [0-9]+)?;         // match number literals
+STRING_LITERAL      : '"' ~ ["\r\n]* '"' ;
+WHITE_SPACE         : [ \t]+ -> skip ;              // toss out whitespace

@@ -39,7 +39,7 @@ printStatement
     : PRINT expression;
 
 inputStatement
-    : INPUT string variableDeclaration
+    : INPUT stringLiteral variableDeclaration
     ;
 
 ifStatement

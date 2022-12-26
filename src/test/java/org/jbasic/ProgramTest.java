@@ -22,8 +22,27 @@ import static org.junit.Assert.assertEquals;
 public class ProgramTest extends JBasicBaseTest {
 
     @Test
+    public void testFibonacci() {
+        test("program/fibonacci_numbers.bas",
+                (result) -> assertEquals("0" + System.lineSeparator() +
+                                "1" + System.lineSeparator() +
+                                "1" + System.lineSeparator() +
+                                "2" + System.lineSeparator() +
+                                "3" + System.lineSeparator() +
+                                "5" + System.lineSeparator() +
+                                "8" + System.lineSeparator() +
+                                "13" + System.lineSeparator(),
+                        result.output));
+    }
+
+    @Test
     public void testGreatestCommonDivider() {
         test("program/greatest_common_divider.bas", "9" + System.lineSeparator() + "12" + System.lineSeparator(),
                 (result) -> assertEquals("A= B= 3" + System.lineSeparator(), result.output));
+    }
+
+    @Test
+    public void testPrintStars() {
+        test("program/print_stars.bas", (result) -> assertEquals("*****" + System.lineSeparator(), result.output));
     }
 }

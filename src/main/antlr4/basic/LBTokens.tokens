@@ -37,7 +37,7 @@ CONTINUE=36
 EXIT=37
 COMMENT=38
 ID=39
-NUMBER=40
+NUMERIC_LITERAL=40
 STRING_LITERAL=41
 DOLLAR_SIGN=42
 NEWLINE=43
@@ -53,18 +53,18 @@ LOG_FUNCTION=52
 SIN_FUNCTION=53
 SQR_FUNCTION=54
 TAN_FUNCTION=55
-'*'=1
-'/'=2
-'+'=3
-'-'=4
-'MOD'=5
-'!='=6
-'>='=7
-'<='=8
-'>'=9
-'<'=10
-'='=11
-','=15
-'('=16
-')'=17
-'$'=42
+'*'=1                       // Multiply
+'/'=2                       // Divide
+'+'=3                       // Add
+'-'=4                       // Subtract
+'%'=5                       // Modulo
+'!='=6                      // Not equal
+'>='=7                      // greater than equal
+'<='=8                      // less than equal
+'>'=9                       // greater than
+'<'=10                      // less than
+'='=11                      // Equal
+','=15                      // Comma
+'('=16                      // Left Parenthesize
+')'=17                      // Right Parenthesize
+'$'=42                      // Dollar Sign

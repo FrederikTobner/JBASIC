@@ -10,11 +10,7 @@ import basic.JBasicBaseVisitor;
 import basic.JBasicParser;
 import basic.LBExpressionParser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 
 /**
  * @brief The ANTLR visitor.
@@ -100,7 +96,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public JBasicValue visitNumber(JBasicParser.NumberContext context) {
+    public JBasicValue visitNumericLiteral(JBasicParser.NumericLiteralContext context) {
         return new JBasicValue(Double.parseDouble(context.getText()));
     }
 
@@ -111,7 +107,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public JBasicValue visitString(JBasicParser.StringContext context) {
+    public JBasicValue visitStringLiteral(JBasicParser.StringLiteralContext context) {
         String value = context.getText();
         return new JBasicValue(value.substring(1, value.length() - 1));
     }
@@ -209,7 +205,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitInputStatement(JBasicParser.InputStatementContext context) {
-        printStream.print(visit(context.string()).underlyingString() + " ");
+        printStream.print(visit(context.stringLiteral()).underlyingString() + " ");
         String variableName = context.variableDeclaration().getText();
         try {
             String line = inputStream.readLine();
@@ -357,7 +353,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitAthFunction(JBasicParser.AthFunctionContext context) {
         JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new JBasicValue(CoreUtils.arcTangentHyperbolic(argument.underlyingNumber()));
+            return new JBasicValue(CoreUtils.areaTangentHyperbolicus(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ATH(). Argument is not a number");
         }
@@ -530,7 +526,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'and expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'and expression' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by executing the expression
      */
     @Override
     public JBasicValue visitAndExpression(JBasicParser.AndExpressionContext context) {
@@ -543,7 +539,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits an 'add expression' or a 'subtract expression'  in the abstract syntax tree
      *
      * @param context The parsing context of the 'add expression' or 'subtract expression' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by executing the expression
      */
     @Override
     public JBasicValue visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
@@ -560,7 +556,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits an 'multiply expression' or a 'divide expression'  in the abstract syntax tree
      *
      * @param context The parsing context of the 'multiply expression' or 'divide expression' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by executing the expression
      */
     @Override
     public JBasicValue visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
@@ -576,10 +572,22 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'negate expression' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'negate expression' that is visited
+     * @return The Value that is omitted by executing the expression
+     */
+    @Override
+    public JBasicValue visitNegateExpression(JBasicParser.NegateExpressionContext context) {
+        JBasicValue value = visit(context.expression());
+        return value.negate(context);
+    }
+
+    /**
      * Visits a 'not expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'not expression' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by executing the expression
      */
     @Override
     public JBasicValue visitNotExpression(JBasicParser.NotExpressionContext context) {
@@ -591,7 +599,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'or expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'or expression' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by executing the expression
      */
     @Override
     public JBasicValue visitOrExpression(JBasicParser.OrExpressionContext context) {
@@ -601,10 +609,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
-     * Visits a 'rel expression' in the abstract syntax tree
+     * Visits a 'relative comparison expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'rel expression' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by executing the expression
      */
     @Override
     public JBasicValue visitRelExpression(JBasicParser.RelExpressionContext context) {

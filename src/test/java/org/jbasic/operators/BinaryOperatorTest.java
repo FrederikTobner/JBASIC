@@ -13,37 +13,26 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-package org.jbasic;
+package org.jbasic.operators;
 
+import org.jbasic.JBasicBaseTest;
 import org.junit.Test;
 
 import java.time.format.DecimalStyle;
 
 import static org.junit.Assert.assertEquals;
 
-public class OperatorTest extends JBasicBaseTest {
+public class BinaryOperatorTest extends JBasicBaseTest {
 
     @Test
     public void testAdd() {
-        test("operators/add.bas",
+        test("operators/binary/add.bas",
                 (result) -> assertEquals("3" + System.lineSeparator(), result.output));
     }
 
     @Test
-    public void testSubtract() {
-        test("operators/subtract.bas",
-                (result) -> assertEquals("1" + System.lineSeparator(), result.output));
-    }
-
-    @Test
-    public void testMultiply() {
-        test("operators/multiply.bas",
-                (result) -> assertEquals("6" + System.lineSeparator(), result.output));
-    }
-
-    @Test
     public void testDivide() {
-        test("operators/divide.bas",
+        test("operators/binary/divide.bas",
                 (result) -> assertEquals("2" + System.lineSeparator() +
                                 "3" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() + "5" + System.lineSeparator(),
                         result.output));
@@ -51,7 +40,19 @@ public class OperatorTest extends JBasicBaseTest {
 
     @Test
     public void testModulo() {
-        test("operators/modulo.bas",
+        test("operators/binary/modulo.bas",
                 (result) -> assertEquals("2" + System.lineSeparator(), result.output));
+    }
+
+    @Test
+    public void testMultiply() {
+        test("operators/binary/multiply.bas",
+                (result) -> assertEquals("6" + System.lineSeparator(), result.output));
+    }
+
+    @Test
+    public void testSubtract() {
+        test("operators/binary/subtract.bas",
+                (result) -> assertEquals("1" + System.lineSeparator(), result.output));
     }
 }

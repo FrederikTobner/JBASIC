@@ -34,28 +34,22 @@ public class CoreUtils {
     /// Decimal output format for numerical values
     public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
 
-    /** Formats an error message with the line and the position in the line where the error occurred
-     * @param line The line where the error occurred
-     * @param positionInLine The position in the line where the error occurred
-     * @param message The error message that is displayed
-     */
-    public static String formatErrorMessage(int line, int positionInLine, String message) {
-        return "Error at [" + line + ", " + positionInLine + "]: " + message;
-    }
-
-    /** Adds line information and the position in the line to an InterpreterException
+    /**
+     * Adds line information and the position in the line to an InterpreterException
+     *
      * @param exception The InterpreterException where that is enriched
-     * @param context The ParserRRuleContext where the error occurred
+     * @param context   The ParserRRuleContext where the error occurred
      */
     public static void addLocationToException(InterpreterException exception, ParserRuleContext context) {
         exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 
-    /*
-     * Areatangens hyperbolicus, the inverse functions of tangent hyperbolicus
+    /**
+     * Area tangent hyperbolicus, the inverse functions of tangent hyperbolicus
+     *
      * @param value The value applied to the function
      */
-    public static double arcTangentHyperbolic(double value) {
+    public static double areaTangentHyperbolicus(double value) {
         final double multiplicand;
         if (Double.doubleToRawLongBits(value) < 0) {
             value = Math.abs(value);
@@ -64,5 +58,16 @@ public class CoreUtils {
             multiplicand = 0.5d;
         }
         return multiplicand * Math.log((1.0d + value) / (1.0d - value));
+    }
+
+    /**
+     * Formats an error message with the line and the position in the line where the error occurred
+     *
+     * @param line           The line where the error occurred
+     * @param positionInLine The position in the line where the error occurred
+     * @param message        The error message that is displayed
+     */
+    public static String formatErrorMessage(int line, int positionInLine, String message) {
+        return "Error at [" + line + ", " + positionInLine + "]: " + message;
     }
 }

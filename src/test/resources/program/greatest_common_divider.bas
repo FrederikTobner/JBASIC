@@ -5,7 +5,7 @@ a = VAL(ain)
 b = VAL(bin)
 
 WHILE b > 0
-    t = a MOD b
+    t = a % b
     a = b
     b = t
 END

@@ -26,18 +26,20 @@ programming languages.
 
 ### Binary operators
 
-| Operator | Description                                      |
-|----------|--------------------------------------------------|
-| +        | Computes the sum of two values.                  |
-| -        | Subtracts the second value from the first value. |
-| *        | Multiplies the two values.                       |
-| /        | Divides the first value with the second value.   |
+| Operator | Description                                                                   |
+|----------|-------------------------------------------------------------------------------|
+| +        | Computes the sum of two values.                                               |
+| -        | Subtracts the second value from the first value.                              |
+| *        | Multiplies the two values.                                                    |
+| /        | Divides the first value with the second value.                                |
+| %        | Returns the remainder of the division of he first value with the second value |
 
 ### Unary operators
 
-| Operator | Description              |
-|----------|--------------------------|
-| !        | Inverts a logical value. |
+| Operator | Description                |
+|----------|----------------------------|
+| !        | Inverts a logical value.   |
+| -        | Negates a numerical value. |
 
 ## Keywords
 
@@ -56,6 +58,12 @@ The language features the following keywords
 | INPUT   | Asks the user to enter the value of a variable. The statement may include a prompt message |
 | PRINT   | Displays a message on the screen or other output device                                    |
 
+### Miscellaneous
+
+| Keyword | Description                                                                                         |
+|---------|-----------------------------------------------------------------------------------------------------|
+| REM     | holds a programmer's comment or remark used to help identify the purpose of a given section of code |
+
 ### Program flow control
 
 | Keyword(s)                         | Description                                        |
@@ -63,12 +71,6 @@ The language features the following keywords
 | IF ... THEN ... {ELSE}             | Used to perform comparisons or make decisions.     |
 | FOR ... TO ... {STEP} ... NEXT     | Repeats a section of code a given number of times. |
 | WHILE ... END and REPEAT ... UNTIL | Repeats a section of code a given number of times. |
-
-### Miscellaneous
-
-| Keyword | Description                                                                                         |
-|---------|-----------------------------------------------------------------------------------------------------|
-| REM     | holds a programmer's comment or remark used to help identify the purpose of a given section of code |
 
 ## Functions
 
