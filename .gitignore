@@ -38,3 +38,5 @@ out/
 ##############################
 .vscode/
 .code-workspace
+
+*.bas linguist-language=BASIC
