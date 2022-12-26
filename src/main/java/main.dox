@@ -6,7 +6,7 @@
 * \section license_sec Testing
 * The interpreter is tested using JUNIT.
 * For testing a JBASIC program is executed and the standard output is redirected.
-* The string is compared with the expected output after the program was executed.
+* Then the redirected output is compared with the expected output after the program was executed.
 * \section license_sec License
 * Copyright &copy; 2022 by <a href="mailto:f.tobner@gmail.com">Frederik Tobner</a>. <br>
 * Permission to use, copy, modify, and distribute this software and its documentation under the terms of the GNU General Public License is hereby granted. <br>
