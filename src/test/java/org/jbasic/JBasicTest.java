@@ -25,11 +25,11 @@ public class JBasicTest {
 
     protected static class Result {
 
-        protected Interpreter interpreter;
+        protected JBasicInterpreter interpreter;
         protected String output;
         protected String error;
 
-        public Result(Interpreter interpreter, String output, String error) {
+        public Result(JBasicInterpreter interpreter, String output, String error) {
             this.interpreter = interpreter;
             this.output = output;
             this.error = error;
@@ -45,7 +45,7 @@ public class JBasicTest {
             ByteArrayOutputStream stdout = new ByteArrayOutputStream();
             ByteArrayOutputStream stderr = new ByteArrayOutputStream();
             ByteArrayInputStream stdin = new ByteArrayInputStream(input.getBytes());
-            Interpreter interpreter = new Interpreter(stdin, stdout, stderr);
+            JBasicInterpreter interpreter = new JBasicInterpreter(stdin, stdout, stderr);
             interpreter.run(resource(resource));
             String output = stdout.toString();
             String error = stderr.toString();

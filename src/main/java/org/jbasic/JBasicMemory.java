@@ -13,16 +13,40 @@
  * License for more details.                                                *
  ****************************************************************************/
 
- /**
- * @file ContinueLoopException.java
- * @brief Forces a continue in a loop ...
+/**
+ * @file Memory.java
+ * @brief A very simple memory model implemented with a hashmap.
  */
+
 package org.jbasic;
 
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * @brief Forces a continue in a loop ...
+ * @brief A very simple memory model implemented with a hashmap.
  */
-public class ContinueLoopException extends RuntimeException {
+public class JBasicMemory {
 
+    /// The hashtable, that stores all the variables with the name of the variable as the key of the entry
+    private final Map<String, JBasicValue> memory = new HashMap<>();
+
+    /// Gets a specific variable from memory
+    /// @param name The name of the variable that is obtained
+    public JBasicValue get(String name) {
+        return memory.get(name);
+    }
+
+    /// Assigns another value to a specific variable in memory
+    /// @param name The name of the variable that is changed
+    /// @param value The new value of the variable
+    public void assign(String name, JBasicValue value) {
+        memory.put(name, value);
+    }
+
+    /// @brief Free's the memory
+    /// @details Deallocates all the memory used by a memory object instance
+    public void free() {
+        memory.clear();
+    }
 }

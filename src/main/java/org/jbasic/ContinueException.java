@@ -13,40 +13,17 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-/**
- * @file Memory.java
- * @brief A very simple memory model implemented with a hashmap.
+ /**
+ * @file ContinueLoopException.java
+ * @brief Forces a continue in a loop ...
  */
-
 package org.jbasic;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * @brief A very simple memory model implemented with a hashmap.
+ * @brief Forces a continue in a loop ...
  */
-public class Memory {
+@SuppressWarnings("serial")
+public class ContinueException extends RuntimeException {
 
-    /// The hashtable, that stores all the variables with the name of the variable as the key of the entry
-    private final Map<String, Value> memory = new HashMap<>();
-
-    /// Gets a specific variable from memory
-    /// @param name The name of the variable that is obtained
-    public Value get(String name) {
-        return memory.get(name);
-    }
-
-    /// Assigns another value to a specific variable in memory
-    /// @param name The name of the variable that is changed
-    /// @param value The new value of the variable
-    public void assign(String name, Value value) {
-        memory.put(name, value);
-    }
-
-    /// @brief Free's the memory
-    /// @details Deallocates all the memory used by a memory object instance
-    public void free() {
-        memory.clear();
-    }
 }

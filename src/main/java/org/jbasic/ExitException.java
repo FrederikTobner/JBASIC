@@ -24,5 +24,5 @@ package org.jbasic;
  * @brief Forces exit from loop.
  */
 @SuppressWarnings("serial")
-public class ExitLoopException extends RuntimeException {
+public class ExitException extends RuntimeException {
 }

@@ -29,14 +29,14 @@ import java.util.function.BiFunction;
  * @brief Value class 
  * @details The class encapsulates numeric and string values and the corresponding operations.
  */
-public class Value {
+public class JBasicValue {
 
     /// False value constant
-    public static final Value CreateFalseValue = new Value(0);
+    public static final JBasicValue CreateFalseValue = new JBasicValue(0);
     /// False value constant
-    public static final Value CreateTrueValue = new Value(1);
+    public static final JBasicValue CreateTrueValue = new JBasicValue(1);
     /// not a number constant
-    public static final Value CreateNotANumberValue = new Value(null);
+    public static final JBasicValue CreateNotANumberValue = new JBasicValue(null);
 
     /// Underlying value
     private final Object value;
@@ -44,7 +44,7 @@ public class Value {
     /** Creates a new Value object instance that has a string as the underlying value
      * @param value The underlying string value of the newly created value
      */
-    public Value(String value) {
+    public JBasicValue(String value) {
         this.value = value;
     }
 
@@ -53,7 +53,7 @@ public class Value {
      * @param value The underlying double of the newly created value
      */
 
-    public Value(double value) {
+    public JBasicValue(double value) {
         this.value = value;
     }
 
@@ -62,7 +62,7 @@ public class Value {
      * @param value The underlying double of the newly created value
      * @details This method is only called by the two other public constructors of this class
      */
-    private Value(Object value) {
+    private JBasicValue(Object value) {
         this.value = value;
     }
 
@@ -133,7 +133,7 @@ public class Value {
     private void assertNumber(ParserRuleContext context) {
         if (!isANumericalValue()) {
             TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" + value + "\" is not a number");
-            CoreUtils.addLocation(typeException, context);
+            CoreUtils.addLocationToException(typeException, context);
             throw typeException;
         }
     }
@@ -144,7 +144,7 @@ public class Value {
      * @param context The parsing context of the multiplication expression
      * @return This Value object instance multiplied by the divisor 'right'
      */
-    public Value multiply(Value right, ParserRuleContext context) {
+    public JBasicValue multiply(JBasicValue right, ParserRuleContext context) {
         return arithmeticEvaluation(right, (l, r) -> l * r, context);
     }
 
@@ -154,7 +154,7 @@ public class Value {
      * @param context The parsing context of the division expression
      * @return This Value object instance divided by the divisor 'right'
      */
-    public Value divide(Value right, ParserRuleContext context) {
+    public JBasicValue divide(JBasicValue right, ParserRuleContext context) {
         return arithmeticEvaluation(right, (l, r) -> l / r, context);
     }
 
@@ -164,7 +164,7 @@ public class Value {
      * @param context The parsing context of the division expression
      * @return This Value object instance divided by the divisor 'right'
      */
-    public Value modulo(Value right, ParserRuleContext context) {
+    public JBasicValue modulo(JBasicValue right, ParserRuleContext context) {
         return arithmeticEvaluation(right, (l, r) -> l % r, context);
     }
 
@@ -174,15 +174,15 @@ public class Value {
      * @param context The parsing context of the addition expression
      * @return The underlying numerical value of this Value object instance added to the underlying numerical value of the other Value object instance
      */
-    public Value add(Value right, ParserRuleContext context) {
+    public JBasicValue add(JBasicValue right, ParserRuleContext context) {
         if (isAStringValue() && right.isAStringValue()) {
-            return new Value(underlyingString() + right.underlyingString());
+            return new JBasicValue(underlyingString() + right.underlyingString());
         }
         else if (isAStringValue() && right.isANumericalValue()) {
-            return new Value(underlyingString() + CoreUtils.numericalOutputFormat.format(right.underlyingNumber()));
+            return new JBasicValue(underlyingString() + CoreUtils.numericalOutputFormat.format(right.underlyingNumber()));
         }
         else if (isANumericalValue() && right.isAStringValue()) {
-            return new Value(CoreUtils.numericalOutputFormat.format(underlyingNumber()) + right.underlyingString());
+            return new JBasicValue(CoreUtils.numericalOutputFormat.format(underlyingNumber()) + right.underlyingString());
         }
         else {
             return arithmeticEvaluation(right, Double::sum, context);
@@ -195,7 +195,7 @@ public class Value {
      * @param context The parsing context of the subtraction expression
      * @return The underlying numerical value of this Value object instance subtracted with the underlying numerical value of the other Value object instance
      */
-    public Value subtract(Value right, ParserRuleContext context) {
+    public JBasicValue subtract(JBasicValue right, ParserRuleContext context) {
         return arithmeticEvaluation(right, (l, r) -> l - r, context);
     }
 
@@ -206,10 +206,10 @@ public class Value {
      * @param context The parsing context of the binary expression
      * @return The result of the arithmetic evaluation
      */
-    private Value arithmeticEvaluation(Value right, BiFunction<Double, Double, Double> operator, ParserRuleContext context) {
+    private JBasicValue arithmeticEvaluation(JBasicValue right, BiFunction<Double, Double, Double> operator, ParserRuleContext context) {
         assertNumber(context);
         right.assertNumber(context);
-        return new Value(operator.apply(underlyingNumber(), right.underlyingNumber()));
+        return new JBasicValue(operator.apply(underlyingNumber(), right.underlyingNumber()));
     }
 
     /**
@@ -218,7 +218,7 @@ public class Value {
      * @param context The parsing context of the 'greater-then expression'
      * @return true if this Value object instance is greater than the other Value object instance, false if not
      */
-    public Value greaterThen(Value right, ParserRuleContext context) {
+    public JBasicValue greaterThen(JBasicValue right, ParserRuleContext context) {
         return relativeEvaluate(right, (l, r) -> l > r, context);
     }
 
@@ -228,7 +228,7 @@ public class Value {
      * @param context The parsing context of the 'greater-then-equal expression'
      * @return true if this Value object instance is greater or equal to the other Value object instance, false if not
      */
-    public Value greaterThenEqual(Value right, ParserRuleContext context) {
+    public JBasicValue greaterThenEqual(JBasicValue right, ParserRuleContext context) {
         return relativeEvaluate(right, (l, r) -> l >= r, context);
     }
 
@@ -238,7 +238,7 @@ public class Value {
      * @param context The parsing context of the 'less-then expression'
      * @return true if this Value object instance is less than the other Value object instance, false if not
      */
-    public Value lessThen(Value right, ParserRuleContext context) {
+    public JBasicValue lessThen(JBasicValue right, ParserRuleContext context) {
         return relativeEvaluate(right, (l, r) -> l < r, context);
     }
 
@@ -248,7 +248,7 @@ public class Value {
      * @param context The parsing context of the 'less-then-equal expression'
      * @return true if this Value object instance is less or equal to the other Value object instance, false if not
      */
-    public Value lessThenEqual(Value right, ParserRuleContext context) {
+    public JBasicValue lessThenEqual(JBasicValue right, ParserRuleContext context) {
         return relativeEvaluate(right, (l, r) -> l <= r, context);
     }
 
@@ -258,7 +258,7 @@ public class Value {
      * @param context The parsing context of the 'equal expression'
      * @return true if both values are equal, false if not
      */
-    public Value equal(Value right, ParserRuleContext context) {
+    public JBasicValue equal(JBasicValue right, ParserRuleContext context) {
         if (isANumericalValue() && right.isANumericalValue()) {
             return relativeEvaluate(right, Objects::equals, context);
         } else if (isAStringValue() && right.isAStringValue()) {
@@ -273,8 +273,8 @@ public class Value {
      * @param context The parsing context of the 'not equal expression'
      * @return true if both values are not equal, false if not
      */
-    public Value notEqual(Value right, ParserRuleContext context) {
-        Value eq = equal(right, context);
+    public JBasicValue notEqual(JBasicValue right, ParserRuleContext context) {
+        JBasicValue eq = equal(right, context);
         return eq.equal(CreateTrueValue, context) == CreateTrueValue ? CreateFalseValue : CreateTrueValue;
     }
 
@@ -285,7 +285,7 @@ public class Value {
      * @param context The parsing context of the relative Evaluation
      * @return The result of the relative evaluation
      */
-    private Value relativeEvaluate(Value right, BiFunction<Double, Double, Boolean> comparison, ParserRuleContext context) {
+    private JBasicValue relativeEvaluate(JBasicValue right, BiFunction<Double, Double, Boolean> comparison, ParserRuleContext context) {
         assertNumber(context);
         right.assertNumber(context);
         if (comparison.apply(underlyingNumber(), right.underlyingNumber())) {
@@ -299,7 +299,7 @@ public class Value {
      * @param context The parsing context of the 'not expression'
      * @return True if the Value object instance was falsy, false if it was true
      */
-    public Value not(ParserRuleContext context) {
+    public JBasicValue not(ParserRuleContext context) {
         assertNumber(context);
         if (underlyingNumber() == 0) {
             return CreateTrueValue;
@@ -313,7 +313,7 @@ public class Value {
      * @param context The parsing context of the Value instance
      * @return True if the value and the right value are truthy
      */
-    public Value and(Value right, ParserRuleContext context) {
+    public JBasicValue and(JBasicValue right, ParserRuleContext context) {
         return isTruthy(context) && right.isTruthy(context) ? CreateTrueValue : CreateFalseValue;
     }
 
@@ -323,7 +323,7 @@ public class Value {
      * @param context The parsing context of the Value instance
      * @return True if the value or the right value are truthy
      */
-    public Value or(Value right, ParserRuleContext context) {
+    public JBasicValue or(JBasicValue right, ParserRuleContext context) {
         return isTruthy(context) || right.isTruthy(context) ? CreateTrueValue : CreateFalseValue;
     }
 
@@ -335,9 +335,9 @@ public class Value {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Value)) return false;
+        if (!(o instanceof JBasicValue)) return false;
 
-        Value value1 = (Value) o;
+        JBasicValue value1 = (JBasicValue) o;
 
         if (this.isNotANumericalValue() != value1.isNotANumericalValue()) return false;
         return Objects.equals(value, value1.value);

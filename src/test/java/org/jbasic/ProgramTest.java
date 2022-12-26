@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 public class ProgramTest extends JBasicTest{
 
     @Test
-    public void testGcdEuclid() {
+    public void testGreatestCommonDivider() {
         test("program/greatest_common_divider.bas", "9" + System.lineSeparator() + "12" + System.lineSeparator(),
                 (result) -> assertEquals("A= B= GCD=3" + System.lineSeparator(), result.output));
     }

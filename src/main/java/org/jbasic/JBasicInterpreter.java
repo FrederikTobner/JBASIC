@@ -21,10 +21,7 @@ package org.jbasic;
 
 import basic.JBasicLexer;
 import basic.JBasicParser;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.BailErrorStrategy;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.InputMismatchException;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -36,7 +33,7 @@ import java.io.PrintStream;
 /**
  * @brief The JBASIC interpreter
  */
-public class Interpreter {
+public class JBasicInterpreter {
 
     /// The standard input stream used by the interpreter
     private final InputStream stdin;
@@ -45,7 +42,7 @@ public class Interpreter {
     /// The standard error output stream used by the interpreter
     private final PrintStream stderrPrint;
     /// The Memory object instance used to store variables
-    private Memory memory;
+    private JBasicMemory memory;
 
     /**
      * @brief Constructor a new Interpreter object instance
@@ -53,7 +50,7 @@ public class Interpreter {
      * @param stdout The standard output stream used by the interpreter
      * @param stderr The standard error stream used by the interpreter
      */
-    public Interpreter(InputStream stdin, OutputStream stdout, OutputStream stderr) {
+    public JBasicInterpreter(InputStream stdin, OutputStream stdout, OutputStream stderr) {
         this.stdin = stdin;
         this.stdoutPrint = new PrintStream(stdout, true);
         this.stderrPrint = new PrintStream(stderr, true);
@@ -65,7 +62,7 @@ public class Interpreter {
      */
     public void run(InputStream programInput) throws IOException {
         // Wrapping the sourcecode in a ANTLRInputStream
-        ANTLRInputStream input = new ANTLRInputStream(programInput);
+        CharStream input = CharStreams.fromStream(programInput);
         // Initializing a newly created lexer object with the ANTLRInputStream
         JBasicLexer lexer = new JBasicLexer(input);
         // Creating a stream of tokens with the lexer
@@ -82,7 +79,7 @@ public class Interpreter {
             // We create an abstract syntax tree from the tokens
             ParseTree tree = parser.program();
             // Memory used by the program
-            memory = new Memory();
+            memory = new JBasicMemory();
             // Creating the visitor to visit the nodes in the abstract syntax tree
             JBasicVisitor visitor = new JBasicVisitor(memory, stdin, stdoutPrint);
             // Executing the program with the visitor
@@ -108,7 +105,7 @@ public class Interpreter {
      * @return The memory of the interpreter
      * @details The memory associated with the interpreter is a simple hashtable that stores all the variables that are declared in the program
      */
-    public Memory getMemory() {
+    public JBasicMemory getMemory() {
         return memory;
     }
 

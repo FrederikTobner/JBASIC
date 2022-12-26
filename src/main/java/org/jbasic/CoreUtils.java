@@ -34,18 +34,20 @@ public class CoreUtils {
     /// Decimal output format for numerical values
     public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
 
-    /// Formats an error message with the line and the position in the line where the error occured
-    /// @param line The line where the error occured
-    /// @param The position in the line where the error occured
-    /// @param message The error message that is displayed
+    /** Formats an error message with the line and the position in the line where the error occurred
+     * @param line The line where the error occurred
+     * @param positionInLine The position in the line where the error occurred
+     * @param message The error message that is displayed
+     */
     public static String formatErrorMessage(int line, int positionInLine, String message) {
         return "Error at [" + line + ", " + positionInLine + "]: " + message;
     }
 
-    /// Adds line information and the position in the line to an InterpreterException
-    /// @param exception The InterpreterException where that is enriched
-    /// @param context The ParserRRuleContext where the error occured
-    public static void addLocation(InterpreterException exception, ParserRuleContext context) {
+    /** Adds line information and the position in the line to an InterpreterException
+     * @param exception The InterpreterException where that is enriched
+     * @param context The ParserRRuleContext where the error occurred
+     */
+    public static void addLocationToException(InterpreterException exception, ParserRuleContext context) {
         exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 

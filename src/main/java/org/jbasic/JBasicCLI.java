@@ -35,14 +35,14 @@ public class JBasicCLI {
      */
     public static void main(String[] args) {
         InputStream inputStream = null;
-        Interpreter interpreter = null;
+        JBasicInterpreter interpreter = null;
         try {
             if (args.length != 1) {
                 System.out.println("Usage: JBASIC <script>");
                 System.exit(-1);
             }
             inputStream = new FileInputStream(args[0]);
-            interpreter = new Interpreter(System.in, System.out, System.err);
+            interpreter = new JBasicInterpreter(System.in, System.out, System.err);
             interpreter.run(inputStream);
             interpreter.clear();
 

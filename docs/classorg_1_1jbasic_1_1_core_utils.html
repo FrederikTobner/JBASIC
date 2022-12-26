@@ -75,8 +75,8 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_core_utils.html
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a46c69eec3169aeccfc520d14f4500743"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a46c69eec3169aeccfc520d14f4500743">formatErrorMessage</a> (int line, int positionInLine, String message)</td></tr>
 <tr class="separator:a46c69eec3169aeccfc520d14f4500743"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8342ee060dc4ab660a05f859666db73"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#ac8342ee060dc4ab660a05f859666db73">addLocation</a> (<a class="el" href="classorg_1_1jbasic_1_1_interpreter_exception.html">InterpreterException</a> exception, ParserRuleContext context)</td></tr>
-<tr class="separator:ac8342ee060dc4ab660a05f859666db73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac72ecb3339bd38583cdb3213ef7c1eef"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#ac72ecb3339bd38583cdb3213ef7c1eef">addLocationToException</a> (<a class="el" href="classorg_1_1jbasic_1_1_interpreter_exception.html">InterpreterException</a> exception, ParserRuleContext context)</td></tr>
+<tr class="separator:ac72ecb3339bd38583cdb3213ef7c1eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7ea2f80bb6df33b9a76f2d5cc0381d5"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#aa7ea2f80bb6df33b9a76f2d5cc0381d5">arcTangentHyperbolic</a> (double value)</td></tr>
 <tr class="separator:aa7ea2f80bb6df33b9a76f2d5cc0381d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -90,8 +90,8 @@ Static Public Attributes</h2></td></tr>
 <div class="textblock"><p >Core utility methods. </p>
 <p >The core utility methods of the interpreter </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac8342ee060dc4ab660a05f859666db73" name="ac8342ee060dc4ab660a05f859666db73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8342ee060dc4ab660a05f859666db73">&#9670;&#160;</a></span>addLocation()</h2>
+<a id="ac72ecb3339bd38583cdb3213ef7c1eef" name="ac72ecb3339bd38583cdb3213ef7c1eef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac72ecb3339bd38583cdb3213ef7c1eef">&#9670;&#160;</a></span>addLocationToException()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -100,7 +100,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void org.jbasic.CoreUtils.addLocation </td>
+          <td class="memname">static void org.jbasic.CoreUtils.addLocationToException </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classorg_1_1jbasic_1_1_interpreter_exception.html">InterpreterException</a>&#160;</td>
           <td class="paramname"><em>exception</em>, </td>
@@ -126,7 +126,7 @@ Static Public Attributes</h2></td></tr>
 <p >Adds line information and the position in the line to an <a class="el" href="classorg_1_1jbasic_1_1_interpreter_exception.html" title="Base exception for interpreter runtime errors.">InterpreterException</a> </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">exception</td><td>The <a class="el" href="classorg_1_1jbasic_1_1_interpreter_exception.html" title="Base exception for interpreter runtime errors.">InterpreterException</a> where that is enriched </td></tr>
-    <tr><td class="paramname">context</td><td>The ParserRRuleContext where the error occured </td></tr>
+    <tr><td class="paramname">context</td><td>The ParserRRuleContext where the error occurred </td></tr>
   </table>
   </dd>
 </dl>
@@ -198,10 +198,10 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Formats an error message with the line and the position in the line where the error occured </p><dl class="params"><dt>Parameters</dt><dd>
+<p >Formats an error message with the line and the position in the line where the error occurred </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">line</td><td>The line where the error occured </td></tr>
-    <tr><td class="paramname">The</td><td>position in the line where the error occured </td></tr>
+    <tr><td class="paramname">line</td><td>The line where the error occurred </td></tr>
+    <tr><td class="paramname">positionInLine</td><td>The position in the line where the error occurred </td></tr>
     <tr><td class="paramname">message</td><td>The error message that is displayed </td></tr>
   </table>
   </dd>

@@ -20,14 +20,14 @@ import java.io.PrintStream;
  * @brief The ANTLR visitor.
  * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
  */
-public class JBasicVisitor extends JBasicBaseVisitor<Value> {
+public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
 
     /// standard input stream
     private final InputStream stdin;
     /// standard output stream
     private final PrintStream stdout;
     /// Memory object instance that is used when the program is executed to store the variables declared in the program
-    private final Memory memory;
+    private final JBasicMemory memory;
 
     /// standard output stream that is used when the program is executed
     private PrintStream printStream;
@@ -41,7 +41,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @param stdin  The standard input stream used by the visitor
      * @param stdout The standard output stream used by the visitor
      */
-    public JBasicVisitor(Memory memory, InputStream stdin, PrintStream stdout) {
+    public JBasicVisitor(JBasicMemory memory, InputStream stdin, PrintStream stdout) {
         this.stdin = stdin;
         this.stdout = stdout;
         this.memory = memory;
@@ -54,7 +54,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitProgram(JBasicParser.ProgramContext context) {
+    public JBasicValue visitProgram(JBasicParser.ProgramContext context) {
         init();
         try {
             return super.visitProgram(context);
@@ -88,7 +88,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitId(JBasicParser.IdContext context) {
+    public JBasicValue visitId(JBasicParser.IdContext context) {
         String id = context.getText();
         return memory.get(id);
     }
@@ -100,8 +100,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitNumber(JBasicParser.NumberContext context) {
-        return new Value(Double.parseDouble(context.getText()));
+    public JBasicValue visitNumber(JBasicParser.NumberContext context) {
+        return new JBasicValue(Double.parseDouble(context.getText()));
     }
 
     /**
@@ -111,9 +111,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitString(JBasicParser.StringContext context) {
+    public JBasicValue visitString(JBasicParser.StringContext context) {
         String value = context.getText();
-        return new Value(value.substring(1, value.length() - 1));
+        return new JBasicValue(value.substring(1, value.length() - 1));
     }
 
     //region Statements
@@ -125,7 +125,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitStatement(JBasicParser.StatementContext context) {
+    public JBasicValue visitStatement(JBasicParser.StatementContext context) {
         return super.visitStatement(context);
     }
 
@@ -137,8 +137,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitContinueStatement(JBasicParser.ContinueStatementContext context) {
-        throw new ContinueLoopException();
+    public JBasicValue visitContinueStatement(JBasicParser.ContinueStatementContext context) {
+        throw new ContinueException();
     }
 
     /**
@@ -148,8 +148,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitExitStatement(JBasicParser.ExitStatementContext context) {
-        throw new ExitLoopException();
+    public JBasicValue visitExitStatement(JBasicParser.ExitStatementContext context) {
+        throw new ExitException();
     }
 
     /**
@@ -159,21 +159,21 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitForStatement(JBasicParser.ForStatementContext context) {
+    public JBasicValue visitForStatement(JBasicParser.ForStatementContext context) {
         String variableName = context.variableDeclaration().variableName().ID().getText();
-        Value start = visit(context.expression(0));
-        Value end = visit(context.expression(1));
-        Value step = context.expression(2) != null ? visit(context.expression(2)) : new Value(1);
+        JBasicValue start = visit(context.expression(0));
+        JBasicValue end = visit(context.expression(1));
+        JBasicValue step = context.expression(2) != null ? visit(context.expression(2)) : new JBasicValue(1);
         for (double i = start.underlyingNumber(); i <= end.underlyingNumber(); i = i + step.underlyingNumber()) {
-            memory.assign(variableName, new Value(i));
+            memory.assign(variableName, new JBasicValue(i));
             try {
                 visit(context.block());
-            } catch (ContinueLoopException ignored) {
-            } catch (ExitLoopException e) {
+            } catch (ContinueException ignored) {
+            } catch (ExitException e) {
                 break;
             }
         }
-        return new Value(0);
+        return new JBasicValue(0);
     }
 
     /**
@@ -183,8 +183,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitIfStatement(JBasicParser.IfStatementContext context) {
-        Value condition = visit(context.expression());
+    public JBasicValue visitIfStatement(JBasicParser.IfStatementContext context) {
+        JBasicValue condition = visit(context.expression());
         if (condition.isTruthy(context)) {
             return visit(context.block());
         } else {
@@ -208,12 +208,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitInputStatement(JBasicParser.InputStatementContext context) {
+    public JBasicValue visitInputStatement(JBasicParser.InputStatementContext context) {
         printStream.print(visit(context.string()).underlyingString() + " ");
         String variableName = context.variableDeclaration().getText();
         try {
             String line = inputStream.readLine();
-            Value val = new Value(line);
+            JBasicValue val = new JBasicValue(line);
             memory.assign(variableName, val);
             return val;
         } catch (IOException e) {
@@ -228,9 +228,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitLetStatement(JBasicParser.LetStatementContext context) {
+    public JBasicValue visitLetStatement(JBasicParser.LetStatementContext context) {
         String variableName = context.variableDeclaration().variableName().ID().getText();
-        Value value = visit(context.expression());
+        JBasicValue value = visit(context.expression());
         memory.assign(variableName, value);
         return value;
     }
@@ -242,8 +242,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitPrintStatement(JBasicParser.PrintStatementContext context) {
-        Value value = visit(context.expression());
+    public JBasicValue visitPrintStatement(JBasicParser.PrintStatementContext context) {
+        JBasicValue value = visit(context.expression());
         if (value.isANumericalValue()) {
             printStream.println(CoreUtils.numericalOutputFormat.format(value.underlyingNumber()));
         } else {
@@ -259,19 +259,19 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitRepeatStatement(JBasicParser.RepeatStatementContext context) {
-        Value condition;
+    public JBasicValue visitRepeatStatement(JBasicParser.RepeatStatementContext context) {
+        JBasicValue condition;
         do {
             try {
                 visit(context.block());
-            } catch (ContinueLoopException ignored) {
-            } catch (ExitLoopException e) {
+            } catch (ContinueException ignored) {
+            } catch (ExitException e) {
                 break;
             } finally {
                 condition = visit(context.expression());
             }
         } while (condition.isFalsy(context));
-        return new Value(0);
+        return new JBasicValue(0);
     }
 
     /**
@@ -281,19 +281,19 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitWhileStatement(JBasicParser.WhileStatementContext context) {
-        Value condition = visit(context.expression());
+    public JBasicValue visitWhileStatement(JBasicParser.WhileStatementContext context) {
+        JBasicValue condition = visit(context.expression());
         while (condition.isTruthy(context)) {
             try {
                 visit(context.block());
-            } catch (ContinueLoopException ignored) {
-            } catch (ExitLoopException e) {
+            } catch (ContinueException ignored) {
+            } catch (ExitException e) {
                 break;
             } finally {
                 condition = visit(context.expression());
             }
         }
-        return new Value(0);
+        return new JBasicValue(0);
     }
     //endregion
 
@@ -306,10 +306,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitAbsFunction(JBasicParser.AbsFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitAbsFunction(JBasicParser.AbsFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.abs(argument.underlyingNumber()));
+            return new JBasicValue(Math.abs(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -322,10 +322,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitAcsFunction(JBasicParser.AcsFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitAcsFunction(JBasicParser.AcsFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.acos(argument.underlyingNumber()));
+            return new JBasicValue(Math.acos(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ACS(). Argument is not a number");
         }
@@ -338,10 +338,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitAsnFunction(JBasicParser.AsnFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitAsnFunction(JBasicParser.AsnFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.asin(argument.underlyingNumber()));
+            return new JBasicValue(Math.asin(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ASN(). Argument is not a number");
         }
@@ -354,10 +354,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitAthFunction(JBasicParser.AthFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitAthFunction(JBasicParser.AthFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(CoreUtils.arcTangentHyperbolic(argument.underlyingNumber()));
+            return new JBasicValue(CoreUtils.arcTangentHyperbolic(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ATH(). Argument is not a number");
         }
@@ -370,10 +370,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitAtnFunction(JBasicParser.AtnFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitAtnFunction(JBasicParser.AtnFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.atan(argument.underlyingNumber()));
+            return new JBasicValue(Math.atan(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ATN(). Argument is not a number");
         }
@@ -386,10 +386,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitCosFunction(JBasicParser.CosFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitCosFunction(JBasicParser.CosFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.cos(argument.underlyingNumber()));
+            return new JBasicValue(Math.cos(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate COS(). Argument is not a number");
         }
@@ -402,10 +402,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitExpFunction(JBasicParser.ExpFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitExpFunction(JBasicParser.ExpFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.exp(argument.underlyingNumber()));
+            return new JBasicValue(Math.exp(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate EXP(). Argument is not a number");
         }
@@ -418,9 +418,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitIsnanFunction(JBasicParser.IsnanFunctionContext context) {
-        Value argument = visit(context.expression());
-        return argument.isNotANumericalValue() ? Value.CreateTrueValue : Value.CreateFalseValue;
+    public JBasicValue visitIsnanFunction(JBasicParser.IsnanFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
+        return argument.isNotANumericalValue() ? JBasicValue.CreateTrueValue : JBasicValue.CreateFalseValue;
     }
 
     /**
@@ -430,10 +430,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitLenFunction(JBasicParser.LenFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitLenFunction(JBasicParser.LenFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isAStringValue()) {
-            return new Value(argument.underlyingString().length());
+            return new JBasicValue(argument.underlyingString().length());
         } else {
             throw new TypeException("Couldn't evaluate LEN(). Argument is not a string");
         }
@@ -446,10 +446,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitLogFunction(JBasicParser.LogFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitLogFunction(JBasicParser.LogFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.log(argument.underlyingNumber()));
+            return new JBasicValue(Math.log(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -462,10 +462,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitSinFunction(JBasicParser.SinFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitSinFunction(JBasicParser.SinFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.sin(argument.underlyingNumber()));
+            return new JBasicValue(Math.sin(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -478,10 +478,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitSqrFunction(JBasicParser.SqrFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitSqrFunction(JBasicParser.SqrFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.sqrt(argument.underlyingNumber()));
+            return new JBasicValue(Math.sqrt(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -494,10 +494,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitTanFunction(JBasicParser.TanFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitTanFunction(JBasicParser.TanFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isANumericalValue()) {
-            return new Value(Math.tan(argument.underlyingNumber()));
+            return new JBasicValue(Math.tan(argument.underlyingNumber()));
         } else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
         }
@@ -510,14 +510,14 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitValFunction(JBasicParser.ValFunctionContext context) {
-        Value argument = visit(context.expression());
+    public JBasicValue visitValFunction(JBasicParser.ValFunctionContext context) {
+        JBasicValue argument = visit(context.expression());
         if (argument.isAStringValue()) {
             String str = argument.underlyingString();
             try {
-                return new Value(Long.parseLong(str));
+                return new JBasicValue(Long.parseLong(str));
             } catch (NumberFormatException e) {
-                return Value.CreateNotANumberValue;
+                return JBasicValue.CreateNotANumberValue;
             }
         }
         return argument;
@@ -533,9 +533,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitAndExpression(JBasicParser.AndExpressionContext context) {
-        Value left = visit(context.expression(0));
-        Value right = visit(context.expression(1));
+    public JBasicValue visitAndExpression(JBasicParser.AndExpressionContext context) {
+        JBasicValue left = visit(context.expression(0));
+        JBasicValue right = visit(context.expression(1));
         return left.and(right, context);
     }
 
@@ -546,9 +546,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
-        Value left = visit(context.expression(0));
-        Value right = visit(context.expression(1));
+    public JBasicValue visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
+        JBasicValue left = visit(context.expression(0));
+        JBasicValue right = visit(context.expression(1));
         if (context.op.getType() == LBExpressionParser.ADD) {
             return left.add(right, context);
         } else {
@@ -563,9 +563,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
-        Value left = visit(context.expression(0));
-        Value right = visit(context.expression(1));
+    public JBasicValue visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
+        JBasicValue left = visit(context.expression(0));
+        JBasicValue right = visit(context.expression(1));
         if (context.op.getType() == LBExpressionParser.MULTIPLY) {
             return left.multiply(right, context);
         } else if (context.op.getType() == LBExpressionParser.DIVIDE) {
@@ -582,8 +582,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitNotExpression(JBasicParser.NotExpressionContext context) {
-        Value value = visit(context.expression());
+    public JBasicValue visitNotExpression(JBasicParser.NotExpressionContext context) {
+        JBasicValue value = visit(context.expression());
         return value.not(context);
     }
 
@@ -594,9 +594,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitOrExpression(JBasicParser.OrExpressionContext context) {
-        Value left = visit(context.expression(0));
-        Value right = visit(context.expression(1));
+    public JBasicValue visitOrExpression(JBasicParser.OrExpressionContext context) {
+        JBasicValue left = visit(context.expression(0));
+        JBasicValue right = visit(context.expression(1));
         return left.or(right, context);
     }
 
@@ -607,9 +607,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<Value> {
      * @return The Value that is omitted by executing code
      */
     @Override
-    public Value visitRelExpression(JBasicParser.RelExpressionContext context) {
-        Value left = visit(context.expression(0));
-        Value right = visit(context.expression(1));
+    public JBasicValue visitRelExpression(JBasicParser.RelExpressionContext context) {
+        JBasicValue left = visit(context.expression(0));
+        JBasicValue right = visit(context.expression(1));
         switch (context.op.getType()) {
             case LBExpressionParser.GREATER_THEN:
                 return left.greaterThen(right, context);
