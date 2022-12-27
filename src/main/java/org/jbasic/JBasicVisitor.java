@@ -145,7 +145,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     @Override
-    public JBasicValue visitSubroutineCallStatement(JBasicParser.SubroutineCallStatementContext context) {
+    public JBasicValue visitSubroutineInvocationStatement(JBasicParser.SubroutineInvocationStatementContext context) {
 
         List<JBasicValue> parameters = new ArrayList<>();
         // Parses arguments
