@@ -24,7 +24,7 @@
 package org.jbasic;
 
 /**
- * Redefinition of a subroutine error.
+ * @brief Redefinition of a subroutine error.
  */
 @SuppressWarnings("serial")
 public class SubroutineRedefinitionException extends InterpreterBaseException {

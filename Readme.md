@@ -11,8 +11,10 @@ by [BASIC](https://en.wikipedia.org/wiki/BASIC).
 ## Table of Contents
 
 * [Overview](#overview)
+* [Operators](#operators)
 * [Keywords](#keywords)
 * [Functions](#functions)
+* [Subroutines](#subroutines)
 * [Building](#building)
 * [How it works](#how-it-works)
 * [License](#license)
@@ -113,12 +115,29 @@ JBASIC offers numerous functions to perform various tasks
 |--------------|--------------------|
 | LEN          | Length of a string |
 
+## Subroutines
+
+JBASIC allows the definition of subroutines to accomplish a particular task. An example for a simple subroutine would
+be:
+
+```
+SUB Greet()
+   INPUT "Name=" name
+   PRINT "Hi my name is " + name
+END SUB
+
+CALL Greet()
+```
+
+The SUB keyword marks the definition of a subroutine. After that the name of the subroutine and the arguments of the
+subroutine are specified. Then the body of the subroutine follows. The end of the subroutine is marked with the END and
+the SUB keyword. Subroutines are then invoked using the call keyword.
+
 ## Building
 
 The interpreter is built using maven, uses the JDK version 11 and can be built by running the following command
 
     mvn install
-
 
 ## How it works
 

@@ -24,7 +24,7 @@
 package org.jbasic;
 
 /**
- * Invoking an undefined subroutine error.
+ * @brief Invoking an undefined subroutine error.
  */
 @SuppressWarnings("serial")
 public class SubroutineNotDefinedException extends InterpreterBaseException {

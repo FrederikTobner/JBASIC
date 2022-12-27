@@ -24,7 +24,7 @@
 package org.jbasic;
 
 /**
- * Invoking a subroutine with the wrong amount of arguments error.
+ * @brief Invoking a subroutine with the wrong amount of arguments error.
  */
 @SuppressWarnings("serial")
 public class SubroutineArityException extends InterpreterBaseException {
