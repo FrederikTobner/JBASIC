@@ -23,7 +23,7 @@ package org.jbasic;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.text.DecimalFormat;
-import java.util.List;
+import java.util.function.Function;
 
 
 /**
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class CoreUtils {
 
-    /// Decimal output format for numerical values
+    /// Decimal output format for numerical values (not decimal dot if the number is x.0)
     public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
 
     /**
@@ -45,9 +45,15 @@ public class CoreUtils {
         exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 
-    public static void assertArrity(String functionName, List<basic.JBasicParser.ExpressionContext> arguments, int expectedArgumentCount) {
-        if (arguments.size() != expectedArgumentCount) {
-            throw new FunctionArityException(functionName + " can not be called with 0 arguments");
+    /**
+     * Asserts the arity of a function upon invocation
+     * @param functionName The name of the function were the arity is asserted upon invocation
+     * @param argumentCount The parsing context of the expressions
+     * @param assertion The assertion that is applied to the number of arguments that were used when the function was invoked
+     */
+    public static void assertArity(String functionName, int argumentCount, Function<Integer, Boolean> assertion) {
+        if (!assertion.apply(argumentCount)) {
+            throw new FunctionArityException(functionName + " can not be called with" + argumentCount + "arguments");
         }
     }
 

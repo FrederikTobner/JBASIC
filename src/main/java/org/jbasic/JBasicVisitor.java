@@ -346,7 +346,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAbsFunction(JBasicParser.AbsFunctionContext context) {
-        CoreUtils.assertArrity("ABS", context.expression(), 1);
+        CoreUtils.assertArity("ABS", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.abs(argument.underlyingNumber()));
@@ -363,7 +363,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAcsFunction(JBasicParser.AcsFunctionContext context) {
-        CoreUtils.assertArrity("ACS", context.expression(), 1);
+        CoreUtils.assertArity("ACS", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.acos(argument.underlyingNumber()));
@@ -380,7 +380,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAsnFunction(JBasicParser.AsnFunctionContext context) {
-        CoreUtils.assertArrity("ASN", context.expression(), 1);
+        CoreUtils.assertArity("ASN", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.asin(argument.underlyingNumber()));
@@ -397,7 +397,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAthFunction(JBasicParser.AthFunctionContext context) {
-        CoreUtils.assertArrity("ATH", context.expression(), 1);
+        CoreUtils.assertArity("ATH", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(CoreUtils.areaTangentHyperbolicus(argument.underlyingNumber()));
@@ -414,7 +414,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAtnFunction(JBasicParser.AtnFunctionContext context) {
-        CoreUtils.assertArrity("ATN", context.expression(), 1);
+        CoreUtils.assertArity("ATN", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.atan(argument.underlyingNumber()));
@@ -431,9 +431,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAvgFunction(JBasicParser.AvgFunctionContext context) {
-        if (context.expression().size() == 0) {
-            throw new FunctionArityException("AVG can not be called with 0 arguments");
-        }
+        CoreUtils.assertArity("AVG", context.expression().size(), (i -> i != 0));
         double sum = 0;
         for (JBasicParser.ExpressionContext expression : context.expression()) {
             JBasicValue value = this.visit(expression);
@@ -453,7 +451,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitCosFunction(JBasicParser.CosFunctionContext context) {
-        CoreUtils.assertArrity("COS", context.expression(), 1);
+        CoreUtils.assertArity("COS", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.cos(argument.underlyingNumber()));
@@ -470,7 +468,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitExpFunction(JBasicParser.ExpFunctionContext context) {
-        CoreUtils.assertArrity("EXP", context.expression(), 1);
+        CoreUtils.assertArity("EXP", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.exp(argument.underlyingNumber()));
@@ -487,7 +485,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLenFunction(JBasicParser.LenFunctionContext context) {
-        CoreUtils.assertArrity("LEN", context.expression(), 1);
+        CoreUtils.assertArity("LEN", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isAStringValue()) {
             return new JBasicValue(argument.underlyingString().length());
@@ -504,7 +502,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLogFunction(JBasicParser.LogFunctionContext context) {
-        CoreUtils.assertArrity("LOG", context.expression(), 1);
+        CoreUtils.assertArity("LOG", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.log(argument.underlyingNumber()));
@@ -521,9 +519,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitMaxFunction(JBasicParser.MaxFunctionContext context) {
-        if (context.expression().size() == 0) {
-            throw new FunctionArityException("MAX can not be called with 0 arguments");
-        }
+        CoreUtils.assertArity("MAX", context.expression().size(), (i -> i != 0));
         double maxValue = Double.MIN_VALUE;
         for (JBasicParser.ExpressionContext expression : context.expression()) {
             JBasicValue value = this.visit(expression);
@@ -543,9 +539,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitMinFunction(JBasicParser.MinFunctionContext context) {
-        if (context.expression().size() == 0) {
-            throw new FunctionArityException("MIN can not be called with 0 arguments");
-        }
+        CoreUtils.assertArity("MIN", context.expression().size(), (i -> i != 0));
         double minValue = Double.MAX_VALUE;
         for (JBasicParser.ExpressionContext expression : context.expression()) {
             JBasicValue value = this.visit(expression);
@@ -565,7 +559,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSinFunction(JBasicParser.SinFunctionContext context) {
-        CoreUtils.assertArrity("SIN", context.expression(), 1);
+        CoreUtils.assertArity("SIN", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sin(argument.underlyingNumber()));
@@ -582,7 +576,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSqrFunction(JBasicParser.SqrFunctionContext context) {
-        CoreUtils.assertArrity("SQR", context.expression(), 1);
+        CoreUtils.assertArity("SQR", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sqrt(argument.underlyingNumber()));
@@ -599,9 +593,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSumFunction(JBasicParser.SumFunctionContext context) {
-        if (context.expression().size() == 0) {
-            throw new FunctionArityException("SUM can not be called with 0 arguments");
-        }
+        CoreUtils.assertArity("SUM", context.expression().size(), (i -> i != 0));
         double sum = 0;
         for (JBasicParser.ExpressionContext expression : context.expression()) {
             JBasicValue value = this.visit(expression);
@@ -621,7 +613,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitTanFunction(JBasicParser.TanFunctionContext context) {
-        CoreUtils.assertArrity("TAN", context.expression(), 1);
+        CoreUtils.assertArity("TAN", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.tan(argument.underlyingNumber()));
@@ -638,7 +630,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitValFunction(JBasicParser.ValFunctionContext context) {
-        CoreUtils.assertArrity("VAL", context.expression(), 1);
+        CoreUtils.assertArity("VAL", context.expression().size(), (i -> i == 1));
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isAStringValue()) {
             String str = argument.underlyingString();

@@ -75,8 +75,8 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_core_utils.html
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a121ae5bf03775a4c492beea89a1f276d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a121ae5bf03775a4c492beea89a1f276d">addLocationToException</a> (<a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html">InterpreterBaseException</a> exception, ParserRuleContext context)</td></tr>
 <tr class="separator:a121ae5bf03775a4c492beea89a1f276d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89ae016dc492445c401338f744160f8c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a89ae016dc492445c401338f744160f8c">assertArrity</a> (String functionName, List&lt; basic.JBasicParser.ExpressionContext &gt; arguments, int expectedArgumentCount)</td></tr>
-<tr class="separator:a89ae016dc492445c401338f744160f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d07cda38e80f8dd81857c1a2edbc5a4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a9d07cda38e80f8dd81857c1a2edbc5a4">assertArity</a> (String functionName, int argumentCount, Function&lt; Integer, Boolean &gt; assertion)</td></tr>
+<tr class="separator:a9d07cda38e80f8dd81857c1a2edbc5a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9b8160159ac3de8bb9bbe6a931fe07b"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#af9b8160159ac3de8bb9bbe6a931fe07b">areaTangentHyperbolicus</a> (double value)</td></tr>
 <tr class="separator:af9b8160159ac3de8bb9bbe6a931fe07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46c69eec3169aeccfc520d14f4500743"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a46c69eec3169aeccfc520d14f4500743">formatErrorMessage</a> (int line, int positionInLine, String message)</td></tr>
@@ -85,7 +85,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a17b132321f46af1aa39f5b566b1441f7"><td class="memItemLeft" align="right" valign="top">static final DecimalFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a17b132321f46af1aa39f5b566b1441f7">numericalOutputFormat</a> = new DecimalFormat(&quot;0.#&quot;)</td></tr>
-<tr class="memdesc:a17b132321f46af1aa39f5b566b1441f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decimal output format for numerical values.  <a href="classorg_1_1jbasic_1_1_core_utils.html#a17b132321f46af1aa39f5b566b1441f7">More...</a><br /></td></tr>
+<tr class="memdesc:a17b132321f46af1aa39f5b566b1441f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decimal output format for numerical values (not decimal dot if the number is x.0)  <a href="classorg_1_1jbasic_1_1_core_utils.html#a17b132321f46af1aa39f5b566b1441f7">More...</a><br /></td></tr>
 <tr class="separator:a17b132321f46af1aa39f5b566b1441f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -169,8 +169,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a89ae016dc492445c401338f744160f8c" name="a89ae016dc492445c401338f744160f8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89ae016dc492445c401338f744160f8c">&#9670;&#160;</a></span>assertArrity()</h2>
+<a id="a9d07cda38e80f8dd81857c1a2edbc5a4" name="a9d07cda38e80f8dd81857c1a2edbc5a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d07cda38e80f8dd81857c1a2edbc5a4">&#9670;&#160;</a></span>assertArity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,7 +179,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void org.jbasic.CoreUtils.assertArrity </td>
+          <td class="memname">static void org.jbasic.CoreUtils.assertArity </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
           <td class="paramname"><em>functionName</em>, </td>
@@ -187,14 +187,14 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">List&lt; basic.JBasicParser.ExpressionContext &gt;&#160;</td>
-          <td class="paramname"><em>arguments</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argumentCount</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>expectedArgumentCount</em>&#160;</td>
+          <td class="paramtype">Function&lt; Integer, Boolean &gt;&#160;</td>
+          <td class="paramname"><em>assertion</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -208,6 +208,14 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p >Asserts the arity of a function upon invocation </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">functionName</td><td>The name of the function were the arity is asserted upon invocation </td></tr>
+    <tr><td class="paramname">argumentCount</td><td>The parsing context of the expressions </td></tr>
+    <tr><td class="paramname">assertion</td><td>The assertion that is applied to the number of arguments that were used when the function was invoked </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -283,7 +291,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Decimal output format for numerical values. </p>
+<p>Decimal output format for numerical values (not decimal dot if the number is x.0) </p>
 
 </div>
 </div>
