@@ -490,6 +490,50 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'max' function call in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'max function' that is visited
+     * @return The Value that is omitted by visiting the 'max function'
+     */
+    @Override
+    public JBasicValue visitMaxFunction(JBasicParser.MaxFunctionContext context) {
+        if (context.expression().size() == 0) {
+            throw new FunctionArityException("MIN can not be called with 0 arguments");
+        }
+        double maxValue = Double.MIN_VALUE;
+        for (JBasicParser.ExpressionContext expression : context.expression()) {
+            JBasicValue value = this.visit(expression);
+            if (!value.isANumericalValue()) {
+                throw new TypeException("MIN can only be called with numerical values");
+            }
+            maxValue = Math.max(maxValue, value.underlyingNumber());
+        }
+        return new JBasicValue(maxValue);
+    }
+
+    /**
+     * Visits a 'min' function call in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'min function' that is visited
+     * @return The Value that is omitted by visiting the 'min function'
+     */
+    @Override
+    public JBasicValue visitMinFunction(JBasicParser.MinFunctionContext context) {
+        if (context.expression().size() == 0) {
+            throw new FunctionArityException("MIN can not be called with 0 arguments");
+        }
+        double minValue = Double.MAX_VALUE;
+        for (JBasicParser.ExpressionContext expression : context.expression()) {
+            JBasicValue value = this.visit(expression);
+            if (!value.isANumericalValue()) {
+                throw new TypeException("MIN can only be called with numerical values");
+            }
+            minValue = Math.min(minValue, value.underlyingNumber());
+        }
+        return new JBasicValue(minValue);
+    }
+
+    /**
      * Visits a 'sine' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'sin function' that is visited

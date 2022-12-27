@@ -29,6 +29,8 @@ COS_FUNCTION            : 'COS' | 'cos' ;
 EXP_FUNCTION            : 'EXP' | 'exp' ;
 LEN_FUNCTION            : 'LEN' | 'len' ;
 LOG_FUNCTION            : 'LOG' | 'log' ;
+MAX_FUNCTION            : 'MAX' | 'max' ;
+MIN_FUNCTION            : 'MIN' | 'min' ;
 SIN_FUNCTION            : 'SIN' | 'sin' ;
 SQR_FUNCTION            : 'SQR' | 'sqr' ;
 TAN_FUNCTION            : 'TAN' | 'tan' ;

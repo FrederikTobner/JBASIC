@@ -22,7 +22,7 @@ import java.time.format.DecimalStyle;
 
 import static org.junit.Assert.assertEquals;
 
-public class BinaryOperatorTest extends JBasicBaseTest {
+public class BinaryOperatorsTest extends JBasicBaseTest {
 
     @Test
     public void testAdd() {

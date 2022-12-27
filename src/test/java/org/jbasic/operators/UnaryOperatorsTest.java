@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class UnaryOperatorTest extends JBasicBaseTest {
+public class UnaryOperatorsTest extends JBasicBaseTest {
 
     @Test
     public void testNegate() {

@@ -33,6 +33,8 @@ function
     | expFunction
     | lenFunction
     | logFunction
+    | maxFunction
+    | minFunction
     | sinFunction
     | sqrFunction
     | tanFunction
@@ -74,6 +76,12 @@ lenFunction
 
 logFunction
     : LOG_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+
+maxFunction
+    : MAX_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
+
+minFunction
+    : MIN_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 sinFunction
     : SIN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;

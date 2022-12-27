@@ -22,7 +22,7 @@ import java.time.format.DecimalStyle;
 
 import static org.junit.Assert.assertEquals;
 
-public class MathFunctionTest extends JBasicBaseTest {
+public class MathFunctionsTest extends JBasicBaseTest {
 
     @Test
     public void testAbsFunction() {
@@ -79,7 +79,19 @@ public class MathFunctionTest extends JBasicBaseTest {
     }
 
     @Test
-    public void testLogFunction() {
+    public void testMaxFunction() {
+        this.test("functions/math/max.bas",
+                (result) -> assertEquals("15" + System.lineSeparator(), result.output));
+    }
+
+    @Test
+    public void testMinFunction() {
+        this.test("functions/math/min.bas",
+                (result) -> assertEquals("7" + System.lineSeparator(), result.output));
+    }
+
+    @Test
+    public void testNaturalLogFunction() {
         this.test("functions/math/natural_logarithm.bas",
                 (result) -> assertEquals("2" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
                                 "3" + System.lineSeparator(),

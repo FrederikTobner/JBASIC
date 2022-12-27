@@ -105,6 +105,8 @@ JBASIC offers numerous functions to perform various tasks
 | COS          | Cosine                    |
 | EXP          | Exponential function      |
 | LOG          | Natural logarithm         |
+| MAX          | Maximum value             |
+| MIN          | Minimum value             |
 | SIN          | Absolute value            |
 | SQR          | Sine                      |
 | SQR          | Square root               |

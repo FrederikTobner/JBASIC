@@ -21,6 +21,8 @@ var classorg_1_1jbasic_1_1_j_basic_visitor =
     [ "visitLenFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#ab59dc7abffc552e4da48f25b6eb3acde", null ],
     [ "visitLetStatement", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a11790c21aae7032f08df9010bd1ffca6", null ],
     [ "visitLogFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a7df3df812919677d7706d8a71469f931", null ],
+    [ "visitMaxFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a61d3ad89fe1ed9f637bf770239dcf361", null ],
+    [ "visitMinFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a3d086efbe74e55f645666c7be1642321", null ],
     [ "visitMulDivExpression", "classorg_1_1jbasic_1_1_j_basic_visitor.html#add87aa2c9bf2e909616b6bf7a591a134", null ],
     [ "visitNegateExpression", "classorg_1_1jbasic_1_1_j_basic_visitor.html#ab00f382f9fb6a80e0614d73fa6f17902", null ],
     [ "visitNotExpression", "classorg_1_1jbasic_1_1_j_basic_visitor.html#abc8cf388cafc13ceba66ee042d2260a0", null ],
