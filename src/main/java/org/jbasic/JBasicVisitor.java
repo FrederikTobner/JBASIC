@@ -1,8 +1,8 @@
-/**
+/****************************************************************************
  * Copyright (C) 2022 by Frederik Tobner                                    *
- * *
+ *                                                                          *
  * This file is part of JBASIC.                                             *
- * *
+ *                                                                          *
  * Permission to use, copy, modify, and distribute this software and its    *
  * documentation under the terms of the GNU General Public License is       *
  * hereby granted.                                                          *
@@ -11,14 +11,7 @@
  * It is provided "as is" without express or implied warranty.              *
  * See the <"https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public  *
  * License for more details.                                                *
- *
- * @file JBasicVisitor.java
- * @brief The ANTLR visitor.
- * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
- * @file JBasicVisitor.java
- * @brief The ANTLR visitor.
- * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
- */
+ ****************************************************************************/
 
 /**
  * @file JBasicVisitor.java
