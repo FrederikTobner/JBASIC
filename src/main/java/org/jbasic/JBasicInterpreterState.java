@@ -99,7 +99,7 @@ public class JBasicInterpreterState {
         for (int i = 0; i < subroutine.getArity(); i++) {
             this.assignToVariable(subroutine.getArguments()[i], arguments.get(i));
         }
-        visitor.visit(subroutine.getSubroutineBody());
+        subroutine.getSubroutineBody().forEach(visitor::visit);
         // Reset memory to the old state
         this.memory = oldMemoryState;
     }

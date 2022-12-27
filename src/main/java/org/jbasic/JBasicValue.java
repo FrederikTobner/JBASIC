@@ -36,7 +36,7 @@ public class JBasicValue {
     public static final JBasicValue FalseValue = new JBasicValue(0);
     /// False value constant
     public static final JBasicValue TrueValue = new JBasicValue(1);
-    /// not a number constant
+    /// null value constant
     public static final JBasicValue NullValue = new JBasicValue(null);
 
     /// Underlying value

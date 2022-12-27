@@ -24,7 +24,7 @@ public class LetTest extends JBasicBaseTest {
 
     @Test
     public void testNumeric() {
-        test("let/numeric.bas", (result) -> {
+        this.test("let/numeric.bas", (result) -> {
             assertTrue(result.interpreter.getState().getVariable("numeric").isANumericalValue());
             assertEquals(123.0, result.interpreter.getState().getVariable("numeric").underlyingNumber(), 0.0001f);
         });
@@ -32,7 +32,7 @@ public class LetTest extends JBasicBaseTest {
 
     @Test
     public void testString() {
-        test("let/string.bas", (result) -> {
+        this.test("let/string.bas", (result) -> {
             assertTrue(result.interpreter.getState().getVariable("string").isAStringValue());
             assertEquals("foo", result.interpreter.getState().getVariable("string").underlyingString());
         });

@@ -23,12 +23,12 @@ public class IOTest extends JBasicBaseTest {
 
     @Test
     public void testInput() {
-        test("IO/input.bas", "JBASIC\n",
+        this.test("IO/input.bas", "JBASIC\n",
                 (result) -> assertEquals("Name:  Hello JBASIC" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testPrint() {
-        test("IO/output.bas", (result) -> assertEquals("Hello world!" + System.lineSeparator(), result.output));
+        this.test("IO/output.bas", (result) -> assertEquals("Hello world!" + System.lineSeparator(), result.output));
     }
 }

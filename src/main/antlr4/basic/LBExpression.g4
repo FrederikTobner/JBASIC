@@ -9,12 +9,12 @@ statement
     ;
 
 expression
-    : expression op=(ADD|SUBTRACT) expression                                                                   # AddSubExpression
+    : expression op=(ADD|MINUS) expression                                                                      # AddSubExpression
     | expression AND_KEYWORD expression                                                                         # AndExpression
     | function                                                                                                  # FuncExpression
     | identifier                                                                                                # IdentifierExpression
     | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # MulDivExpression
-    | SUBTRACT expression                                                                                       # NegateExpression
+    | MINUS expression                                                                                          # NegateExpression
     | NOT_KEYWORD expression                                                                                    # NotExpression
     | numericLiteral                                                                                            # NumericLiteralExpression
     | expression OR_KEYWORD  expression                                                                         # OrExpression
@@ -40,7 +40,7 @@ function
     ;
 
 identifier
-    : ID ;
+    : IDENTIFIER ;
 
 numericLiteral
     : NUMERIC_LITERAL ;

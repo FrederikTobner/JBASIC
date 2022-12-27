@@ -9,7 +9,7 @@ public class StingFunctionTest extends JBasicBaseTest {
 
     @Test
     public void testLenFunction() {
-        test("functions/string/length.bas",
+        this.test("functions/string/length.bas",
                 (result) -> assertEquals("6" + System.lineSeparator(), result.output));
     }
 }

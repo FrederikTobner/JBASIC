@@ -23,7 +23,7 @@ public class LoopTest extends JBasicBaseTest {
 
     @Test
     public void testForContinue() {
-        test("loops/for_continue.bas",
+        this.test("loops/for_continue.bas",
                 (result) -> assertEquals("3" + System.lineSeparator() +
                                 "4" + System.lineSeparator() +
                                 "5" + System.lineSeparator(),
@@ -32,7 +32,7 @@ public class LoopTest extends JBasicBaseTest {
 
     @Test
     public void testForExit() {
-        test("loops/for_exit.bas",
+        this.test("loops/for_exit.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator(),
@@ -41,7 +41,7 @@ public class LoopTest extends JBasicBaseTest {
 
     @Test
     public void testRepeat() {
-        test("loops/repeat.bas",
+        this.test("loops/repeat.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator() +
@@ -51,14 +51,14 @@ public class LoopTest extends JBasicBaseTest {
 
     @Test
     public void testSimpleFor() {
-        test("loops/simple_for.bas",
+        this.test("loops/simple_for.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() + "2" + System.lineSeparator() + "3"
                         + System.lineSeparator() + "4" + System.lineSeparator() + "5" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testWhile() {
-        test("loops/while.bas",
+        this.test("loops/while.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator() +

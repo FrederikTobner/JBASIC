@@ -8,7 +8,7 @@ public class SubroutineTest extends JBasicBaseTest {
 
     @Test
     public void testSimple() {
-        test("subroutine/simple.bas",
+        this.test("subroutine/simple.bas",
                 "Jeff" + System.lineSeparator(),
                 (result) -> assertEquals("Name= Hi my name is Jeff" + System.lineSeparator(), result.output));
     }

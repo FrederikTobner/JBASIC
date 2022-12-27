@@ -25,6 +25,8 @@ package org.jbasic;
 
 import basic.JBasicParser;
 
+import java.util.List;
+
 /**
  * @brief Stores the metadata associated with a subroutine, and it's block parsing context so the subroutine can be invoked later.
  */
@@ -34,16 +36,17 @@ public class JBasicSubroutine {
     private final String[] arguments;
 
     /// Stores the parsing context of the functionBody, so we can execute it later
-    private final JBasicParser.BlockContext subroutineBody;
+    private final List<JBasicParser.StatementContext> statementsInBodyContextList;
 
     /**
      * Constructor of the JBASICSubroutine class
-     * @param arguments The names of the arguments of the subroutine
-     * @param subroutineBody The parsing context of the body of the subroutine
+     *
+     * @param arguments                   The names of the arguments of the subroutine
+     * @param statementsInBodyContextList The parsing context of the body of the subroutine
      */
-    public JBasicSubroutine(String[] arguments, JBasicParser.BlockContext subroutineBody) {
+    public JBasicSubroutine(String[] arguments, List<JBasicParser.StatementContext> statementsInBodyContextList) {
         this.arguments = arguments;
-        this.subroutineBody = subroutineBody;
+        this.statementsInBodyContextList = statementsInBodyContextList;
     }
 
     /**
@@ -59,8 +62,8 @@ public class JBasicSubroutine {
      *
      * @return The body of the subroutine
      */
-    public JBasicParser.BlockContext getSubroutineBody() {
-        return this.subroutineBody;
+    public List<JBasicParser.StatementContext> getSubroutineBody() {
+        return this.statementsInBodyContextList;
     }
 
     /**

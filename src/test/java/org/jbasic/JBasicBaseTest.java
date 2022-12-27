@@ -37,7 +37,7 @@ public class JBasicBaseTest {
     }
 
     protected void test(String resource, Consumer<Result> assertions) {
-        test(resource, "", assertions);
+        this.test(resource, "", assertions);
     }
 
     protected void test(String resource, String input, Consumer<Result> assertions) {
@@ -46,7 +46,7 @@ public class JBasicBaseTest {
             ByteArrayOutputStream stderr = new ByteArrayOutputStream();
             ByteArrayInputStream stdin = new ByteArrayInputStream(input.getBytes());
             JBasicInterpreter interpreter = new JBasicInterpreter(stdin, stdout, stderr);
-            interpreter.run(resource(resource));
+            interpreter.run(this.resource(resource));
             String output = stdout.toString();
             String error = stderr.toString();
             assertions.accept(new Result(interpreter, output, error));
@@ -57,7 +57,7 @@ public class JBasicBaseTest {
     }
 
     private InputStream resource(String filename) {
-        return getClass().getResourceAsStream("/" + filename);
+        return this.getClass().getResourceAsStream("/" + filename);
     }
 
 }

@@ -1,7 +1,7 @@
 # JBASIC
 
 [![Maven CI](https://github.com/FrederikTobner/JBASIC/actions/workflows/maven.yml/badge.svg)](https://github.com/FrederikTobner/JBASIC/actions/workflows/maven.yml)
-[![Maven CI](https://github.com/FrederikTobner/JBASIC/actions/workflows/codeql.yml/badge.svg)](https://github.com/FrederikTobner/JBASIC/actions/workflows/codeql.yml)
+[![Code QL](https://github.com/FrederikTobner/JBASIC/actions/workflows/codeql.yml/badge.svg)](https://github.com/FrederikTobner/JBASIC/actions/workflows/codeql.yml)
 
 Simple Interpreter for the JBASIC programming language written in Java using [ANTLR4](https://www.antlr.org/).
 
@@ -82,11 +82,12 @@ The language features the following keywords
 
 ### Program flow control
 
-| Keyword(s)                         | Description                                        |
-|------------------------------------|----------------------------------------------------|
-| IF ... THEN ... {ELSE}             | Used to perform comparisons or make decisions.     |
-| FOR ... TO ... {STEP} ... NEXT     | Repeats a section of code a given number of times. |
-| WHILE ... END and REPEAT ... UNTIL | Repeats a section of code a given number of times. |
+| Keyword(s)                     | Description                                        |
+|--------------------------------|----------------------------------------------------|
+| IF ... THEN ... {ELSE}         | Used to perform comparisons or make decisions.     |
+| FOR ... TO ... {STEP} ... NEXT | Repeats a section of code a given number of times. |
+| WHILE ... END and              | Repeats a section of code a given number of times. |
+| REPEAT ... UNTIL               | Repeats a section of code a given number of times. |
 
 ## Functions
 

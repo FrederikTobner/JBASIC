@@ -27,24 +27,17 @@ letStatement
     ;
 
 subroutineBody
-    : block END_KEYWORD SUB_KEYWORD NEWLINE
-    ;
-
-subroutineName
-    : ID
+    : (statement (NEWLINE+ | EOF))* END_KEYWORD SUB_KEYWORD
     ;
 
 subroutineSignature
-    : SUB_KEYWORD subroutineName LEFT_PARENTHESIS (ID (COMMA ID)*)? RIGHT_PARENTHESIS NEWLINE
+    : SUB_KEYWORD IDENTIFIER LEFT_PARENTHESIS (IDENTIFIER (COMMA IDENTIFIER)*)? RIGHT_PARENTHESIS NEWLINE
     ;
 
 variableDeclaration
-    : variableName variableSuffix?
+    : IDENTIFIER variableSuffix?
     ;
 
-variableName
-    : ID
-    ;
 
 variableSuffix
     : DOLLAR_SIGN
@@ -93,7 +86,7 @@ subroutineDefinitionStatement
     ;
 
 subroutineInvocationStatement
-    : CALL_KEYWORD subroutineName LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
+    : CALL_KEYWORD IDENTIFIER LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
     ;
 
 whileStatement

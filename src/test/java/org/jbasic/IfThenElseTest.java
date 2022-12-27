@@ -23,7 +23,7 @@ public class IfThenElseTest extends JBasicBaseTest {
 
     @Test
     public void testSimpleIfTrue() {
-        test("ifThenElse/simple_if_true.bas",
+        this.test("ifThenElse/simple_if_true.bas",
                 (result) -> assertEquals("one" + System.lineSeparator() +
                                 "two" + System.lineSeparator(),
                         result.output));
@@ -31,13 +31,13 @@ public class IfThenElseTest extends JBasicBaseTest {
 
     @Test
     public void testSimpleIfFalse() {
-        test("ifThenElse/simple_if_false.bas",
+        this.test("ifThenElse/simple_if_false.bas",
                 (result) -> assertEquals("three" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testIfElse() {
-        test("ifThenElse/if_else.bas",
+        this.test("ifThenElse/if_else.bas",
                 (result) -> assertEquals("true" + System.lineSeparator() +
                                 "false" + System.lineSeparator(),
                         result.output));

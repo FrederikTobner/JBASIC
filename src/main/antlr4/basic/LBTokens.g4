@@ -3,8 +3,8 @@ lexer grammar LBTokens; // note "lexer grammar"
 // operators
 ADD                     : '+' ;
 DIVIDE                  : '/' ;
+MINUS                   : '-' ;
 MULTIPLY                : '*' ;
-SUBTRACT                : '-' ;
 
 // logical
 EQUALS                  : '=' ;
@@ -68,7 +68,7 @@ COMMENT                 : REM_KEYWORD ~[\r\n]* ;
 
 // literals
 DOLLAR_SIGN             : '$' ;
-ID                      : [a-zA-Z][a-zA-Z0-9_]* ;       // match identifiers
+IDENTIFIER              : [a-zA-Z][a-zA-Z0-9_]* ;       // match identifiers
 NEWLINE                 :'\r'? '\n' ;                   // return newlines to parser (end-statement signal)
 NUMERIC_LITERAL         : [0-9]+ ('.' [0-9]+)? ;        // match numerical literals
 STRING_LITERAL          : '"' ~ ["\r\n]* '"' ;          // match string literals

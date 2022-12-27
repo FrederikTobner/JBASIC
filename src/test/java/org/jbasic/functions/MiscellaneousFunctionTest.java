@@ -9,7 +9,7 @@ public class MiscellaneousFunctionTest extends JBasicBaseTest {
 
     @Test
     public void testValFunction() {
-        test("functions/miscellaneous/value.bas",
+        this.test("functions/miscellaneous/value.bas",
                 (result) -> assertEquals("1" + System.lineSeparator() +
                                 "3" + System.lineSeparator(),
                         result.output));

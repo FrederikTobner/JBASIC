@@ -731,14 +731,15 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_visitor
       <table class="memname">
         <tr>
           <td class="memname">void org.jbasic.JBasicVisitor.cleanup </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+            <td>(</td>
+            <td class="paramname"></td>
+            <td>)</td>
+            <td></td>
         </tr>
       </table>
   </td>
-  <td class="mlabels-right">
-      <span class="mlabels"><span class="mlabel">private</span></span></td>
+      <td class="mlabels-right">
+          <span class="mlabels"><span class="mlabel">private</span></span></td>
   </tr>
 </table>
 </div>
@@ -762,16 +763,18 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_visitor
                             <tr>
                                 <td class="memname">void org.jbasic.JBasicVisitor.initialize</td>
                                 <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+                                <td class="paramname"></td>
+                                <td>)</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="mlabels-right">
+                        <span class="mlabels"><span class="mlabel">private</span></span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="memdoc">
 
 <p>Initializes the Visitor. </p>
 <p >The output stream that is used for print statements and the input stream used by input statements is therefor initialized </p>
@@ -1103,33 +1106,37 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_visitor
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a> org.jbasic.JBasicVisitor.visitForStatement </td>
-          <td>(</td>
-          <td class="paramtype">JBasicParser.ForStatementContext&#160;</td>
-          <td class="paramname"><em>context</em></td><td>)</td>
-          <td></td>
-        </tr>
+          <tr>
+              <td class="memname"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>
+                  org.jbasic.JBasicVisitor.visitForStatement
+              </td>
+              <td>(</td>
+              <td class="paramtype">JBasicParser.ForStatementContext&#160;</td>
+              <td class="paramname"><em>context</em></td>
+              <td>)</td>
+              <td></td>
+          </tr>
       </table>
-</div><div class="memdoc">
-<p >Visits a 'for statement' in the abstract syntax tree</p>
-    <dl class="params">
-        <dt>Parameters</dt>
-        <dd>
-            <table class="params">
-                <tr>
-                    <td class="paramname">context</td>
-                    <td>The parsing context of the 'for statement' that is visited</td>
-                </tr>
-            </table>
-        </dd>
-    </dl>
-    <dl class="section return">
-        <dt>Returns</dt>
-        <dd>The Value that is omitted by visiting the for statement</dd>
-    </dl>
-
 </div>
+    <div class="memdoc">
+        <p>Visits a 'for statement' in the abstract syntax tree</p>
+        <dl class="params">
+            <dt>Parameters</dt>
+            <dd>
+                <table class="params">
+                    <tr>
+                        <td class="paramname">context</td>
+                        <td>The parsing context of the 'for statement' that is visited</td>
+                    </tr>
+                </table>
+            </dd>
+        </dl>
+        <dl class="section return">
+            <dt>Returns</dt>
+            <dd>The Value that is omitted by visiting the for statement</dd>
+        </dl>
+
+    </div>
 </div>
     <a id="afc034a1451e56297d39cf3ec2a5394ce" name="afc034a1451e56297d39cf3ec2a5394ce"></a>
     <h2 class="memtitle"><span class="permalink"><a href="#afc034a1451e56297d39cf3ec2a5394ce">&#9670;&#160;</a></span>visitIdentifier()
@@ -1147,20 +1154,26 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_visitor
                     <td class="paramname"><em>context</em></td>
                     <td>)</td>
                     <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >Visits an ID Expression '$VAR' in the abstract syntax tree</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">context</td><td>The parsing context of the id that is visited </td></tr>
-  </table>
-  </dd>
-</dl>
-        <dl class="section return">
-            <dt>Returns</dt>
-            <dd>The Value that is omitted by visiting an id in the abstract syntax tree</dd>
-        </dl>
+                </tr>
+            </table>
+        </div>
+        <div class="memdoc">
+            <p>Visits an ID Expression '$VAR' in the abstract syntax tree</p>
+            <dl class="params">
+                <dt>Parameters</dt>
+                <dd>
+                    <table class="params">
+                        <tr>
+                            <td class="paramname">context</td>
+                            <td>The parsing context of the id that is visited</td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+            <dl class="section return">
+                <dt>Returns</dt>
+                <dd>The Value that is omitted by visiting an id in the abstract syntax tree</dd>
+            </dl>
 
 </div>
 </div>

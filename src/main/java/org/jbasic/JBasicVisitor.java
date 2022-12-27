@@ -15,6 +15,9 @@
  * @file JBasicVisitor.java
  * @brief The ANTLR visitor.
  * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
+ * @file JBasicVisitor.java
+ * @brief The ANTLR visitor.
+ * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
  */
 
 /**
@@ -29,7 +32,11 @@ import basic.JBasicBaseVisitor;
 import basic.JBasicParser;
 import basic.LBExpressionParser;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -177,7 +184,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitForStatement(JBasicParser.ForStatementContext context) {
-        String variableName = context.variableDeclaration().variableName().ID().getText();
+        String variableName = context.variableDeclaration().IDENTIFIER().getText();
         JBasicValue start = this.visit(context.expression(0));
         JBasicValue end = this.visit(context.expression(1));
         JBasicValue step = context.expression(2) != null ? this.visit(context.expression(2)) : new JBasicValue(1);
@@ -246,7 +253,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLetStatement(JBasicParser.LetStatementContext context) {
-        String variableName = context.variableDeclaration().variableName().ID().getText();
+        String variableName = context.variableDeclaration().IDENTIFIER().getText();
         JBasicValue value = this.visit(context.expression());
         this.memory.assignToVariable(variableName, value);
         return value;
@@ -296,9 +303,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
 
         List<String> arguments = new ArrayList<>();
         // Adds all the argument from the subroutine signature to the List
-        context.subroutineSignature().ID().forEach(argument -> arguments.add(argument.getText()));
-        this.memory.defineSubroutine(context.subroutineSignature().subroutineName().getText(),
-                new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().block()));
+        context.subroutineSignature().IDENTIFIER().subList(1, context.subroutineSignature().IDENTIFIER().size())
+                .forEach(argument -> arguments.add(argument.getText()));
+        this.memory.defineSubroutine(context.subroutineSignature().IDENTIFIER(0).getText(),
+                new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().statement()));
         return new JBasicValue(1);
     }
 
@@ -308,7 +316,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         List<JBasicValue> parameters = new ArrayList<>();
         // Parses parameters
         context.expression().forEach(expression -> parameters.add(this.visit(expression)));
-        this.memory.invokeSubroutine(context.subroutineName().getText(), parameters, this);
+        this.memory.invokeSubroutine(context.IDENTIFIER().getText(), parameters, this);
         return new JBasicValue(1);
     }
 
