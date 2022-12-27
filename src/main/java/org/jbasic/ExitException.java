@@ -14,7 +14,7 @@
  ****************************************************************************/
 
 /**
- * @file ExitLoopException.java
+ * @file ExitException.java
  * @brief Forces exit from loop.
  */
 

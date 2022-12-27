@@ -30,8 +30,8 @@ var classorg_1_1jbasic_1_1_j_basic_value =
     [ "subtract", "classorg_1_1jbasic_1_1_j_basic_value.html#abffab76f3d65de7fcbcb0e419c459983", null ],
     [ "underlyingNumber", "classorg_1_1jbasic_1_1_j_basic_value.html#ab6f7ab15b841f22707332c92a1490cb0", null ],
     [ "underlyingString", "classorg_1_1jbasic_1_1_j_basic_value.html#a268e66a8c212beb803a3dc69fee956f7", null ],
-    [ "CreateFalseValue", "classorg_1_1jbasic_1_1_j_basic_value.html#ab193ae4676b741816fb7045e704231b6", null ],
-    [ "CreateNotANumberValue", "classorg_1_1jbasic_1_1_j_basic_value.html#a6527f7e5a435fd8c5233704d6a93d9a5", null ],
-    [ "CreateTrueValue", "classorg_1_1jbasic_1_1_j_basic_value.html#a6c9b82dd658b1f1e482825cc85adb2ac", null ],
+    [ "FalseValue", "classorg_1_1jbasic_1_1_j_basic_value.html#ae0021ea3f8b317929c8c7cef9ff35d73", null ],
+    [ "NullValue", "classorg_1_1jbasic_1_1_j_basic_value.html#ac57d50e9dcfb3962e5fbf2357f188c05", null ],
+    [ "TrueValue", "classorg_1_1jbasic_1_1_j_basic_value.html#a5be2073c73121a8e998deba0d07fea1a", null ],
     [ "value", "classorg_1_1jbasic_1_1_j_basic_value.html#ae009ac8ae655559e3e0d20e6675dc607", null ]
 ];

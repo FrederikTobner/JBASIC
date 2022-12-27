@@ -14,9 +14,9 @@
  ****************************************************************************/
 
  /**
- * @file Value.java
- * @brief Value class that encapsulates numeric and string values and the corresponding operations.
- */
+  * @file JBasicValue.java
+  * @brief Value class that encapsulates numeric and string values and the corresponding operations.
+  */
 
 package org.jbasic;
 
@@ -33,11 +33,11 @@ import java.util.function.BiFunction;
 public class JBasicValue {
 
     /// False value constant
-    public static final JBasicValue CreateFalseValue = new JBasicValue(0);
+    public static final JBasicValue FalseValue = new JBasicValue(0);
     /// False value constant
-    public static final JBasicValue CreateTrueValue = new JBasicValue(1);
+    public static final JBasicValue TrueValue = new JBasicValue(1);
     /// not a number constant
-    public static final JBasicValue CreateNotANumberValue = new JBasicValue(null);
+    public static final JBasicValue NullValue = new JBasicValue(null);
 
     /// Underlying value
     private final Object value;
@@ -94,7 +94,7 @@ public class JBasicValue {
      * @return True if the value and the right value are truthy
      */
     public JBasicValue and(JBasicValue right, ParserRuleContext context) {
-        return isTruthy(context) && right.isTruthy(context) ? CreateTrueValue : CreateFalseValue;
+        return isTruthy(context) && right.isTruthy(context) ? TrueValue : FalseValue;
     }
 
     /**
@@ -145,9 +145,9 @@ public class JBasicValue {
         if (isANumericalValue() && right.isANumericalValue()) {
             return relativeEvaluate(right, Objects::equals, context);
         } else if (isAStringValue() && right.isAStringValue()) {
-            return underlyingString().equals(right.underlyingString()) ? CreateTrueValue : CreateFalseValue;
+            return underlyingString().equals(right.underlyingString()) ? TrueValue : FalseValue;
         }
-        return CreateFalseValue;
+        return FalseValue;
     }
 
     /**
@@ -298,7 +298,7 @@ public class JBasicValue {
      */
     public JBasicValue notEqual(JBasicValue right, ParserRuleContext context) {
         JBasicValue eq = equal(right, context);
-        return eq.equal(CreateTrueValue, context) == CreateTrueValue ? CreateFalseValue : CreateTrueValue;
+        return eq.equal(TrueValue, context) == TrueValue ? FalseValue : TrueValue;
     }
 
     /**
@@ -312,9 +312,9 @@ public class JBasicValue {
         assertIsNumber(context);
         right.assertIsNumber(context);
         if (comparison.apply(underlyingNumber(), right.underlyingNumber())) {
-            return CreateTrueValue;
+            return TrueValue;
         }
-        return CreateFalseValue;
+        return FalseValue;
     }
 
     /**
@@ -337,9 +337,9 @@ public class JBasicValue {
     public JBasicValue not(ParserRuleContext context) {
         assertIsNumber(context);
         if (underlyingNumber() == 0) {
-            return CreateTrueValue;
+            return TrueValue;
         }
-        return CreateFalseValue;
+        return FalseValue;
     }
 
     /**
@@ -349,7 +349,7 @@ public class JBasicValue {
      * @return True if the value or the right value are truthy
      */
     public JBasicValue or(JBasicValue right, ParserRuleContext context) {
-        return isTruthy(context) || right.isTruthy(context) ? CreateTrueValue : CreateFalseValue;
+        return isTruthy(context) || right.isTruthy(context) ? TrueValue : FalseValue;
     }
 
     /**

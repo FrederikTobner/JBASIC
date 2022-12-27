@@ -56,7 +56,8 @@ public class JBasicSubroutine {
 
     /**
      * Gets the body of the subroutine
-     * @return The body
+     *
+     * @return The body of the subroutine
      */
     public JBasicParser.BlockContext getSubroutineBody() {
         return subroutineBody;

@@ -48,39 +48,16 @@ public class JBasicInterpreterState {
     }
 
     /**
-     * @param subroutineName
-     * @param arguments
-     * @param visitor
+     * Defines a new subroutine
+     *
+     * @param subroutineName The name of the subroutine
+     * @param subroutine     The subroutine that is defined
      */
-    public void callSubroutine(String subroutineName, List<JBasicValue> arguments, JBasicVisitor visitor) {
-        if (!subroutines.containsKey(subroutineName)) {
-            throw new SubroutineNotDefinedException("A subroutine with the name" + subroutineName + " is not defined in the script");
+    public void defineSubroutine(String subroutineName, JBasicSubroutine subroutine) {
+        if (subroutines.containsKey(subroutineName)) {
+            throw new SubroutineRedefinitionException("A subroutine with the name" + subroutineName + " is already defined in the script");
         }
-        JBasicSubroutine subroutine = subroutines.get(subroutineName);
-        if (subroutine.getArity() != arguments.size()) {
-            throw new SubroutineArityException("Subroutine expects " + subroutine.getArguments().length +
-                    "arguments but was called with" + arguments.size());
-        }
-        final Map<String, JBasicValue> oldMemoryState = this.memory;
-        // Prepare subroutine memory
-        this.memory = new HashMap<>();
-        for (int i = 0; i < subroutine.getArity(); i++) {
-            this.assignToVariable(subroutine.getArguments()[i], arguments.get(i));
-        }
-        visitor.visit(subroutine.getSubroutineBody());
-        // Reset memory to the old state
-        this.memory = oldMemoryState;
-    }
-
-    /**
-     * @param functionName
-     * @param function
-     */
-    public void defineSubroutine(String functionName, JBasicSubroutine function) {
-        if (subroutines.containsKey(functionName)) {
-            throw new SubroutineRedefinitionException("A subroutine with the name" + functionName + " is already defined in the script");
-        }
-        subroutines.put(functionName, function);
+        subroutines.put(subroutineName, subroutine);
     }
 
     /**
@@ -98,6 +75,33 @@ public class JBasicInterpreterState {
      */
     public JBasicValue getVariable(String name) {
         return memory.get(name);
+    }
+
+    /**
+     * Invokes a subroutine
+     *
+     * @param subroutineName The name of the subroutine
+     * @param arguments      The arguments of the subroutine call
+     * @param visitor        The visitor of the subroutine call. Used to visit the subroutine body
+     */
+    public void invokeSubroutine(String subroutineName, List<JBasicValue> arguments, JBasicVisitor visitor) {
+        if (!subroutines.containsKey(subroutineName)) {
+            throw new SubroutineNotDefinedException("A subroutine with the name" + subroutineName + " is not defined in the script");
+        }
+        JBasicSubroutine subroutine = subroutines.get(subroutineName);
+        if (subroutine.getArity() != arguments.size()) {
+            throw new SubroutineArityException("Subroutine expects " + subroutine.getArguments().length +
+                    "arguments but was called with" + arguments.size());
+        }
+        final Map<String, JBasicValue> oldMemoryState = this.memory;
+        // Prepare subroutine memory
+        this.memory = new HashMap<>();
+        for (int i = 0; i < subroutine.getArity(); i++) {
+            this.assignToVariable(subroutine.getArguments()[i], arguments.get(i));
+        }
+        visitor.visit(subroutine.getSubroutineBody());
+        // Reset memory to the old state
+        this.memory = oldMemoryState;
     }
 
 }

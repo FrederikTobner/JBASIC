@@ -150,7 +150,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         List<JBasicValue> parameters = new ArrayList<>();
         // Parses arguments
         context.expression().forEach(expression -> parameters.add(visit(expression)));
-        memory.callSubroutine(context.subroutineName().getText(), parameters, this);
+        memory.invokeSubroutine(context.subroutineName().getText(), parameters, this);
         return new JBasicValue(1);
     }
 
@@ -543,7 +543,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             try {
                 return new JBasicValue(Long.parseLong(str));
             } catch (NumberFormatException e) {
-                return JBasicValue.CreateNotANumberValue;
+                return JBasicValue.NullValue;
             }
         }
         return argument;

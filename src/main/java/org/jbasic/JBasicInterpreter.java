@@ -14,7 +14,7 @@
  ****************************************************************************/
 
 /**
- * @file Interpreter.java
+ * @file JBasicInterpreter.java
  * @brief The JBASIC interpreter
  */
 package org.jbasic;
@@ -42,7 +42,7 @@ public class JBasicInterpreter {
     /// The standard error output stream used by the interpreter
     private final PrintStream stderrPrint;
     /// The Memory object instance used to store variables
-    private JBasicInterpreterState memory;
+    private JBasicInterpreterState state;
 
     /**
      * @brief Constructor a new Interpreter object instance
@@ -79,9 +79,9 @@ public class JBasicInterpreter {
             // We create an abstract syntax tree from the tokens
             ParseTree tree = parser.program();
             // Memory used by the program
-            memory = new JBasicInterpreterState();
+            state = new JBasicInterpreterState();
             // Creating the visitor to visit the nodes in the abstract syntax tree
-            JBasicVisitor visitor = new JBasicVisitor(memory, stdin, stdoutPrint);
+            JBasicVisitor visitor = new JBasicVisitor(state, stdin, stdoutPrint);
             // Executing the program with the visitor
             visitor.visit(tree);
         }
@@ -104,12 +104,12 @@ public class JBasicInterpreter {
      * @brief Gets the memory associated with the interpreter
      * @details The memory associated with the interpreter is a simple hashtable that stores all the variables that are declared in the program
      */
-    public JBasicInterpreterState getMemory() {
-        return memory;
+    public JBasicInterpreterState getState() {
+        return state;
     }
 
     /// Deallocates the memory used by the interpreter
     public void clear() {
-        memory.freeMemory();
+        state.freeMemory();
     }
 }

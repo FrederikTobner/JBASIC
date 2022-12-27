@@ -15,7 +15,7 @@ statement
     | exitStatement
     | COMMENT
     | subroutineDefinition
-    | subroutineCallStatement;
+    | subroutineInvocationStatement;
 
 block
     : (statement (NEWLINE+ | EOF))*
@@ -53,7 +53,7 @@ subroutineBody
     : block END_KEYWORD SUB_KEYWORD NEWLINE
     ;
 
-subroutineCallStatement
+subroutineInvocationStatement
     : CALL_KEYWORD subroutineName LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
     ;
 

@@ -14,7 +14,7 @@
  ****************************************************************************/
 
 /**
- * @file InterpreterException.java
+ * @file InterpreterBaseException.java
  * @brief Base exception for interpreter runtime errors.
  */
 

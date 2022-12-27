@@ -89,27 +89,15 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_interpr
             <tr class="separator:a051fc0c17536d357b99681bb69523004">
                 <td class="memSeparator" colspan="2">&#160;</td>
             </tr>
-            <tr class="memitem:a4d4680654493deb8d2488e7f8e60fe59">
+            <tr class="memitem:a01b099a188306b5b6bfa29c88e8c4c6b">
                 <td class="memItemLeft" align="right" valign="top">void&#160;</td>
                 <td class="memItemRight" valign="bottom"><a class="el"
-                                                            href="classorg_1_1jbasic_1_1_j_basic_interpreter_state.html#a4d4680654493deb8d2488e7f8e60fe59">callSubroutine</a>
-                    (String subroutineName, List&lt; <a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>
-                    &gt; arguments, <a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html">JBasicVisitor</a>
-                    visitor)
+                                                            href="classorg_1_1jbasic_1_1_j_basic_interpreter_state.html#a01b099a188306b5b6bfa29c88e8c4c6b">defineSubroutine</a>
+                    (String subroutineName, <a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html">JBasicSubroutine</a>
+                    subroutine)
                 </td>
             </tr>
-            <tr class="separator:a4d4680654493deb8d2488e7f8e60fe59">
-                <td class="memSeparator" colspan="2">&#160;</td>
-            </tr>
-            <tr class="memitem:adbe466e09246c9504ff4e06b29149f08">
-                <td class="memItemLeft" align="right" valign="top">void&#160;</td>
-                <td class="memItemRight" valign="bottom"><a class="el"
-                                                            href="classorg_1_1jbasic_1_1_j_basic_interpreter_state.html#adbe466e09246c9504ff4e06b29149f08">defineSubroutine</a>
-                    (String functionName, <a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html">JBasicSubroutine</a>
-                    function)
-                </td>
-            </tr>
-            <tr class="separator:adbe466e09246c9504ff4e06b29149f08">
+            <tr class="separator:a01b099a188306b5b6bfa29c88e8c4c6b">
                 <td class="memSeparator" colspan="2">&#160;</td>
             </tr>
             <tr class="memitem:a965df9b396eb5e2361ab6cca32126db0">
@@ -138,6 +126,18 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_interpr
                 </td>
             </tr>
             <tr class="separator:a79f112007a6ee23be272e923442335d7">
+                <td class="memSeparator" colspan="2">&#160;</td>
+            </tr>
+            <tr class="memitem:a897fed6eab8e1e718477c2db5a9d2a5e">
+                <td class="memItemLeft" align="right" valign="top">void&#160;</td>
+                <td class="memItemRight" valign="bottom"><a class="el"
+                                                            href="classorg_1_1jbasic_1_1_j_basic_interpreter_state.html#a897fed6eab8e1e718477c2db5a9d2a5e">invokeSubroutine</a>
+                    (String subroutineName, List&lt; <a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>
+                    &gt; arguments, <a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html">JBasicVisitor</a>
+                    visitor)
+                </td>
+            </tr>
+            <tr class="separator:a897fed6eab8e1e718477c2db5a9d2a5e">
                 <td class="memSeparator" colspan="2">&#160;</td>
             </tr>
         </table>
@@ -241,68 +241,9 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_interpr
 
             </div>
         </div>
-        <a id="a4d4680654493deb8d2488e7f8e60fe59" name="a4d4680654493deb8d2488e7f8e60fe59"></a>
+        <a id="a01b099a188306b5b6bfa29c88e8c4c6b" name="a01b099a188306b5b6bfa29c88e8c4c6b"></a>
         <h2 class="memtitle"><span class="permalink"><a
-                href="#a4d4680654493deb8d2488e7f8e60fe59">&#9670;&#160;</a></span>callSubroutine()</h2>
-
-        <div class="memitem">
-            <div class="memproto">
-                <table class="memname">
-                    <tr>
-                        <td class="memname">void org.jbasic.JBasicInterpreterState.callSubroutine</td>
-                        <td>(</td>
-                        <td class="paramtype">String&#160;</td>
-                        <td class="paramname"><em>subroutineName</em>,</td>
-                    </tr>
-                    <tr>
-                        <td class="paramkey"></td>
-                        <td></td>
-                        <td class="paramtype">List&lt; <a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>
-                            &gt;&#160;
-                        </td>
-                        <td class="paramname"><em>arguments</em>,</td>
-                    </tr>
-                    <tr>
-                        <td class="paramkey"></td>
-                        <td></td>
-                        <td class="paramtype"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html">JBasicVisitor</a>&#160;
-                        </td>
-                        <td class="paramname"><em>visitor</em>&#160;</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>)</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="memdoc">
-                <dl class="params">
-                    <dt>Parameters</dt>
-                    <dd>
-                        <table class="params">
-                            <tr>
-                                <td class="paramname">subroutineName</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="paramname">arguments</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="paramname">visitor</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </dd>
-                </dl>
-
-            </div>
-        </div>
-        <a id="adbe466e09246c9504ff4e06b29149f08" name="adbe466e09246c9504ff4e06b29149f08"></a>
-        <h2 class="memtitle"><span class="permalink"><a
-                href="#adbe466e09246c9504ff4e06b29149f08">&#9670;&#160;</a></span>defineSubroutine()</h2>
+                href="#a01b099a188306b5b6bfa29c88e8c4c6b">&#9670;&#160;</a></span>defineSubroutine()</h2>
 
         <div class="memitem">
             <div class="memproto">
@@ -311,14 +252,14 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_interpr
                         <td class="memname">void org.jbasic.JBasicInterpreterState.defineSubroutine</td>
                         <td>(</td>
                         <td class="paramtype">String&#160;</td>
-                        <td class="paramname"><em>functionName</em>,</td>
+                        <td class="paramname"><em>subroutineName</em>,</td>
                     </tr>
                     <tr>
                         <td class="paramkey"></td>
                         <td></td>
                         <td class="paramtype"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html">JBasicSubroutine</a>&#160;
                         </td>
-                        <td class="paramname"><em>function</em>&#160;</td>
+                        <td class="paramname"><em>subroutine</em>&#160;</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -329,17 +270,18 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_interpr
                 </table>
             </div>
             <div class="memdoc">
+                <p>Defines a new subroutine </p>
                 <dl class="params">
                     <dt>Parameters</dt>
                     <dd>
                         <table class="params">
                             <tr>
-                                <td class="paramname">functionName</td>
-                                <td></td>
+                                <td class="paramname">subroutineName</td>
+                                <td>The name of the subroutine</td>
                             </tr>
                             <tr>
-                                <td class="paramname">function</td>
-                                <td></td>
+                                <td class="paramname">subroutine</td>
+                                <td>The subroutine that is defined</td>
                             </tr>
                         </table>
                     </dd>
@@ -399,6 +341,66 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_j_basic_interpr
                             <tr>
                                 <td class="paramname">name</td>
                                 <td>The name of the variable that is obtained</td>
+                            </tr>
+                        </table>
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+        <a id="a897fed6eab8e1e718477c2db5a9d2a5e" name="a897fed6eab8e1e718477c2db5a9d2a5e"></a>
+        <h2 class="memtitle"><span class="permalink"><a
+                href="#a897fed6eab8e1e718477c2db5a9d2a5e">&#9670;&#160;</a></span>invokeSubroutine()</h2>
+
+        <div class="memitem">
+            <div class="memproto">
+                <table class="memname">
+                    <tr>
+                        <td class="memname">void org.jbasic.JBasicInterpreterState.invokeSubroutine</td>
+                        <td>(</td>
+                        <td class="paramtype">String&#160;</td>
+                        <td class="paramname"><em>subroutineName</em>,</td>
+                    </tr>
+                    <tr>
+                        <td class="paramkey"></td>
+                        <td></td>
+                        <td class="paramtype">List&lt; <a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>
+                            &gt;&#160;
+                        </td>
+                        <td class="paramname"><em>arguments</em>,</td>
+                    </tr>
+                    <tr>
+                        <td class="paramkey"></td>
+                        <td></td>
+                        <td class="paramtype"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html">JBasicVisitor</a>&#160;
+                        </td>
+                        <td class="paramname"><em>visitor</em>&#160;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>)</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="memdoc">
+                <p>Invokes a subroutine </p>
+                <dl class="params">
+                    <dt>Parameters</dt>
+                    <dd>
+                        <table class="params">
+                            <tr>
+                                <td class="paramname">subroutineName</td>
+                                <td>The name of the subroutine</td>
+                            </tr>
+                            <tr>
+                                <td class="paramname">arguments</td>
+                                <td>The arguments of the subroutine call</td>
+                            </tr>
+                            <tr>
+                                <td class="paramname">visitor</td>
+                                <td>The visitor of the subroutine call. Used to visit the subroutine body</td>
                             </tr>
                         </table>
                     </dd>
