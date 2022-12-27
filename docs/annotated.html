@@ -63,133 +63,28 @@ $(document).ready(function(){initNavTree('annotated.html',''); initResizable(); 
   <div class="headertitle"><div class="title">Class List</div></div>
 </div><!--header-->
 <div class="contents">
-    <div class="textblock">Here are the classes, structs, unions and interfaces with brief descriptions:</div>
-    <div class="directory">
-        <div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span
-                onclick="javascript:toggleLevel(2);">2</span><span onclick="javascript:toggleLevel(3);">3</span>]
-        </div>
-        <table class="directory">
-            <tr id="row_0_" class="even">
-                <td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_"
-                                                                                                   class="arrow"
-                                                                                                   onclick="toggleFolder('0_')">&#9660;</span><span
-                        class="icona"><span class="icon">N</span></span><b>org</b></td>
-                <td class="desc"></td>
-            </tr>
-            <tr id="row_0_0_" class="odd">
-                <td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_0_"
-                                                                                                    class="arrow"
-                                                                                                    onclick="toggleFolder('0_0_')">&#9660;</span><span
-                        class="icona"><span class="icon">N</span></span><a class="el" href="namespaceorg_1_1jbasic.html"
-                                                                           target="_self">jbasic</a></td>
-                <td class="desc"></td>
-            </tr>
-            <tr id="row_0_0_0_" class="even">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_continue_exception.html"
-                                                       target="_self">ContinueException</a></td>
-                <td class="desc">Forces a continue in a loop ..</td>
-            </tr>
-            <tr id="row_0_0_1_" class="odd">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html"
-                                                       target="_self">CoreUtils</a></td>
-                <td class="desc">Core utility methods</td>
-            </tr>
-            <tr id="row_0_0_2_" class="even">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_error_listener.html"
-                                                       target="_self">ErrorListener</a></td>
-                <td class="desc">Prints parser errors to the given stderr.</td>
-            </tr>
-            <tr id="row_0_0_3_" class="odd">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_exit_exception.html"
-                                                       target="_self">ExitException</a></td>
-                <td class="desc">Forces exit from loop</td>
-            </tr>
-            <tr id="row_0_0_4_" class="even">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el"
-                                                       href="classorg_1_1jbasic_1_1_function_arity_exception.html"
-                                                       target="_self">FunctionArityException</a></td>
-                <td class="desc">Indicates a function call with the wrong amount of arguments</td>
-            </tr>
-            <tr id="row_0_0_5_" class="odd">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el"
-                                                       href="classorg_1_1jbasic_1_1_interpreter_base_exception.html"
-                                                       target="_self">InterpreterBaseException</a></td>
-                <td class="desc">Base exception for interpreter runtime errors</td>
-            </tr>
-            <tr id="row_0_0_6_" class="even">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_c_l_i.html"
-                                                       target="_self">JBasicCLI</a></td>
-                <td class="desc">The command line interface of the interpreter</td>
-            </tr>
-            <tr id="row_0_0_7_" class="odd">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html"
-                                                       target="_self">JBasicInterpreter</a></td>
-                <td class="desc">The JBASIC interpreter</td>
-            </tr>
-            <tr id="row_0_0_8_" class="even">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el"
-                                                       href="classorg_1_1jbasic_1_1_j_basic_interpreter_state.html"
-                                                       target="_self">JBasicInterpreterState</a></td>
-                <td class="desc">Stores the state of the interpreter</td>
-            </tr>
-            <tr id="row_0_0_9_" class="odd">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html"
-                                                       target="_self">JBasicSubroutine</a></td>
-                <td class="desc">Stores the metadata associated with a subroutine, and it's block parsing context so the
-                    subroutine can be invoked later
-                </td>
-            </tr>
-            <tr id="row_0_0_10_" class="even">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html"
-                                                       target="_self">JBasicValue</a></td>
-                <td class="desc">Value class</td>
-            </tr>
-            <tr id="row_0_0_11_" class="odd">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html"
-                                                       target="_self">JBasicVisitor</a></td>
-                <td class="desc">The ANTLR visitor</td>
-            </tr>
-            <tr id="row_0_0_12_" class="even">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el"
-                                                       href="classorg_1_1jbasic_1_1_subroutine_arity_exception.html"
-                                                       target="_self">SubroutineArityException</a></td>
-                <td class="desc">Invoking a subroutine with the wrong amount of arguments error</td>
-            </tr>
-            <tr id="row_0_0_13_" class="odd">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el"
-                                                       href="classorg_1_1jbasic_1_1_subroutine_not_defined_exception.html"
-                                                       target="_self">SubroutineNotDefinedException</a></td>
-                <td class="desc">Invoking an undefined subroutine error</td>
-            </tr>
-            <tr id="row_0_0_14_" class="even">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el"
-                                                       href="classorg_1_1jbasic_1_1_subroutine_redefinition_exception.html"
-                                                       target="_self">SubroutineRedefinitionException</a></td>
-                <td class="desc">Redefinition of a subroutine error</td>
-            </tr>
-            <tr id="row_0_0_15_" class="odd">
-                <td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span
-                        class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_type_exception.html"
-                                                       target="_self">TypeException</a></td>
-                <td class="desc">Type mismatch error</td>
-            </tr>
-        </table>
-    </div><!-- directory -->
+<div class="textblock">Here are the classes, structs, unions and interfaces with brief descriptions:</div><div class="directory">
+<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span><span onclick="javascript:toggleLevel(3);">3</span>]</div><table class="directory">
+<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="toggleFolder('0_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><b>org</b></td><td class="desc"></td></tr>
+<tr id="row_0_0_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_0_" class="arrow" onclick="toggleFolder('0_0_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespaceorg_1_1jbasic.html" target="_self">jbasic</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_continue_exception.html" target="_self">ContinueException</a></td><td class="desc">Forces a continue in a loop .. </td></tr>
+<tr id="row_0_0_1_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html" target="_self">CoreUtils</a></td><td class="desc">Core utility methods </td></tr>
+<tr id="row_0_0_2_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_error_listener.html" target="_self">ErrorListener</a></td><td class="desc">Prints parser errors to the given stderr. </td></tr>
+<tr id="row_0_0_3_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_exit_exception.html" target="_self">ExitException</a></td><td class="desc">Forces exit from loop </td></tr>
+<tr id="row_0_0_4_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_function_arity_exception.html" target="_self">FunctionArityException</a></td><td class="desc">Indicates a function call with the wrong amount of arguments </td></tr>
+<tr id="row_0_0_5_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html" target="_self">InterpreterBaseException</a></td><td class="desc">Base exception for interpreter runtime errors </td></tr>
+<tr id="row_0_0_6_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_c_l_i.html" target="_self">JBasicCLI</a></td><td class="desc">The command line interface of the interpreter </td></tr>
+<tr id="row_0_0_7_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html" target="_self">JBasicInterpreter</a></td><td class="desc">The JBASIC interpreter </td></tr>
+<tr id="row_0_0_8_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter_state.html" target="_self">JBasicInterpreterState</a></td><td class="desc">Stores the state of the interpreter </td></tr>
+<tr id="row_0_0_9_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html" target="_self">JBasicSubroutine</a></td><td class="desc">Stores the metadata associated with a subroutine, and it's block parsing context so the subroutine can be invoked later </td></tr>
+<tr id="row_0_0_10_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html" target="_self">JBasicValue</a></td><td class="desc">Value class </td></tr>
+<tr id="row_0_0_11_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html" target="_self">JBasicVisitor</a></td><td class="desc">The ANTLR visitor </td></tr>
+<tr id="row_0_0_12_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_subroutine_arity_exception.html" target="_self">SubroutineArityException</a></td><td class="desc">Invoking a subroutine with the wrong amount of arguments error </td></tr>
+<tr id="row_0_0_13_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_subroutine_not_defined_exception.html" target="_self">SubroutineNotDefinedException</a></td><td class="desc">Invoking an undefined subroutine error </td></tr>
+<tr id="row_0_0_14_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_subroutine_redefinition_exception.html" target="_self">SubroutineRedefinitionException</a></td><td class="desc">Redefinition of a subroutine error </td></tr>
+<tr id="row_0_0_15_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classorg_1_1jbasic_1_1_type_exception.html" target="_self">TypeException</a></td><td class="desc">Type mismatch error </td></tr>
+</table>
+</div><!-- directory -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

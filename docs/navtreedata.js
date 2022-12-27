@@ -27,7 +27,8 @@ var NAVTREE =
   [ "JBASIC", "index.html", [
     [ "Main Page", "index.html", [
       [ "Introduction", "index.html#intro_sec", null ],
-      [ "Testing", "index.html#license_sec", null ]
+      [ "Testing", "index.html#testing_sec", null ],
+      [ "License", "index.html#license_sec", null ]
     ] ],
     [ "Packages", "namespaces.html", [
       [ "Package List", "namespaces.html", null ]

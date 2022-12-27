@@ -3,7 +3,7 @@
 * \section intro_sec Introduction
 * Welcome to the technical documentation of the JBASIC interpreter. <br>
 * JBASIC is a simple scripting language, heavily inspired by [BASIC](https://en.wikipedia.org/wiki/BASIC).
-* \section license_sec Testing
+* \section testing_sec Testing
 * The interpreter is tested using JUNIT.
 * For testing a JBASIC program is executed and the standard output is redirected.
 * Then the redirected output is compared with the expected output after the program was executed.
