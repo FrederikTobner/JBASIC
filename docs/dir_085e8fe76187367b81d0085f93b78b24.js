@@ -7,8 +7,12 @@ var dir_085e8fe76187367b81d0085f93b78b24 =
     [ "InterpreterBaseException.java", "_interpreter_base_exception_8java.html", "_interpreter_base_exception_8java" ],
     [ "JBasicCLI.java", "_j_basic_c_l_i_8java.html", "_j_basic_c_l_i_8java" ],
     [ "JBasicInterpreter.java", "_j_basic_interpreter_8java.html", "_j_basic_interpreter_8java" ],
-    [ "JBasicMemory.java", "_j_basic_memory_8java.html", "_j_basic_memory_8java" ],
+    [ "JBasicInterpreterState.java", "_j_basic_interpreter_state_8java.html", "_j_basic_interpreter_state_8java" ],
+    [ "JBasicSubroutine.java", "_j_basic_subroutine_8java.html", "_j_basic_subroutine_8java" ],
     [ "JBasicValue.java", "_j_basic_value_8java.html", "_j_basic_value_8java" ],
     [ "JBasicVisitor.java", "_j_basic_visitor_8java.html", "_j_basic_visitor_8java" ],
+    [ "SubroutineArityException.java", "_subroutine_arity_exception_8java.html", "_subroutine_arity_exception_8java" ],
+    [ "SubroutineNotDefinedException.java", "_subroutine_not_defined_exception_8java.html", "_subroutine_not_defined_exception_8java" ],
+    [ "SubroutineRedefinitionException.java", "_subroutine_redefinition_exception_8java.html", "_subroutine_redefinition_exception_8java" ],
     [ "TypeException.java", "_type_exception_8java.html", "_type_exception_8java" ]
 ];

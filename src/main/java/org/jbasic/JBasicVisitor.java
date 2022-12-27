@@ -1,4 +1,23 @@
 /**
+ * Copyright (C) 2022 by Frederik Tobner                                    *
+ * *
+ * This file is part of JBASIC.                                             *
+ * *
+ * Permission to use, copy, modify, and distribute this software and its    *
+ * documentation under the terms of the GNU General Public License is       *
+ * hereby granted.                                                          *
+ * No representations are made about the suitability of this software for   *
+ * any purpose.                                                             *
+ * It is provided "as is" without express or implied warranty.              *
+ * See the <"https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public  *
+ * License for more details.                                                *
+ *
+ * @file JBasicVisitor.java
+ * @brief The ANTLR visitor.
+ * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
+ */
+
+/**
  * @file JBasicVisitor.java
  * @brief The ANTLR visitor.
  * @details The visitor visits all the nodes in our abstract syntax tree in the order they are executed.
@@ -11,6 +30,8 @@ import basic.JBasicParser;
 import basic.LBExpressionParser;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @brief The ANTLR visitor.
@@ -23,7 +44,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     /// standard output stream used by the visitor
     private final PrintStream stdout;
     /// Memory object instance that is used when the program is executed to store the variables declared in the program
-    private final JBasicMemory memory;
+    private final JBasicInterpreterState memory;
 
     /// standard output stream that is used when the program is executed
     private PrintStream printStream;
@@ -37,7 +58,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @param stdin  The standard input stream used by the visitor
      * @param stdout The standard output stream used by the visitor
      */
-    public JBasicVisitor(JBasicMemory memory, InputStream stdin, PrintStream stdout) {
+    public JBasicVisitor(JBasicInterpreterState memory, InputStream stdin, PrintStream stdout) {
         this.stdin = stdin;
         this.stdout = stdout;
         this.memory = memory;
@@ -86,7 +107,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitId(JBasicParser.IdContext context) {
         String id = context.getText();
-        return memory.get(id);
+        return memory.getVariable(id);
     }
 
     /**
@@ -110,6 +131,27 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitStringLiteral(JBasicParser.StringLiteralContext context) {
         String value = context.getText();
         return new JBasicValue(value.substring(1, value.length() - 1));
+    }
+
+    @Override
+    public JBasicValue visitSubroutineDefinition(JBasicParser.SubroutineDefinitionContext context) {
+
+        List<String> arguments = new ArrayList<>();
+        // Adds all the argument from the subroutine signature to the List
+        context.subroutineSignature().ID().forEach(argument -> arguments.add(argument.getText()));
+        memory.defineSubroutine(context.subroutineSignature().subroutineName().getText(),
+                new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().block()));
+        return new JBasicValue(1);
+    }
+
+    @Override
+    public JBasicValue visitSubroutineCallStatement(JBasicParser.SubroutineCallStatementContext context) {
+
+        List<JBasicValue> parameters = new ArrayList<>();
+        // Parses arguments
+        context.expression().forEach(expression -> parameters.add(visit(expression)));
+        memory.callSubroutine(context.subroutineName().getText(), parameters, this);
+        return new JBasicValue(1);
     }
 
     //region Statements
@@ -161,7 +203,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue end = visit(context.expression(1));
         JBasicValue step = context.expression(2) != null ? visit(context.expression(2)) : new JBasicValue(1);
         for (double i = start.underlyingNumber(); i <= end.underlyingNumber(); i = i + step.underlyingNumber()) {
-            memory.assign(variableName, new JBasicValue(i));
+            memory.assignToVariable(variableName, new JBasicValue(i));
             try {
                 visit(context.block());
             } catch (ContinueException ignored) {
@@ -210,7 +252,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         try {
             String line = inputStream.readLine();
             JBasicValue val = new JBasicValue(line);
-            memory.assign(variableName, val);
+            memory.assignToVariable(variableName, val);
             return val;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -227,7 +269,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitLetStatement(JBasicParser.LetStatementContext context) {
         String variableName = context.variableDeclaration().variableName().ID().getText();
         JBasicValue value = visit(context.expression());
-        memory.assign(variableName, value);
+        memory.assignToVariable(variableName, value);
         return value;
     }
 

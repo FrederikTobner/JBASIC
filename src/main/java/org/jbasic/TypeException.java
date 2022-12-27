@@ -26,8 +26,11 @@ package org.jbasic;
 @SuppressWarnings("serial")
 public class TypeException extends InterpreterBaseException {
 
-    /// Constructor of a type exception
-    /// @param message The error message of the type exception
+    /**
+     * Constructor of the TypeException
+     *
+     * @param message The message of the exception
+     */
     public TypeException(String message) {
         super(message);
     }

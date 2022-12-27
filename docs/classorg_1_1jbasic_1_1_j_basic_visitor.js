@@ -1,6 +1,6 @@
 var classorg_1_1jbasic_1_1_j_basic_visitor =
 [
-    [ "JBasicVisitor", "classorg_1_1jbasic_1_1_j_basic_visitor.html#adfb206ff5a7a8588a3d00c46e054b5c0", null ],
+    [ "JBasicVisitor", "classorg_1_1jbasic_1_1_j_basic_visitor.html#aa0022034eab9b3f7a54338e6c957d02c", null ],
     [ "cleanup", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a155e237116c60268427a70bc17a2bc48", null ],
     [ "init", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a5d1076b20a7c28504f9ef13f2e20a1ad", null ],
     [ "visitAbsFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a96876390108abd7f785dd59d90497d4c", null ],
@@ -34,11 +34,13 @@ var classorg_1_1jbasic_1_1_j_basic_visitor =
     [ "visitSqrFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#aea5feaafcd53362cdecdbaa4db794999", null ],
     [ "visitStatement", "classorg_1_1jbasic_1_1_j_basic_visitor.html#ab026b2f4b8a19a5ac16d200c567f6d24", null ],
     [ "visitStringLiteral", "classorg_1_1jbasic_1_1_j_basic_visitor.html#aaab355cbdc0522c89f2c52666386acfa", null ],
+    [ "visitSubroutineCallStatement", "classorg_1_1jbasic_1_1_j_basic_visitor.html#adb2b2d9923790a6a9d23633aa2bebae0", null ],
+    [ "visitSubroutineDefinition", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a25d1bb4941ea87c51f1d42bab58d0dc1", null ],
     [ "visitTanFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a37a92a0e6d727e5aa9e8cf07660cd960", null ],
     [ "visitValFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a9aeabf728d9263b8e9d1801d60b8ec44", null ],
     [ "visitWhileStatement", "classorg_1_1jbasic_1_1_j_basic_visitor.html#abc418fe5654994b3b06bc2f2679be98b", null ],
     [ "inputStream", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a23419b827cdeb7b0b198d8ea05141708", null ],
-    [ "memory", "classorg_1_1jbasic_1_1_j_basic_visitor.html#abaf8fd64f6c1bd5796ddee3ce0e86bad", null ],
+    [ "memory", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a75d06fd327a3cc7f669c872a44e4cc92", null ],
     [ "printStream", "classorg_1_1jbasic_1_1_j_basic_visitor.html#ad7e5d7e64f5880b6afa8ac5ac16addd7", null ],
     [ "stdin", "classorg_1_1jbasic_1_1_j_basic_visitor.html#ab09e680988baf0f25491dd507933bdba", null ],
     [ "stdout", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a8c4e6fab93b56007283d11b0d65a07d6", null ]

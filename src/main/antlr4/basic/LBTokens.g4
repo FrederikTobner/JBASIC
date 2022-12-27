@@ -1,29 +1,31 @@
 lexer grammar LBTokens; // note "lexer grammar"
 
 // operators
-ADD : '+' ;
-DIVIDE : '/' ;
-MODULO : 'MOD' ;
-MULTIPLY : '*' ;
-SUBTRACT : '-' ;
+ADD                 : '+' ;
+DIVIDE              : '/' ;
+MULTIPLY            : '*' ;
+SUBTRACT            : '-' ;
 
 // logical
-EQUALS  : '=' ;
-GREATER_THEN  : '>' ;
-GREATER_THEN_EQUAL : '>=' ;
-LESS_THEN  : '<' ;
-LESS_THEN_EQUAL : '<=' ;
-NOT_EQUAL : '!=' ;
+EQUALS                  : '=' ;
+GREATER_THEN            : '>' ;
+GREATER_THEN_EQUAL      : '>=' ;
+LESS_THEN               : '<' ;
+LESS_THEN_EQUAL         : '<=' ;
+NOT_EQUAL               : '!=' ;
 
-// relational
-AND : 'AND' | 'and' ;
-NOT : 'NOT' | 'not' ;
-OR  : 'OR' | 'or' ;
+// mathematical keyword
+MODULO_KEYWORD          : 'MOD' ;
+
+// relational keywords
+AND_KEYWORD : 'AND' | 'and' ;
+NOT_KEYWORD : 'NOT' | 'not' ;
+OR_KEYWORD  : 'OR'  | 'or' ;
 
 // other
-COMMA  : ',' ;
-LEFT_PARENTHESIS : '(' ;
-RIGHT_PARENTHESIS : ')' ;
+COMMA                   : ',' ;
+LEFT_PARENTHESIS        : '(' ;
+RIGHT_PARENTHESIS       : ')' ;
 
 // functions
 ABS_FUNCTION             : 'ABS' | 'abs' ;
@@ -41,26 +43,28 @@ TAN_FUNCTION             : 'TAN' | 'tan' ;
 VAL_FUNCTION             : 'VAL' | 'val' ;
 
 // keywords
-CONTINUE    : 'CONTINUE' | 'continue' ;
-ELSE        : 'ELSE' | 'else' ;
-END         : 'END' | 'end';
-EXIT        : 'EXIT' | 'exit' ;
-FOR         : 'FOR' | 'for' ;
-IF          : 'IF' | 'if' ;
-INPUT       : 'INPUT' | 'input' ;
-LET         : 'LET' | 'let' ;
-NEXT        : 'NEXT' | 'next' ;
-PRINT       : 'PRINT' | 'print' ;
-REM         : 'REM' | 'rem' ;
-REPEAT      : 'REPEAT' | 'repeat' ;
-STEP        : 'STEP' | 'step' ;
-THEN        : 'THEN' | 'then' ;
-TO          : 'TO' | 'to' ;
-UNTIL       : 'UNTIL' | 'until' ;
-WHILE       : 'WHILE' | 'while' ;
+CALL_KEYWORD            : 'CALL' | 'call' ;
+CONTINUE_KEYWORD        : 'CONTINUE' | 'continue' ;
+ELSE_KEYWORD            : 'ELSE' | 'else' ;
+END_KEYWORD             : 'END' | 'end';
+EXIT_KEYWORD            : 'EXIT' | 'exit' ;
+FOR_KEYWORD             : 'FOR' | 'for' ;
+IF_KEYWORD              : 'IF' | 'if' ;
+INPUT_KEYWORD           : 'INPUT' | 'input' ;
+LET_KEYWORD             : 'LET' | 'let' ;
+NEXT_KEYWORD            : 'NEXT' | 'next' ;
+PRINT_KEYWORD           : 'PRINT' | 'print' ;
+REM_KEYWORD             : 'REM' | 'rem' ;
+REPEAT_KEYWORD          : 'REPEAT' | 'repeat' ;
+STEP_KEYWORD            : 'STEP' | 'step' ;
+THEN_KEYWORD            : 'THEN' | 'then' ;
+TO_KEYWORD              : 'TO' | 'to' ;
+UNTIL_KEYWORD           : 'UNTIL' | 'until' ;
+WHILE_KEYWORD           : 'WHILE' | 'while' ;
+SUB_KEYWORD             : 'SUB' | 'sub' ;
 
 // comments
-COMMENT : REM ~[\r\n]* ;
+COMMENT         : REM_KEYWORD ~[\r\n]* ;
 
 // literals
 DOLLAR_SIGN         : '$' ;

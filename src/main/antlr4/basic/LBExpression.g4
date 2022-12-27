@@ -10,14 +10,14 @@ statement
 
 expression
     : expression op=(ADD|SUBTRACT) expression                                                                   # AddSubExpression
-    | expression AND expression                                                                                 # AndExpression
+    | expression AND_KEYWORD expression                                                                         # AndExpression
     | function                                                                                                  # FuncExpression
     | id                                                                                                        # IdExpression
-    | expression op=(MULTIPLY|DIVIDE|MODULO) expression                                                         # MulDivExpression
+    | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # MulDivExpression
     | SUBTRACT expression                                                                                       # NegateExpression
-    | NOT expression                                                                                            # NotExpression
+    | NOT_KEYWORD expression                                                                                    # NotExpression
     | numericLiteral                                                                                            # NumericLiteralExpression
-    | expression OR expression                                                                                  # OrExpression
+    | expression OR_KEYWORD  expression                                                                         # OrExpression
     | (LEFT_PARENTHESIS expression RIGHT_PARENTHESIS)                                                           # ParenExpression
     | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # RelExpression
     | stringLiteral                                                                                             # StringLiteralExpression

@@ -13,14 +13,16 @@ statement
     | repeatStatement
     | continueStatement
     | exitStatement
-    | COMMENT;
+    | COMMENT
+    | subroutineDefinition
+    | subroutineCallStatement;
 
 block
     : (statement (NEWLINE+ | EOF))*
     ;
 
 letStatement
-    : LET? variableDeclaration EQUALS expression
+    : LET_KEYWORD? variableDeclaration EQUALS expression
     ;
 
 variableDeclaration
@@ -31,45 +33,66 @@ variableName
     : ID
     ;
 
+subroutineName
+    : ID
+    ;
+
 variableSuffix
     : DOLLAR_SIGN
     ;
 
+subroutineDefinition
+    : subroutineSignature subroutineBody
+    ;
+
+subroutineSignature
+    : SUB_KEYWORD subroutineName LEFT_PARENTHESIS (ID (COMMA ID)*)? RIGHT_PARENTHESIS NEWLINE
+    ;
+
+subroutineBody
+    : block END_KEYWORD SUB_KEYWORD NEWLINE
+    ;
+
+subroutineCallStatement
+    : CALL_KEYWORD subroutineName LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
+    ;
+
 printStatement
-    : PRINT expression;
+    : PRINT_KEYWORD expression
+    ;
 
 inputStatement
-    : INPUT stringLiteral variableDeclaration
+    : INPUT_KEYWORD stringLiteral variableDeclaration
     ;
 
 ifStatement
-    : IF expression NEWLINE* THEN NEWLINE+ block elifStatement* elseStatement? END
+    : IF_KEYWORD expression NEWLINE* THEN_KEYWORD NEWLINE+ block elifStatement* elseStatement? END_KEYWORD
     ;
 
 elifStatement
-    : ELSE IF expression NEWLINE* THEN NEWLINE+ block
+    : ELSE_KEYWORD IF_KEYWORD expression NEWLINE* THEN_KEYWORD NEWLINE+ block
     ;
 
 elseStatement
-    : ELSE NEWLINE+ block
+    : ELSE_KEYWORD NEWLINE+ block
     ;
 
 forStatement
-    : FOR variableDeclaration EQUALS expression TO expression (STEP expression)? NEWLINE+ block NEXT
+    : FOR_KEYWORD variableDeclaration EQUALS expression TO_KEYWORD expression (STEP_KEYWORD expression)? NEWLINE+ block NEXT_KEYWORD
     ;
 
 whileStatement
-    : WHILE expression NEWLINE+ block END
+    : WHILE_KEYWORD expression NEWLINE+ block END_KEYWORD
     ;
 
 repeatStatement
-    : REPEAT NEWLINE+ block NEWLINE* UNTIL expression
+    : REPEAT_KEYWORD NEWLINE+ block NEWLINE* UNTIL_KEYWORD expression
     ;
 
 continueStatement
-    : CONTINUE
+    : CONTINUE_KEYWORD
     ;
 
 exitStatement
-    : EXIT
+    : EXIT_KEYWORD
     ;
