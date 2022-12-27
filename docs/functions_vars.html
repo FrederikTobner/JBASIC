@@ -61,21 +61,57 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <div id="doc-content">
 <div class="contents">
 &#160;<ul>
-<li>CreateFalseValue&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#ab193ae4676b741816fb7045e704231b6">org.jbasic.JBasicValue</a></li>
-<li>CreateNotANumberValue&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#a6527f7e5a435fd8c5233704d6a93d9a5">org.jbasic.JBasicValue</a></li>
-<li>CreateTrueValue&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#a6c9b82dd658b1f1e482825cc85adb2ac">org.jbasic.JBasicValue</a></li>
-<li>inputStream&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a23419b827cdeb7b0b198d8ea05141708">org.jbasic.JBasicVisitor</a></li>
-<li>line&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_interpreter_exception.html#a2a41b6c8fd380f314563f7c0ccdd7196">org.jbasic.InterpreterException</a></li>
-<li>memory&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a4f10c741723c59d1d2028d40043d1333">org.jbasic.JBasicInterpreter</a>, <a class="el" href="classorg_1_1jbasic_1_1_j_basic_memory.html#a41d681faab507803fa574f86175e6b7f">org.jbasic.JBasicMemory</a>, <a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#abaf8fd64f6c1bd5796ddee3ce0e86bad">org.jbasic.JBasicVisitor</a></li>
-<li>numericalOutputFormat&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a17b132321f46af1aa39f5b566b1441f7">org.jbasic.CoreUtils</a></li>
-<li>positionInLine&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_interpreter_exception.html#a41a0a67ed640e391112629308c5af70b">org.jbasic.InterpreterException</a></li>
-<li>printStream&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ad7e5d7e64f5880b6afa8ac5ac16addd7">org.jbasic.JBasicVisitor</a></li>
-<li>stderr&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_error_listener.html#af35662c3f8780032efd1d355e0878959">org.jbasic.ErrorListener</a></li>
-<li>stderrPrint&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a2c275727c6acb57da2169228641c614f">org.jbasic.JBasicInterpreter</a></li>
-<li>stdin&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a75bf70defdd1f876b73049c63088849e">org.jbasic.JBasicInterpreter</a>, <a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ab09e680988baf0f25491dd507933bdba">org.jbasic.JBasicVisitor</a></li>
-<li>stdout&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a8c4e6fab93b56007283d11b0d65a07d6">org.jbasic.JBasicVisitor</a></li>
-<li>stdoutPrint&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a4f48eb37ae71f5f7b021d12dce6921af">org.jbasic.JBasicInterpreter</a></li>
-<li>value&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#ae009ac8ae655559e3e0d20e6675dc607">org.jbasic.JBasicValue</a></li>
+    <li>CreateFalseValue&#160;:&#160;<a class="el"
+                                        href="classorg_1_1jbasic_1_1_j_basic_value.html#ab193ae4676b741816fb7045e704231b6">org.jbasic.JBasicValue</a>
+    </li>
+    <li>CreateNotANumberValue&#160;:&#160;<a class="el"
+                                             href="classorg_1_1jbasic_1_1_j_basic_value.html#a6527f7e5a435fd8c5233704d6a93d9a5">org.jbasic.JBasicValue</a>
+    </li>
+    <li>CreateTrueValue&#160;:&#160;<a class="el"
+                                       href="classorg_1_1jbasic_1_1_j_basic_value.html#a6c9b82dd658b1f1e482825cc85adb2ac">org.jbasic.JBasicValue</a>
+    </li>
+    <li>inputStream&#160;:&#160;<a class="el"
+                                   href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a23419b827cdeb7b0b198d8ea05141708">org.jbasic.JBasicVisitor</a>
+    </li>
+    <li>labels&#160;:&#160;<a class="el"
+                              href="classorg_1_1jbasic_1_1_j_basic_memory.html#a7573139e6d511a467d03976e1edb07ba">org.jbasic.JBasicMemory</a>
+    </li>
+    <li>line&#160;:&#160;<a class="el"
+                            href="classorg_1_1jbasic_1_1_interpreter_base_exception.html#ad13cde6a1f770e308d4c1ce2a048548c">org.jbasic.InterpreterBaseException</a>
+    </li>
+    <li>memory&#160;:&#160;<a class="el"
+                              href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a4f10c741723c59d1d2028d40043d1333">org.jbasic.JBasicInterpreter</a>,
+        <a class="el" href="classorg_1_1jbasic_1_1_j_basic_memory.html#a41d681faab507803fa574f86175e6b7f">org.jbasic.JBasicMemory</a>,
+        <a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#abaf8fd64f6c1bd5796ddee3ce0e86bad">org.jbasic.JBasicVisitor</a>
+    </li>
+    <li>numericalOutputFormat&#160;:&#160;<a class="el"
+                                             href="classorg_1_1jbasic_1_1_core_utils.html#a17b132321f46af1aa39f5b566b1441f7">org.jbasic.CoreUtils</a>
+    </li>
+    <li>positionInLine&#160;:&#160;<a class="el"
+                                      href="classorg_1_1jbasic_1_1_interpreter_base_exception.html#ad68eb0a0ac86e6fa9e10cdc622c69b43">org.jbasic.InterpreterBaseException</a>
+    </li>
+    <li>printStream&#160;:&#160;<a class="el"
+                                   href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ad7e5d7e64f5880b6afa8ac5ac16addd7">org.jbasic.JBasicVisitor</a>
+    </li>
+    <li>stderr&#160;:&#160;<a class="el"
+                              href="classorg_1_1jbasic_1_1_error_listener.html#af35662c3f8780032efd1d355e0878959">org.jbasic.ErrorListener</a>
+    </li>
+    <li>stderrPrint&#160;:&#160;<a class="el"
+                                   href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a2c275727c6acb57da2169228641c614f">org.jbasic.JBasicInterpreter</a>
+    </li>
+    <li>stdin&#160;:&#160;<a class="el"
+                             href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a75bf70defdd1f876b73049c63088849e">org.jbasic.JBasicInterpreter</a>,
+        <a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ab09e680988baf0f25491dd507933bdba">org.jbasic.JBasicVisitor</a>
+    </li>
+    <li>stdout&#160;:&#160;<a class="el"
+                              href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a8c4e6fab93b56007283d11b0d65a07d6">org.jbasic.JBasicVisitor</a>
+    </li>
+    <li>stdoutPrint&#160;:&#160;<a class="el"
+                                   href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a4f48eb37ae71f5f7b021d12dce6921af">org.jbasic.JBasicInterpreter</a>
+    </li>
+    <li>value&#160;:&#160;<a class="el"
+                             href="classorg_1_1jbasic_1_1_j_basic_value.html#ae009ac8ae655559e3e0d20e6675dc607">org.jbasic.JBasicValue</a>
+    </li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

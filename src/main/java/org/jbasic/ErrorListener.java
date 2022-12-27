@@ -18,9 +18,6 @@
  * @brief Print parser errors to the given stderr..
  */
 
-/**
- * Main package of the interpreter
- */
 package org.jbasic;
 
 import org.antlr.v4.runtime.BaseErrorListener;

@@ -85,12 +85,11 @@ public class JBasicInterpreter {
             // Executing the program with the visitor
             visitor.visit(tree);
         }
-        catch (InterpreterException e) {
+        catch (InterpreterBaseException e) {
             stderrPrint.println(e.getMessage());
-        }
-        catch (ParseCancellationException e) {
+        } catch (ParseCancellationException e) {
             if (e.getCause() instanceof InputMismatchException) {
-                InputMismatchException inputEx = (InputMismatchException)e.getCause();
+                InputMismatchException inputEx = (InputMismatchException) e.getCause();
                 String msg = CoreUtils.formatErrorMessage(
                         inputEx.getOffendingToken().getLine(),
                         inputEx.getOffendingToken().getCharPositionInLine(),

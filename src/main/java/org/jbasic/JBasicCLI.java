@@ -48,7 +48,7 @@ public class JBasicCLI {
 
         }
         catch (IOException e) {
-            System.out.println("Error running program: " + e.getMessage());
+            System.out.println("Error running script: " + e.getMessage());
             System.exit(-1);
         }
         finally {

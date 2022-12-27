@@ -18,9 +18,9 @@ import java.io.*;
  */
 public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
 
-    /// standard input stream
+    /// standard input stream used by the visitor
     private final InputStream stdin;
-    /// standard output stream
+    /// standard output stream used by the visitor
     private final PrintStream stdout;
     /// Memory object instance that is used when the program is executed to store the variables declared in the program
     private final JBasicMemory memory;
@@ -81,7 +81,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits an ID Expression '$VAR' in the abstract syntax tree
      *
      * @param context The parsing context of the id that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting an id in the abstract syntax tree
      */
     @Override
     public JBasicValue visitId(JBasicParser.IdContext context) {
@@ -93,7 +93,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a number literal in the abstract syntax tree
      *
      * @param context The parsing context of the number that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the numerical literal in the abstract syntax tree
      */
     @Override
     public JBasicValue visitNumericLiteral(JBasicParser.NumericLiteralContext context) {
@@ -104,7 +104,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a number literal in the abstract syntax tree
      *
      * @param context The parsing context of the string that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the string literal in the abstract syntax tree
      */
     @Override
     public JBasicValue visitStringLiteral(JBasicParser.StringLiteralContext context) {
@@ -118,7 +118,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a statement in the abstract syntax tree
      *
      * @param context The parsing context of the statement that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the statement
      */
     @Override
     public JBasicValue visitStatement(JBasicParser.StatementContext context) {
@@ -130,7 +130,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'continue statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'continue statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the continue statement
      */
     @Override
     public JBasicValue visitContinueStatement(JBasicParser.ContinueStatementContext context) {
@@ -141,7 +141,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'exit statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'exit statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the exit statement
      */
     @Override
     public JBasicValue visitExitStatement(JBasicParser.ExitStatementContext context) {
@@ -152,7 +152,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'for statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'for statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the for statement
      */
     @Override
     public JBasicValue visitForStatement(JBasicParser.ForStatementContext context) {
@@ -176,7 +176,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'if statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'if statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by  visiting the if statement
      */
     @Override
     public JBasicValue visitIfStatement(JBasicParser.IfStatementContext context) {
@@ -201,7 +201,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'input statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'input statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the input statement
      */
     @Override
     public JBasicValue visitInputStatement(JBasicParser.InputStatementContext context) {
@@ -221,7 +221,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'let statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'let statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the let statement
      */
     @Override
     public JBasicValue visitLetStatement(JBasicParser.LetStatementContext context) {
@@ -235,7 +235,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'print statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'print statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the print statement
      */
     @Override
     public JBasicValue visitPrintStatement(JBasicParser.PrintStatementContext context) {
@@ -252,7 +252,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'repeat statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'repeat statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the repeat statement
      */
     @Override
     public JBasicValue visitRepeatStatement(JBasicParser.RepeatStatementContext context) {
@@ -274,7 +274,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'while statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'while statement' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the while statement
      */
     @Override
     public JBasicValue visitWhileStatement(JBasicParser.WhileStatementContext context) {
@@ -299,7 +299,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'abs' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'abs function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the abs function
      */
     @Override
     public JBasicValue visitAbsFunction(JBasicParser.AbsFunctionContext context) {
@@ -315,7 +315,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'acs' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'acs function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the acs function
      */
     @Override
     public JBasicValue visitAcsFunction(JBasicParser.AcsFunctionContext context) {
@@ -331,7 +331,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'arc sinus' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'asn function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'asn function'
      */
     @Override
     public JBasicValue visitAsnFunction(JBasicParser.AsnFunctionContext context) {
@@ -347,7 +347,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'arc tangent hyperbolicus' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'ath function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'ath function'
      */
     @Override
     public JBasicValue visitAthFunction(JBasicParser.AthFunctionContext context) {
@@ -363,7 +363,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'arc tangent' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'atn function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'atn function'
      */
     @Override
     public JBasicValue visitAtnFunction(JBasicParser.AtnFunctionContext context) {
@@ -379,7 +379,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'cosine' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'cos function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'cos function'
      */
     @Override
     public JBasicValue visitCosFunction(JBasicParser.CosFunctionContext context) {
@@ -395,7 +395,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'exponential' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'abs function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'exp function'
      */
     @Override
     public JBasicValue visitExpFunction(JBasicParser.ExpFunctionContext context) {
@@ -408,22 +408,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
-     * Visits a 'is not a number' function call in the abstract syntax tree
-     *
-     * @param context The parsing context of the 'isnan function' that is visited
-     * @return The Value that is omitted by executing code
-     */
-    @Override
-    public JBasicValue visitIsnanFunction(JBasicParser.IsnanFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
-        return argument.isNotANumericalValue() ? JBasicValue.CreateTrueValue : JBasicValue.CreateFalseValue;
-    }
-
-    /**
      * Visits a 'length' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'len function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'len function'
      */
     @Override
     public JBasicValue visitLenFunction(JBasicParser.LenFunctionContext context) {
@@ -439,7 +427,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'logarithm' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'log function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'log function'
      */
     @Override
     public JBasicValue visitLogFunction(JBasicParser.LogFunctionContext context) {
@@ -447,7 +435,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.log(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate LOG(). Argument is not a number");
         }
     }
 
@@ -455,7 +443,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'sine' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'sin function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'sin function'
      */
     @Override
     public JBasicValue visitSinFunction(JBasicParser.SinFunctionContext context) {
@@ -463,7 +451,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sin(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate SIN(). Argument is not a number");
         }
     }
 
@@ -471,7 +459,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'square root' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'sqr function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'sqr function'
      */
     @Override
     public JBasicValue visitSqrFunction(JBasicParser.SqrFunctionContext context) {
@@ -479,7 +467,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sqrt(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate SQR(). Argument is not a number");
         }
     }
 
@@ -487,7 +475,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'tangent' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'tan function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'tan function'
      */
     @Override
     public JBasicValue visitTanFunction(JBasicParser.TanFunctionContext context) {
@@ -495,7 +483,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.tan(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate TAN(). Argument is not a number");
         }
     }
 
@@ -503,7 +491,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'val' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'val function' that is visited
-     * @return The Value that is omitted by executing code
+     * @return The Value that is omitted by visiting the 'val function'
      */
     @Override
     public JBasicValue visitValFunction(JBasicParser.ValFunctionContext context) {
@@ -526,7 +514,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'and expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'and expression' that is visited
-     * @return The Value that is omitted by executing the expression
+     * @return The Value that is omitted by visiting the and expression
      */
     @Override
     public JBasicValue visitAndExpression(JBasicParser.AndExpressionContext context) {
@@ -539,7 +527,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits an 'add expression' or a 'subtract expression'  in the abstract syntax tree
      *
      * @param context The parsing context of the 'add expression' or 'subtract expression' that is visited
-     * @return The Value that is omitted by executing the expression
+     * @return The Value that is omitted by visiting the addition or subtraction expression
      */
     @Override
     public JBasicValue visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
@@ -556,7 +544,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits an 'multiply expression' or a 'divide expression'  in the abstract syntax tree
      *
      * @param context The parsing context of the 'multiply expression' or 'divide expression' that is visited
-     * @return The Value that is omitted by executing the expression
+     * @return The Value that is omitted by visiting the multiply or div expression
      */
     @Override
     public JBasicValue visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
@@ -575,7 +563,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'negate expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'negate expression' that is visited
-     * @return The Value that is omitted by executing the expression
+     * @return The Value that is omitted by visiting the 'negate expression'
      */
     @Override
     public JBasicValue visitNegateExpression(JBasicParser.NegateExpressionContext context) {
@@ -587,7 +575,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'not expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'not expression' that is visited
-     * @return The Value that is omitted by executing the expression
+     * @return The Value that is omitted by visiting the 'not expression'
      */
     @Override
     public JBasicValue visitNotExpression(JBasicParser.NotExpressionContext context) {
@@ -599,7 +587,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'or expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'or expression' that is visited
-     * @return The Value that is omitted by executing the expression
+     * @return The Value that is omitted by visiting the 'or expression'
      */
     @Override
     public JBasicValue visitOrExpression(JBasicParser.OrExpressionContext context) {
@@ -612,7 +600,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * Visits a 'relative comparison expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'rel expression' that is visited
-     * @return The Value that is omitted by executing the expression
+     * @return The Value that is omitted by visiting the 'rel expression'
      */
     @Override
     public JBasicValue visitRelExpression(JBasicParser.RelExpressionContext context) {

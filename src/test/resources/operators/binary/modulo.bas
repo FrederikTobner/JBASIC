@@ -1,1 +1,1 @@
-PRINT 5 % 3
+PRINT 5 MOD 3

@@ -1,1 +1,0 @@
-PRINT ISNAN(VAL("not a number"))

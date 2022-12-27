@@ -22,6 +22,10 @@ by [BASIC](https://en.wikipedia.org/wiki/BASIC).
 JBASIC is dialect of 'BASIC' (Beginners' All-purpose Symbolic Instruction Code) a family of general-purpose, high-level
 programming languages.
 
+Usage:
+
+    java -jar JBASIC.jar <filePath>
+
 ## Operators
 
 ### Binary operators
@@ -32,13 +36,11 @@ programming languages.
 | -        | Subtracts the second value from the first value.                              |
 | *        | Multiplies the two values.                                                    |
 | /        | Divides the first value with the second value.                                |
-| %        | Returns the remainder of the division of he first value with the second value |
 
 ### Unary operators
 
 | Operator | Description                |
 |----------|----------------------------|
-| !        | Inverts a logical value.   |
 | -        | Negates a numerical value. |
 
 ## Keywords
@@ -57,6 +59,18 @@ The language features the following keywords
 |---------|--------------------------------------------------------------------------------------------|
 | INPUT   | Asks the user to enter the value of a variable. The statement may include a prompt message |
 | PRINT   | Displays a message on the screen or other output device                                    |
+
+### Logical
+
+| Keyword | Description                                                                   |
+|---------|-------------------------------------------------------------------------------|
+| NOT     | Inverts a logical value.                                                      |
+
+### Mathematical
+
+| Keyword | Description                                                                   |
+|---------|-------------------------------------------------------------------------------|
+| MOD     | Returns the remainder of the division of he first value with the second value |
 
 ### Miscellaneous
 
@@ -101,11 +115,10 @@ JBASIC offers numerous functions to perform various tasks
 
 ## Building
 
-The interpreter is built using maven
+The interpreter is built using maven, uses the JDK version 11 and can be built by running the following command
 
     mvn install
 
-and uses the JDK version 11.
 
 ## How it works
 

@@ -1,2 +1,2 @@
-PRINT 4/2
-PRINT 7/2
+PRINT 4 / 2
+PRINT 7 / 2

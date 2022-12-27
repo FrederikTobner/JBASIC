@@ -31,7 +31,6 @@ function
     | atnFunction
     | cosFunction
     | expFunction
-    | isnanFunction
     | lenFunction
     | logFunction
     | sinFunction
@@ -69,9 +68,6 @@ cosFunction
 
 expFunction
     : EXP_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
-
-isnanFunction
-    : ISNAN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
 
 lenFunction
     : LEN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;

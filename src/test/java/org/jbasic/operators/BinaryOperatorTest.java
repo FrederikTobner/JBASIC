@@ -27,7 +27,9 @@ public class BinaryOperatorTest extends JBasicBaseTest {
     @Test
     public void testAdd() {
         test("operators/binary/add.bas",
-                (result) -> assertEquals("3" + System.lineSeparator(), result.output));
+                (result) -> assertEquals("3" + System.lineSeparator() +
+                                "foobar" + System.lineSeparator(),
+                        result.output));
     }
 
     @Test

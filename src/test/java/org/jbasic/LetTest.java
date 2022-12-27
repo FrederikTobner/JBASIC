@@ -23,14 +23,6 @@ import static org.junit.Assert.assertTrue;
 public class LetTest extends JBasicBaseTest {
 
     @Test
-    public void testString() {
-        test("let/string.bas", (result) -> {
-            assertTrue(result.interpreter.getMemory().get("string").isAStringValue());
-            assertEquals("foo", result.interpreter.getMemory().get("string").underlyingString());
-        });
-    }
-
-    @Test
     public void testNumeric() {
         test("let/numeric.bas", (result) -> {
             assertTrue(result.interpreter.getMemory().get("numeric").isANumericalValue());
@@ -39,7 +31,10 @@ public class LetTest extends JBasicBaseTest {
     }
 
     @Test
-    public void testNotANumber() {
-        test("let/not_a_number.bas", (result) -> assertTrue(result.interpreter.getMemory().get("nan").isNotANumericalValue()));
+    public void testString() {
+        test("let/string.bas", (result) -> {
+            assertTrue(result.interpreter.getMemory().get("string").isAStringValue());
+            assertEquals("foo", result.interpreter.getMemory().get("string").underlyingString());
+        });
     }
 }

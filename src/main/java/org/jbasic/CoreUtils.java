@@ -40,7 +40,7 @@ public class CoreUtils {
      * @param exception The InterpreterException where that is enriched
      * @param context   The ParserRRuleContext where the error occurred
      */
-    public static void addLocationToException(InterpreterException exception, ParserRuleContext context) {
+    public static void addLocationToException(InterpreterBaseException exception, ParserRuleContext context) {
         exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
     }
 

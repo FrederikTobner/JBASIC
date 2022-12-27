@@ -24,7 +24,7 @@ package org.jbasic;
  * @brief Type mismatch error.
  */
 @SuppressWarnings("serial")
-public class TypeException extends InterpreterException {
+public class TypeException extends InterpreterBaseException {
 
     /// Constructor of a type exception
     /// @param message The error message of the type exception

@@ -8,7 +8,7 @@ var hierarchy =
     [ "RuntimeException", null, [
       [ "org.jbasic.ContinueException", "classorg_1_1jbasic_1_1_continue_exception.html", null ],
       [ "org.jbasic.ExitException", "classorg_1_1jbasic_1_1_exit_exception.html", null ],
-      [ "org.jbasic.InterpreterException", "classorg_1_1jbasic_1_1_interpreter_exception.html", [
+      [ "org.jbasic.InterpreterBaseException", "classorg_1_1jbasic_1_1_interpreter_base_exception.html", [
         [ "org.jbasic.TypeException", "classorg_1_1jbasic_1_1_type_exception.html", null ]
       ] ]
     ] ],

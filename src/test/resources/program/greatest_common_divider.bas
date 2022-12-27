@@ -1,13 +1,13 @@
-REM Greatest common divisor
-INPUT "A=" ain
-INPUT "B=" bin
-a = VAL(ain)
-b = VAL(bin)
+REM Greatest common divider
+INPUT "First=" first_input
+INPUT "Second=" second_input
+first_val = VAL(first_input)
+second_val = VAL(second_input)
 
-WHILE b > 0
-    t = a % b
-    a = b
-    b = t
+WHILE second_val > 0
+    t = first_val MOD second_val
+    first_val = second_val
+    second_val = t
 END
 
-PRINT a
+PRINT first_val

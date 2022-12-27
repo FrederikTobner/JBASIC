@@ -1,1 +1,1 @@
-PRINT 2*3
+PRINT 2 * 3

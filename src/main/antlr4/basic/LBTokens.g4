@@ -3,7 +3,7 @@ lexer grammar LBTokens; // note "lexer grammar"
 // operators
 ADD : '+' ;
 DIVIDE : '/' ;
-MODULO : '%' ;
+MODULO : 'MOD' ;
 MULTIPLY : '*' ;
 SUBTRACT : '-' ;
 
@@ -17,7 +17,7 @@ NOT_EQUAL : '!=' ;
 
 // relational
 AND : 'AND' | 'and' ;
-NOT : '!' ;
+NOT : 'NOT' | 'not' ;
 OR  : 'OR' | 'or' ;
 
 // other
@@ -33,7 +33,6 @@ ATH_FUNCTION             : 'ATH' | 'ath' ;
 ATN_FUNCTION             : 'ATN' | 'atn' ;
 COS_FUNCTION             : 'COS' | 'cos' ;
 EXP_FUNCTION             : 'EXP' | 'exp' ;
-ISNAN_FUNCTION           : 'ISNAN' | 'isnan' ;
 LEN_FUNCTION             : 'LEN' | 'len' ;
 LOG_FUNCTION             : 'LOG' | 'log' ;
 SIN_FUNCTION             : 'SIN' | 'sin' ;
@@ -65,8 +64,8 @@ COMMENT : REM ~[\r\n]* ;
 
 // literals
 DOLLAR_SIGN         : '$' ;
-ID                  : [a-zA-Z]+ ;                   // match identifiers
+ID                  : [a-zA-Z][a-zA-Z0-9_]* ;       // match identifiers
 NEWLINE             :'\r'? '\n' ;                   // return newlines to parser (end-statement signal)
-NUMERIC_LITERAL     : [0-9]+ ('.' [0-9]+)?;         // match number literals
-STRING_LITERAL      : '"' ~ ["\r\n]* '"' ;
+NUMERIC_LITERAL     : [0-9]+ ('.' [0-9]+)? ;        // match numerical literals
+STRING_LITERAL      : '"' ~ ["\r\n]* '"' ;          // match string literals
 WHITE_SPACE         : [ \t]+ -> skip ;              // toss out whitespace

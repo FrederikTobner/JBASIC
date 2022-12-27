@@ -1,1 +1,1 @@
-PRINT !0
+PRINT NOT 0

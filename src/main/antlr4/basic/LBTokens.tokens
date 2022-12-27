@@ -57,7 +57,7 @@ TAN_FUNCTION=55
 '/'=2                       // Divide
 '+'=3                       // Add
 '-'=4                       // Subtract
-'%'=5                       // Modulo
+'MOD'=5                     // Modulo
 '!='=6                      // Not equal
 '>='=7                      // greater than equal
 '<='=8                      // less than equal

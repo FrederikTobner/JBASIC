@@ -24,12 +24,12 @@ package org.jbasic;
  * @brief Base exception for interpreter runtime errors.
  */
 @SuppressWarnings("serial")
-public abstract class InterpreterException extends RuntimeException {
+public abstract class InterpreterBaseException extends RuntimeException {
 
     private int line;
     private int positionInLine;
 
-    public InterpreterException(String message) {
+    public InterpreterBaseException(String message) {
         super(message);
     }
 

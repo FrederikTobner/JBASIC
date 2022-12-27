@@ -18,7 +18,6 @@ var classorg_1_1jbasic_1_1_j_basic_visitor =
     [ "visitId", "classorg_1_1jbasic_1_1_j_basic_visitor.html#afeadc1578a7380045aa6b1f3d1e97608", null ],
     [ "visitIfStatement", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a1141c5f937f3ce439e430e9574824ad3", null ],
     [ "visitInputStatement", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a2527b5e5ab5b8291eb09a85cf32c7ebe", null ],
-    [ "visitIsnanFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a06e67925a5c28072b4fa87848c918e93", null ],
     [ "visitLenFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#ab59dc7abffc552e4da48f25b6eb3acde", null ],
     [ "visitLetStatement", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a11790c21aae7032f08df9010bd1ffca6", null ],
     [ "visitLogFunction", "classorg_1_1jbasic_1_1_j_basic_visitor.html#a7df3df812919677d7706d8a71469f931", null ],

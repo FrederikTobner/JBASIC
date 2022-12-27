@@ -20,6 +20,8 @@
 
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +32,8 @@ public class JBasicMemory {
 
     /// The hashtable, that stores all the variables with the name of the variable as the key of the entry
     private final Map<String, JBasicValue> memory = new HashMap<>();
+
+    private final Map<String, ParserRuleContext> labels = new HashMap<>();
 
     /**
      * Assigns another value to a specific variable in memory

@@ -1,1 +1,1 @@
-PRINT 2-1
+PRINT 2 - 1
