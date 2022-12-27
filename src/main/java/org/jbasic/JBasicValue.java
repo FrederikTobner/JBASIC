@@ -117,7 +117,8 @@ public class JBasicValue {
      */
     private void assertIsNumber(ParserRuleContext context) {
         if (!this.isANumericalValue()) {
-            TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" + this.value + "\" is not a number");
+            TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" +
+                                                                this.value + "\" is not a number");
             CoreUtils.addLocationToException(typeException, context);
             throw typeException;
         }
@@ -158,12 +159,18 @@ public class JBasicValue {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof JBasicValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof JBasicValue)) {
+            return false;
+        }
 
         JBasicValue value1 = (JBasicValue) o;
 
-        if (this.isNotANumericalValue() != value1.isNotANumericalValue()) return false;
+        if (this.isNotANumericalValue() != value1.isNotANumericalValue()) {
+            return false;
+        }
         return Objects.equals(this.value, value1.value);
     }
 

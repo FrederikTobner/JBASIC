@@ -25,6 +25,7 @@ ACS_FUNCTION            : 'ACS' | 'acs' ;
 ASN_FUNCTION            : 'ASN' | 'asn' ;
 ATH_FUNCTION            : 'ATH' | 'ath' ;
 ATN_FUNCTION            : 'ATN' | 'atn' ;
+AVG_FUNCTION            : 'AVG' | 'avg' ;
 COS_FUNCTION            : 'COS' | 'cos' ;
 EXP_FUNCTION            : 'EXP' | 'exp' ;
 LEN_FUNCTION            : 'LEN' | 'len' ;
@@ -33,6 +34,7 @@ MAX_FUNCTION            : 'MAX' | 'max' ;
 MIN_FUNCTION            : 'MIN' | 'min' ;
 SIN_FUNCTION            : 'SIN' | 'sin' ;
 SQR_FUNCTION            : 'SQR' | 'sqr' ;
+SUM_FUNCTION            : 'SUM' | 'sum' ;
 TAN_FUNCTION            : 'TAN' | 'tan' ;
 VAL_FUNCTION            : 'VAL' | 'val' ;
 

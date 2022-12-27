@@ -29,6 +29,7 @@ function
     | asnFunction
     | athFunction
     | atnFunction
+    | avgFunction
     | cosFunction
     | expFunction
     | lenFunction
@@ -37,6 +38,7 @@ function
     | minFunction
     | sinFunction
     | sqrFunction
+    | sumFunction
     | tanFunction
     | valFunction
     ;
@@ -51,31 +53,34 @@ stringLiteral
     : STRING_LITERAL ;
 
 absFunction
-    : ABS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : ABS_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 acsFunction
-    : ACS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : ACS_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 asnFunction
-    : ASN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : ASN_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 athFunction
-    : ATH_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : ATH_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 atnFunction
-    : ATN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : ATN_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
+
+avgFunction
+    : AVG_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 cosFunction
-    : COS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : COS_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 expFunction
-    : EXP_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : EXP_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 lenFunction
-    : LEN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : LEN_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 logFunction
-    : LOG_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : LOG_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 maxFunction
     : MAX_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
@@ -84,13 +89,16 @@ minFunction
     : MIN_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 sinFunction
-    : SIN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : SIN_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 sqrFunction
-    : SQR_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : SQR_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
+
+sumFunction
+    : SUM_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 tanFunction
-    : TAN_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : TAN_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
 
 valFunction
-    : VAL_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;
+    : VAL_FUNCTION LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;

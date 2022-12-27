@@ -23,6 +23,7 @@ package org.jbasic;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 
 /**
@@ -42,6 +43,12 @@ public class CoreUtils {
      */
     public static void addLocationToException(InterpreterBaseException exception, ParserRuleContext context) {
         exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
+    }
+
+    public static void assertArrity(String functionName, List<basic.JBasicParser.ExpressionContext> arguments, int expectedArgumentCount) {
+        if (arguments.size() != expectedArgumentCount) {
+            throw new FunctionArityException(functionName + " can not be called with 0 arguments");
+        }
     }
 
     /**

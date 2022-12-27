@@ -114,6 +114,13 @@ public class MathFunctionsTest extends JBasicBaseTest {
     }
 
     @Test
+    public void testSumFunction() {
+        this.test("functions/math/sum.bas",
+                (result) -> assertEquals("10" + System.lineSeparator(),
+                        result.output));
+    }
+
+    @Test
     public void testTanFunction() {
         this.test("functions/math/tangent.bas",
                 (result) -> assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +

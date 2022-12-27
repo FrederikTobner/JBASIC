@@ -102,14 +102,15 @@ JBASIC offers numerous functions to perform various tasks
 | ASN          | Arc sine                  |
 | ATH          | Area tangent hyperbolicus |
 | ATN          | Arc tangent               |
+| AVG          | Average                   |
 | COS          | Cosine                    |
 | EXP          | Exponential function      |
 | LOG          | Natural logarithm         |
 | MAX          | Maximum value             |
 | MIN          | Minimum value             |
-| SIN          | Absolute value            |
-| SQR          | Sine                      |
+| SIN          | Sine                      |
 | SQR          | Square root               |
+| SUM          | Summation                 |
 | TAN          | Tangent                   |
 
 ### Strings
