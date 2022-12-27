@@ -40,6 +40,6 @@ public abstract class InterpreterBaseException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return CoreUtils.formatErrorMessage(line, positionInLine, super.getMessage());
+        return CoreUtils.formatErrorMessage(this.line, this.positionInLine, super.getMessage());
     }
 }

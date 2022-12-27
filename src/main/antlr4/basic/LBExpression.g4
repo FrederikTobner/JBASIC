@@ -12,7 +12,7 @@ expression
     : expression op=(ADD|SUBTRACT) expression                                                                   # AddSubExpression
     | expression AND_KEYWORD expression                                                                         # AndExpression
     | function                                                                                                  # FuncExpression
-    | id                                                                                                        # IdExpression
+    | identifier                                                                                                # IdentifierExpression
     | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # MulDivExpression
     | SUBTRACT expression                                                                                       # NegateExpression
     | NOT_KEYWORD expression                                                                                    # NotExpression
@@ -39,14 +39,14 @@ function
     | valFunction
     ;
 
-stringLiteral
-    : STRING_LITERAL ;
+identifier
+    : ID ;
 
 numericLiteral
     : NUMERIC_LITERAL ;
 
-id
-    : ID ;
+stringLiteral
+    : STRING_LITERAL ;
 
 absFunction
     : ABS_FUNCTION LEFT_PARENTHESIS expression RIGHT_PARENTHESIS ;

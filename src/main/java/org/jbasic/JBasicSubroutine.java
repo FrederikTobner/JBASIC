@@ -51,7 +51,7 @@ public class JBasicSubroutine {
      * @return The names of the arguments
      */
     public String[] getArguments() {
-        return arguments;
+        return this.arguments;
     }
 
     /**
@@ -60,7 +60,7 @@ public class JBasicSubroutine {
      * @return The body of the subroutine
      */
     public JBasicParser.BlockContext getSubroutineBody() {
-        return subroutineBody;
+        return this.subroutineBody;
     }
 
     /**

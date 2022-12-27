@@ -74,19 +74,19 @@ public class JBasicInterpreter {
         // Removing default error listeners
         parser.removeErrorListeners();
         // Adding our own error listener
-        parser.addErrorListener(new ErrorListener(stderrPrint));
+        parser.addErrorListener(new ErrorListener(this.stderrPrint));
         try {
             // We create an abstract syntax tree from the tokens
             ParseTree tree = parser.program();
             // Memory used by the program
-            state = new JBasicInterpreterState();
+            this.state = new JBasicInterpreterState();
             // Creating the visitor to visit the nodes in the abstract syntax tree
-            JBasicVisitor visitor = new JBasicVisitor(state, stdin, stdoutPrint);
+            JBasicVisitor visitor = new JBasicVisitor(this.state, this.stdin, this.stdoutPrint);
             // Executing the program with the visitor
             visitor.visit(tree);
         }
         catch (InterpreterBaseException e) {
-            stderrPrint.println(e.getMessage());
+            this.stderrPrint.println(e.getMessage());
         } catch (ParseCancellationException e) {
             if (e.getCause() instanceof InputMismatchException) {
                 InputMismatchException inputEx = (InputMismatchException) e.getCause();
@@ -94,7 +94,7 @@ public class JBasicInterpreter {
                         inputEx.getOffendingToken().getLine(),
                         inputEx.getOffendingToken().getCharPositionInLine(),
                         "Syntax error");
-                stderrPrint.println(msg);
+                this.stderrPrint.println(msg);
             }
         }
     }
@@ -105,11 +105,11 @@ public class JBasicInterpreter {
      * @details The memory associated with the interpreter is a simple hashtable that stores all the variables that are declared in the program
      */
     public JBasicInterpreterState getState() {
-        return state;
+        return this.state;
     }
 
     /// Deallocates the memory used by the interpreter
     public void clear() {
-        state.freeMemory();
+        this.state.freeMemory();
     }
 }

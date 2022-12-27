@@ -72,11 +72,11 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitProgram(JBasicParser.ProgramContext context) {
-        init();
+        this.initialize();
         try {
             return super.visitProgram(context);
         } finally {
-            cleanup();
+            this.cleanup();
         }
     }
 
@@ -85,9 +85,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @details The output stream that is used for print statements
      * and the input stream used by input statements is therefor initialized
      */
-    private void init() {
-        printStream = new PrintStream(stdout, true);
-        inputStream = new BufferedReader(new InputStreamReader(stdin));
+    private void initialize() {
+        this.printStream = new PrintStream(this.stdout, true);
+        this.inputStream = new BufferedReader(new InputStreamReader(this.stdin));
     }
 
     /**
@@ -95,7 +95,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @details The printStream is closed
      */
     private void cleanup() {
-        printStream.close();
+        this.printStream.close();
     }
 
     /**
@@ -105,9 +105,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @return The Value that is omitted by visiting an id in the abstract syntax tree
      */
     @Override
-    public JBasicValue visitId(JBasicParser.IdContext context) {
+    public JBasicValue visitIdentifier(JBasicParser.IdentifierContext context) {
         String id = context.getText();
-        return memory.getVariable(id);
+        return this.memory.getVariable(id);
     }
 
     /**
@@ -131,27 +131,6 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitStringLiteral(JBasicParser.StringLiteralContext context) {
         String value = context.getText();
         return new JBasicValue(value.substring(1, value.length() - 1));
-    }
-
-    @Override
-    public JBasicValue visitSubroutineDefinition(JBasicParser.SubroutineDefinitionContext context) {
-
-        List<String> arguments = new ArrayList<>();
-        // Adds all the argument from the subroutine signature to the List
-        context.subroutineSignature().ID().forEach(argument -> arguments.add(argument.getText()));
-        memory.defineSubroutine(context.subroutineSignature().subroutineName().getText(),
-                new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().block()));
-        return new JBasicValue(1);
-    }
-
-    @Override
-    public JBasicValue visitSubroutineInvocationStatement(JBasicParser.SubroutineInvocationStatementContext context) {
-
-        List<JBasicValue> parameters = new ArrayList<>();
-        // Parses arguments
-        context.expression().forEach(expression -> parameters.add(visit(expression)));
-        memory.invokeSubroutine(context.subroutineName().getText(), parameters, this);
-        return new JBasicValue(1);
     }
 
     //region Statements
@@ -199,13 +178,13 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitForStatement(JBasicParser.ForStatementContext context) {
         String variableName = context.variableDeclaration().variableName().ID().getText();
-        JBasicValue start = visit(context.expression(0));
-        JBasicValue end = visit(context.expression(1));
-        JBasicValue step = context.expression(2) != null ? visit(context.expression(2)) : new JBasicValue(1);
+        JBasicValue start = this.visit(context.expression(0));
+        JBasicValue end = this.visit(context.expression(1));
+        JBasicValue step = context.expression(2) != null ? this.visit(context.expression(2)) : new JBasicValue(1);
         for (double i = start.underlyingNumber(); i <= end.underlyingNumber(); i = i + step.underlyingNumber()) {
-            memory.assignToVariable(variableName, new JBasicValue(i));
+            this.memory.assignToVariable(variableName, new JBasicValue(i));
             try {
-                visit(context.block());
+                this.visit(context.block());
             } catch (ContinueException ignored) {
             } catch (ExitException e) {
                 break;
@@ -222,18 +201,18 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitIfStatement(JBasicParser.IfStatementContext context) {
-        JBasicValue condition = visit(context.expression());
+        JBasicValue condition = this.visit(context.expression());
         if (condition.isTruthy(context)) {
-            return visit(context.block());
+            return this.visit(context.block());
         } else {
             for (JBasicParser.ElifStatementContext elifContext : context.elifStatement()) {
-                condition = visit(elifContext.expression());
+                condition = this.visit(elifContext.expression());
                 if (condition.isTruthy(context)) {
-                    return visit(elifContext.block());
+                    return this.visit(elifContext.block());
                 }
             }
             if (context.elseStatement() != null) {
-                return visit(context.elseStatement().block());
+                return this.visit(context.elseStatement().block());
             }
         }
         return condition;
@@ -247,12 +226,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitInputStatement(JBasicParser.InputStatementContext context) {
-        printStream.print(visit(context.stringLiteral()).underlyingString() + " ");
+        this.printStream.print(this.visit(context.stringLiteral()).underlyingString() + " ");
         String variableName = context.variableDeclaration().getText();
         try {
-            String line = inputStream.readLine();
+            String line = this.inputStream.readLine();
             JBasicValue val = new JBasicValue(line);
-            memory.assignToVariable(variableName, val);
+            this.memory.assignToVariable(variableName, val);
             return val;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -268,8 +247,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitLetStatement(JBasicParser.LetStatementContext context) {
         String variableName = context.variableDeclaration().variableName().ID().getText();
-        JBasicValue value = visit(context.expression());
-        memory.assignToVariable(variableName, value);
+        JBasicValue value = this.visit(context.expression());
+        this.memory.assignToVariable(variableName, value);
         return value;
     }
 
@@ -281,11 +260,11 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitPrintStatement(JBasicParser.PrintStatementContext context) {
-        JBasicValue value = visit(context.expression());
+        JBasicValue value = this.visit(context.expression());
         if (value.isANumericalValue()) {
-            printStream.println(CoreUtils.numericalOutputFormat.format(value.underlyingNumber()));
+            this.printStream.println(CoreUtils.numericalOutputFormat.format(value.underlyingNumber()));
         } else {
-            printStream.println(value.underlyingString());
+            this.printStream.println(value.underlyingString());
         }
         return value;
     }
@@ -301,15 +280,36 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue condition;
         do {
             try {
-                visit(context.block());
+                this.visit(context.block());
             } catch (ContinueException ignored) {
             } catch (ExitException e) {
                 break;
             } finally {
-                condition = visit(context.expression());
+                condition = this.visit(context.expression());
             }
         } while (condition.isFalsy(context));
         return new JBasicValue(0);
+    }
+
+    @Override
+    public JBasicValue visitSubroutineDefinitionStatement(JBasicParser.SubroutineDefinitionStatementContext context) {
+
+        List<String> arguments = new ArrayList<>();
+        // Adds all the argument from the subroutine signature to the List
+        context.subroutineSignature().ID().forEach(argument -> arguments.add(argument.getText()));
+        this.memory.defineSubroutine(context.subroutineSignature().subroutineName().getText(),
+                new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().block()));
+        return new JBasicValue(1);
+    }
+
+    @Override
+    public JBasicValue visitSubroutineInvocationStatement(JBasicParser.SubroutineInvocationStatementContext context) {
+
+        List<JBasicValue> parameters = new ArrayList<>();
+        // Parses parameters
+        context.expression().forEach(expression -> parameters.add(this.visit(expression)));
+        this.memory.invokeSubroutine(context.subroutineName().getText(), parameters, this);
+        return new JBasicValue(1);
     }
 
     /**
@@ -320,15 +320,15 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitWhileStatement(JBasicParser.WhileStatementContext context) {
-        JBasicValue condition = visit(context.expression());
+        JBasicValue condition = this.visit(context.expression());
         while (condition.isTruthy(context)) {
             try {
-                visit(context.block());
+                this.visit(context.block());
             } catch (ContinueException ignored) {
             } catch (ExitException e) {
                 break;
             } finally {
-                condition = visit(context.expression());
+                condition = this.visit(context.expression());
             }
         }
         return new JBasicValue(0);
@@ -345,7 +345,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAbsFunction(JBasicParser.AbsFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.abs(argument.underlyingNumber()));
         } else {
@@ -361,7 +361,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAcsFunction(JBasicParser.AcsFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.acos(argument.underlyingNumber()));
         } else {
@@ -377,7 +377,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAsnFunction(JBasicParser.AsnFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.asin(argument.underlyingNumber()));
         } else {
@@ -393,7 +393,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAthFunction(JBasicParser.AthFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(CoreUtils.areaTangentHyperbolicus(argument.underlyingNumber()));
         } else {
@@ -409,7 +409,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAtnFunction(JBasicParser.AtnFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.atan(argument.underlyingNumber()));
         } else {
@@ -425,7 +425,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitCosFunction(JBasicParser.CosFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.cos(argument.underlyingNumber()));
         } else {
@@ -441,7 +441,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitExpFunction(JBasicParser.ExpFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.exp(argument.underlyingNumber()));
         } else {
@@ -457,7 +457,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLenFunction(JBasicParser.LenFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isAStringValue()) {
             return new JBasicValue(argument.underlyingString().length());
         } else {
@@ -473,7 +473,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLogFunction(JBasicParser.LogFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.log(argument.underlyingNumber()));
         } else {
@@ -489,7 +489,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSinFunction(JBasicParser.SinFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sin(argument.underlyingNumber()));
         } else {
@@ -505,7 +505,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSqrFunction(JBasicParser.SqrFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sqrt(argument.underlyingNumber()));
         } else {
@@ -521,7 +521,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitTanFunction(JBasicParser.TanFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.tan(argument.underlyingNumber()));
         } else {
@@ -537,7 +537,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitValFunction(JBasicParser.ValFunctionContext context) {
-        JBasicValue argument = visit(context.expression());
+        JBasicValue argument = this.visit(context.expression());
         if (argument.isAStringValue()) {
             String str = argument.underlyingString();
             try {
@@ -560,8 +560,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAndExpression(JBasicParser.AndExpressionContext context) {
-        JBasicValue left = visit(context.expression(0));
-        JBasicValue right = visit(context.expression(1));
+        JBasicValue left = this.visit(context.expression(0));
+        JBasicValue right = this.visit(context.expression(1));
         return left.and(right, context);
     }
 
@@ -573,8 +573,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
-        JBasicValue left = visit(context.expression(0));
-        JBasicValue right = visit(context.expression(1));
+        JBasicValue left = this.visit(context.expression(0));
+        JBasicValue right = this.visit(context.expression(1));
         if (context.op.getType() == LBExpressionParser.ADD) {
             return left.add(right, context);
         } else {
@@ -590,8 +590,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
-        JBasicValue left = visit(context.expression(0));
-        JBasicValue right = visit(context.expression(1));
+        JBasicValue left = this.visit(context.expression(0));
+        JBasicValue right = this.visit(context.expression(1));
         if (context.op.getType() == LBExpressionParser.MULTIPLY) {
             return left.multiply(right, context);
         } else if (context.op.getType() == LBExpressionParser.DIVIDE) {
@@ -609,7 +609,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitNegateExpression(JBasicParser.NegateExpressionContext context) {
-        JBasicValue value = visit(context.expression());
+        JBasicValue value = this.visit(context.expression());
         return value.negate(context);
     }
 
@@ -621,7 +621,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitNotExpression(JBasicParser.NotExpressionContext context) {
-        JBasicValue value = visit(context.expression());
+        JBasicValue value = this.visit(context.expression());
         return value.not(context);
     }
 
@@ -633,8 +633,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitOrExpression(JBasicParser.OrExpressionContext context) {
-        JBasicValue left = visit(context.expression(0));
-        JBasicValue right = visit(context.expression(1));
+        JBasicValue left = this.visit(context.expression(0));
+        JBasicValue right = this.visit(context.expression(1));
         return left.or(right, context);
     }
 
@@ -646,8 +646,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitRelExpression(JBasicParser.RelExpressionContext context) {
-        JBasicValue left = visit(context.expression(0));
-        JBasicValue right = visit(context.expression(1));
+        JBasicValue left = this.visit(context.expression(0));
+        JBasicValue right = this.visit(context.expression(1));
         switch (context.op.getType()) {
             case LBExpressionParser.GREATER_THEN:
                 return left.greaterThen(right, context);

@@ -49,6 +49,6 @@ public class ErrorListener extends BaseErrorListener {
                             int characterPositionInLine,
                             String message,
                             RecognitionException exception) {
-        stderr.println(message);
+        this.stderr.println(message);
     }
 }

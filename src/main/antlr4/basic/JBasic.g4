@@ -4,18 +4,19 @@ import LBExpression, LBTokens;
 program: block EOF;
 
 statement
-    : letStatement
-    | printStatement
-    | inputStatement
-    | ifStatement
-    | forStatement
-    | whileStatement
-    | repeatStatement
+    : COMMENT
     | continueStatement
     | exitStatement
-    | COMMENT
-    | subroutineDefinition
-    | subroutineInvocationStatement;
+    | forStatement
+    | ifStatement
+    | inputStatement
+    | letStatement
+    | printStatement
+    | repeatStatement
+    | subroutineDefinitionStatement
+    | subroutineInvocationStatement
+    | whileStatement
+    ;
 
 block
     : (statement (NEWLINE+ | EOF))*
@@ -23,6 +24,18 @@ block
 
 letStatement
     : LET_KEYWORD? variableDeclaration EQUALS expression
+    ;
+
+subroutineBody
+    : block END_KEYWORD SUB_KEYWORD NEWLINE
+    ;
+
+subroutineName
+    : ID
+    ;
+
+subroutineSignature
+    : SUB_KEYWORD subroutineName LEFT_PARENTHESIS (ID (COMMA ID)*)? RIGHT_PARENTHESIS NEWLINE
     ;
 
 variableDeclaration
@@ -33,40 +46,14 @@ variableName
     : ID
     ;
 
-subroutineName
-    : ID
-    ;
-
 variableSuffix
     : DOLLAR_SIGN
     ;
 
-subroutineDefinition
-    : subroutineSignature subroutineBody
-    ;
+// Statements
 
-subroutineSignature
-    : SUB_KEYWORD subroutineName LEFT_PARENTHESIS (ID (COMMA ID)*)? RIGHT_PARENTHESIS NEWLINE
-    ;
-
-subroutineBody
-    : block END_KEYWORD SUB_KEYWORD NEWLINE
-    ;
-
-subroutineInvocationStatement
-    : CALL_KEYWORD subroutineName LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
-    ;
-
-printStatement
-    : PRINT_KEYWORD expression
-    ;
-
-inputStatement
-    : INPUT_KEYWORD stringLiteral variableDeclaration
-    ;
-
-ifStatement
-    : IF_KEYWORD expression NEWLINE* THEN_KEYWORD NEWLINE+ block elifStatement* elseStatement? END_KEYWORD
+continueStatement
+    : CONTINUE_KEYWORD
     ;
 
 elifStatement
@@ -77,22 +64,38 @@ elseStatement
     : ELSE_KEYWORD NEWLINE+ block
     ;
 
+exitStatement
+    : EXIT_KEYWORD
+    ;
+
 forStatement
     : FOR_KEYWORD variableDeclaration EQUALS expression TO_KEYWORD expression (STEP_KEYWORD expression)? NEWLINE+ block NEXT_KEYWORD
     ;
 
-whileStatement
-    : WHILE_KEYWORD expression NEWLINE+ block END_KEYWORD
+inputStatement
+    : INPUT_KEYWORD stringLiteral variableDeclaration
+    ;
+
+ifStatement
+    : IF_KEYWORD expression NEWLINE* THEN_KEYWORD NEWLINE+ block elifStatement* elseStatement? END_KEYWORD
+    ;
+
+printStatement
+    : PRINT_KEYWORD expression
     ;
 
 repeatStatement
     : REPEAT_KEYWORD NEWLINE+ block NEWLINE* UNTIL_KEYWORD expression
     ;
 
-continueStatement
-    : CONTINUE_KEYWORD
+subroutineDefinitionStatement
+    : subroutineSignature subroutineBody
     ;
 
-exitStatement
-    : EXIT_KEYWORD
+subroutineInvocationStatement
+    : CALL_KEYWORD subroutineName LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
+    ;
+
+whileStatement
+    : WHILE_KEYWORD expression NEWLINE+ block END_KEYWORD
     ;

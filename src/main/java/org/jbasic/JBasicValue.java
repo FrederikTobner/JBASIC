@@ -75,14 +75,14 @@ public class JBasicValue {
      * @return The underlying numerical value of this Value object instance added to the underlying numerical value of the other Value object instance
      */
     public JBasicValue add(JBasicValue right, ParserRuleContext context) {
-        if (isAStringValue() && right.isAStringValue()) {
-            return new JBasicValue(underlyingString() + right.underlyingString());
-        } else if (isAStringValue() && right.isANumericalValue()) {
-            return new JBasicValue(underlyingString() + CoreUtils.numericalOutputFormat.format(right.underlyingNumber()));
-        } else if (isANumericalValue() && right.isAStringValue()) {
-            return new JBasicValue(CoreUtils.numericalOutputFormat.format(underlyingNumber()) + right.underlyingString());
+        if (this.isAStringValue() && right.isAStringValue()) {
+            return new JBasicValue(this.underlyingString() + right.underlyingString());
+        } else if (this.isAStringValue() && right.isANumericalValue()) {
+            return new JBasicValue(this.underlyingString() + CoreUtils.numericalOutputFormat.format(right.underlyingNumber()));
+        } else if (this.isANumericalValue() && right.isAStringValue()) {
+            return new JBasicValue(CoreUtils.numericalOutputFormat.format(this.underlyingNumber()) + right.underlyingString());
         } else {
-            return arithmeticEvaluation(right, Double::sum, context);
+            return this.arithmeticEvaluation(right, Double::sum, context);
         }
     }
 
@@ -94,7 +94,7 @@ public class JBasicValue {
      * @return True if the value and the right value are truthy
      */
     public JBasicValue and(JBasicValue right, ParserRuleContext context) {
-        return isTruthy(context) && right.isTruthy(context) ? TrueValue : FalseValue;
+        return this.isTruthy(context) && right.isTruthy(context) ? TrueValue : FalseValue;
     }
 
     /**
@@ -105,9 +105,9 @@ public class JBasicValue {
      * @return The result of the arithmetic evaluation
      */
     private JBasicValue arithmeticEvaluation(JBasicValue right, BiFunction<Double, Double, Double> operator, ParserRuleContext context) {
-        assertIsNumber(context);
+        this.assertIsNumber(context);
         right.assertIsNumber(context);
-        return new JBasicValue(operator.apply(underlyingNumber(), right.underlyingNumber()));
+        return new JBasicValue(operator.apply(this.underlyingNumber(), right.underlyingNumber()));
     }
 
     /**
@@ -116,8 +116,8 @@ public class JBasicValue {
      * @param context The parsing context where type of the Value object instance is asserted
      */
     private void assertIsNumber(ParserRuleContext context) {
-        if (!isANumericalValue()) {
-            TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" + value + "\" is not a number");
+        if (!this.isANumericalValue()) {
+            TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" + this.value + "\" is not a number");
             CoreUtils.addLocationToException(typeException, context);
             throw typeException;
         }
@@ -131,7 +131,7 @@ public class JBasicValue {
      * @return This Value object instance divided by the divisor 'right'
      */
     public JBasicValue divide(JBasicValue right, ParserRuleContext context) {
-        return arithmeticEvaluation(right, (l, r) -> l / r, context);
+        return this.arithmeticEvaluation(right, (l, r) -> l / r, context);
     }
 
     /**
@@ -142,10 +142,10 @@ public class JBasicValue {
      * @return true if both values are equal, false if not
      */
     public JBasicValue equal(JBasicValue right, ParserRuleContext context) {
-        if (isANumericalValue() && right.isANumericalValue()) {
-            return relativeEvaluate(right, Objects::equals, context);
-        } else if (isAStringValue() && right.isAStringValue()) {
-            return underlyingString().equals(right.underlyingString()) ? TrueValue : FalseValue;
+        if (this.isANumericalValue() && right.isANumericalValue()) {
+            return this.relativeEvaluate(right, Objects::equals, context);
+        } else if (this.isAStringValue() && right.isAStringValue()) {
+            return this.underlyingString().equals(right.underlyingString()) ? TrueValue : FalseValue;
         }
         return FalseValue;
     }
@@ -164,7 +164,7 @@ public class JBasicValue {
         JBasicValue value1 = (JBasicValue) o;
 
         if (this.isNotANumericalValue() != value1.isNotANumericalValue()) return false;
-        return Objects.equals(value, value1.value);
+        return Objects.equals(this.value, value1.value);
     }
 
     /**
@@ -175,7 +175,7 @@ public class JBasicValue {
      * @return true if this Value object instance is greater than the other Value object instance, false if not
      */
     public JBasicValue greaterThen(JBasicValue right, ParserRuleContext context) {
-        return relativeEvaluate(right, (l, r) -> l > r, context);
+        return this.relativeEvaluate(right, (l, r) -> l > r, context);
     }
 
     /**
@@ -186,14 +186,14 @@ public class JBasicValue {
      * @return true if this Value object instance is greater or equal to the other Value object instance, false if not
      */
     public JBasicValue greaterThenEqual(JBasicValue right, ParserRuleContext context) {
-        return relativeEvaluate(right, (l, r) -> l >= r, context);
+        return this.relativeEvaluate(right, (l, r) -> l >= r, context);
     }
 
     /// Computes the hashcode of a value instance
     @Override
     public int hashCode() {
-        int result = value != null ? value.hashCode() : 0;
-        result = 31 * result + (isNotANumericalValue() ? 1 : 0);
+        int result = this.value != null ? this.value.hashCode() : 0;
+        result = 31 * result + (this.isNotANumericalValue() ? 1 : 0);
         return result;
     }
 
@@ -203,7 +203,7 @@ public class JBasicValue {
      * @return true if the underlying value is a string, false if not
      */
     public boolean isAStringValue() {
-        return value instanceof String;
+        return this.value instanceof String;
     }
 
     /**
@@ -212,7 +212,7 @@ public class JBasicValue {
      * @return true if the value is numerical, false if not
      */
     public boolean isANumericalValue() {
-        return value instanceof Double;
+        return this.value instanceof Double;
     }
 
     /**
@@ -222,8 +222,8 @@ public class JBasicValue {
      * @return true if the underlying value is falsy, false if not
      */
     public boolean isFalsy(ParserRuleContext context) {
-        assertIsNumber(context);
-        return underlyingNumber() == 0;
+        this.assertIsNumber(context);
+        return this.underlyingNumber() == 0;
     }
 
     /**
@@ -232,7 +232,7 @@ public class JBasicValue {
      * @return false if the value is numerical, true if not
      */
     public boolean isNotANumericalValue() {
-        return !(value instanceof Double);
+        return !(this.value instanceof Double);
     }
 
     /**
@@ -242,8 +242,8 @@ public class JBasicValue {
      * @return true if the underlying value is truthy, false if not
      */
     public boolean isTruthy(ParserRuleContext context) {
-        assertIsNumber(context);
-        return underlyingNumber() != 0;
+        this.assertIsNumber(context);
+        return this.underlyingNumber() != 0;
     }
 
     /**
@@ -254,7 +254,7 @@ public class JBasicValue {
      * @return true if this Value object instance is less than the other Value object instance, false if not
      */
     public JBasicValue lessThen(JBasicValue right, ParserRuleContext context) {
-        return relativeEvaluate(right, (l, r) -> l < r, context);
+        return this.relativeEvaluate(right, (l, r) -> l < r, context);
     }
 
     /**
@@ -264,7 +264,7 @@ public class JBasicValue {
      * @return true if this Value object instance is less or equal to the other Value object instance, false if not
      */
     public JBasicValue lessThenEqual(JBasicValue right, ParserRuleContext context) {
-        return relativeEvaluate(right, (l, r) -> l <= r, context);
+        return this.relativeEvaluate(right, (l, r) -> l <= r, context);
     }
 
     /**
@@ -275,7 +275,7 @@ public class JBasicValue {
      * @return This Value object instance divided by the divisor 'right'
      */
     public JBasicValue modulo(JBasicValue right, ParserRuleContext context) {
-        return arithmeticEvaluation(right, (l, r) -> l % r, context);
+        return this.arithmeticEvaluation(right, (l, r) -> l % r, context);
     }
 
     /**
@@ -286,7 +286,7 @@ public class JBasicValue {
      * @return This Value object instance multiplied by the divisor 'right'
      */
     public JBasicValue multiply(JBasicValue right, ParserRuleContext context) {
-        return arithmeticEvaluation(right, (l, r) -> l * r, context);
+        return this.arithmeticEvaluation(right, (l, r) -> l * r, context);
     }
 
     /**
@@ -297,7 +297,7 @@ public class JBasicValue {
      * @return true if both values are not equal, false if not
      */
     public JBasicValue notEqual(JBasicValue right, ParserRuleContext context) {
-        JBasicValue eq = equal(right, context);
+        JBasicValue eq = this.equal(right, context);
         return eq.equal(TrueValue, context) == TrueValue ? FalseValue : TrueValue;
     }
 
@@ -309,9 +309,9 @@ public class JBasicValue {
      * @return The result of the relative evaluation
      */
     private JBasicValue relativeEvaluate(JBasicValue right, BiFunction<Double, Double, Boolean> comparison, ParserRuleContext context) {
-        assertIsNumber(context);
+        this.assertIsNumber(context);
         right.assertIsNumber(context);
-        if (comparison.apply(underlyingNumber(), right.underlyingNumber())) {
+        if (comparison.apply(this.underlyingNumber(), right.underlyingNumber())) {
             return TrueValue;
         }
         return FalseValue;
@@ -324,7 +324,7 @@ public class JBasicValue {
      * @return The negated numerical value of this Value object instance
      */
     public JBasicValue negate(JBasicParser.NegateExpressionContext context) {
-        assertIsNumber(context);
+        this.assertIsNumber(context);
         return new JBasicValue(-this.underlyingNumber());
     }
 
@@ -335,8 +335,8 @@ public class JBasicValue {
      * @return True if the Value object instance was falsy, false if it was true
      */
     public JBasicValue not(ParserRuleContext context) {
-        assertIsNumber(context);
-        if (underlyingNumber() == 0) {
+        this.assertIsNumber(context);
+        if (this.underlyingNumber() == 0) {
             return TrueValue;
         }
         return FalseValue;
@@ -349,7 +349,7 @@ public class JBasicValue {
      * @return True if the value or the right value are truthy
      */
     public JBasicValue or(JBasicValue right, ParserRuleContext context) {
-        return isTruthy(context) || right.isTruthy(context) ? TrueValue : FalseValue;
+        return this.isTruthy(context) || right.isTruthy(context) ? TrueValue : FalseValue;
     }
 
     /**
@@ -360,7 +360,7 @@ public class JBasicValue {
      * @return The underlying numerical value of this Value object instance subtracted with the underlying numerical value of the other Value object instance
      */
     public JBasicValue subtract(JBasicValue right, ParserRuleContext context) {
-        return arithmeticEvaluation(right, (l, r) -> l - r, context);
+        return this.arithmeticEvaluation(right, (l, r) -> l - r, context);
     }
 
     /**
@@ -369,7 +369,7 @@ public class JBasicValue {
      * @return The underlying numerical value
      */
     public double underlyingNumber() {
-        return (double) value;
+        return (double) this.value;
     }
 
     /**
@@ -377,7 +377,7 @@ public class JBasicValue {
      * @return The underlying string value
      */
     public String underlyingString() {
-        return (String)value;
+        return (String) this.value;
     }
 
 }

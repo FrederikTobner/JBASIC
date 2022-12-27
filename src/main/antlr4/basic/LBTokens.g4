@@ -1,10 +1,10 @@
 lexer grammar LBTokens; // note "lexer grammar"
 
 // operators
-ADD                 : '+' ;
-DIVIDE              : '/' ;
-MULTIPLY            : '*' ;
-SUBTRACT            : '-' ;
+ADD                     : '+' ;
+DIVIDE                  : '/' ;
+MULTIPLY                : '*' ;
+SUBTRACT                : '-' ;
 
 // logical
 EQUALS                  : '=' ;
@@ -14,35 +14,27 @@ LESS_THEN               : '<' ;
 LESS_THEN_EQUAL         : '<=' ;
 NOT_EQUAL               : '!=' ;
 
-// mathematical keyword
-MODULO_KEYWORD          : 'MOD' ;
-
-// relational keywords
-AND_KEYWORD : 'AND' | 'and' ;
-NOT_KEYWORD : 'NOT' | 'not' ;
-OR_KEYWORD  : 'OR'  | 'or' ;
-
 // other
 COMMA                   : ',' ;
 LEFT_PARENTHESIS        : '(' ;
 RIGHT_PARENTHESIS       : ')' ;
 
 // functions
-ABS_FUNCTION             : 'ABS' | 'abs' ;
-ACS_FUNCTION             : 'ACS' | 'acs' ;
-ASN_FUNCTION             : 'ASN' | 'asn' ;
-ATH_FUNCTION             : 'ATH' | 'ath' ;
-ATN_FUNCTION             : 'ATN' | 'atn' ;
-COS_FUNCTION             : 'COS' | 'cos' ;
-EXP_FUNCTION             : 'EXP' | 'exp' ;
-LEN_FUNCTION             : 'LEN' | 'len' ;
-LOG_FUNCTION             : 'LOG' | 'log' ;
-SIN_FUNCTION             : 'SIN' | 'sin' ;
-SQR_FUNCTION             : 'SQR' | 'sqr' ;
-TAN_FUNCTION             : 'TAN' | 'tan' ;
-VAL_FUNCTION             : 'VAL' | 'val' ;
+ABS_FUNCTION            : 'ABS' | 'abs' ;
+ACS_FUNCTION            : 'ACS' | 'acs' ;
+ASN_FUNCTION            : 'ASN' | 'asn' ;
+ATH_FUNCTION            : 'ATH' | 'ath' ;
+ATN_FUNCTION            : 'ATN' | 'atn' ;
+COS_FUNCTION            : 'COS' | 'cos' ;
+EXP_FUNCTION            : 'EXP' | 'exp' ;
+LEN_FUNCTION            : 'LEN' | 'len' ;
+LOG_FUNCTION            : 'LOG' | 'log' ;
+SIN_FUNCTION            : 'SIN' | 'sin' ;
+SQR_FUNCTION            : 'SQR' | 'sqr' ;
+TAN_FUNCTION            : 'TAN' | 'tan' ;
+VAL_FUNCTION            : 'VAL' | 'val' ;
 
-// keywords
+// base keywords
 CALL_KEYWORD            : 'CALL' | 'call' ;
 CONTINUE_KEYWORD        : 'CONTINUE' | 'continue' ;
 ELSE_KEYWORD            : 'ELSE' | 'else' ;
@@ -56,20 +48,28 @@ NEXT_KEYWORD            : 'NEXT' | 'next' ;
 PRINT_KEYWORD           : 'PRINT' | 'print' ;
 REM_KEYWORD             : 'REM' | 'rem' ;
 REPEAT_KEYWORD          : 'REPEAT' | 'repeat' ;
+SUB_KEYWORD             : 'SUB' | 'sub' ;
 STEP_KEYWORD            : 'STEP' | 'step' ;
 THEN_KEYWORD            : 'THEN' | 'then' ;
 TO_KEYWORD              : 'TO' | 'to' ;
 UNTIL_KEYWORD           : 'UNTIL' | 'until' ;
 WHILE_KEYWORD           : 'WHILE' | 'while' ;
-SUB_KEYWORD             : 'SUB' | 'sub' ;
+
+// mathematical keywords
+MODULO_KEYWORD          : 'MOD' ;
+
+// relational keywords
+AND_KEYWORD             : 'AND' | 'and' ;
+NOT_KEYWORD             : 'NOT' | 'not' ;
+OR_KEYWORD              : 'OR'  | 'or' ;
 
 // comments
-COMMENT         : REM_KEYWORD ~[\r\n]* ;
+COMMENT                 : REM_KEYWORD ~[\r\n]* ;
 
 // literals
-DOLLAR_SIGN         : '$' ;
-ID                  : [a-zA-Z][a-zA-Z0-9_]* ;       // match identifiers
-NEWLINE             :'\r'? '\n' ;                   // return newlines to parser (end-statement signal)
-NUMERIC_LITERAL     : [0-9]+ ('.' [0-9]+)? ;        // match numerical literals
-STRING_LITERAL      : '"' ~ ["\r\n]* '"' ;          // match string literals
-WHITE_SPACE         : [ \t]+ -> skip ;              // toss out whitespace
+DOLLAR_SIGN             : '$' ;
+ID                      : [a-zA-Z][a-zA-Z0-9_]* ;       // match identifiers
+NEWLINE                 :'\r'? '\n' ;                   // return newlines to parser (end-statement signal)
+NUMERIC_LITERAL         : [0-9]+ ('.' [0-9]+)? ;        // match numerical literals
+STRING_LITERAL          : '"' ~ ["\r\n]* '"' ;          // match string literals
+WHITE_SPACE             : [ \t]+ -> skip ;              // toss out whitespace

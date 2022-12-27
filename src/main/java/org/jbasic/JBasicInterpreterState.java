@@ -44,7 +44,7 @@ public class JBasicInterpreterState {
      * @param value The new value of the variable
      */
     public void assignToVariable(String name, JBasicValue value) {
-        memory.put(name, value);
+        this.memory.put(name, value);
     }
 
     /**
@@ -54,10 +54,10 @@ public class JBasicInterpreterState {
      * @param subroutine     The subroutine that is defined
      */
     public void defineSubroutine(String subroutineName, JBasicSubroutine subroutine) {
-        if (subroutines.containsKey(subroutineName)) {
+        if (this.subroutines.containsKey(subroutineName)) {
             throw new SubroutineRedefinitionException("A subroutine with the name" + subroutineName + " is already defined in the script");
         }
-        subroutines.put(subroutineName, subroutine);
+        this.subroutines.put(subroutineName, subroutine);
     }
 
     /**
@@ -65,7 +65,7 @@ public class JBasicInterpreterState {
      * @details Deallocates all the memory used by a memory object instance
      */
     public void freeMemory() {
-        memory.clear();
+        this.memory.clear();
     }
 
     /**
@@ -74,7 +74,7 @@ public class JBasicInterpreterState {
      * @param name The name of the variable that is obtained
      */
     public JBasicValue getVariable(String name) {
-        return memory.get(name);
+        return this.memory.get(name);
     }
 
     /**
@@ -85,10 +85,10 @@ public class JBasicInterpreterState {
      * @param visitor        The visitor of the subroutine call. Used to visit the subroutine body
      */
     public void invokeSubroutine(String subroutineName, List<JBasicValue> arguments, JBasicVisitor visitor) {
-        if (!subroutines.containsKey(subroutineName)) {
+        if (!this.subroutines.containsKey(subroutineName)) {
             throw new SubroutineNotDefinedException("A subroutine with the name" + subroutineName + " is not defined in the script");
         }
-        JBasicSubroutine subroutine = subroutines.get(subroutineName);
+        JBasicSubroutine subroutine = this.subroutines.get(subroutineName);
         if (subroutine.getArity() != arguments.size()) {
             throw new SubroutineArityException("Subroutine expects " + subroutine.getArguments().length +
                     "arguments but was called with" + arguments.size());
