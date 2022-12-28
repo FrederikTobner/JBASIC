@@ -233,27 +233,27 @@ public class JBasicValue {
     }
 
     /**
-     * Determines if this Value object instance is a numerical value
+     * Determines if this Value object instance is a one-dimensional array value
      *
-     * @return true if the value is numerical, false if not
+     * @return true if the value is a one-dimensional array value, false if not
      */
     public boolean isAOneDimensionalArrayValue() {
         return this.value instanceof JBasicValue[];
     }
 
     /**
-     * Determines if this Value object instance is a numerical value
+     * Determines if this Value object instance is a two-dimensional array value
      *
-     * @return true if the value is numerical, false if not
+     * @return true if the value is a two-dimensional array value, false if not
      */
     public boolean isATwoDimensionalArrayValue() {
         return this.value instanceof JBasicValue[][];
     }
 
     /**
-     * Determines if this Value object instance is a numerical value
+     * Determines if this Value object instance is a three-dimensional array value
      *
-     * @return true if the value is numerical, false if not
+     * @return true if the value is a three-dimensional array value, false if not
      */
     public boolean isAThreeDimensionalArrayValue() {
         return this.value instanceof JBasicValue[][][];
@@ -425,24 +425,24 @@ public class JBasicValue {
     }
 
     /**
-     * Gets the underlying array from the value
-     * @return The underlying array value
+     * Gets the underlying one-dimensional array from the value
+     * @return The underlying one-dimensional array value
      */
     public JBasicValue[] underlyingOneDimensionalArray() {
         return (JBasicValue[]) this.value;
     }
 
     /**
-     * Gets the underlying array from the value
-     * @return The underlying array value
+     * Gets the underlying two-dimensional array from the value
+     * @return The underlying two-dimensional array value
      */
     public JBasicValue[][] underlyingTwoDimensionalArray() {
         return (JBasicValue[][]) this.value;
     }
 
     /**
-     * Gets the underlying array from the value
-     * @return The underlying array value
+     * Gets the underlying three-dimensional array from the value
+     * @return The underlying three-dimensional array value
      */
     public JBasicValue[][][] underlyingThreeDimensionalArray() {
         return (JBasicValue[][][]) this.value;
