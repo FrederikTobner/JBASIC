@@ -20,6 +20,7 @@
 
 package org.jbasic;
 
+import basic.JBasicParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.text.DecimalFormat;
@@ -38,12 +39,12 @@ public class CoreUtils {
     /**
      * Asserts the arity of a function upon invocation
      * @param functionName The name of the function were the arity is asserted upon invocation
-     * @param argumentCount The parsing context of the expressions
+     * @param context The function call arguments parsing context
      * @param assertion The assertion that is applied to the number of arguments that were used when the function was invoked
      */
-    public static void assertArity(String functionName, int argumentCount, Function<Integer, Boolean> assertion, ParserRuleContext context) {
-        if (!assertion.apply(argumentCount)) {
-            throw new FunctionArityException(functionName + " can not be called with" + argumentCount + "arguments", context);
+    public static void assertArity(String functionName, JBasicParser.FunctionCallArgsContext context, Function<Integer, Boolean> assertion) {
+        if (!assertion.apply(context.expression().size())) {
+            throw new FunctionArityException(functionName + " can not be called with" + context.expression().size() + "arguments", context);
         }
     }
 

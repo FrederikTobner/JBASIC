@@ -73,8 +73,8 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_core_utils.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ad1f12e663edb9c90cb2b7b27c66a5eb4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#ad1f12e663edb9c90cb2b7b27c66a5eb4">assertArity</a> (String functionName, int argumentCount, Function&lt; Integer, Boolean &gt; assertion, ParserRuleContext context)</td></tr>
-<tr class="separator:ad1f12e663edb9c90cb2b7b27c66a5eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eb4ade9545ee77b82c04fa63a75f01c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a6eb4ade9545ee77b82c04fa63a75f01c">assertArity</a> (String functionName, JBasicParser.FunctionCallArgsContext context, Function&lt; Integer, Boolean &gt; assertion)</td></tr>
+<tr class="separator:a6eb4ade9545ee77b82c04fa63a75f01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9b8160159ac3de8bb9bbe6a931fe07b"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#af9b8160159ac3de8bb9bbe6a931fe07b">areaTangentHyperbolicus</a> (double value)</td></tr>
 <tr class="separator:af9b8160159ac3de8bb9bbe6a931fe07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46c69eec3169aeccfc520d14f4500743"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a46c69eec3169aeccfc520d14f4500743">formatErrorMessage</a> (int line, int positionInLine, String message)</td></tr>
@@ -123,8 +123,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad1f12e663edb9c90cb2b7b27c66a5eb4" name="ad1f12e663edb9c90cb2b7b27c66a5eb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1f12e663edb9c90cb2b7b27c66a5eb4">&#9670;&#160;</a></span>assertArity()</h2>
+<a id="a6eb4ade9545ee77b82c04fa63a75f01c" name="a6eb4ade9545ee77b82c04fa63a75f01c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eb4ade9545ee77b82c04fa63a75f01c">&#9670;&#160;</a></span>assertArity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,20 +141,14 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>argumentCount</em>, </td>
+          <td class="paramtype">JBasicParser.FunctionCallArgsContext&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Function&lt; Integer, Boolean &gt;&#160;</td>
-          <td class="paramname"><em>assertion</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ParserRuleContext&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
+          <td class="paramname"><em>assertion</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -171,7 +165,7 @@ Static Public Attributes</h2></td></tr>
 <p >Asserts the arity of a function upon invocation </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">functionName</td><td>The name of the function were the arity is asserted upon invocation </td></tr>
-    <tr><td class="paramname">argumentCount</td><td>The parsing context of the expressions </td></tr>
+    <tr><td class="paramname">context</td><td>The function call arguments parsing context </td></tr>
     <tr><td class="paramname">assertion</td><td>The assertion that is applied to the number of arguments that were used when the function was invoked </td></tr>
   </table>
   </dd>
