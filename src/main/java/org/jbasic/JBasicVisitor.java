@@ -24,14 +24,17 @@ package org.jbasic;
 import basic.JBasicBaseVisitor;
 import basic.JBasicParser;
 import basic.LBExpressionParser;
+import org.antlr.v4.runtime.RuleContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @brief The ANTLR visitor.
@@ -105,7 +108,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @return The Value that is omitted by visiting an id in the abstract syntax tree
      */
     @Override
-    public JBasicValue visitIdentifier(JBasicParser.IdentifierContext context) {
+    public JBasicValue visitVariableIdentifier(JBasicParser.VariableIdentifierContext context) {
         String id = context.getText();
         return this.memory.getVariable(id);
     }
@@ -169,6 +172,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             if (dimension.underlyingNumber() <= 0) {
                 throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", context);
             }
+            if (dimension.underlyingNumber() != Math.round(dimension.underlyingNumber())) {
+                throw new ArrayDimensionUnsupportedException("Dimensions can not have numbers after the digit", expressionContext);
+            }
             dimensions.add((int) dimension.underlyingNumber());
         }
         JBasicValue array;
@@ -198,7 +204,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitArraySetAtIndexStatement(JBasicParser.ArraySetAtIndexStatementContext context) {
-        String arrayName = context.variableIdentifier().IDENTIFIER().getText();
+        String arrayName = context.variableIdentifier().getText();
         JBasicValue array = this.memory.getVariable(arrayName);
         if (array == null) {
             throw new UndefinedVariableException(
@@ -214,14 +220,14 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
 
             case 1:
                 if (!array.isAOneDimensionalArrayValue()) {
-                    throw new ArrayDimensionMismatchException("" +
+                    throw new ArrayDimensionMismatchException(
                             "The dimensions that were specified do not match the dimensions of the array",
                             context);
                 }
                 break;
             case 2:
                 if (!array.isATwoDimensionalArrayValue()) {
-                    throw new ArrayDimensionMismatchException("" +
+                    throw new ArrayDimensionMismatchException(
                             "The dimensions that were specified do not match the dimensions of the array",
                             context);
                 }
@@ -244,7 +250,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
                 throw new TypeException("Dimension is not a numerical value", expressionContext);
             }
             if (dimension.underlyingNumber() <= 0) {
-                throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", context);
+                throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", expressionContext);
+            }
+            if (dimension.underlyingNumber() != Math.round(dimension.underlyingNumber())) {
+                throw new ArrayDimensionUnsupportedException("Dimensions can not have numbers after the digit", expressionContext);
             }
             dimensions.add((int) dimension.underlyingNumber() - 1);
         }
@@ -253,11 +262,11 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         if(context.variableIdentifier().variableSuffix() != null) {
             if ("$".equals(context.variableIdentifier().variableSuffix().getText())) {
                 if (!value.isAStringValue()) {
-                    throw new TypeException("Type suffix does not match specified type", context);
+                    throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
                 }
             } else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
                 if (!value.isANumericalValue()) {
-                    throw new TypeException("Type suffix does not match specified type", context);
+                    throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
                 }
             }
         }
@@ -373,7 +382,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLetStatement(JBasicParser.LetStatementContext context) {
-        String variableName = context.variableIdentifier().IDENTIFIER().getText();
+        String variableName = context.variableIdentifier().getText();
         JBasicValue value = this.visit(context.expression());
         if(context.variableIdentifier().variableSuffix() != null) {
             if ("$".equals(context.variableIdentifier().variableSuffix().getText())) {
@@ -438,12 +447,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitSubroutineDefinitionStatement(JBasicParser.SubroutineDefinitionStatementContext context) {
 
-        List<String> arguments = new ArrayList<>();
         // Adds all the argument from the subroutine signature to the List
-        context.subroutineSignature().IDENTIFIER().subList(1, context.subroutineSignature().IDENTIFIER().size())
-                .forEach(argument -> arguments.add(argument.getText()));
-        this.memory.defineSubroutine(context.subroutineSignature().IDENTIFIER(0).getText(),
-                new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().statement()),
+        this.memory.defineSubroutine(context.subroutineSignature().IDENTIFIER().getText(),
+                new JBasicSubroutine(context.subroutineSignature().variableIdentifier().stream()
+                        .map(RuleContext::getText).toArray(String[]::new), context.subroutineBody().statement()),
                 context);
         return new JBasicValue(0);
     }
@@ -457,10 +464,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitSubroutineInvocationStatement(JBasicParser.SubroutineInvocationStatementContext context) {
 
-        List<JBasicValue> parameters = new ArrayList<>();
-        // Parses parameters
-        context.expression().forEach(expression -> parameters.add(this.visit(expression)));
-        this.memory.invokeSubroutine(context.IDENTIFIER().getText(), parameters, this, context);
+        this.memory.invokeSubroutine(context.IDENTIFIER().getText(),
+                context.expression().stream().map(this::visit).collect(Collectors.toList()),
+                this, context);
         return new JBasicValue(0);
     }
 
@@ -745,15 +751,15 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitSumFunction(JBasicParser.SumFunctionContext context) {
         CoreUtils.assertArity("SUM", context.functionCallArgs(), (i -> i != 0));
-        double sum = 0;
+        BigDecimal sum = BigDecimal.valueOf(0);
         for (JBasicParser.ExpressionContext expression : context.functionCallArgs().expression()) {
             JBasicValue value = this.visit(expression);
             if (!value.isANumericalValue()) {
                 throw new TypeException("SUM can only be called with numerical values", context);
             }
-            sum += value.underlyingNumber();
+            sum = sum.add(BigDecimal.valueOf(value.underlyingNumber()));
         }
-        return new JBasicValue(sum);
+        return new JBasicValue(Double.parseDouble(String.valueOf(sum)));
     }
 
     /**
@@ -835,7 +841,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitArrayGetAtIndexExpression(JBasicParser.ArrayGetAtIndexExpressionContext context) {
-        String arrayName = context.IDENTIFIER().getText();
+        String arrayName = context.variableIdentifier().getText();
         JBasicValue array = this.memory.getVariable(arrayName);
         if (array == null) {
             throw new UndefinedVariableException("A variable with the name " + arrayName + "is not defined", context);
@@ -871,7 +877,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
                 throw new TypeException("Dimension is not a numerical value", expressionContext);
             }
             if (dimension.underlyingNumber() <= 0) {
-                throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", context);
+                throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", expressionContext);
+            }
+            if (dimension.underlyingNumber() != Math.round(dimension.underlyingNumber())) {
+                throw new ArrayDimensionUnsupportedException("Dimensions can not have numbers after the digit", expressionContext);
             }
             dimensions.add((int) dimension.underlyingNumber() - 1);
         }

@@ -11,9 +11,9 @@ statement
 expression
     : expression op=(ADD|MINUS) expression                                                                      # AddSubExpression
     | expression AND_KEYWORD expression                                                                         # AndExpression
-    | IDENTIFIER LEFT_PARENTHESIS (expression (COMMA expression)*) RIGHT_PARENTHESIS                            # ArrayGetAtIndexExpression
+    | variableIdentifier LEFT_PARENTHESIS (expression (COMMA expression)*) RIGHT_PARENTHESIS                    # ArrayGetAtIndexExpression
     | function                                                                                                  # FuncExpression
-    | identifier                                                                                                # IdentifierExpression
+    | variableIdentifier                                                                                        # IdentifierExpression
     | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # MulDivExpression
     | MINUS expression                                                                                          # NegateExpression
     | NOT_KEYWORD expression                                                                                    # NotExpression
@@ -44,8 +44,13 @@ function
     | valFunction
     ;
 
-identifier
-    : IDENTIFIER ;
+variableIdentifier
+    : IDENTIFIER variableSuffix?
+    ;
+
+variableSuffix
+    : (DOLLAR_SIGN|PERCENT_SIGN)
+    ;
 
 numericLiteral
     : NUMERIC_LITERAL ;

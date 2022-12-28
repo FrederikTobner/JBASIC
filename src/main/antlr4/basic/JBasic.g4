@@ -29,7 +29,7 @@ subroutineBody
     ;
 
 subroutineSignature
-    : SUB_KEYWORD IDENTIFIER LEFT_PARENTHESIS (IDENTIFIER (COMMA IDENTIFIER)*)? RIGHT_PARENTHESIS NEWLINE
+    : SUB_KEYWORD IDENTIFIER LEFT_PARENTHESIS (variableIdentifier (COMMA variableIdentifier)*)? RIGHT_PARENTHESIS NEWLINE
     ;
 
 variableIdentifier
