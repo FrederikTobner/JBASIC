@@ -1,7 +1,7 @@
 MULTIPLY                    =1
 DIVIDE                      =2
 ADD                         =3
-SUBTRACT                    =4
+MINUS                       =4
 MODULO_KEYWORD              =5
 NOT_EQUAL                   =6
 GREATER_THEN_EQUAL          =7

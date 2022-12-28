@@ -21,6 +21,8 @@
 
 package org.jbasic;
 
+import basic.JBasicParser;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +55,9 @@ public class JBasicInterpreterState {
      * @param subroutineName The name of the subroutine
      * @param subroutine     The subroutine that is defined
      */
-    public void defineSubroutine(String subroutineName, JBasicSubroutine subroutine) {
+    public void defineSubroutine(String subroutineName, JBasicSubroutine subroutine, JBasicParser.SubroutineDefinitionStatementContext context) {
         if (this.subroutines.containsKey(subroutineName)) {
-            throw new SubroutineRedefinitionException("A subroutine with the name" + subroutineName + " is already defined in the script");
+            throw new SubroutineRedefinitionException("A subroutine with the name" + subroutineName + " is already defined in the script", context);
         }
         this.subroutines.put(subroutineName, subroutine);
     }
@@ -84,14 +86,15 @@ public class JBasicInterpreterState {
      * @param arguments      The arguments of the subroutine call
      * @param visitor        The visitor of the subroutine call. Used to visit the subroutine body
      */
-    public void invokeSubroutine(String subroutineName, List<JBasicValue> arguments, JBasicVisitor visitor) {
+    public void invokeSubroutine(String subroutineName, List<JBasicValue> arguments, JBasicVisitor visitor,
+                                 JBasicParser.SubroutineInvocationStatementContext context) {
         if (!this.subroutines.containsKey(subroutineName)) {
-            throw new SubroutineNotDefinedException("A subroutine with the name" + subroutineName + " is not defined in the script");
+            throw new SubroutineNotDefinedException("A subroutine with the name" + subroutineName + " is not defined in the script", context);
         }
         JBasicSubroutine subroutine = this.subroutines.get(subroutineName);
         if (subroutine.getArity() != arguments.size()) {
             throw new SubroutineArityException("Subroutine expects " + subroutine.getArguments().length +
-                    "arguments but was called with" + arguments.size());
+                    "arguments but was called with" + arguments.size(), context);
         }
         final Map<String, JBasicValue> oldMemoryState = this.memory;
         // Prepare subroutine memory

@@ -81,21 +81,19 @@ Inheritance diagram for org.jbasic.TypeException:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:add74018f60ef9a74e4ec2689e642baf3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_type_exception.html#add74018f60ef9a74e4ec2689e642baf3">TypeException</a> (String message)</td></tr>
-<tr class="separator:add74018f60ef9a74e4ec2689e642baf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49a1aafa146c326b7ad1034fb77f4a54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_type_exception.html#a49a1aafa146c326b7ad1034fb77f4a54">TypeException</a> (String message, ParserRuleContext context)</td></tr>
+<tr class="separator:a49a1aafa146c326b7ad1034fb77f4a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html">org.jbasic.InterpreterBaseException</a></td></tr>
-<tr class="memitem:a4bf8a1433cb6f1c9a0b68ee8a3886a89 inherit pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html#a4bf8a1433cb6f1c9a0b68ee8a3886a89">InterpreterBaseException</a> (String message)</td></tr>
-<tr class="separator:a4bf8a1433cb6f1c9a0b68ee8a3886a89 inherit pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a296902c87ac0cbc2a77ed2f62228c5de inherit pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html#a296902c87ac0cbc2a77ed2f62228c5de">setLocation</a> (int <a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html#ad13cde6a1f770e308d4c1ce2a048548c">line</a>, int posInLine)</td></tr>
-<tr class="separator:a296902c87ac0cbc2a77ed2f62228c5de inherit pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8d54c1196779743cf85c63dfdea2e5 inherit pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html#aef8d54c1196779743cf85c63dfdea2e5">InterpreterBaseException</a> (String message, ParserRuleContext context)</td></tr>
+<tr class="separator:aef8d54c1196779743cf85c63dfdea2e5 inherit pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c54235d165c5aa4d919e94dd578d272 inherit pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html#a7c54235d165c5aa4d919e94dd578d272">getMessage</a> ()</td></tr>
 <tr class="separator:a7c54235d165c5aa4d919e94dd578d272 inherit pub_methods_classorg_1_1jbasic_1_1_interpreter_base_exception"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Type mismatch error. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="add74018f60ef9a74e4ec2689e642baf3" name="add74018f60ef9a74e4ec2689e642baf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add74018f60ef9a74e4ec2689e642baf3">&#9670;&#160;</a></span>TypeException()</h2>
+<a id="a49a1aafa146c326b7ad1034fb77f4a54" name="a49a1aafa146c326b7ad1034fb77f4a54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49a1aafa146c326b7ad1034fb77f4a54">&#9670;&#160;</a></span>TypeException()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -104,8 +102,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">org.jbasic.TypeException.TypeException </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">ParserRuleContext&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -113,6 +121,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">message</td><td>The message of the exception </td></tr>
+    <tr><td class="paramname">context</td><td>The parsing context where the exception occurred </td></tr>
   </table>
   </dd>
 </dl>

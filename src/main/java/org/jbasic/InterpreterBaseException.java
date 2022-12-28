@@ -20,22 +20,21 @@
 
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 /**
  * @brief Base exception for interpreter runtime errors.
  */
 @SuppressWarnings("serial")
 public abstract class InterpreterBaseException extends RuntimeException {
 
-    private int line;
-    private int positionInLine;
+    private final int line;
+    private final int positionInLine;
 
-    public InterpreterBaseException(String message) {
+    public InterpreterBaseException(String message, ParserRuleContext context) {
         super(message);
-    }
-
-    public void setLocation(int line, int posInLine) {
-        this.line = line;
-        this.positionInLine = posInLine;
+        this.line = context.getStart().getLine();
+        this.positionInLine = context.getStart().getCharPositionInLine();
     }
 
     @Override

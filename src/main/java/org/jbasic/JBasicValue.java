@@ -117,10 +117,8 @@ public class JBasicValue {
      */
     private void assertIsNumber(ParserRuleContext context) {
         if (!this.isANumericalValue()) {
-            TypeException typeException = new TypeException("Couldn't evaluate numeric expression. Value \"" +
-                                                                this.value + "\" is not a number");
-            CoreUtils.addLocationToException(typeException, context);
-            throw typeException;
+            throw new TypeException("Couldn't evaluate numeric expression. Value \"" +
+                    this.value + "\" is not a number", context);
         }
     }
 

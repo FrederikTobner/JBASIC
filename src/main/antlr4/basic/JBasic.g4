@@ -22,10 +22,6 @@ block
     : (statement (NEWLINE+ | EOF))*
     ;
 
-letStatement
-    : LET_KEYWORD? variableDeclaration EQUALS expression
-    ;
-
 subroutineBody
     : (statement (NEWLINE+ | EOF))* END_KEYWORD SUB_KEYWORD
     ;
@@ -37,7 +33,6 @@ subroutineSignature
 variableDeclaration
     : IDENTIFIER variableSuffix?
     ;
-
 
 variableSuffix
     : DOLLAR_SIGN
@@ -71,6 +66,10 @@ inputStatement
 
 ifStatement
     : IF_KEYWORD expression NEWLINE* THEN_KEYWORD NEWLINE+ block elifStatement* elseStatement? END_KEYWORD
+    ;
+
+letStatement
+    : LET_KEYWORD? variableDeclaration EQUALS expression
     ;
 
 printStatement

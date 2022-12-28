@@ -73,10 +73,8 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_core_utils.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a121ae5bf03775a4c492beea89a1f276d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a121ae5bf03775a4c492beea89a1f276d">addLocationToException</a> (<a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html">InterpreterBaseException</a> exception, ParserRuleContext context)</td></tr>
-<tr class="separator:a121ae5bf03775a4c492beea89a1f276d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d07cda38e80f8dd81857c1a2edbc5a4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a9d07cda38e80f8dd81857c1a2edbc5a4">assertArity</a> (String functionName, int argumentCount, Function&lt; Integer, Boolean &gt; assertion)</td></tr>
-<tr class="separator:a9d07cda38e80f8dd81857c1a2edbc5a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f12e663edb9c90cb2b7b27c66a5eb4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#ad1f12e663edb9c90cb2b7b27c66a5eb4">assertArity</a> (String functionName, int argumentCount, Function&lt; Integer, Boolean &gt; assertion, ParserRuleContext context)</td></tr>
+<tr class="separator:ad1f12e663edb9c90cb2b7b27c66a5eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9b8160159ac3de8bb9bbe6a931fe07b"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#af9b8160159ac3de8bb9bbe6a931fe07b">areaTangentHyperbolicus</a> (double value)</td></tr>
 <tr class="separator:af9b8160159ac3de8bb9bbe6a931fe07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46c69eec3169aeccfc520d14f4500743"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_core_utils.html#a46c69eec3169aeccfc520d14f4500743">formatErrorMessage</a> (int line, int positionInLine, String message)</td></tr>
@@ -92,50 +90,6 @@ Static Public Attributes</h2></td></tr>
 <div class="textblock"><p >Core utility methods. </p>
 <p >The core utility methods of the interpreter </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a121ae5bf03775a4c492beea89a1f276d" name="a121ae5bf03775a4c492beea89a1f276d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a121ae5bf03775a4c492beea89a1f276d">&#9670;&#160;</a></span>addLocationToException()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void org.jbasic.CoreUtils.addLocationToException </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html">InterpreterBaseException</a>&#160;</td>
-          <td class="paramname"><em>exception</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ParserRuleContext&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Adds line information and the position in the line to an InterpreterException</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">exception</td><td>The InterpreterException where that is enriched </td></tr>
-    <tr><td class="paramname">context</td><td>The ParserRRuleContext where the error occurred </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="af9b8160159ac3de8bb9bbe6a931fe07b" name="af9b8160159ac3de8bb9bbe6a931fe07b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af9b8160159ac3de8bb9bbe6a931fe07b">&#9670;&#160;</a></span>areaTangentHyperbolicus()</h2>
 
@@ -169,8 +123,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9d07cda38e80f8dd81857c1a2edbc5a4" name="a9d07cda38e80f8dd81857c1a2edbc5a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d07cda38e80f8dd81857c1a2edbc5a4">&#9670;&#160;</a></span>assertArity()</h2>
+<a id="ad1f12e663edb9c90cb2b7b27c66a5eb4" name="ad1f12e663edb9c90cb2b7b27c66a5eb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1f12e663edb9c90cb2b7b27c66a5eb4">&#9670;&#160;</a></span>assertArity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,7 +148,13 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Function&lt; Integer, Boolean &gt;&#160;</td>
-          <td class="paramname"><em>assertion</em>&#160;</td>
+          <td class="paramname"><em>assertion</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ParserRuleContext&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

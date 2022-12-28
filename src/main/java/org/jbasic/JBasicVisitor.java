@@ -299,7 +299,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         context.subroutineSignature().IDENTIFIER().subList(1, context.subroutineSignature().IDENTIFIER().size())
                 .forEach(argument -> arguments.add(argument.getText()));
         this.memory.defineSubroutine(context.subroutineSignature().IDENTIFIER(0).getText(),
-                new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().statement()));
+                new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().statement()),
+                context);
         return new JBasicValue(1);
     }
 
@@ -309,7 +310,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         List<JBasicValue> parameters = new ArrayList<>();
         // Parses parameters
         context.expression().forEach(expression -> parameters.add(this.visit(expression)));
-        this.memory.invokeSubroutine(context.IDENTIFIER().getText(), parameters, this);
+        this.memory.invokeSubroutine(context.IDENTIFIER().getText(), parameters, this, context);
         return new JBasicValue(1);
     }
 
@@ -346,12 +347,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAbsFunction(JBasicParser.AbsFunctionContext context) {
-        CoreUtils.assertArity("ABS", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("ABS", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.abs(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate ABS(). Argument is not a number", context);
         }
     }
 
@@ -363,12 +364,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAcsFunction(JBasicParser.AcsFunctionContext context) {
-        CoreUtils.assertArity("ACS", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("ACS", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.acos(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ACS(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate ACS(). Argument is not a number", context);
         }
     }
 
@@ -380,12 +381,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAsnFunction(JBasicParser.AsnFunctionContext context) {
-        CoreUtils.assertArity("ASN", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("ASN", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.asin(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ASN(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate ASN(). Argument is not a number", context);
         }
     }
 
@@ -397,12 +398,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAthFunction(JBasicParser.AthFunctionContext context) {
-        CoreUtils.assertArity("ATH", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("ATH", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(CoreUtils.areaTangentHyperbolicus(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ATH(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate ATH(). Argument is not a number", context);
         }
     }
 
@@ -414,12 +415,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAtnFunction(JBasicParser.AtnFunctionContext context) {
-        CoreUtils.assertArity("ATN", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("ATN", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.atan(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate ATN(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate ATN(). Argument is not a number", context);
         }
     }
 
@@ -431,12 +432,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAvgFunction(JBasicParser.AvgFunctionContext context) {
-        CoreUtils.assertArity("AVG", context.expression().size(), (i -> i != 0));
+        CoreUtils.assertArity("AVG", context.expression().size(), (i -> i != 0), context);
         double sum = 0;
         for (JBasicParser.ExpressionContext expression : context.expression()) {
             JBasicValue value = this.visit(expression);
             if (!value.isANumericalValue()) {
-                throw new TypeException("AVG can only be called with numerical values");
+                throw new TypeException("AVG can only be called with numerical values", context);
             }
             sum += value.underlyingNumber();
         }
@@ -451,12 +452,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitCosFunction(JBasicParser.CosFunctionContext context) {
-        CoreUtils.assertArity("COS", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("COS", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.cos(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate COS(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate COS(). Argument is not a number", context);
         }
     }
 
@@ -468,12 +469,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitExpFunction(JBasicParser.ExpFunctionContext context) {
-        CoreUtils.assertArity("EXP", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("EXP", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.exp(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate EXP(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate EXP(). Argument is not a number", context);
         }
     }
 
@@ -485,12 +486,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLenFunction(JBasicParser.LenFunctionContext context) {
-        CoreUtils.assertArity("LEN", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("LEN", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isAStringValue()) {
             return new JBasicValue(argument.underlyingString().length());
         } else {
-            throw new TypeException("Couldn't evaluate LEN(). Argument is not a string");
+            throw new TypeException("Couldn't evaluate LEN(). Argument is not a string", context);
         }
     }
 
@@ -502,12 +503,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLogFunction(JBasicParser.LogFunctionContext context) {
-        CoreUtils.assertArity("LOG", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("LOG", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.log(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate LOG(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate LOG(). Argument is not a number", context);
         }
     }
 
@@ -519,12 +520,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitMaxFunction(JBasicParser.MaxFunctionContext context) {
-        CoreUtils.assertArity("MAX", context.expression().size(), (i -> i != 0));
+        CoreUtils.assertArity("MAX", context.expression().size(), (i -> i != 0), context);
         double maxValue = Double.MIN_VALUE;
         for (JBasicParser.ExpressionContext expression : context.expression()) {
             JBasicValue value = this.visit(expression);
             if (!value.isANumericalValue()) {
-                throw new TypeException("MAX can only be called with numerical values");
+                throw new TypeException("MAX can only be called with numerical values", context);
             }
             maxValue = Math.max(maxValue, value.underlyingNumber());
         }
@@ -539,12 +540,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitMinFunction(JBasicParser.MinFunctionContext context) {
-        CoreUtils.assertArity("MIN", context.expression().size(), (i -> i != 0));
+        CoreUtils.assertArity("MIN", context.expression().size(), (i -> i != 0), context);
         double minValue = Double.MAX_VALUE;
         for (JBasicParser.ExpressionContext expression : context.expression()) {
             JBasicValue value = this.visit(expression);
             if (!value.isANumericalValue()) {
-                throw new TypeException("MIN can only be called with numerical values");
+                throw new TypeException("MIN can only be called with numerical values", context);
             }
             minValue = Math.min(minValue, value.underlyingNumber());
         }
@@ -559,12 +560,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSinFunction(JBasicParser.SinFunctionContext context) {
-        CoreUtils.assertArity("SIN", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("SIN", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sin(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate SIN(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate SIN(). Argument is not a number", context);
         }
     }
 
@@ -576,12 +577,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSqrFunction(JBasicParser.SqrFunctionContext context) {
-        CoreUtils.assertArity("SQR", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("SQR", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sqrt(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate SQR(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate SQR(). Argument is not a number", context);
         }
     }
 
@@ -593,12 +594,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSumFunction(JBasicParser.SumFunctionContext context) {
-        CoreUtils.assertArity("SUM", context.expression().size(), (i -> i != 0));
+        CoreUtils.assertArity("SUM", context.expression().size(), (i -> i != 0), context);
         double sum = 0;
         for (JBasicParser.ExpressionContext expression : context.expression()) {
             JBasicValue value = this.visit(expression);
             if (!value.isANumericalValue()) {
-                throw new TypeException("SUM can only be called with numerical values");
+                throw new TypeException("SUM can only be called with numerical values", context);
             }
             sum += value.underlyingNumber();
         }
@@ -613,12 +614,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitTanFunction(JBasicParser.TanFunctionContext context) {
-        CoreUtils.assertArity("TAN", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("TAN", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.tan(argument.underlyingNumber()));
         } else {
-            throw new TypeException("Couldn't evaluate TAN(). Argument is not a number");
+            throw new TypeException("Couldn't evaluate TAN(). Argument is not a number", context);
         }
     }
 
@@ -630,7 +631,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitValFunction(JBasicParser.ValFunctionContext context) {
-        CoreUtils.assertArity("VAL", context.expression().size(), (i -> i == 1));
+        CoreUtils.assertArity("VAL", context.expression().size(), (i -> i == 1), context);
         JBasicValue argument = this.visit(context.expression().get(0));
         if (argument.isAStringValue()) {
             String str = argument.underlyingString();

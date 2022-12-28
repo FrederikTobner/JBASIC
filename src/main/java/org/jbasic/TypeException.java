@@ -20,19 +20,22 @@
 
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 /**
  * @brief Type mismatch error.
  */
 @SuppressWarnings("serial")
 public class TypeException extends InterpreterBaseException {
 
+
     /**
      * Constructor of the TypeException
      *
      * @param message The message of the exception
+     * @param context The parsing context where the exception occurred
      */
-    public TypeException(String message) {
-        super(message);
+    public TypeException(String message, ParserRuleContext context) {
+        super(message, context);
     }
-
 }

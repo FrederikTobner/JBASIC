@@ -20,6 +20,8 @@
 
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 /**
  * @brief Invoking a subroutine with the wrong amount of arguments error.
  */
@@ -29,8 +31,9 @@ public class SubroutineArityException extends InterpreterBaseException {
     /**
      * Constructor of the SubroutineArityException
      * @param message The message of the exception
+     * @param context The parsing context where the exception occurred
      */
-    public SubroutineArityException(String message) {
-        super(message);
+    public SubroutineArityException(String message, ParserRuleContext context) {
+        super(message, context);
     }
 }

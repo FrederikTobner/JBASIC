@@ -20,17 +20,21 @@
 
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 /**
  * @brief Redefinition of a subroutine error.
  */
 @SuppressWarnings("serial")
 public class SubroutineRedefinitionException extends InterpreterBaseException {
 
+
     /**
      * Constructor of the SubroutineRedefinitionException
      * @param message The message of the exception
+     * @param context The parsing context where the exception occurred
      */
-    public SubroutineRedefinitionException(String message) {
-        super(message);
+    public SubroutineRedefinitionException(String message, ParserRuleContext context) {
+        super(message, context);
     }
 }

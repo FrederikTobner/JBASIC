@@ -19,12 +19,20 @@
  */
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 /**
  * @brief Indicates a function call with the wrong amount of arguments.
  */
 @SuppressWarnings("serial")
 public class FunctionArityException extends InterpreterBaseException {
-    public FunctionArityException(String message) {
-        super(message);
+
+    /**
+     * Error that occurs if a function was called with the wrong amount of arguments
+     * @param message The message of the exception
+     * @param context The parsing context where the exception occurred
+     */
+    public FunctionArityException(String message, ParserRuleContext context) {
+        super(message, context);
     }
 }

@@ -20,17 +20,21 @@
 
 package org.jbasic;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 /**
  * @brief Invoking an undefined subroutine error.
  */
 @SuppressWarnings("serial")
 public class SubroutineNotDefinedException extends InterpreterBaseException {
 
+
     /**
      * Constructor of the SubroutineNotDefinedException
      * @param message The message of the exception
+     * @param context The parsing context where the exception occurred
      */
-    public SubroutineNotDefinedException(String message) {
-        super(message);
+    public SubroutineNotDefinedException(String message, ParserRuleContext context) {
+        super(message, context);
     }
 }

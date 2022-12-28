@@ -36,24 +36,14 @@ public class CoreUtils {
     public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
 
     /**
-     * Adds line information and the position in the line to an InterpreterException
-     *
-     * @param exception The InterpreterException where that is enriched
-     * @param context   The ParserRRuleContext where the error occurred
-     */
-    public static void addLocationToException(InterpreterBaseException exception, ParserRuleContext context) {
-        exception.setLocation(context.getStart().getLine(), context.getStart().getCharPositionInLine());
-    }
-
-    /**
      * Asserts the arity of a function upon invocation
      * @param functionName The name of the function were the arity is asserted upon invocation
      * @param argumentCount The parsing context of the expressions
      * @param assertion The assertion that is applied to the number of arguments that were used when the function was invoked
      */
-    public static void assertArity(String functionName, int argumentCount, Function<Integer, Boolean> assertion) {
+    public static void assertArity(String functionName, int argumentCount, Function<Integer, Boolean> assertion, ParserRuleContext context) {
         if (!assertion.apply(argumentCount)) {
-            throw new FunctionArityException(functionName + " can not be called with" + argumentCount + "arguments");
+            throw new FunctionArityException(functionName + " can not be called with" + argumentCount + "arguments", context);
         }
     }
 
