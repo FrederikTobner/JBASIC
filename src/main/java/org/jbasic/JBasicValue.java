@@ -154,7 +154,7 @@ public class JBasicValue {
      */
     public JBasicValue equal(JBasicValue right, ParserRuleContext context) {
         if (this.isANumericalValue() && right.isANumericalValue()) {
-            return this.relativeEvaluate(right, Objects::equals, context);
+            return this.compare(right, Objects::equals, context);
         } else if (this.isAStringValue() && right.isAStringValue()) {
             return this.underlyingString().equals(right.underlyingString()) ? TrueValue : FalseValue;
         }
@@ -192,7 +192,7 @@ public class JBasicValue {
      * @return true if this Value object instance is greater than the other Value object instance, false if not
      */
     public JBasicValue greaterThen(JBasicValue right, ParserRuleContext context) {
-        return this.relativeEvaluate(right, (l, r) -> l > r, context);
+        return this.compare(right, (l, r) -> l > r, context);
     }
 
     /**
@@ -203,15 +203,14 @@ public class JBasicValue {
      * @return true if this Value object instance is greater or equal to the other Value object instance, false if not
      */
     public JBasicValue greaterThenEqual(JBasicValue right, ParserRuleContext context) {
-        return this.relativeEvaluate(right, (l, r) -> l >= r, context);
+        return this.compare(right, (l, r) -> l >= r, context);
     }
 
     /// Computes the hashcode of a value instance
     @Override
     public int hashCode() {
-        int result = this.value != null ? this.value.hashCode() : 0;
-        result = 31 * result + (this.isNotANumericalValue() ? 1 : 0);
-        return result;
+        // TODO: Hash strings, arrays and numbers
+        return 0;
     }
 
     /**
@@ -298,7 +297,7 @@ public class JBasicValue {
      * @return true if this Value object instance is less than the other Value object instance, false if not
      */
     public JBasicValue lessThen(JBasicValue right, ParserRuleContext context) {
-        return this.relativeEvaluate(right, (l, r) -> l < r, context);
+        return this.compare(right, (l, r) -> l < r, context);
     }
 
     /**
@@ -308,7 +307,7 @@ public class JBasicValue {
      * @return true if this Value object instance is less or equal to the other Value object instance, false if not
      */
     public JBasicValue lessThenEqual(JBasicValue right, ParserRuleContext context) {
-        return this.relativeEvaluate(right, (l, r) -> l <= r, context);
+        return this.compare(right, (l, r) -> l <= r, context);
     }
 
     /**
@@ -352,7 +351,7 @@ public class JBasicValue {
      * @param context The parsing context of the relative Evaluation
      * @return The result of the relative evaluation
      */
-    private JBasicValue relativeEvaluate(JBasicValue right, BiFunction<Double, Double, Boolean> comparison, ParserRuleContext context) {
+    private JBasicValue compare(JBasicValue right, BiFunction<Double, Double, Boolean> comparison, ParserRuleContext context) {
         this.assertIsNumber(context);
         right.assertIsNumber(context);
         if (comparison.apply(this.underlyingNumber(), right.underlyingNumber())) {

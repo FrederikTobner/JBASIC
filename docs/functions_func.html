@@ -78,6 +78,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <h3><a id="index_c" name="index_c"></a>- c -</h3><ul>
 <li>cleanup()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a155e237116c60268427a70bc17a2bc48">org.jbasic.JBasicVisitor</a></li>
 <li>clear()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#aafbcf1b1a095daf93fc38b8bf4a1156f">org.jbasic.JBasicInterpreter</a></li>
+<li>compare()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#ad24cd17d5fe8f36493886139308bc571">org.jbasic.JBasicValue</a></li>
 </ul>
 
 
@@ -106,7 +107,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>getArity()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html#a2de0b2c53f0cff8371f4600dfd529b1e">org.jbasic.JBasicSubroutine</a></li>
 <li>getMessage()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_interpreter_base_exception.html#a7c54235d165c5aa4d919e94dd578d272">org.jbasic.InterpreterBaseException</a></li>
 <li>getState()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a9d9dd8e4ae43e62c5a6252bf3f3f148e">org.jbasic.JBasicInterpreter</a></li>
-<li>getSubroutineBody()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html#af6948d8e22e2d1f1cff5f3cf4d454ced">org.jbasic.JBasicSubroutine</a></li>
+<li>getSubroutineBody()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html#a87263b3c5f0d009385dafb5da0018bb6">org.jbasic.JBasicSubroutine</a></li>
 <li>getVariable()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter_state.html#a79f112007a6ee23be272e923442335d7">org.jbasic.JBasicInterpreterState</a></li>
 <li>greaterThen()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#aa8033e3e7ff4c2ba08983ad80ae9fa5d">org.jbasic.JBasicValue</a></li>
 <li>greaterThenEqual()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#a9f54e36592b2eb2e88868e7a60ced441">org.jbasic.JBasicValue</a></li>
@@ -135,7 +136,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 <h3><a id="index_j" name="index_j"></a>- j -</h3><ul>
 <li>JBasicInterpreter()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#ab4011b4f5520bc5b54f31381ccb239f5">org.jbasic.JBasicInterpreter</a></li>
-<li>JBasicSubroutine()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html#a17bd723ca0ad106c12b39fe5d7831852">org.jbasic.JBasicSubroutine</a></li>
+<li>JBasicSubroutine()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_subroutine.html#a7e30d288fefd2ad91a9568c2620aa903">org.jbasic.JBasicSubroutine</a></li>
 <li>JBasicValue()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#abbd77fb2c44241d5089b1784084c5d58">org.jbasic.JBasicValue</a></li>
 <li>JBasicVisitor()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#aa0022034eab9b3f7a54338e6c957d02c">org.jbasic.JBasicVisitor</a></li>
 </ul>
@@ -167,7 +168,6 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 
 <h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
-<li>relativeEvaluate()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#ae8a29a9a0bf55aab00cb3dd0b7ae3832">org.jbasic.JBasicValue</a></li>
 <li>run()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_interpreter.html#a2395bd634cfed83665f1e4ac294363b8">org.jbasic.JBasicInterpreter</a></li>
 </ul>
 
@@ -208,12 +208,12 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>visitAthFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ab97fc2f1d790ff562dd0c377280602cf">org.jbasic.JBasicVisitor</a></li>
 <li>visitAtnFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a3b8429f86301b7be7cb0dbcc81c24ad0">org.jbasic.JBasicVisitor</a></li>
 <li>visitAvgFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#af8f8b2da849c6f7e62429de9d8b1bd2e">org.jbasic.JBasicVisitor</a></li>
+<li>visitComparisonExpression()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a403601cb457b80adf27f95180826e20c">org.jbasic.JBasicVisitor</a></li>
 <li>visitContinueStatement()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a19d75a340de3054dc8b1738169add9df">org.jbasic.JBasicVisitor</a></li>
 <li>visitCosFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a06950f7d99546e3fcbfbd9e86d2d8d05">org.jbasic.JBasicVisitor</a></li>
 <li>visitExitStatement()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a1342bc3ae00d90118aea9511b0a9dd3b">org.jbasic.JBasicVisitor</a></li>
 <li>visitExpFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a44d6c73a7f7fad251e85fe0ca7a46bab">org.jbasic.JBasicVisitor</a></li>
 <li>visitForStatement()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a2cc2f0ca558e9aaa1e914d157d0dd68f">org.jbasic.JBasicVisitor</a></li>
-<li>visitIdentifier()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#afc034a1451e56297d39cf3ec2a5394ce">org.jbasic.JBasicVisitor</a></li>
 <li>visitIfStatement()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a1141c5f937f3ce439e430e9574824ad3">org.jbasic.JBasicVisitor</a></li>
 <li>visitInputStatement()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a2527b5e5ab5b8291eb09a85cf32c7ebe">org.jbasic.JBasicVisitor</a></li>
 <li>visitLenFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ab59dc7abffc552e4da48f25b6eb3acde">org.jbasic.JBasicVisitor</a></li>
@@ -228,7 +228,6 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>visitOrExpression()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#afc0bfd20165aac3483b035aa9ab6424d">org.jbasic.JBasicVisitor</a></li>
 <li>visitPrintStatement()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ac0e71ddb0b190ad343774c39c00b3270">org.jbasic.JBasicVisitor</a></li>
 <li>visitProgram()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#af37ed1841896f46be9db1bda7276322a">org.jbasic.JBasicVisitor</a></li>
-<li>visitRelExpression()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ad94a6453b281880733ac39929f28d9dd">org.jbasic.JBasicVisitor</a></li>
 <li>visitRepeatStatement()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a92aaf8bc49e0708ae72e6be8600c34f1">org.jbasic.JBasicVisitor</a></li>
 <li>visitSinFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a36d5d8febcdb7383f99e19fa17ef812b">org.jbasic.JBasicVisitor</a></li>
 <li>visitSqrFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#aea5feaafcd53362cdecdbaa4db794999">org.jbasic.JBasicVisitor</a></li>
@@ -239,6 +238,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>visitSumFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a7c1b6dbf0d7d81366e74f778597aa4c2">org.jbasic.JBasicVisitor</a></li>
 <li>visitTanFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a37a92a0e6d727e5aa9e8cf07660cd960">org.jbasic.JBasicVisitor</a></li>
 <li>visitValFunction()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#a9aeabf728d9263b8e9d1801d60b8ec44">org.jbasic.JBasicVisitor</a></li>
+<li>visitVariableIdentifier()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#ab224b859d19eeb74d6c819f4f6861afa">org.jbasic.JBasicVisitor</a></li>
 <li>visitWhileStatement()&#160;:&#160;<a class="el" href="classorg_1_1jbasic_1_1_j_basic_visitor.html#abc418fe5654994b3b06bc2f2679be98b">org.jbasic.JBasicVisitor</a></li>
 </ul>
 </div><!-- contents -->

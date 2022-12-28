@@ -168,8 +168,8 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a66ac7a206679bbd68005f1c06a2db609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe728654b8e80ec7879e5bbe08e52da4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#abe728654b8e80ec7879e5bbe08e52da4">assertIsNumber</a> (ParserRuleContext context)</td></tr>
 <tr class="separator:abe728654b8e80ec7879e5bbe08e52da4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8a29a9a0bf55aab00cb3dd0b7ae3832"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#ae8a29a9a0bf55aab00cb3dd0b7ae3832">relativeEvaluate</a> (<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a> right, BiFunction&lt; Double, Double, Boolean &gt; comparison, ParserRuleContext context)</td></tr>
-<tr class="separator:ae8a29a9a0bf55aab00cb3dd0b7ae3832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad24cd17d5fe8f36493886139308bc571"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html#ad24cd17d5fe8f36493886139308bc571">compare</a> (<a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a> right, BiFunction&lt; Double, Double, Boolean &gt; comparison, ParserRuleContext context)</td></tr>
+<tr class="separator:ad24cd17d5fe8f36493886139308bc571"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -474,6 +474,57 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ad24cd17d5fe8f36493886139308bc571" name="ad24cd17d5fe8f36493886139308bc571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad24cd17d5fe8f36493886139308bc571">&#9670;&#160;</a></span>compare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a> org.jbasic.JBasicValue.compare </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BiFunction&lt; Double, Double, Boolean &gt;&#160;</td>
+          <td class="paramname"><em>comparison</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ParserRuleContext&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >Performs a relative evaluation on this Value object instance and another Value object instance </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">right</td><td>The other Value object instance </td></tr>
+    <tr><td class="paramname">comparison</td><td>The comparison operator </td></tr>
+    <tr><td class="paramname">context</td><td>The parsing context of the relative Evaluation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the relative evaluation </dd></dl>
 
 </div>
 </div>
@@ -1105,57 +1156,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the value or the right value are truthy </dd></dl>
-
-</div>
-</div>
-<a id="ae8a29a9a0bf55aab00cb3dd0b7ae3832" name="ae8a29a9a0bf55aab00cb3dd0b7ae3832"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8a29a9a0bf55aab00cb3dd0b7ae3832">&#9670;&#160;</a></span>relativeEvaluate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a> org.jbasic.JBasicValue.relativeEvaluate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classorg_1_1jbasic_1_1_j_basic_value.html">JBasicValue</a>&#160;</td>
-          <td class="paramname"><em>right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">BiFunction&lt; Double, Double, Boolean &gt;&#160;</td>
-          <td class="paramname"><em>comparison</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ParserRuleContext&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Performs a relative evaluation on this Value object instance and another Value object instance </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">right</td><td>The other Value object instance </td></tr>
-    <tr><td class="paramname">comparison</td><td>The comparison operator </td></tr>
-    <tr><td class="paramname">context</td><td>The parsing context of the relative Evaluation </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The result of the relative evaluation </dd></dl>
 
 </div>
 </div>

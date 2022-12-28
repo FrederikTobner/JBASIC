@@ -12,6 +12,7 @@ expression
     : expression op=(ADD|MINUS) expression                                                                      # AddSubExpression
     | expression AND_KEYWORD expression                                                                         # AndExpression
     | variableIdentifier LEFT_PARENTHESIS (expression (COMMA expression)*) RIGHT_PARENTHESIS                    # ArrayGetAtIndexExpression
+    | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # ComparisonExpression
     | function                                                                                                  # FuncExpression
     | variableIdentifier                                                                                        # IdentifierExpression
     | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # MulDivExpression
@@ -20,7 +21,6 @@ expression
     | numericLiteral                                                                                            # NumericLiteralExpression
     | expression OR_KEYWORD  expression                                                                         # OrExpression
     | (LEFT_PARENTHESIS expression RIGHT_PARENTHESIS)                                                           # ParenExpression
-    | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # RelExpression
     | stringLiteral                                                                                             # StringLiteralExpression
     ;
 

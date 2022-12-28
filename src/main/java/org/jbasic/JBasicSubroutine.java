@@ -33,17 +33,17 @@ public class JBasicSubroutine {
     private final String[] arguments;
 
     /// Stores the parsing context of the functionBody, so we can execute it later
-    private final List<JBasicParser.StatementContext> statementsInBodyContextList;
+    private final JBasicParser.StatementContext [] statementsInBodyContexts;
 
     /**
      * Constructor of the JBASICSubroutine class
      *
      * @param arguments                   The names of the arguments of the subroutine
-     * @param statementsInBodyContextList The parsing context of the body of the subroutine
+     * @param statementsInBodyContexts The parsing context of the body of the subroutine
      */
-    public JBasicSubroutine(String[] arguments, List<JBasicParser.StatementContext> statementsInBodyContextList) {
+    public JBasicSubroutine(String[] arguments, JBasicParser.StatementContext[] statementsInBodyContexts) {
         this.arguments = arguments;
-        this.statementsInBodyContextList = statementsInBodyContextList;
+        this.statementsInBodyContexts = statementsInBodyContexts;
     }
 
     /**
@@ -59,8 +59,8 @@ public class JBasicSubroutine {
      *
      * @return The body of the subroutine
      */
-    public List<JBasicParser.StatementContext> getSubroutineBody() {
-        return this.statementsInBodyContextList;
+    public JBasicParser.StatementContext[] getSubroutineBody() {
+        return this.statementsInBodyContexts;
     }
 
     /**

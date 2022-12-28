@@ -428,10 +428,13 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         do {
             try {
                 this.visit(context.block());
-            } catch (ContinueException ignored) {
-            } catch (ExitException e) {
+            }
+            catch (ContinueException ignored) {
+            }
+            catch (ExitException e) {
                 break;
-            } finally {
+            }
+            finally {
                 condition = this.visit(context.expression());
             }
         } while (condition.isFalsy(context));
@@ -450,7 +453,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         // Adds all the argument from the subroutine signature to the List
         this.memory.defineSubroutine(context.subroutineSignature().IDENTIFIER().getText(),
                 new JBasicSubroutine(context.subroutineSignature().variableIdentifier().stream()
-                        .map(RuleContext::getText).toArray(String[]::new), context.subroutineBody().statement()),
+                        .map(RuleContext::getText).toArray(String[]::new),
+                        context.subroutineBody().statement().toArray(JBasicParser.StatementContext[]::new)),
                 context);
         return new JBasicValue(0);
     }
@@ -961,7 +965,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @return The Value that is omitted by visiting the 'rel expression'
      */
     @Override
-    public JBasicValue visitRelExpression(JBasicParser.RelExpressionContext context) {
+    public JBasicValue visitComparisonExpression(JBasicParser.ComparisonExpressionContext context) {
         JBasicValue left = this.visit(context.expression(0));
         JBasicValue right = this.visit(context.expression(1));
         switch (context.op.getType()) {

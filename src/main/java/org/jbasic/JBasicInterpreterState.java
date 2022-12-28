@@ -23,6 +23,7 @@ package org.jbasic;
 
 import basic.JBasicParser;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +103,7 @@ public class JBasicInterpreterState {
         for (int i = 0; i < subroutine.getArity(); i++) {
             this.assignToVariable(subroutine.getArguments()[i], arguments.get(i));
         }
-        subroutine.getSubroutineBody().forEach(visitor::visit);
+        Arrays.stream(subroutine.getSubroutineBody()).forEach(visitor::visit);
         // Reset memory to the old state
         this.memory = oldMemoryState;
     }
