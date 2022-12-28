@@ -82,18 +82,21 @@ public class JBasicValue {
     /**
      * Performs an addition with the underlying numerical value of this object instance and the underlying numerical value of another object instance
      *
-     * @param right   The addend of the addition
+     * @param right The addend of the addition
      * @param context The parsing context of the addition expression
      * @return The underlying numerical value of this Value object instance added to the underlying numerical value of the other Value object instance
      */
     public JBasicValue add(JBasicValue right, ParserRuleContext context) {
         if (this.isAStringValue() && right.isAStringValue()) {
             return new JBasicValue(this.underlyingString() + right.underlyingString());
-        } else if (this.isAStringValue() && right.isANumericalValue()) {
+        }
+        else if (this.isAStringValue() && right.isANumericalValue()) {
             return new JBasicValue(this.underlyingString() + CoreUtils.numericalOutputFormat.format(right.underlyingNumber()));
-        } else if (this.isANumericalValue() && right.isAStringValue()) {
+        }
+        else if (this.isANumericalValue() && right.isAStringValue()) {
             return new JBasicValue(CoreUtils.numericalOutputFormat.format(this.underlyingNumber()) + right.underlyingString());
-        } else {
+        }
+        else {
             return this.arithmeticEvaluation(right, Double::sum, context);
         }
     }
@@ -155,7 +158,8 @@ public class JBasicValue {
     public JBasicValue equal(JBasicValue right, ParserRuleContext context) {
         if (this.isANumericalValue() && right.isANumericalValue()) {
             return this.compare(right, Objects::equals, context);
-        } else if (this.isAStringValue() && right.isAStringValue()) {
+        }
+        else if (this.isAStringValue() && right.isAStringValue()) {
             return this.underlyingString().equals(right.underlyingString()) ? TrueValue : FalseValue;
         }
         return FalseValue;
@@ -176,12 +180,12 @@ public class JBasicValue {
             return false;
         }
 
-        JBasicValue value1 = (JBasicValue) o;
+        JBasicValue otherValue = (JBasicValue) o;
 
-        if (this.isNotANumericalValue() != value1.isNotANumericalValue()) {
+        if (this.isNotANumericalValue() != otherValue.isNotANumericalValue()) {
             return false;
         }
-        return Objects.equals(this.value, value1.value);
+        return Objects.equals(this.value, otherValue.value);
     }
 
     /**
@@ -379,10 +383,7 @@ public class JBasicValue {
      */
     public JBasicValue not(ParserRuleContext context) {
         this.assertIsNumber(context);
-        if (this.underlyingNumber() == 0) {
-            return TrueValue;
-        }
-        return FalseValue;
+        return this.underlyingNumber() == 0 ? TrueValue : FalseValue;
     }
 
     /**

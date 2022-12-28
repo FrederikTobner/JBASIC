@@ -76,7 +76,7 @@ public class JBasicInterpreterState {
      *
      * @param name The name of the variable that is obtained
      */
-    public JBasicValue getVariable(String name) {
+    public JBasicValue getVariableValue(String name) {
         return this.memory.get(name);
     }
 

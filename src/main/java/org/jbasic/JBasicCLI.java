@@ -41,14 +41,17 @@ public class JBasicCLI {
                 System.out.println("Usage: JBASIC <script>");
                 System.exit(-1);
             }
+            // Open file under specified path
             inputStream = new FileInputStream(args[0]);
+            // Creates a new JBasicInterpreter object instance using the standard input, output and error output stream
             interpreter = new JBasicInterpreter(System.in, System.out, System.err);
+            // Interprets file content
             interpreter.run(inputStream);
             interpreter.clear();
 
         }
-        catch (IOException e) {
-            System.out.println("Error running script: " + e.getMessage());
+        catch (IOException exception) {
+            System.out.println("Error running script: " + exception.getMessage());
             System.exit(-1);
         }
         finally {
@@ -56,8 +59,8 @@ public class JBasicCLI {
                 try {
                     inputStream.close();
                 }
-                catch (IOException e) {
-                    e.printStackTrace();
+                catch (IOException exception) {
+                    exception.printStackTrace();
                 }
             }
             if (interpreter != null) {

@@ -46,8 +46,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     private final InputStream stdin;
     /// standard output stream used by the visitor
     private final PrintStream stdout;
-    /// Memory object instance that is used when the program is executed to store the variables declared in the program
-    private final JBasicInterpreterState memory;
+    /// State of the interpreter
+    private final JBasicInterpreterState state;
 
     /// standard output stream that is used when the program is executed
     private PrintStream printStream;
@@ -64,7 +64,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicVisitor(JBasicInterpreterState memory, InputStream stdin, PrintStream stdout) {
         this.stdin = stdin;
         this.stdout = stdout;
-        this.memory = memory;
+        this.state = memory;
     }
 
     /**
@@ -78,7 +78,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         this.initialize();
         try {
             return super.visitProgram(context);
-        } finally {
+        }
+        finally {
             this.cleanup();
         }
     }
@@ -110,7 +111,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitVariableIdentifier(JBasicParser.VariableIdentifierContext context) {
         String id = context.getText();
-        return this.memory.getVariable(id);
+        return this.state.getVariableValue(id);
     }
 
     /**
@@ -181,15 +182,15 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             switch (dimensions.size()) {
                 case 1:
                     array = new JBasicValue(new JBasicValue[dimensions.get(0)]);
-                    this.memory.assignToVariable(arrayName, array);
+                    this.state.assignToVariable(arrayName, array);
                     return array;
                 case 2:
                     array = new JBasicValue(new JBasicValue[dimensions.get(0)][dimensions.get(1)]);
-                    this.memory.assignToVariable(arrayName, array);
+                    this.state.assignToVariable(arrayName, array);
                     return array;
                 case 3:
                     array = new JBasicValue(new JBasicValue[dimensions.get(0)][dimensions.get(1)][dimensions.get(2)]);
-                    this.memory.assignToVariable(arrayName, array);
+                    this.state.assignToVariable(arrayName, array);
                     return array;
                 default:
                     throw new IllegalStateException("Unexpected value: " + dimensions.size());
@@ -205,7 +206,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitArraySetAtIndexStatement(JBasicParser.ArraySetAtIndexStatementContext context) {
         String arrayName = context.variableIdentifier().getText();
-        JBasicValue array = this.memory.getVariable(arrayName);
+        JBasicValue array = this.state.getVariableValue(arrayName);
         if (array == null) {
             throw new UndefinedVariableException(
                     "A variable with the name " + arrayName + "is not defined",
@@ -264,7 +265,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
                 if (!value.isAStringValue()) {
                     throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
                 }
-            } else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
+            }
+            else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
                 if (!value.isANumericalValue()) {
                     throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
                 }
@@ -318,11 +320,13 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue end = this.visit(context.expression(1));
         JBasicValue step = context.expression(2) != null ? this.visit(context.expression(2)) : new JBasicValue(1);
         for (double i = start.underlyingNumber(); i <= end.underlyingNumber(); i = i + step.underlyingNumber()) {
-            this.memory.assignToVariable(variableName, new JBasicValue(i));
+            this.state.assignToVariable(variableName, new JBasicValue(i));
             try {
                 this.visit(context.block());
-            } catch (ContinueException ignored) {
-            } catch (ExitException e) {
+            }
+            catch (ContinueException ignored) {
+            }
+            catch (ExitException e) {
                 break;
             }
         }
@@ -340,7 +344,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue condition = this.visit(context.expression());
         if (condition.isTruthy(context)) {
             return this.visit(context.block());
-        } else {
+        }
+        else {
             for (JBasicParser.ElifStatementContext elifContext : context.elifStatement()) {
                 condition = this.visit(elifContext.expression());
                 if (condition.isTruthy(context)) {
@@ -367,9 +372,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         try {
             String line = this.inputStream.readLine();
             JBasicValue val = new JBasicValue(line);
-            this.memory.assignToVariable(variableName, val);
+            this.state.assignToVariable(variableName, val);
             return val;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -389,13 +395,14 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
                 if (!value.isAStringValue()) {
                     throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
                 }
-            } else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
+            }
+            else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
                 if (!value.isANumericalValue()) {
                     throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
                 }
             }
         }
-        this.memory.assignToVariable(variableName, value);
+        this.state.assignToVariable(variableName, value);
         return value;
     }
 
@@ -410,7 +417,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue value = this.visit(context.expression());
         if (value.isANumericalValue()) {
             this.printStream.println(CoreUtils.numericalOutputFormat.format(value.underlyingNumber()));
-        } else {
+        }
+        else {
             this.printStream.println(value.underlyingString());
         }
         return value;
@@ -451,7 +459,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitSubroutineDefinitionStatement(JBasicParser.SubroutineDefinitionStatementContext context) {
 
         // Adds all the argument from the subroutine signature to the List
-        this.memory.defineSubroutine(context.subroutineSignature().IDENTIFIER().getText(),
+        this.state.defineSubroutine(context.subroutineSignature().IDENTIFIER().getText(),
                 new JBasicSubroutine(context.subroutineSignature().variableIdentifier().stream()
                         .map(RuleContext::getText).toArray(String[]::new),
                         context.subroutineBody().statement().toArray(JBasicParser.StatementContext[]::new)),
@@ -468,7 +476,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitSubroutineInvocationStatement(JBasicParser.SubroutineInvocationStatementContext context) {
 
-        this.memory.invokeSubroutine(context.IDENTIFIER().getText(),
+        this.state.invokeSubroutine(context.IDENTIFIER().getText(),
                 context.expression().stream().map(this::visit).collect(Collectors.toList()),
                 this, context);
         return new JBasicValue(0);
@@ -486,10 +494,13 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         while (condition.isTruthy(context)) {
             try {
                 this.visit(context.block());
-            } catch (ContinueException ignored) {
-            } catch (ExitException e) {
+            }
+            catch (ContinueException ignored) {
+            }
+            catch (ExitException e) {
                 break;
-            } finally {
+            }
+            finally {
                 condition = this.visit(context.expression());
             }
         }
@@ -511,7 +522,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.abs(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate ABS(). Argument is not a number", context);
         }
     }
@@ -528,7 +540,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.acos(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate ACS(). Argument is not a number", context);
         }
     }
@@ -545,7 +558,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.asin(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate ASN(). Argument is not a number", context);
         }
     }
@@ -562,7 +576,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(CoreUtils.areaTangentHyperbolicus(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate ATH(). Argument is not a number", context);
         }
     }
@@ -579,7 +594,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.atan(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate ATN(). Argument is not a number", context);
         }
     }
@@ -616,7 +632,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.cos(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate COS(). Argument is not a number", context);
         }
     }
@@ -633,7 +650,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.exp(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate EXP(). Argument is not a number", context);
         }
     }
@@ -650,7 +668,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isAStringValue()) {
             return new JBasicValue(argument.underlyingString().length());
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate LEN(). Argument is not a string", context);
         }
     }
@@ -667,7 +686,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.log(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate LOG(). Argument is not a number", context);
         }
     }
@@ -724,7 +744,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sin(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate SIN(). Argument is not a number", context);
         }
     }
@@ -741,7 +762,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.sqrt(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate SQR(). Argument is not a number", context);
         }
     }
@@ -778,7 +800,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isANumericalValue()) {
             return new JBasicValue(Math.tan(argument.underlyingNumber()));
-        } else {
+        }
+        else {
             throw new TypeException("Couldn't evaluate TAN(). Argument is not a number", context);
         }
     }
@@ -797,7 +820,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             String str = argument.underlyingString();
             try {
                 return new JBasicValue(Long.parseLong(str));
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 return JBasicValue.NullValue;
             }
         }
@@ -832,7 +856,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue right = this.visit(context.expression(1));
         if (context.op.getType() == LBExpressionParser.ADD) {
             return left.add(right, context);
-        } else {
+        }
+        else {
             return left.subtract(right, context);
         }
     }
@@ -846,7 +871,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitArrayGetAtIndexExpression(JBasicParser.ArrayGetAtIndexExpressionContext context) {
         String arrayName = context.variableIdentifier().getText();
-        JBasicValue array = this.memory.getVariable(arrayName);
+        JBasicValue array = this.state.getVariableValue(arrayName);
         if (array == null) {
             throw new UndefinedVariableException("A variable with the name " + arrayName + "is not defined", context);
         }
@@ -914,9 +939,11 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue right = this.visit(context.expression(1));
         if (context.op.getType() == LBExpressionParser.MULTIPLY) {
             return left.multiply(right, context);
-        } else if (context.op.getType() == LBExpressionParser.DIVIDE) {
+        }
+        else if (context.op.getType() == LBExpressionParser.DIVIDE) {
             return left.divide(right, context);
-        } else {
+        }
+        else {
             return left.modulo(right, context);
         }
     }
