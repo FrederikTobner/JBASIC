@@ -1,5 +1,7 @@
 var dir_085e8fe76187367b81d0085f93b78b24 =
 [
+    [ "ArrayDimensionMismatchException.java", "_array_dimension_mismatch_exception_8java.html", "_array_dimension_mismatch_exception_8java" ],
+    [ "ArrayDimensionUnsupportedException.java", "_array_dimension_unsupported_exception_8java.html", "_array_dimension_unsupported_exception_8java" ],
     [ "ContinueException.java", "_continue_exception_8java.html", "_continue_exception_8java" ],
     [ "CoreUtils.java", "_core_utils_8java.html", "_core_utils_8java" ],
     [ "ErrorListener.java", "_error_listener_8java.html", "_error_listener_8java" ],
@@ -15,5 +17,6 @@ var dir_085e8fe76187367b81d0085f93b78b24 =
     [ "SubroutineArityException.java", "_subroutine_arity_exception_8java.html", "_subroutine_arity_exception_8java" ],
     [ "SubroutineNotDefinedException.java", "_subroutine_not_defined_exception_8java.html", "_subroutine_not_defined_exception_8java" ],
     [ "SubroutineRedefinitionException.java", "_subroutine_redefinition_exception_8java.html", "_subroutine_redefinition_exception_8java" ],
-    [ "TypeException.java", "_type_exception_8java.html", "_type_exception_8java" ]
+    [ "TypeException.java", "_type_exception_8java.html", "_type_exception_8java" ],
+    [ "UndefinedVariableException.java", "_undefined_variable_exception_8java.html", "_undefined_variable_exception_8java" ]
 ];

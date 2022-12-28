@@ -148,6 +148,115 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
 
 
     /**
+     * Visits a 'array declaration statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'array declaration statement' that is visited
+     * @return The Value that is omitted by visiting the 'array declaration statement'
+     */
+    @Override
+    public JBasicValue visitArrayDeclarationStatement(JBasicParser.ArrayDeclarationStatementContext context) {
+        // Determine name of the array
+        String arrayName = context.IDENTIFIER().getText();
+        if (context.expression().size() > 3 || context.expression().size() == 0) {
+            throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);
+        }
+        List<Integer> dimensions = new ArrayList<>();
+        for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
+            JBasicValue dimension = this.visit(expressionContext);
+            if(!dimension.isANumericalValue()) {
+                throw new TypeException("Dimension is not a numerical value", expressionContext);
+            }
+            if (dimension.underlyingNumber() <= 0) {
+                throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", context);
+            }
+            dimensions.add((int) dimension.underlyingNumber());
+        }
+        JBasicValue array;
+        switch (dimensions.size()) {
+
+            case 1:
+                array = new JBasicValue(new JBasicValue[dimensions.get(0)]);
+                this.memory.assignToVariable(arrayName, array);
+                return array;
+            case 2:
+                array = new JBasicValue(new JBasicValue[dimensions.get(0)] [dimensions.get(1)]);
+                this.memory.assignToVariable(arrayName, array);
+                return array;
+            case 3:
+                array = new JBasicValue(new JBasicValue[dimensions.get(0)] [dimensions.get(1)] [dimensions.get(2)]);
+                this.memory.assignToVariable(arrayName, array);
+                return array;
+            default:
+                throw new IllegalStateException("Unexpected value: " + dimensions.size());
+        }
+    }
+
+    /**
+     * Visits a 'array set at index statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'array set at index statement' that is visited
+     * @return The Value that is omitted by visiting the 'array set at index statement'
+     */
+    @Override
+    public JBasicValue visitArraySetAtIndexStatement(JBasicParser.ArraySetAtIndexStatementContext context) {
+        String arrayName = context.IDENTIFIER().getText();
+        JBasicValue array = this.memory.getVariable(arrayName);
+        if (array == null) {
+            throw new UndefinedVariableException("A variable with the name " + arrayName + "is not defined", context);
+        }
+        if (context.expression().size() > 3 || context.expression().size() == 0) {
+            throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);
+        }
+        switch (context.expression().size()) {
+
+            case 1:
+                if (!array.isAOneDimensionalArrayValue()) {
+                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                }
+                break;
+            case 2:
+                if (!array.isATwoDimensionalArrayValue()) {
+                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                }
+                break;
+            case 3:
+                if (!array.isAThreeDimensionalArrayValue()) {
+                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                }
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + context.expression().size());
+        }
+
+        List<Integer> dimensions = new ArrayList<>();
+        for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
+            JBasicValue dimension = this.visit(expressionContext);
+            if(!dimension.isANumericalValue()) {
+                throw new TypeException("Dimension is not a numerical value", expressionContext);
+            }
+            if (dimension.underlyingNumber() <= 0) {
+                throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", context);
+            }
+            dimensions.add((int) dimension.underlyingNumber() - 1);
+        }
+
+        switch (dimensions.size()) {
+
+            case 1:
+                return array.underlyingOneDimensionalArray()[dimensions.get(0)] =
+                        this.visit(context.arraySetAtIndexAssignment().expression());
+            case 2:
+                return array.underlyingTwoDimensionalArray()[dimensions.get(0)][dimensions.get(1)] =
+                        this.visit(context.arraySetAtIndexAssignment().expression());
+            case 3:
+                return array.underlyingThreeDimensionalArray()[dimensions.get(0)][dimensions.get(1)][dimensions.get(2)] =
+                        this.visit(context.arraySetAtIndexAssignment().expression());
+            default:
+                throw new IllegalStateException("Unexpected value: " + context.expression().size());
+        }
+    }
+
+    /**
      * Visits a 'continue statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'continue statement' that is visited
@@ -291,6 +400,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         return new JBasicValue(0);
     }
 
+    /**
+     * Visits a 'subroutine definition statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'subroutine definition statement' that is visited
+     * @return 0
+     */
     @Override
     public JBasicValue visitSubroutineDefinitionStatement(JBasicParser.SubroutineDefinitionStatementContext context) {
 
@@ -301,9 +416,15 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         this.memory.defineSubroutine(context.subroutineSignature().IDENTIFIER(0).getText(),
                 new JBasicSubroutine(arguments.toArray(new String[0]), context.subroutineBody().statement()),
                 context);
-        return new JBasicValue(1);
+        return new JBasicValue(0);
     }
 
+    /**
+     * Visits a 'subroutine invocation statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'subroutine invocation statement' that is visited
+     * @return 0
+     */
     @Override
     public JBasicValue visitSubroutineInvocationStatement(JBasicParser.SubroutineInvocationStatementContext context) {
 
@@ -311,7 +432,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         // Parses parameters
         context.expression().forEach(expression -> parameters.add(this.visit(expression)));
         this.memory.invokeSubroutine(context.IDENTIFIER().getText(), parameters, this, context);
-        return new JBasicValue(1);
+        return new JBasicValue(0);
     }
 
     /**
@@ -674,6 +795,68 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             return left.add(right, context);
         } else {
             return left.subtract(right, context);
+        }
+    }
+
+    /**
+     * Visits an 'array get at index expression' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'array get at index expression' that is visited
+     * @return The Value that is omitted by visiting the 'array get at index expression'
+     */
+    @Override
+    public JBasicValue visitArrayGetAtIndexExpression(JBasicParser.ArrayGetAtIndexExpressionContext context) {
+        String arrayName = context.IDENTIFIER().getText();
+        JBasicValue array = this.memory.getVariable(arrayName);
+        if (array == null) {
+            throw new UndefinedVariableException("A variable with the name " + arrayName + "is not defined", context);
+        }
+        if (context.expression().size() > 3 || context.expression().size() == 0) {
+            throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);
+        }
+        switch (context.expression().size()) {
+
+            case 1:
+                if (!array.isAOneDimensionalArrayValue()) {
+                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                }
+                break;
+            case 2:
+                if (!array.isATwoDimensionalArrayValue()) {
+                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                }
+                break;
+            case 3:
+                if (!array.isAThreeDimensionalArrayValue()) {
+                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                }
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + context.expression().size());
+        }
+
+        List<Integer> dimensions = new ArrayList<>();
+        for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
+            JBasicValue dimension = this.visit(expressionContext);
+            if(!dimension.isANumericalValue()) {
+                throw new TypeException("Dimension is not a numerical value", expressionContext);
+            }
+            if (dimension.underlyingNumber() <= 0) {
+                throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", context);
+            }
+            dimensions.add((int) dimension.underlyingNumber() - 1);
+        }
+
+        switch (dimensions.size()) {
+
+            case 1:
+                return array.underlyingOneDimensionalArray()[dimensions.get(0)];
+            case 2:
+                return array.underlyingTwoDimensionalArray()[dimensions.get(0)][dimensions.get(1)];
+            case 3:
+                return array.underlyingThreeDimensionalArray()[dimensions.get(0)][dimensions.get(1)][dimensions.get(2)];
+            default:
+                throw new IllegalStateException("Unexpected value: " + context.expression().size());
         }
     }
 

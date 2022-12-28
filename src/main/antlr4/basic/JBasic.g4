@@ -4,7 +4,9 @@ import LBExpression, LBTokens;
 program: block EOF;
 
 statement
-    : COMMENT
+    : arrayDeclarationStatement
+    | arraySetAtIndexStatement
+    | COMMENT
     | continueStatement
     | exitStatement
     | forStatement
@@ -40,6 +42,18 @@ variableSuffix
 
 // Statements
 
+arrayDeclarationStatement
+    : DIM_KEYWORD IDENTIFIER LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
+    ;
+
+arraySetAtIndexStatement
+    : IDENTIFIER LEFT_PARENTHESIS (expression (COMMA expression)*) RIGHT_PARENTHESIS arraySetAtIndexAssignment
+    ;
+
+arraySetAtIndexAssignment
+    : EQUALS expression
+    ;
+
 continueStatement
     : CONTINUE_KEYWORD
     ;
@@ -61,7 +75,7 @@ forStatement
     ;
 
 inputStatement
-    : INPUT_KEYWORD stringLiteral variableDeclaration
+    : INPUT_KEYWORD stringLiteral (variableDeclaration|expression)
     ;
 
 ifStatement

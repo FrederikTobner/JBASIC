@@ -41,6 +41,7 @@ VAL_FUNCTION            : 'VAL' | 'val' ;
 // base keywords
 CALL_KEYWORD            : 'CALL' | 'call' ;
 CONTINUE_KEYWORD        : 'CONTINUE' | 'continue' ;
+DIM_KEYWORD             : 'DIM' | 'dim' ;
 ELSE_KEYWORD            : 'ELSE' | 'else' ;
 END_KEYWORD             : 'END' | 'end';
 EXIT_KEYWORD            : 'EXIT' | 'exit' ;

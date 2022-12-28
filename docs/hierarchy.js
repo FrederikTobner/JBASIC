@@ -10,11 +10,14 @@ var hierarchy =
       [ "org.jbasic.ContinueException", "classorg_1_1jbasic_1_1_continue_exception.html", null ],
       [ "org.jbasic.ExitException", "classorg_1_1jbasic_1_1_exit_exception.html", null ],
       [ "org.jbasic.InterpreterBaseException", "classorg_1_1jbasic_1_1_interpreter_base_exception.html", [
+        [ "org.jbasic.ArrayDimensionMismatchException", "classorg_1_1jbasic_1_1_array_dimension_mismatch_exception.html", null ],
+        [ "org.jbasic.ArrayDimensionUnsupportedException", "classorg_1_1jbasic_1_1_array_dimension_unsupported_exception.html", null ],
         [ "org.jbasic.FunctionArityException", "classorg_1_1jbasic_1_1_function_arity_exception.html", null ],
         [ "org.jbasic.SubroutineArityException", "classorg_1_1jbasic_1_1_subroutine_arity_exception.html", null ],
         [ "org.jbasic.SubroutineNotDefinedException", "classorg_1_1jbasic_1_1_subroutine_not_defined_exception.html", null ],
         [ "org.jbasic.SubroutineRedefinitionException", "classorg_1_1jbasic_1_1_subroutine_redefinition_exception.html", null ],
-        [ "org.jbasic.TypeException", "classorg_1_1jbasic_1_1_type_exception.html", null ]
+        [ "org.jbasic.TypeException", "classorg_1_1jbasic_1_1_type_exception.html", null ],
+        [ "org.jbasic.UndefinedVariableException", "classorg_1_1jbasic_1_1_undefined_variable_exception.html", null ]
       ] ]
     ] ],
     [ "BaseErrorListener", null, [

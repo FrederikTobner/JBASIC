@@ -57,6 +57,7 @@ SIN_FUNCTION                =56
 SQR_FUNCTION                =57
 SUM_FUNCTION                =58
 TAN_FUNCTION                =59
+DIM_KEYWORD                 =60
 '*'                         =1                       // Multiply
 '/'                         =2                       // Divide
 '+'                         =3                       // Add

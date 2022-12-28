@@ -2,6 +2,8 @@ var annotated_dup =
 [
     [ "org", null, [
       [ "jbasic", "namespaceorg_1_1jbasic.html", [
+        [ "ArrayDimensionMismatchException", "classorg_1_1jbasic_1_1_array_dimension_mismatch_exception.html", "classorg_1_1jbasic_1_1_array_dimension_mismatch_exception" ],
+        [ "ArrayDimensionUnsupportedException", "classorg_1_1jbasic_1_1_array_dimension_unsupported_exception.html", "classorg_1_1jbasic_1_1_array_dimension_unsupported_exception" ],
         [ "ContinueException", "classorg_1_1jbasic_1_1_continue_exception.html", null ],
         [ "CoreUtils", "classorg_1_1jbasic_1_1_core_utils.html", "classorg_1_1jbasic_1_1_core_utils" ],
         [ "ErrorListener", "classorg_1_1jbasic_1_1_error_listener.html", "classorg_1_1jbasic_1_1_error_listener" ],
@@ -17,7 +19,8 @@ var annotated_dup =
         [ "SubroutineArityException", "classorg_1_1jbasic_1_1_subroutine_arity_exception.html", "classorg_1_1jbasic_1_1_subroutine_arity_exception" ],
         [ "SubroutineNotDefinedException", "classorg_1_1jbasic_1_1_subroutine_not_defined_exception.html", "classorg_1_1jbasic_1_1_subroutine_not_defined_exception" ],
         [ "SubroutineRedefinitionException", "classorg_1_1jbasic_1_1_subroutine_redefinition_exception.html", "classorg_1_1jbasic_1_1_subroutine_redefinition_exception" ],
-        [ "TypeException", "classorg_1_1jbasic_1_1_type_exception.html", "classorg_1_1jbasic_1_1_type_exception" ]
+        [ "TypeException", "classorg_1_1jbasic_1_1_type_exception.html", "classorg_1_1jbasic_1_1_type_exception" ],
+        [ "UndefinedVariableException", "classorg_1_1jbasic_1_1_undefined_variable_exception.html", "classorg_1_1jbasic_1_1_undefined_variable_exception" ]
       ] ]
     ] ]
 ];

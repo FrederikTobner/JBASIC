@@ -11,6 +11,7 @@ statement
 expression
     : expression op=(ADD|MINUS) expression                                                                      # AddSubExpression
     | expression AND_KEYWORD expression                                                                         # AndExpression
+    | IDENTIFIER LEFT_PARENTHESIS (expression (COMMA expression)*) RIGHT_PARENTHESIS                            # ArrayGetAtIndexExpression
     | function                                                                                                  # FuncExpression
     | identifier                                                                                                # IdentifierExpression
     | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # MulDivExpression

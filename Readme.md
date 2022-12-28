@@ -152,6 +152,8 @@ The interpretation of a program is performed in the following stages
   tree
 * Execution: To execute a JBASIC program we visit all the nodes in our abstract syntax tree and evaluate them
 
+More information about the interpreter can be found at the [technical documentation](https://frederiktobner.github.io/JBASIC/).
+
 ## License
 
 This project is licensed under the [GNU General Public License](LICENSE)
