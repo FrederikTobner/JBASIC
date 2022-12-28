@@ -6,7 +6,7 @@
 Simple Interpreter for the JBASIC programming language written in Java using [ANTLR4](https://www.antlr.org/).
 
 JBASIC is a simple general purpose, high-level scripting language heavily inspired
-by [BASIC](https://en.wikipedia.org/wiki/BASIC).
+by the earliest dialects of [BASIC](https://en.wikipedia.org/wiki/BASIC).
 
 ## Table of Contents
 
@@ -14,6 +14,7 @@ by [BASIC](https://en.wikipedia.org/wiki/BASIC).
 * [Operators](#operators)
 * [Keywords](#keywords)
 * [Functions](#functions)
+* [Arrays](#arrays)
 * [Subroutines](#subroutines)
 * [Building](#building)
 * [How it works](#how-it-works)
@@ -22,7 +23,7 @@ by [BASIC](https://en.wikipedia.org/wiki/BASIC).
 ## Overview
 
 JBASIC is dialect of 'BASIC' (Beginners' All-purpose Symbolic Instruction Code) a family of general-purpose, high-level
-programming languages.
+programming languages, that focus on ease of use.
 
 Usage:
 
@@ -32,12 +33,12 @@ Usage:
 
 ### Binary operators
 
-| Operator | Description                                                                   |
-|----------|-------------------------------------------------------------------------------|
-| +        | Computes the sum of two values.                                               |
-| -        | Subtracts the second value from the first value.                              |
-| *        | Multiplies the two values.                                                    |
-| /        | Divides the first value with the second value.                                |
+| Operator | Description                                                           |
+|----------|-----------------------------------------------------------------------|
+| +        | Computes the sum of two numerical values or concatenates two strings. |
+| -        | Subtracts the second value from the first value.                      |
+| *        | Multiplies the two values.                                            |
+| /        | Divides the first value with the second value.                        |
 
 ### Unary operators
 
@@ -54,6 +55,14 @@ The language features the following keywords
 | Keyword | Description                                                               |
 |---------|---------------------------------------------------------------------------|
 | LET     | Assigns a value (which may be the result of an expression) to a variable. |
+| DIM     | Creates a new array with the specified dimensions                         |
+
+If the variable name in a Let statement ends with '$' the assigned value needs to be a string and if it ends with '%' a numerical value.
+
+```
+LET ASTRING$ = "Hello World"
+LET ANUMBER% = 10
+```
 
 ### Input and output
 
@@ -86,12 +95,18 @@ The language features the following keywords
 |--------------------------------|----------------------------------------------------|
 | IF ... THEN ... {ELSE}         | Used to perform comparisons or make decisions.     |
 | FOR ... TO ... {STEP} ... NEXT | Repeats a section of code a given number of times. |
-| WHILE ... END and              | Repeats a section of code a given number of times. |
+| WHILE ... END                  | Repeats a section of code a given number of times. |
 | REPEAT ... UNTIL               | Repeats a section of code a given number of times. |
+
+### Subroutine specific
+| Keyword(s)        | Description              |
+|-------------------|--------------------------|
+| SUB ... END SUB   | Defines a new subroutine |
+| CALL              | Calls a subroutine       |
 
 ## Functions
 
-JBASIC offers numerous functions to perform various tasks
+JBASIC offers numerous functions to perform various tasks.
 
 ### Mathematical
 
@@ -118,6 +133,20 @@ JBASIC offers numerous functions to perform various tasks
 | FunctionName | Description        |
 |--------------|--------------------|
 | LEN          | Length of a string |
+
+## Arrays
+
+Arrays are declared using the dim keyword. An array in JBASIC can be either one-, two- or three-dimensional.
+A specific value in the array can be accessed or altered by specifying the index. The first element in an array has the index '1' in JBASIC.
+
+```
+DIM array(3)
+array(1) = "Hello"
+array(2) = " World!"
+PRINT array(1) + array(2)
+```
+
+If the array name in a DIM statement ends with '$' it can only store strings and if it ends with '%' it can only store numerical values.
 
 ## Subroutines
 

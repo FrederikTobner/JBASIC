@@ -156,7 +156,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitArrayDeclarationStatement(JBasicParser.ArrayDeclarationStatementContext context) {
         // Determine name of the array
-        String arrayName = context.IDENTIFIER().getText();
+        String arrayName = context.variableIdentifier().getText();
         if (context.expression().size() > 3 || context.expression().size() == 0) {
             throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);
         }
@@ -172,23 +172,22 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             dimensions.add((int) dimension.underlyingNumber());
         }
         JBasicValue array;
-        switch (dimensions.size()) {
-
-            case 1:
-                array = new JBasicValue(new JBasicValue[dimensions.get(0)]);
-                this.memory.assignToVariable(arrayName, array);
-                return array;
-            case 2:
-                array = new JBasicValue(new JBasicValue[dimensions.get(0)] [dimensions.get(1)]);
-                this.memory.assignToVariable(arrayName, array);
-                return array;
-            case 3:
-                array = new JBasicValue(new JBasicValue[dimensions.get(0)] [dimensions.get(1)] [dimensions.get(2)]);
-                this.memory.assignToVariable(arrayName, array);
-                return array;
-            default:
-                throw new IllegalStateException("Unexpected value: " + dimensions.size());
-        }
+            switch (dimensions.size()) {
+                case 1:
+                    array = new JBasicValue(new JBasicValue[dimensions.get(0)]);
+                    this.memory.assignToVariable(arrayName, array);
+                    return array;
+                case 2:
+                    array = new JBasicValue(new JBasicValue[dimensions.get(0)][dimensions.get(1)]);
+                    this.memory.assignToVariable(arrayName, array);
+                    return array;
+                case 3:
+                    array = new JBasicValue(new JBasicValue[dimensions.get(0)][dimensions.get(1)][dimensions.get(2)]);
+                    this.memory.assignToVariable(arrayName, array);
+                    return array;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + dimensions.size());
+            }
     }
 
     /**
@@ -199,29 +198,39 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitArraySetAtIndexStatement(JBasicParser.ArraySetAtIndexStatementContext context) {
-        String arrayName = context.IDENTIFIER().getText();
+        String arrayName = context.variableIdentifier().IDENTIFIER().getText();
         JBasicValue array = this.memory.getVariable(arrayName);
         if (array == null) {
-            throw new UndefinedVariableException("A variable with the name " + arrayName + "is not defined", context);
+            throw new UndefinedVariableException(
+                    "A variable with the name " + arrayName + "is not defined",
+                    context);
         }
         if (context.expression().size() > 3 || context.expression().size() == 0) {
-            throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);
+            throw new ArrayDimensionUnsupportedException(
+                    "Unsupported array dimensions count " + context.expression().size(),
+                    context);
         }
         switch (context.expression().size()) {
 
             case 1:
                 if (!array.isAOneDimensionalArrayValue()) {
-                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                    throw new ArrayDimensionMismatchException("" +
+                            "The dimensions that were specified do not match the dimensions of the array",
+                            context);
                 }
                 break;
             case 2:
                 if (!array.isATwoDimensionalArrayValue()) {
-                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                    throw new ArrayDimensionMismatchException("" +
+                            "The dimensions that were specified do not match the dimensions of the array",
+                            context);
                 }
                 break;
             case 3:
                 if (!array.isAThreeDimensionalArrayValue()) {
-                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
+                    throw new ArrayDimensionMismatchException(
+                            "The dimensions that were specified do not match the dimensions of the array",
+                            context);
                 }
                 break;
             default:
@@ -240,17 +249,26 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             dimensions.add((int) dimension.underlyingNumber() - 1);
         }
 
-        switch (dimensions.size()) {
+        JBasicValue value = this.visit(context.arraySetAtIndexAssignment().expression());
+        if(context.variableIdentifier().variableSuffix() != null) {
+            if ("$".equals(context.variableIdentifier().variableSuffix().getText())) {
+                if (!value.isAStringValue()) {
+                    throw new TypeException("Type suffix does not match specified type", context);
+                }
+            } else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
+                if (!value.isANumericalValue()) {
+                    throw new TypeException("Type suffix does not match specified type", context);
+                }
+            }
+        }
 
+        switch (dimensions.size()) {
             case 1:
-                return array.underlyingOneDimensionalArray()[dimensions.get(0)] =
-                        this.visit(context.arraySetAtIndexAssignment().expression());
+                return array.underlyingOneDimensionalArray()[dimensions.get(0)] = value;
             case 2:
-                return array.underlyingTwoDimensionalArray()[dimensions.get(0)][dimensions.get(1)] =
-                        this.visit(context.arraySetAtIndexAssignment().expression());
+                return array.underlyingTwoDimensionalArray()[dimensions.get(0)][dimensions.get(1)] = value;
             case 3:
-                return array.underlyingThreeDimensionalArray()[dimensions.get(0)][dimensions.get(1)][dimensions.get(2)] =
-                        this.visit(context.arraySetAtIndexAssignment().expression());
+                return array.underlyingThreeDimensionalArray()[dimensions.get(0)][dimensions.get(1)][dimensions.get(2)] = value;
             default:
                 throw new IllegalStateException("Unexpected value: " + context.expression().size());
         }
@@ -286,7 +304,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitForStatement(JBasicParser.ForStatementContext context) {
-        String variableName = context.variableDeclaration().IDENTIFIER().getText();
+        String variableName = context.variableIdentifier().IDENTIFIER().getText();
         JBasicValue start = this.visit(context.expression(0));
         JBasicValue end = this.visit(context.expression(1));
         JBasicValue step = context.expression(2) != null ? this.visit(context.expression(2)) : new JBasicValue(1);
@@ -336,7 +354,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitInputStatement(JBasicParser.InputStatementContext context) {
         this.printStream.print(this.visit(context.stringLiteral()).underlyingString() + " ");
-        String variableName = context.variableDeclaration().getText();
+        String variableName = context.variableIdentifier().getText();
         try {
             String line = this.inputStream.readLine();
             JBasicValue val = new JBasicValue(line);
@@ -355,8 +373,19 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLetStatement(JBasicParser.LetStatementContext context) {
-        String variableName = context.variableDeclaration().IDENTIFIER().getText();
+        String variableName = context.variableIdentifier().IDENTIFIER().getText();
         JBasicValue value = this.visit(context.expression());
+        if(context.variableIdentifier().variableSuffix() != null) {
+            if ("$".equals(context.variableIdentifier().variableSuffix().getText())) {
+                if (!value.isAStringValue()) {
+                    throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
+                }
+            } else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
+                if (!value.isANumericalValue()) {
+                    throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
+                }
+            }
+        }
         this.memory.assignToVariable(variableName, value);
         return value;
     }

@@ -34,4 +34,19 @@ public class ErrorTest extends JBasicBaseTest {
                 (result) -> assertEquals("Error at [2, 6]: Couldn't evaluate numeric expression. Value \"1\" is not a number",
                         result.error.trim()));
     }
+
+    @Test
+    public void testViolatedNumericalSuffixError() {
+        this.test("error/violated_numerical_suffix.bas",
+                (result) -> assertEquals("Error at [1, 8]: Type suffix does not match specified type",
+                        result.error.trim()));
+    }
+
+    @Test
+    public void testViolatedStringSuffixError() {
+        this.test("error/violated_string_suffix.bas",
+                (result) -> assertEquals("Error at [1, 8]: Type suffix does not match specified type",
+                        result.error.trim()));
+    }
+
 }

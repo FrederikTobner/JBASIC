@@ -32,22 +32,22 @@ subroutineSignature
     : SUB_KEYWORD IDENTIFIER LEFT_PARENTHESIS (IDENTIFIER (COMMA IDENTIFIER)*)? RIGHT_PARENTHESIS NEWLINE
     ;
 
-variableDeclaration
+variableIdentifier
     : IDENTIFIER variableSuffix?
     ;
 
 variableSuffix
-    : DOLLAR_SIGN
+    : (DOLLAR_SIGN|PERCENT_SIGN)
     ;
 
 // Statements
 
 arrayDeclarationStatement
-    : DIM_KEYWORD IDENTIFIER LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
+    : DIM_KEYWORD variableIdentifier LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS
     ;
 
 arraySetAtIndexStatement
-    : IDENTIFIER LEFT_PARENTHESIS (expression (COMMA expression)*) RIGHT_PARENTHESIS arraySetAtIndexAssignment
+    : variableIdentifier LEFT_PARENTHESIS (expression (COMMA expression)*) RIGHT_PARENTHESIS arraySetAtIndexAssignment
     ;
 
 arraySetAtIndexAssignment
@@ -71,11 +71,11 @@ exitStatement
     ;
 
 forStatement
-    : FOR_KEYWORD variableDeclaration EQUALS expression TO_KEYWORD expression (STEP_KEYWORD expression)? NEWLINE+ block NEXT_KEYWORD
+    : FOR_KEYWORD variableIdentifier EQUALS expression TO_KEYWORD expression (STEP_KEYWORD expression)? NEWLINE+ block NEXT_KEYWORD
     ;
 
 inputStatement
-    : INPUT_KEYWORD stringLiteral (variableDeclaration|expression)
+    : INPUT_KEYWORD stringLiteral (variableIdentifier|expression)
     ;
 
 ifStatement
@@ -83,7 +83,7 @@ ifStatement
     ;
 
 letStatement
-    : LET_KEYWORD? variableDeclaration EQUALS expression
+    : LET_KEYWORD? variableIdentifier EQUALS expression
     ;
 
 printStatement

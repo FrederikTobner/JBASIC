@@ -1,0 +1,1 @@
+LET test% = "foo"

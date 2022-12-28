@@ -72,6 +72,7 @@ OR_KEYWORD              : 'OR'  | 'or' ;
 COMMENT                 : REM_KEYWORD ~[\r\n]* ;
 
 // literals
+PERCENT_SIGN            : '%' ;
 DOLLAR_SIGN             : '$' ;
 IDENTIFIER              : [a-zA-Z][a-zA-Z0-9_]* ;       // match identifiers
 NEWLINE                 :'\r'? '\n' ;                   // return newlines to parser (end-statement signal)
