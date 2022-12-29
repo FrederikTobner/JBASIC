@@ -21,11 +21,11 @@
 
 package org.jbasic.interpreter;
 
-import basic.JBasicParser;
+import jbasic.JBasicParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.jbasic.visitor.JBasicVisitor;
 import org.jbasic.languageModels.JBasicSubroutine;
-import org.jbasic.error.label.UndefinedLabelException;
+import org.jbasic.error.labels.UndefinedLabelException;
 import org.jbasic.error.subroutine.SubroutineArityException;
 import org.jbasic.error.subroutine.SubroutineNotDefinedException;
 import org.jbasic.error.subroutine.SubroutineRedefinitionException;

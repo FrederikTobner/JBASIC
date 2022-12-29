@@ -31,7 +31,7 @@ public class ErrorTest extends JBasicBaseTest {
     @Test
     public void testTypeError() {
         this.test("error/type_error.bas",
-                (result) -> assertEquals("Error at [2, 6]: Couldn't evaluate numeric expression. Value \"1\" is not a number",
+                (result) -> assertEquals("Error at [2, 6]: Could not evaluate arithmetic expression. Value is not a number",
                         result.error.trim()));
     }
 

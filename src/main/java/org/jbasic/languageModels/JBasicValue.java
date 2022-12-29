@@ -20,17 +20,19 @@
 
 package org.jbasic.languageModels;
 
-import basic.JBasicParser;
+import jbasic.JBasicParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.jbasic.core.IOFormatUtils;
-import org.jbasic.error.type.TypeException;
+import org.jbasic.core.guard.ValueTypeSafeguard;
 
+import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.BiFunction;
 
 /**
  * @brief Value class 
- * @details The class encapsulates numeric and string values and the corresponding operations.
+ * @details The class encapsulates arrays, numerical and string values and their corresponding operations.
  */
 public class JBasicValue {
 
@@ -122,21 +124,9 @@ public class JBasicValue {
      * @return The result of the arithmetic evaluation
      */
     private JBasicValue arithmeticEvaluation(JBasicValue right, BiFunction<Double, Double, Double> operator, ParserRuleContext context) {
-        this.assertIsNumber(context);
-        right.assertIsNumber(context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not evaluate arithmetic expression", this, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not evaluate arithmetic expression", right, context);
         return new JBasicValue(operator.apply(this.underlyingNumber(), right.underlyingNumber()));
-    }
-
-    /**
-     * Asserts the underlying value of this Value object instance is numerical
-     *
-     * @param context The parsing context where type of the Value object instance is asserted
-     */
-    private void assertIsNumber(ParserRuleContext context) {
-        if (!this.isANumericalValue()) {
-            throw new TypeException("Couldn't evaluate numeric expression. Value \"" +
-                    this.value + "\" is not a number", context);
-        }
     }
 
     /**
@@ -164,25 +154,34 @@ public class JBasicValue {
         else if (this.isAStringValue() && right.isAStringValue()) {
             return this.underlyingString().equals(right.underlyingString()) ? TrueValue : FalseValue;
         }
+        else if (this.isAnOneDimensionalArrayValue() && right.isAnOneDimensionalArrayValue()) {
+            return Arrays.equals(this.underlyingOneDimensionalArray(), right.underlyingOneDimensionalArray()) ? TrueValue : FalseValue;
+        }
+        else if (this.isATwoDimensionalArrayValue() && right.isATwoDimensionalArrayValue()) {
+            return Arrays.deepEquals(this.underlyingTwoDimensionalArray(), right.underlyingTwoDimensionalArray()) ? TrueValue : FalseValue;
+        }
+        else if (this.isAThreeDimensionalArrayValue() && right.isAThreeDimensionalArrayValue()) {
+            return Arrays.deepEquals(this.underlyingThreeDimensionalArray(), right.underlyingThreeDimensionalArray()) ? TrueValue : FalseValue;
+        }
         return FalseValue;
     }
 
     /**
      * Determines whether a Value instance and another java object are equal
      *
-     * @param o The object that is compared with the Value instance
+     * @param obj The object that is compared with the Value instance
      * @return A boolean value that indicates whether the two values are equal
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof JBasicValue)) {
+        if (!(obj instanceof JBasicValue)) {
             return false;
         }
 
-        JBasicValue otherValue = (JBasicValue) o;
+        JBasicValue otherValue = (JBasicValue) obj;
 
         if (this.isNotANumericalValue() != otherValue.isNotANumericalValue()) {
             return false;
@@ -282,7 +281,7 @@ public class JBasicValue {
      * @return true if the underlying value is falsy, false if not
      */
     public boolean isFalsy(ParserRuleContext context) {
-        this.assertIsNumber(context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Only numerical can be used as conditions", this, context);
         return this.underlyingNumber() == 0;
     }
 
@@ -302,7 +301,7 @@ public class JBasicValue {
      * @return true if the underlying value is truthy, false if not
      */
     public boolean isTruthy(ParserRuleContext context) {
-        this.assertIsNumber(context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Only numerical can be used as conditions", this, context);
         return this.underlyingNumber() != 0;
     }
 
@@ -369,8 +368,8 @@ public class JBasicValue {
      * @return The result of the relative evaluation
      */
     private JBasicValue compare(JBasicValue right, BiFunction<Double, Double, Boolean> comparison, ParserRuleContext context) {
-        this.assertIsNumber(context);
-        right.assertIsNumber(context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Only numerical values can be compared", this, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Only numerical values can be compared", right, context);
         if (comparison.apply(this.underlyingNumber(), right.underlyingNumber())) {
             return TrueValue;
         }
@@ -384,7 +383,7 @@ public class JBasicValue {
      * @return The negated numerical value of this Value object instance
      */
     public JBasicValue negate(JBasicParser.NegateExpressionContext context) {
-        this.assertIsNumber(context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Only numerical values can be negated", this, context);
         return new JBasicValue(-this.underlyingNumber());
     }
 
@@ -395,7 +394,7 @@ public class JBasicValue {
      * @return True if the Value object instance was falsy, false if it was true
      */
     public JBasicValue not(ParserRuleContext context) {
-        this.assertIsNumber(context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Only numerical values can be logically inverted", this, context);
         return this.underlyingNumber() == 0 ? TrueValue : FalseValue;
     }
 
@@ -407,6 +406,45 @@ public class JBasicValue {
      */
     public JBasicValue or(JBasicValue right, ParserRuleContext context) {
         return this.isTruthy(context) || right.isTruthy(context) ? TrueValue : FalseValue;
+    }
+
+    public JBasicValue printValue(PrintStream printStream) {
+        if (this.isANumericalValue()) {
+            printStream.println(IOFormatUtils.numericalOutputFormat.format(this.underlyingNumber()));
+        }
+        else if (this.isAnArrayValue()) {
+            printStream.print("{ ");
+            if (this.isAnOneDimensionalArrayValue()){
+                for (int i = 0; i< this.underlyingOneDimensionalArray().length; i++) {
+                    this.underlyingOneDimensionalArray()[i].printValue(printStream);
+                    if (i > 0) {
+                        printStream.print(", ");
+                    }
+                }
+
+            }
+            else if (this.isATwoDimensionalArrayValue()){
+                for (int i = 0; i< this.underlyingTwoDimensionalArray().length; i++) {
+                    new JBasicValue(this.underlyingTwoDimensionalArray()[i]).printValue(printStream);
+                    if (i > 0) {
+                        printStream.print(", ");
+                    }
+                }
+            }
+            else{
+                for (int i = 0; i< this.underlyingThreeDimensionalArray().length; i++) {
+                    if (i > 0) {
+                        printStream.print(", ");
+                    }
+                    new JBasicValue(this.underlyingThreeDimensionalArray()[i]).printValue(printStream);
+                }
+            }
+            printStream.println("} ");
+        }
+        else {
+            printStream.println(this.underlyingString());
+        }
+        return this;
     }
 
     /**

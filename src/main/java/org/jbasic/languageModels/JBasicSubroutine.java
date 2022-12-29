@@ -20,7 +20,7 @@
 
 package org.jbasic.languageModels;
 
-import basic.JBasicParser;
+import jbasic.JBasicParser;
 
 /**
  * @brief Stores the metadata associated with a subroutine, and it's block parsing context so the subroutine can be invoked later.

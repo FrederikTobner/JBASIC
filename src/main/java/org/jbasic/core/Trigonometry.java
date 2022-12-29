@@ -13,8 +13,16 @@
  * License for more details.                                                *
  ****************************************************************************/
 
+/**
+ * @file Trigonometry.java
+ * @brief Trigonometric functions.
+ */
+
 package org.jbasic.core;
 
+/**
+ * @brief Trigonometric functions.
+ */
 public class Trigonometry {
     /**
      * Area tangent hyperbolicus, the inverse functions of tangent hyperbolicus

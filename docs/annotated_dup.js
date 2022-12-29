@@ -3,25 +3,27 @@ var annotated_dup =
     [ "org", null, [
       [ "jbasic", "namespaceorg_1_1jbasic.html", [
         [ "core", "namespaceorg_1_1jbasic_1_1core.html", [
-          [ "safeguard", "namespaceorg_1_1jbasic_1_1core_1_1safeguard.html", [
-            [ "ArraySafeGuard", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_array_safe_guard.html", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_array_safe_guard" ],
-            [ "FunctionSafeGuard", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_function_safe_guard.html", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_function_safe_guard" ],
-            [ "ValueSafeGuard", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_value_safe_guard.html", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_value_safe_guard" ]
+          [ "guard", "namespaceorg_1_1jbasic_1_1core_1_1guard.html", [
+            [ "ArraySafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard" ],
+            [ "FunctionSafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_function_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_function_safeguard" ],
+            [ "NumericalValueSafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_numerical_value_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_numerical_value_safeguard" ],
+            [ "ValueTypeSafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_value_type_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_value_type_safeguard" ],
+            [ "VariableSafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_variable_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_variable_safeguard" ]
           ] ],
           [ "IOFormatUtils", "classorg_1_1jbasic_1_1core_1_1_i_o_format_utils.html", "classorg_1_1jbasic_1_1core_1_1_i_o_format_utils" ],
           [ "Trigonometry", "classorg_1_1jbasic_1_1core_1_1_trigonometry.html", "classorg_1_1jbasic_1_1core_1_1_trigonometry" ]
         ] ],
         [ "error", "namespaceorg_1_1jbasic_1_1error.html", [
-          [ "array", "namespaceorg_1_1jbasic_1_1error_1_1array.html", [
-            [ "ArrayDimensionMismatchException", "classorg_1_1jbasic_1_1error_1_1array_1_1_array_dimension_mismatch_exception.html", "classorg_1_1jbasic_1_1error_1_1array_1_1_array_dimension_mismatch_exception" ],
-            [ "ArrayDimensionUnsupportedException", "classorg_1_1jbasic_1_1error_1_1array_1_1_array_dimension_unsupported_exception.html", "classorg_1_1jbasic_1_1error_1_1array_1_1_array_dimension_unsupported_exception" ]
+          [ "arrays", "namespaceorg_1_1jbasic_1_1error_1_1arrays.html", [
+            [ "ArrayDimensionMismatchException", "classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_mismatch_exception.html", "classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_mismatch_exception" ],
+            [ "ArrayDimensionUnsupportedException", "classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_unsupported_exception.html", "classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_unsupported_exception" ]
           ] ],
           [ "functions", "namespaceorg_1_1jbasic_1_1error_1_1functions.html", [
             [ "FunctionArityException", "classorg_1_1jbasic_1_1error_1_1functions_1_1_function_arity_exception.html", "classorg_1_1jbasic_1_1error_1_1functions_1_1_function_arity_exception" ]
           ] ],
-          [ "label", "namespaceorg_1_1jbasic_1_1error_1_1label.html", [
-            [ "InvalidLabelException", "classorg_1_1jbasic_1_1error_1_1label_1_1_invalid_label_exception.html", "classorg_1_1jbasic_1_1error_1_1label_1_1_invalid_label_exception" ],
-            [ "UndefinedLabelException", "classorg_1_1jbasic_1_1error_1_1label_1_1_undefined_label_exception.html", "classorg_1_1jbasic_1_1error_1_1label_1_1_undefined_label_exception" ]
+          [ "labels", "namespaceorg_1_1jbasic_1_1error_1_1labels.html", [
+            [ "InvalidLabelException", "classorg_1_1jbasic_1_1error_1_1labels_1_1_invalid_label_exception.html", "classorg_1_1jbasic_1_1error_1_1labels_1_1_invalid_label_exception" ],
+            [ "UndefinedLabelException", "classorg_1_1jbasic_1_1error_1_1labels_1_1_undefined_label_exception.html", "classorg_1_1jbasic_1_1error_1_1labels_1_1_undefined_label_exception" ]
           ] ],
           [ "subroutine", "namespaceorg_1_1jbasic_1_1error_1_1subroutine.html", [
             [ "SubroutineArityException", "classorg_1_1jbasic_1_1error_1_1subroutine_1_1_subroutine_arity_exception.html", "classorg_1_1jbasic_1_1error_1_1subroutine_1_1_subroutine_arity_exception" ],

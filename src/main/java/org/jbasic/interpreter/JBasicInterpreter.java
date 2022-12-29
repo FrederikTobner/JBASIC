@@ -19,8 +19,8 @@
  */
 package org.jbasic.interpreter;
 
-import basic.JBasicLexer;
-import basic.JBasicParser;
+import jbasic.JBasicLexer;
+import jbasic.JBasicParser;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;

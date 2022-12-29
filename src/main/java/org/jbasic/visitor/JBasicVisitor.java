@@ -21,20 +21,17 @@
 
 package org.jbasic.visitor;
 
-import basic.JBasicBaseVisitor;
-import basic.JBasicParser;
-import basic.LBExpressionParser;
+import jbasic.JBasicBaseVisitor;
+import jbasic.JBasicParser;
+import jbasic.LBExpressionParser;
 import org.antlr.v4.runtime.RuleContext;
-import org.jbasic.core.IOFormatUtils;
 import org.jbasic.core.Trigonometry;
-import org.jbasic.core.safeguard.ArraySafeGuard;
-import org.jbasic.core.safeguard.ValueSafeGuard;
-import org.jbasic.core.safeguard.FunctionSafeGuard;
-import org.jbasic.error.array.ArrayDimensionMismatchException;
-import org.jbasic.error.array.ArrayDimensionUnsupportedException;
-import org.jbasic.error.label.InvalidLabelException;
-import org.jbasic.error.type.TypeException;
-import org.jbasic.error.variable.UndefinedVariableException;
+import org.jbasic.core.guard.ArraySafeguard;
+import org.jbasic.core.guard.FunctionSafeguard;
+import org.jbasic.core.guard.NumericalValueSafeguard;
+import org.jbasic.core.guard.ValueTypeSafeguard;
+import org.jbasic.core.guard.VariableSafeguard;
+import org.jbasic.error.arrays.ArrayDimensionUnsupportedException;
 import org.jbasic.interpreter.JBasicInterpreterState;
 import org.jbasic.languageModels.JBasicSubroutine;
 import org.jbasic.languageModels.JBasicValue;
@@ -161,10 +158,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitLabeledBlock(JBasicParser.LabeledBlockContext context) {
         if (context.lab.getType() == LBExpressionParser.NUMERIC_LITERAL) {
-            double numericalValue = Double.parseDouble(context.NUMERIC_LITERAL().getText());
-            if (numericalValue != Math.round(numericalValue)) {
-               throw new InvalidLabelException("Digit in label", context);
-            }
+            NumericalValueSafeguard.guaranteeIsWhole("Digits are not allowed in a label",
+                    Double.parseDouble(context.NUMERIC_LITERAL().getText()),
+                    context);
+
             this.state.addLabel(context.NUMERIC_LITERAL().getText(), context.block());
         }
         else {
@@ -204,7 +201,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         List<Integer> dimensions = new ArrayList<>();
         for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
             JBasicValue dimension = this.visit(expressionContext);
-            ArraySafeGuard.guaranteeArrayDimensionIsValid(dimension, expressionContext);
+            ArraySafeguard.guaranteeArrayDimensionIsValid(dimension, expressionContext);
             dimensions.add((int) dimension.underlyingNumber());
         }
         JBasicValue array;
@@ -236,33 +233,26 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitArraySetAtIndexStatement(JBasicParser.ArraySetAtIndexStatementContext context) {
         String arrayName = context.variableIdentifier().getText();
         JBasicValue array = this.state.getVariableValue(arrayName);
-        ValueSafeGuard.guaranteeVariableIsDefined(array, arrayName, context.variableIdentifier());
-        ValueSafeGuard.guaranteeValueIsArray("Could not execute set expression", array, context.variableIdentifier());
+        VariableSafeguard.guaranteeVariableIsDefined(array, arrayName, context.variableIdentifier());
+        ValueTypeSafeguard.guaranteeValueIsArray("Could not execute set expression", array, context.variableIdentifier());
         if (context.expression().size() > 3 || context.expression().size() == 0) {
             throw new ArrayDimensionUnsupportedException(
                     "Unsupported array dimensions count " + context.expression().size(),
                     context);
         }
-        ArraySafeGuard.guaranteeArrayDimensionsMatch(array, context.expression().size(),
+        ArraySafeguard.guaranteeArrayDimensionsMatch(array, context.expression().size(),
                 context.expression().get(context.expression().size() - 1));
 
         List<Integer> dimensions = new ArrayList<>();
         for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
             JBasicValue dimension = this.visit(expressionContext);
-            ArraySafeGuard.guaranteeArrayDimensionIsValid(dimension, expressionContext);
+            ArraySafeguard.guaranteeArrayDimensionIsValid(dimension, expressionContext);
             dimensions.add((int) dimension.underlyingNumber() - 1);
         }
 
         JBasicValue value = this.visit(context.arraySetAtIndexAssignment().expression());
         if(context.variableIdentifier().variableSuffix() != null) {
-            if ("$".equals(context.variableIdentifier().variableSuffix().getText())) {
-                ValueSafeGuard.guaranteeValueIsString("Type suffix does not match specified type", value,
-                        context.variableIdentifier().variableSuffix());
-            }
-            else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
-                ValueSafeGuard.guaranteeValueIsNumerical("Type suffix does not match specified type", value,
-                        context.variableIdentifier().variableSuffix());
-            }
+            VariableSafeguard.guaranteeVariableSuffixIsNotViolated(value, context.variableIdentifier().variableSuffix());
         }
 
         switch (dimensions.size()) {
@@ -396,16 +386,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         String variableName = context.variableIdentifier().getText();
         JBasicValue value = this.visit(context.expression());
         if(context.variableIdentifier().variableSuffix() != null) {
-            if ("$".equals(context.variableIdentifier().variableSuffix().getText())) {
-                if (!value.isAStringValue()) {
-                    throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
-                }
-            }
-            else if ("%".equals(context.variableIdentifier().variableSuffix().getText())) {
-                if (!value.isANumericalValue()) {
-                    throw new TypeException("Type suffix does not match specified type", context.variableIdentifier().variableSuffix());
-                }
-            }
+            VariableSafeguard.guaranteeVariableSuffixIsNotViolated(value, context.variableIdentifier().variableSuffix());
         }
         this.state.assignToVariable(variableName, value);
         return value;
@@ -419,14 +400,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitPrintStatement(JBasicParser.PrintStatementContext context) {
-        JBasicValue value = this.visit(context.expression());
-        if (value.isANumericalValue()) {
-            this.printStream.println(IOFormatUtils.numericalOutputFormat.format(value.underlyingNumber()));
-        }
-        else {
-            this.printStream.println(value.underlyingString());
-        }
-        return value;
+        return this.visit(context.expression()).printValue(this.printStream);
     }
 
     /**
@@ -523,9 +497,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAbsFunction(JBasicParser.AbsFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("ABS", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("ABS", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call ABS", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call ABS", argument, context);
         return new JBasicValue(Math.abs(argument.underlyingNumber()));
     }
 
@@ -537,9 +511,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAcsFunction(JBasicParser.AcsFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("ACS", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("ACS", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call ACS", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call ACS", argument, context);
         return new JBasicValue(Math.acos(argument.underlyingNumber()));
     }
 
@@ -551,9 +525,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAsnFunction(JBasicParser.AsnFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("ASN", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("ASN", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call ASN", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call ASN", argument, context);
         return new JBasicValue(Math.asin(argument.underlyingNumber()));
     }
 
@@ -565,9 +539,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAthFunction(JBasicParser.AthFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("ATH", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("ATH", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call ATH", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call ATH", argument, context);
         return new JBasicValue(Trigonometry.areaTangentHyperbolicus(argument.underlyingNumber()));
     }
 
@@ -579,9 +553,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAtnFunction(JBasicParser.AtnFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("ATN", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("ATN", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call ATN", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call ATN", argument, context);
         return new JBasicValue(Math.atan(argument.underlyingNumber()));
     }
 
@@ -593,11 +567,11 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitAvgFunction(JBasicParser.AvgFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("AVG", context.functionCallArgs(), (i -> i != 0));
+        FunctionSafeguard.guaranteeArityIsNotViolated("AVG", context.functionCallArgs(), (i -> i != 0));
         double sum = 0;
         for (JBasicParser.ExpressionContext expression : context.functionCallArgs().expression()) {
             JBasicValue value = this.visit(expression);
-            ValueSafeGuard.guaranteeValueIsNumerical("Could not call AVG", value, context);
+            ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call AVG", value, context);
             sum += value.underlyingNumber();
         }
         return new JBasicValue(sum / context.functionCallArgs().expression().size());
@@ -611,9 +585,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitCosFunction(JBasicParser.CosFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("COS", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("COS", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call COS", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call COS", argument, context);
         return new JBasicValue(Math.cos(argument.underlyingNumber()));
     }
 
@@ -625,9 +599,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitExpFunction(JBasicParser.ExpFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("EXP", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("EXP", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call EXP", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call EXP", argument, context);
         return new JBasicValue(Math.exp(argument.underlyingNumber()));
     }
 
@@ -639,9 +613,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLenFunction(JBasicParser.LenFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("LEN", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("LEN", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsString("Could not call LEN", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsString("Could not call LEN", argument, context);
         return new JBasicValue(argument.underlyingString().length());
     }
 
@@ -653,9 +627,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitLogFunction(JBasicParser.LogFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("LOG", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("LOG", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call LOG", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call LOG", argument, context);
         return new JBasicValue(Math.log(argument.underlyingNumber()));
     }
 
@@ -667,11 +641,11 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitMaxFunction(JBasicParser.MaxFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("MAX", context.functionCallArgs(), (i -> i != 0));
+        FunctionSafeguard.guaranteeArityIsNotViolated("MAX", context.functionCallArgs(), (i -> i != 0));
         double maxValue = Double.MIN_VALUE;
         for (JBasicParser.ExpressionContext expression : context.functionCallArgs().expression()) {
             JBasicValue value = this.visit(expression);
-            ValueSafeGuard.guaranteeValueIsNumerical("Could not call MAX", value, context);
+            ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call MAX", value, context);
             maxValue = Math.max(maxValue, value.underlyingNumber());
         }
         return new JBasicValue(maxValue);
@@ -685,11 +659,11 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitMinFunction(JBasicParser.MinFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("MIN", context.functionCallArgs(), (i -> i != 0));
+        FunctionSafeguard.guaranteeArityIsNotViolated("MIN", context.functionCallArgs(), (i -> i != 0));
         double minValue = Double.MAX_VALUE;
         for (JBasicParser.ExpressionContext expression : context.functionCallArgs().expression()) {
             JBasicValue value = this.visit(expression);
-            ValueSafeGuard.guaranteeValueIsNumerical("Could not call MIN", value, context);
+            ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call MIN", value, context);
             minValue = Math.min(minValue, value.underlyingNumber());
         }
         return new JBasicValue(minValue);
@@ -703,9 +677,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSinFunction(JBasicParser.SinFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("SIN", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("SIN", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call SIN", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call SIN", argument, context);
         return new JBasicValue(Math.sin(argument.underlyingNumber()));
     }
 
@@ -717,9 +691,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSqrFunction(JBasicParser.SqrFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("SQR", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("SQR", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call SQR", argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call SQR", argument, context);
         return new JBasicValue(Math.sqrt(argument.underlyingNumber()));
     }
 
@@ -731,11 +705,11 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitSumFunction(JBasicParser.SumFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("SUM", context.functionCallArgs(), (i -> i != 0));
+        FunctionSafeguard.guaranteeArityIsNotViolated("SUM", context.functionCallArgs(), (i -> i != 0));
         BigDecimal sum = BigDecimal.valueOf(0);
         for (JBasicParser.ExpressionContext expression : context.functionCallArgs().expression()) {
             JBasicValue value = this.visit(expression);
-            ValueSafeGuard.guaranteeValueIsNumerical("Could not call SUM", value, context);
+            ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call SUM", value, context);
             sum = sum.add(BigDecimal.valueOf(value.underlyingNumber()));
         }
         return new JBasicValue(Double.parseDouble(String.valueOf(sum)));
@@ -749,9 +723,9 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitTanFunction(JBasicParser.TanFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("TAN", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("TAN", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        ValueSafeGuard.guaranteeValueIsNumerical("Could not call TAN",argument, context);
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call TAN",argument, context);
         return new JBasicValue(Math.tan(argument.underlyingNumber()));
     }
 
@@ -763,7 +737,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitValFunction(JBasicParser.ValFunctionContext context) {
-        FunctionSafeGuard.guaranteeArityIsNotViolated("VAL", context.functionCallArgs(), (i -> i == 1));
+        FunctionSafeguard.guaranteeArityIsNotViolated("VAL", context.functionCallArgs(), (i -> i == 1));
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         if (argument.isAStringValue()) {
             String str = argument.underlyingString();
@@ -821,45 +795,17 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitArrayGetAtIndexExpression(JBasicParser.ArrayGetAtIndexExpressionContext context) {
         String arrayName = context.variableIdentifier().getText();
         JBasicValue array = this.state.getVariableValue(arrayName);
-        if (array == null) {
-            throw new UndefinedVariableException("A variable with the name " + arrayName + "is not defined", context);
-        }
+        VariableSafeguard.guaranteeVariableIsDefined(array, arrayName, context.variableIdentifier());
         if (context.expression().size() > 3 || context.expression().size() == 0) {
             throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);
         }
-        switch (context.expression().size()) {
-
-            case 1:
-                if (!array.isAnOneDimensionalArrayValue()) {
-                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
-                }
-                break;
-            case 2:
-                if (!array.isATwoDimensionalArrayValue()) {
-                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
-                }
-                break;
-            case 3:
-                if (!array.isAThreeDimensionalArrayValue()) {
-                    throw new ArrayDimensionMismatchException("The dimensions that were specified do not match the dimensions of the array", context);
-                }
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + context.expression().size());
-        }
+        ArraySafeguard.guaranteeArrayDimensionsMatch(array, context.expression().size(),
+                context.expression().get(context.expression().size() - 1));
 
         List<Integer> dimensions = new ArrayList<>();
         for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
             JBasicValue dimension = this.visit(expressionContext);
-            if(!dimension.isANumericalValue()) {
-                throw new TypeException("Dimension is not a numerical value", expressionContext);
-            }
-            if (dimension.underlyingNumber() <= 0) {
-                throw new ArrayDimensionUnsupportedException("Dimensions can not be negative", expressionContext);
-            }
-            if (dimension.underlyingNumber() != Math.round(dimension.underlyingNumber())) {
-                throw new ArrayDimensionUnsupportedException("Dimensions can not have numbers after the digit", expressionContext);
-            }
+            ArraySafeguard.guaranteeArrayDimensionIsValid(dimension, expressionContext);
             dimensions.add((int) dimension.underlyingNumber() - 1);
         }
 
