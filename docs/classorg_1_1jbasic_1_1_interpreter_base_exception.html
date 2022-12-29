@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JBASIC: org.jbasic.InterpreterBaseException Class Reference</title>
+<title>JBASIC: org.jbasic.error.InterpreterBaseException Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1_interpreter_bas
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classorg_1_1jbasic_1_1_interpreter_base_exception-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">org.jbasic.InterpreterBaseException Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">org.jbasic.error.InterpreterBaseException Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -76,14 +76,14 @@ Inheritance diagram for org.jbasic.InterpreterBaseException:</div>
  <div class="center">
   <img src="classorg_1_1jbasic_1_1_interpreter_base_exception.png" usemap="#org.jbasic.InterpreterBaseException_map" alt=""/>
   <map id="org.jbasic.InterpreterBaseException_map" name="org.jbasic.InterpreterBaseException_map">
-<area href="classorg_1_1jbasic_1_1_array_dimension_mismatch_exception.html" title="Error for mismatch array size and amount of arguments in a set-index-statement or get-index-expressio..." alt="org.jbasic.ArrayDimensionMismatchException" shape="rect" coords="299,112,588,136"/>
-<area href="classorg_1_1jbasic_1_1_array_dimension_unsupported_exception.html" title="Error for unsupported array dimensions ..." alt="org.jbasic.ArrayDimensionUnsupportedException" shape="rect" coords="299,168,588,192"/>
-<area href="classorg_1_1jbasic_1_1_function_arity_exception.html" title="Indicates a function call with the wrong amount of arguments." alt="org.jbasic.FunctionArityException" shape="rect" coords="299,224,588,248"/>
-<area href="classorg_1_1jbasic_1_1_subroutine_arity_exception.html" title="Invoking a subroutine with the wrong amount of arguments error." alt="org.jbasic.SubroutineArityException" shape="rect" coords="299,280,588,304"/>
-<area href="classorg_1_1jbasic_1_1_subroutine_not_defined_exception.html" title="Invoking an undefined subroutine error." alt="org.jbasic.SubroutineNotDefinedException" shape="rect" coords="299,336,588,360"/>
-<area href="classorg_1_1jbasic_1_1_subroutine_redefinition_exception.html" title="Redefinition of a subroutine error." alt="org.jbasic.SubroutineRedefinitionException" shape="rect" coords="299,392,588,416"/>
-<area href="classorg_1_1jbasic_1_1_type_exception.html" title="Type mismatch error." alt="org.jbasic.TypeException" shape="rect" coords="299,448,588,472"/>
-<area href="classorg_1_1jbasic_1_1_undefined_variable_exception.html" title="Error for an undefined variable ..." alt="org.jbasic.UndefinedVariableException" shape="rect" coords="299,504,588,528"/>
+<area href="classorg_1_1jbasic_1_1_array_dimension_mismatch_exception.html" title="Error for mismatch array size and amount of arguments in a set-index-statement or get-index-expressio..." alt="org.jbasic.error.array.ArrayDimensionMismatchException" shape="rect" coords="299,112,588,136"/>
+<area href="classorg_1_1jbasic_1_1_array_dimension_unsupported_exception.html" title="Error for unsupported array dimensions ..." alt="org.jbasic.error.array.ArrayDimensionUnsupportedException" shape="rect" coords="299,168,588,192"/>
+<area href="classorg_1_1jbasic_1_1_function_arity_exception.html" title="Indicates a function call with the wrong amount of arguments." alt="org.jbasic.error.functions.FunctionArityException" shape="rect" coords="299,224,588,248"/>
+<area href="classorg_1_1jbasic_1_1_subroutine_arity_exception.html" title="Invoking a subroutine with the wrong amount of arguments error." alt="org.jbasic.error.subroutine.SubroutineArityException" shape="rect" coords="299,280,588,304"/>
+<area href="classorg_1_1jbasic_1_1_subroutine_not_defined_exception.html" title="Invoking an undefined subroutine error." alt="org.jbasic.error.subroutine.SubroutineNotDefinedException" shape="rect" coords="299,336,588,360"/>
+<area href="classorg_1_1jbasic_1_1_subroutine_redefinition_exception.html" title="Redefinition of a subroutine error." alt="org.jbasic.error.subroutine.SubroutineRedefinitionException" shape="rect" coords="299,392,588,416"/>
+<area href="classorg_1_1jbasic_1_1_type_exception.html" title="Type mismatch error." alt="org.jbasic.error.type.TypeException" shape="rect" coords="299,448,588,472"/>
+<area href="classorg_1_1jbasic_1_1_undefined_variable_exception.html" title="Error for an undefined variable ..." alt="org.jbasic.error.variable.UndefinedVariableException" shape="rect" coords="299,504,588,528"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -111,7 +111,7 @@ Private Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">org.jbasic.InterpreterBaseException.InterpreterBaseException </td>
+          <td class="memname">org.jbasic.error.InterpreterBaseException.InterpreterBaseException</td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
           <td class="paramname"><em>message</em>, </td>
@@ -140,7 +140,7 @@ Private Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">String org.jbasic.InterpreterBaseException.getMessage </td>
+          <td class="memname">String org.jbasic.error.InterpreterBaseException.getMessage</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -161,7 +161,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final int org.jbasic.InterpreterBaseException.line</td>
+          <td class="memname">final int org.jbasic.error.InterpreterBaseException.line</td>
         </tr>
       </table>
   </td>
@@ -183,7 +183,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final int org.jbasic.InterpreterBaseException.positionInLine</td>
+          <td class="memname">final int org.jbasic.error.InterpreterBaseException.positionInLine</td>
         </tr>
       </table>
   </td>

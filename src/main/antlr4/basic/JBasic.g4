@@ -10,6 +10,7 @@ statement
     | continueStatement
     | exitStatement
     | forStatement
+    | gotoStatement
     | ifStatement
     | inputStatement
     | letStatement
@@ -21,7 +22,11 @@ statement
     ;
 
 block
-    : (statement (NEWLINE+ | EOF))*
+    : ((labeledBlock|statement) (NEWLINE* | EOF))*
+    ;
+
+labeledBlock
+    : lab=(NUMERIC_LITERAL|IDENTIFIER) DOUBLE_DOT NEWLINE? block
     ;
 
 subroutineBody
@@ -59,7 +64,7 @@ continueStatement
     ;
 
 elifStatement
-    : ELSE_KEYWORD IF_KEYWORD expression NEWLINE* THEN_KEYWORD NEWLINE+ block
+    : ELSE_KEYWORD IF_KEYWORD statement NEWLINE* THEN_KEYWORD NEWLINE+ block
     ;
 
 elseStatement
@@ -72,6 +77,10 @@ exitStatement
 
 forStatement
     : FOR_KEYWORD variableIdentifier EQUALS expression TO_KEYWORD expression (STEP_KEYWORD expression)? NEWLINE+ block NEXT_KEYWORD
+    ;
+
+gotoStatement
+    : GOTO_KEYWORD lab=(NUMERIC_LITERAL|IDENTIFIER)
     ;
 
 inputStatement

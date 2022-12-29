@@ -20,6 +20,8 @@
 
 package org.jbasic;
 
+import org.jbasic.interpreter.JBasicInterpreter;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

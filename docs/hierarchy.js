@@ -1,29 +1,35 @@
 var hierarchy =
 [
-    [ "org.jbasic.CoreUtils", "classorg_1_1jbasic_1_1_core_utils.html", null ],
+    [ "org.jbasic.core.safeguard.ArraySafeGuard", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_array_safe_guard.html", null ],
+    [ "org.jbasic.core.safeguard.FunctionSafeGuard", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_function_safe_guard.html", null ],
+    [ "org.jbasic.core.IOFormatUtils", "classorg_1_1jbasic_1_1core_1_1_i_o_format_utils.html", null ],
     [ "org.jbasic.JBasicCLI", "classorg_1_1jbasic_1_1_j_basic_c_l_i.html", null ],
-    [ "org.jbasic.JBasicInterpreter", "classorg_1_1jbasic_1_1_j_basic_interpreter.html", null ],
-    [ "org.jbasic.JBasicInterpreterState", "classorg_1_1jbasic_1_1_j_basic_interpreter_state.html", null ],
-    [ "org.jbasic.JBasicSubroutine", "classorg_1_1jbasic_1_1_j_basic_subroutine.html", null ],
-    [ "org.jbasic.JBasicValue", "classorg_1_1jbasic_1_1_j_basic_value.html", null ],
+    [ "org.jbasic.interpreter.JBasicInterpreter", "classorg_1_1jbasic_1_1interpreter_1_1_j_basic_interpreter.html", null ],
+    [ "org.jbasic.interpreter.JBasicInterpreterState", "classorg_1_1jbasic_1_1interpreter_1_1_j_basic_interpreter_state.html", null ],
+    [ "org.jbasic.languageModels.JBasicSubroutine", "classorg_1_1jbasic_1_1language_models_1_1_j_basic_subroutine.html", null ],
+    [ "org.jbasic.languageModels.JBasicValue", "classorg_1_1jbasic_1_1language_models_1_1_j_basic_value.html", null ],
     [ "RuntimeException", null, [
-      [ "org.jbasic.ContinueException", "classorg_1_1jbasic_1_1_continue_exception.html", null ],
-      [ "org.jbasic.ExitException", "classorg_1_1jbasic_1_1_exit_exception.html", null ],
-      [ "org.jbasic.InterpreterBaseException", "classorg_1_1jbasic_1_1_interpreter_base_exception.html", [
-        [ "org.jbasic.ArrayDimensionMismatchException", "classorg_1_1jbasic_1_1_array_dimension_mismatch_exception.html", null ],
-        [ "org.jbasic.ArrayDimensionUnsupportedException", "classorg_1_1jbasic_1_1_array_dimension_unsupported_exception.html", null ],
-        [ "org.jbasic.FunctionArityException", "classorg_1_1jbasic_1_1_function_arity_exception.html", null ],
-        [ "org.jbasic.SubroutineArityException", "classorg_1_1jbasic_1_1_subroutine_arity_exception.html", null ],
-        [ "org.jbasic.SubroutineNotDefinedException", "classorg_1_1jbasic_1_1_subroutine_not_defined_exception.html", null ],
-        [ "org.jbasic.SubroutineRedefinitionException", "classorg_1_1jbasic_1_1_subroutine_redefinition_exception.html", null ],
-        [ "org.jbasic.TypeException", "classorg_1_1jbasic_1_1_type_exception.html", null ],
-        [ "org.jbasic.UndefinedVariableException", "classorg_1_1jbasic_1_1_undefined_variable_exception.html", null ]
-      ] ]
+      [ "org.jbasic.error.InterpreterBaseException", "classorg_1_1jbasic_1_1error_1_1_interpreter_base_exception.html", [
+        [ "org.jbasic.error.array.ArrayDimensionMismatchException", "classorg_1_1jbasic_1_1error_1_1array_1_1_array_dimension_mismatch_exception.html", null ],
+        [ "org.jbasic.error.array.ArrayDimensionUnsupportedException", "classorg_1_1jbasic_1_1error_1_1array_1_1_array_dimension_unsupported_exception.html", null ],
+        [ "org.jbasic.error.functions.FunctionArityException", "classorg_1_1jbasic_1_1error_1_1functions_1_1_function_arity_exception.html", null ],
+        [ "org.jbasic.error.label.InvalidLabelException", "classorg_1_1jbasic_1_1error_1_1label_1_1_invalid_label_exception.html", null ],
+        [ "org.jbasic.error.label.UndefinedLabelException", "classorg_1_1jbasic_1_1error_1_1label_1_1_undefined_label_exception.html", null ],
+        [ "org.jbasic.error.subroutine.SubroutineArityException", "classorg_1_1jbasic_1_1error_1_1subroutine_1_1_subroutine_arity_exception.html", null ],
+        [ "org.jbasic.error.subroutine.SubroutineNotDefinedException", "classorg_1_1jbasic_1_1error_1_1subroutine_1_1_subroutine_not_defined_exception.html", null ],
+        [ "org.jbasic.error.subroutine.SubroutineRedefinitionException", "classorg_1_1jbasic_1_1error_1_1subroutine_1_1_subroutine_redefinition_exception.html", null ],
+        [ "org.jbasic.error.type.TypeException", "classorg_1_1jbasic_1_1error_1_1type_1_1_type_exception.html", null ],
+        [ "org.jbasic.error.variable.UndefinedVariableException", "classorg_1_1jbasic_1_1error_1_1variable_1_1_undefined_variable_exception.html", null ]
+      ] ],
+      [ "org.jbasic.programFlow.ContinueException", "classorg_1_1jbasic_1_1program_flow_1_1_continue_exception.html", null ],
+      [ "org.jbasic.programFlow.ExitException", "classorg_1_1jbasic_1_1program_flow_1_1_exit_exception.html", null ]
     ] ],
+    [ "org.jbasic.core.Trigonometry", "classorg_1_1jbasic_1_1core_1_1_trigonometry.html", null ],
+    [ "org.jbasic.core.safeguard.ValueSafeGuard", "classorg_1_1jbasic_1_1core_1_1safeguard_1_1_value_safe_guard.html", null ],
     [ "BaseErrorListener", null, [
-      [ "org.jbasic.ErrorListener", "classorg_1_1jbasic_1_1_error_listener.html", null ]
+      [ "org.jbasic.error.ErrorListener", "classorg_1_1jbasic_1_1error_1_1_error_listener.html", null ]
     ] ],
     [ "JBasicBaseVisitor", null, [
-      [ "org.jbasic.JBasicVisitor", "classorg_1_1jbasic_1_1_j_basic_visitor.html", null ]
+      [ "org.jbasic.visitor.JBasicVisitor", "classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html", null ]
     ] ]
 ];

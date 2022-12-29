@@ -68,8 +68,13 @@ AND_KEYWORD             : 'AND' | 'and' ;
 NOT_KEYWORD             : 'NOT' | 'not' ;
 OR_KEYWORD              : 'OR'  | 'or' ;
 
+GOTO_KEYWORD            : 'GOTO' | 'goto' ;
+
 // comments
 COMMENT                 : REM_KEYWORD ~[\r\n]* ;
+
+// Label
+DOUBLE_DOT              : ':' ;
 
 // literals
 PERCENT_SIGN            : '%' ;

@@ -15,6 +15,8 @@
 
 package org.jbasic;
 
+import org.jbasic.interpreter.JBasicInterpreter;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

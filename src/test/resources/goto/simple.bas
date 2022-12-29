@@ -1,0 +1,6 @@
+10: LET I = 1
+20: PRINT I
+30: IF I < 3 THEN
+40:    I = I + 1
+50:    GOTO 20
+60: END
