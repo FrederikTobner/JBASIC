@@ -123,7 +123,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitVariableIdentifier(JBasicParser.VariableIdentifierContext context) {
         String id = context.getText();
-        return this.state.getVariableValue(id);
+        return this.state.getVariableValue(id, context);
     }
 
     /**
@@ -232,7 +232,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitArraySetAtIndexStatement(JBasicParser.ArraySetAtIndexStatementContext context) {
         String arrayName = context.variableIdentifier().getText();
-        JBasicValue array = this.state.getVariableValue(arrayName);
+        JBasicValue array = this.state.getVariableValue(arrayName, context);
         VariableSafeguard.guaranteeVariableIsDefined(array, arrayName, context.variableIdentifier());
         ValueTypeSafeguard.guaranteeValueIsArray("Could not execute set expression", array, context.variableIdentifier());
         if (context.expression().size() > 3 || context.expression().size() == 0) {
@@ -794,7 +794,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitArrayGetAtIndexExpression(JBasicParser.ArrayGetAtIndexExpressionContext context) {
         String arrayName = context.variableIdentifier().getText();
-        JBasicValue array = this.state.getVariableValue(arrayName);
+        JBasicValue array = this.state.getVariableValue(arrayName, context);
         VariableSafeguard.guaranteeVariableIsDefined(array, arrayName, context.variableIdentifier());
         if (context.expression().size() > 3 || context.expression().size() == 0) {
             throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);

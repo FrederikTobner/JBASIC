@@ -40,7 +40,7 @@ public class FunctionSafeguard {
                                                    JBasicParser.FunctionCallArgsContext context,
                                                    Function<Integer, Boolean> guard) {
         if (!guard.apply(context.expression().size())) {
-            throw new FunctionArityException(functionName + " can not be called with" + context.expression().size() + "arguments", context);
+            throw new FunctionArityException(functionName + " can not be called with " + context.expression().size() + " arguments", context);
         }
     }
 }

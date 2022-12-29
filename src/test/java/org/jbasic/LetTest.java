@@ -25,16 +25,16 @@ public class LetTest extends JBasicBaseTest {
     @Test
     public void testNumeric() {
         this.test("let/numeric.bas", (result) -> {
-            assertTrue(result.interpreter.getState().getVariableValue("numeric").isANumericalValue());
-            assertEquals(123.0, result.interpreter.getState().getVariableValue("numeric").underlyingNumber(), 0.0001f);
+            assertTrue(result.interpreter.getState().getVariableValue("numeric", null).isANumericalValue());
+            assertEquals(123.0, result.interpreter.getState().getVariableValue("numeric", null).underlyingNumber(), 0.0001f);
         });
     }
 
     @Test
     public void testString() {
         this.test("let/string.bas", (result) -> {
-            assertTrue(result.interpreter.getState().getVariableValue("string").isAStringValue());
-            assertEquals("foo", result.interpreter.getState().getVariableValue("string").underlyingString());
+            assertTrue(result.interpreter.getState().getVariableValue("string", null).isAStringValue());
+            assertEquals("foo", result.interpreter.getState().getVariableValue("string", null).underlyingString());
         });
     }
 }

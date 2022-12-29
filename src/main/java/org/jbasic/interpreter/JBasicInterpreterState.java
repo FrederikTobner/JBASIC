@@ -23,6 +23,7 @@ package org.jbasic.interpreter;
 
 import jbasic.JBasicParser;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.jbasic.error.variable.UndefinedVariableException;
 import org.jbasic.visitor.JBasicVisitor;
 import org.jbasic.languageModels.JBasicSubroutine;
 import org.jbasic.error.labels.UndefinedLabelException;
@@ -57,7 +58,7 @@ public class JBasicInterpreterState {
     public JBasicValue gotoLabel(String labelName, JBasicVisitor visitor, ParserRuleContext context) {
         JBasicParser.BlockContext blockContext = this.labeledBlocks.get(labelName);
         if (blockContext == null) {
-            throw new UndefinedLabelException("A label called " + labelName + "is not defiened", context);
+            throw new UndefinedLabelException("A label called " + labelName + " is not defined", context);
         }
         return visitor.visit(blockContext);
     }
@@ -80,7 +81,7 @@ public class JBasicInterpreterState {
      */
     public void defineSubroutine(String subroutineName, JBasicSubroutine subroutine, JBasicParser.SubroutineDefinitionStatementContext context) {
         if (this.subroutines.containsKey(subroutineName)) {
-            throw new SubroutineRedefinitionException("A subroutine with the name" + subroutineName + " is already defined in the script", context);
+            throw new SubroutineRedefinitionException("A subroutine with the name " + subroutineName + " is already defined in the script", context);
         }
         this.subroutines.put(subroutineName, subroutine);
     }
@@ -114,8 +115,11 @@ public class JBasicInterpreterState {
      *
      * @param name The name of the variable that is obtained
      */
-    public JBasicValue getVariableValue(String name) {
-        return this.memory.get(name);
+    public JBasicValue getVariableValue(String name, ParserRuleContext context) {
+        JBasicValue value = this.memory.get(name);
+        if(value == null)
+            throw new UndefinedVariableException(name + " is not defined", context);
+        return value;
     }
 
     /**
@@ -133,7 +137,7 @@ public class JBasicInterpreterState {
         JBasicSubroutine subroutine = this.subroutines.get(subroutineName);
         if (subroutine.getArity() != arguments.size()) {
             throw new SubroutineArityException("Subroutine expects " + subroutine.getArguments().length +
-                    "arguments but was called with" + arguments.size(), context);
+                    " arguments but was called with " + arguments.size(), context);
         }
         final Map<String, JBasicValue> oldMemoryState = this.memory;
         // Prepare subroutine memory

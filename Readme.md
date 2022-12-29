@@ -91,12 +91,13 @@ LET ANUMBER% = 10
 
 ### Program flow control
 
-| Keyword(s)                     | Description                                        |
-|--------------------------------|----------------------------------------------------|
-| IF ... THEN ... {ELSE}         | Used to perform comparisons or make decisions.     |
-| FOR ... TO ... {STEP} ... NEXT | Repeats a section of code a given number of times. |
-| WHILE ... END                  | Repeats a section of code a given number of times. |
-| REPEAT ... UNTIL               | Repeats a section of code a given number of times. |
+| Keyword(s)                     | Description                                          |
+|--------------------------------|------------------------------------------------------|
+| IF ... THEN ... {ELSE}         | Used to perform comparisons or make decisions.       |
+| FOR ... TO ... {STEP} ... NEXT | Repeats a section of code a given number of times.   |
+| WHILE ... END                  | Repeats a section of code a given number of times.   |
+| REPEAT ... UNTIL               | Repeats a section of code a given number of times.   |
+| GOTO                           | Jumps to a numbered or labelled line in the program. |
 
 ### Subroutine specific
 | Keyword(s)        | Description              |
@@ -168,13 +169,11 @@ the SUB keyword. Subroutines are then invoked using the call keyword.
 
 ## Building
 
-The interpreter is built using maven, uses the JDK version 11 and can be built by running the following command
-
-    mvn install
+The interpreter is built using maven and uses the JDK version 11.
 
 ## How it works
 
-The interpretation of a program is performed in the following stages
+The interpretation of a program is performed in the following stages:
 
 * Lexical analysis: We iterate over all the characters in the source code and group them together to tokens
 * Parsing: Next we parse the linear sequence of tokens we have created in the previous step to create an abstract syntax
