@@ -13,33 +13,18 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-package org.jbasic;
+package org.jbasic.functions;
 
+import org.jbasic.JBasicBaseTest;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
-public class IfThenElseTest extends JBasicBaseTest {
+public class GeneralFunctionTest extends JBasicBaseTest {
 
     @Test
-    public void testSimpleIfTrue() {
-        this.test("ifThenElse/simple_if_true.bas",
-                (result) -> assertEquals("one" + System.lineSeparator() +
-                                "two" + System.lineSeparator(),
-                        result.output));
-    }
-
-    @Test
-    public void testSimpleIfFalse() {
-        this.test("ifThenElse/simple_if_false.bas",
-                (result) -> assertEquals("three" + System.lineSeparator(), result.output));
-    }
-
-    @Test
-    public void testIfElse() {
-        this.test("ifThenElse/if_else.bas",
-                (result) -> assertEquals("true" + System.lineSeparator() +
-                                "false" + System.lineSeparator(),
-                        result.output));
+    public void testFunctionArityError() {
+        this.test("functions/general/function_arity.bas",
+                (result) -> Assert.assertEquals("Error at [1, 10]: ABS can not be called with 2 arguments",
+                        result.error.trim()));
     }
 }

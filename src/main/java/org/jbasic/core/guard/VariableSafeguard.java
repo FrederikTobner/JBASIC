@@ -38,7 +38,8 @@ public class VariableSafeguard {
      * @param variableName The name of the variable
      * @param context The parsing context where the variable was referred to
      */
-    public static void guaranteeVariableIsDefined(JBasicValue variableValue, String variableName, ParserRuleContext context) {
+    public static void guaranteeVariableIsDefined(JBasicValue variableValue, String variableName, ParserRuleContext context)
+            throws UndefinedVariableException {
         if (variableValue == null) {
             throw new UndefinedVariableException(
                     "A variable with the name " + variableName + "is not defined",
@@ -52,7 +53,8 @@ public class VariableSafeguard {
      * @param assignedValue The value that is safeguarded
      * @param context The parsing context where the value was used
      */
-    public static void guaranteeVariableSuffixIsNotViolated(JBasicValue assignedValue, JBasicParser.VariableSuffixContext context) {
+    public static void guaranteeVariableSuffixIsNotViolated(JBasicValue assignedValue, JBasicParser.VariableSuffixContext context)
+            throws TypeException {
         if ("$".equals(context.getText())) {
             if (!assignedValue.isAStringValue()) {
                 throw new TypeException("Type suffix does not match specified type", context);

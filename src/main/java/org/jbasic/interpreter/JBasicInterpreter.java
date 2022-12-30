@@ -26,6 +26,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.InputMismatchException;
+import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.jbasic.core.IOFormatUtils;
@@ -68,7 +69,7 @@ public class JBasicInterpreter {
      * @brief Executes a JBASIC program
      * @param programInput The JBASIC program that is executed
      */
-    public void run(InputStream programInput) throws IOException {
+    public void run(InputStream programInput) throws IOException, RecognitionException {
         // Wrapping the sourcecode in a ANTLRInputStream
         CharStream input = CharStreams.fromStream(programInput);
         // Initializing a newly created lexer object with the ANTLRInputStream

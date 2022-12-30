@@ -20,7 +20,7 @@
 
 package org.jbasic.languageModels;
 
-import jbasic.JBasicParser;
+import jbasic.JBasicParser.NegateExpressionContext;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.jbasic.core.IOFormatUtils;
 import org.jbasic.core.guard.ValueTypeSafeguard;
@@ -155,13 +155,16 @@ public class JBasicValue {
             return this.underlyingString().equals(right.underlyingString()) ? TrueValue : FalseValue;
         }
         else if (this.isAnOneDimensionalArrayValue() && right.isAnOneDimensionalArrayValue()) {
-            return Arrays.equals(this.underlyingOneDimensionalArray(), right.underlyingOneDimensionalArray()) ? TrueValue : FalseValue;
+            return Arrays.equals(this.underlyingOneDimensionalArray(),
+                    right.underlyingOneDimensionalArray()) ? TrueValue : FalseValue;
         }
         else if (this.isATwoDimensionalArrayValue() && right.isATwoDimensionalArrayValue()) {
-            return Arrays.deepEquals(this.underlyingTwoDimensionalArray(), right.underlyingTwoDimensionalArray()) ? TrueValue : FalseValue;
+            return Arrays.deepEquals(this.underlyingTwoDimensionalArray(),
+                    right.underlyingTwoDimensionalArray()) ? TrueValue : FalseValue;
         }
         else if (this.isAThreeDimensionalArrayValue() && right.isAThreeDimensionalArrayValue()) {
-            return Arrays.deepEquals(this.underlyingThreeDimensionalArray(), right.underlyingThreeDimensionalArray()) ? TrueValue : FalseValue;
+            return Arrays.deepEquals(this.underlyingThreeDimensionalArray(),
+                    right.underlyingThreeDimensionalArray()) ? TrueValue : FalseValue;
         }
         return FalseValue;
     }
@@ -382,7 +385,7 @@ public class JBasicValue {
      * @param context The parsing context of the 'negate expression'
      * @return The negated numerical value of this Value object instance
      */
-    public JBasicValue negate(JBasicParser.NegateExpressionContext context) {
+    public JBasicValue negate(NegateExpressionContext context) {
         ValueTypeSafeguard.guaranteeValueIsNumerical("Only numerical values can be negated", this, context);
         return new JBasicValue(-this.underlyingNumber());
     }

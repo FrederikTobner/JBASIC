@@ -13,28 +13,19 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-package org.jbasic;
+package org.jbasic.gotoKeyword;
 
+import org.jbasic.JBasicBaseTest;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-public class LetTest extends JBasicBaseTest {
+public class GotoTest extends JBasicBaseTest {
 
     @Test
-    public void testNumeric() {
-        this.test("let/numeric.bas", (result) -> {
-            assertTrue(result.interpreter.getState().getVariableValue("numeric", null).isANumericalValue());
-            assertEquals(123.0, result.interpreter.getState().getVariableValue("numeric", null).underlyingNumber(), 0.0001f);
-        });
-    }
-
-    @Test
-    public void testString() {
-        this.test("let/string.bas", (result) -> {
-            assertTrue(result.interpreter.getState().getVariableValue("string", null).isAStringValue());
-            assertEquals("foo", result.interpreter.getState().getVariableValue("string", null).underlyingString());
-        });
+    public void testSimple() {
+        this.test("goto/simple.bas",
+                (result) -> Assert.assertEquals("1" + System.lineSeparator() +
+                        "2" + System.lineSeparator() +
+                        "3" + System.lineSeparator(), result.output));
     }
 }

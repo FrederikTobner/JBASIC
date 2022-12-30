@@ -13,18 +13,18 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-package org.jbasic;
+package org.jbasic.programs;
 
+import org.jbasic.JBasicBaseTest;
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class ProgramTest extends JBasicBaseTest {
 
     @Test
     public void testFibonacci() {
         this.test("program/fibonacci_numbers.bas", "8" + System.lineSeparator(),
-                (result) -> assertEquals("Amount= 0" + System.lineSeparator() +
+                (result) -> Assert.assertEquals("Amount= 0" + System.lineSeparator() +
                                 "1" + System.lineSeparator() +
                                 "1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
@@ -38,12 +38,12 @@ public class ProgramTest extends JBasicBaseTest {
     @Test
     public void testGreatestCommonDivider() {
         this.test("program/greatest_common_divider.bas", "9" + System.lineSeparator() + "12" + System.lineSeparator(),
-                (result) -> assertEquals("First= Second= 3" + System.lineSeparator(), result.output));
+                (result) -> Assert.assertEquals("First= Second= 3" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testPrintStars() {
         this.test("program/print_stars.bas", "5" + System.lineSeparator(),
-                (result) -> assertEquals("Amount= *****" + System.lineSeparator(), result.output));
+                (result) -> Assert.assertEquals("Amount= *****" + System.lineSeparator(), result.output));
     }
 }

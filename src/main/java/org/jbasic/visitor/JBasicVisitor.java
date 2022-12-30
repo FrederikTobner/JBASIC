@@ -31,7 +31,6 @@ import org.jbasic.core.guard.FunctionSafeguard;
 import org.jbasic.core.guard.NumericalValueSafeguard;
 import org.jbasic.core.guard.ValueTypeSafeguard;
 import org.jbasic.core.guard.VariableSafeguard;
-import org.jbasic.error.arrays.ArrayDimensionUnsupportedException;
 import org.jbasic.interpreter.JBasicInterpreterState;
 import org.jbasic.languageModels.JBasicSubroutine;
 import org.jbasic.languageModels.JBasicValue;
@@ -122,8 +121,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitVariableIdentifier(JBasicParser.VariableIdentifierContext context) {
-        String id = context.getText();
-        return this.state.getVariableValue(id, context);
+        return this.state.getVariableValue(context.getText(), context);
     }
 
     /**
@@ -195,15 +193,13 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitArrayDeclarationStatement(JBasicParser.ArrayDeclarationStatementContext context) {
         // Determine name of the array
         String arrayName = context.variableIdentifier().getText();
-        if (context.expression().size() > 3 || context.expression().size() == 0) {
-            throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);
-        }
+        ArraySafeguard.guaranteeArrayDimensionCountIsValid(context.expression());
         List<Integer> dimensions = new ArrayList<>();
-        for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
+        context.expression().forEach(expressionContext -> {
             JBasicValue dimension = this.visit(expressionContext);
             ArraySafeguard.guaranteeArrayDimensionIsValid(dimension, expressionContext);
             dimensions.add((int) dimension.underlyingNumber());
-        }
+        });
         JBasicValue array;
             switch (dimensions.size()) {
                 case 1:
@@ -219,6 +215,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
                     this.state.assignToVariable(arrayName, array);
                     return array;
                 default:
+                    // Unreachable
                     throw new IllegalStateException("Unexpected value: " + dimensions.size());
             }
     }
@@ -235,20 +232,15 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue array = this.state.getVariableValue(arrayName, context);
         VariableSafeguard.guaranteeVariableIsDefined(array, arrayName, context.variableIdentifier());
         ValueTypeSafeguard.guaranteeValueIsArray("Could not execute set expression", array, context.variableIdentifier());
-        if (context.expression().size() > 3 || context.expression().size() == 0) {
-            throw new ArrayDimensionUnsupportedException(
-                    "Unsupported array dimensions count " + context.expression().size(),
-                    context);
-        }
-        ArraySafeguard.guaranteeArrayDimensionsMatch(array, context.expression().size(),
-                context.expression().get(context.expression().size() - 1));
+        ArraySafeguard.guaranteeArrayDimensionCountIsValid(context.expression());
+        ArraySafeguard.guaranteeArrayDimensionsMatch(array, context.expression());
 
         List<Integer> dimensions = new ArrayList<>();
-        for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
+        context.expression().forEach(expressionContext -> {
             JBasicValue dimension = this.visit(expressionContext);
             ArraySafeguard.guaranteeArrayDimensionIsValid(dimension, expressionContext);
             dimensions.add((int) dimension.underlyingNumber() - 1);
-        }
+        });
 
         JBasicValue value = this.visit(context.arraySetAtIndexAssignment().expression());
         if(context.variableIdentifier().variableSuffix() != null) {
@@ -263,6 +255,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             case 3:
                 return array.underlyingThreeDimensionalArray()[dimensions.get(0)][dimensions.get(1)][dimensions.get(2)] = value;
             default:
+                // Unreachable
                 throw new IllegalStateException("Unexpected value: " + context.expression().size());
         }
     }
@@ -274,7 +267,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @return The Value that is omitted by visiting the continue statement
      */
     @Override
-    public JBasicValue visitContinueStatement(JBasicParser.ContinueStatementContext context) {
+    public JBasicValue visitContinueStatement(JBasicParser.ContinueStatementContext context) throws ContinueException {
         throw new ContinueException();
     }
 
@@ -285,7 +278,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @return The Value that is omitted by visiting the exit statement
      */
     @Override
-    public JBasicValue visitExitStatement(JBasicParser.ExitStatementContext context) {
+    public JBasicValue visitExitStatement(JBasicParser.ExitStatementContext context) throws ExitException {
         throw new ExitException();
     }
 
@@ -361,7 +354,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      * @return The Value that is omitted by visiting the input statement
      */
     @Override
-    public JBasicValue visitInputStatement(JBasicParser.InputStatementContext context) {
+    public JBasicValue visitInputStatement(JBasicParser.InputStatementContext context) throws RuntimeException {
         this.printStream.print(this.visit(context.stringLiteral()).underlyingString() + " ");
         String variableName = context.variableIdentifier().getText();
         try {
@@ -661,7 +654,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitMinFunction(JBasicParser.MinFunctionContext context) {
         FunctionSafeguard.guaranteeArityIsNotViolated("MIN", context.functionCallArgs(), (i -> i != 0));
         double minValue = Double.MAX_VALUE;
-        for (JBasicParser.ExpressionContext expression : context.functionCallArgs().expression()) {
+        List<JBasicParser.ExpressionContext> expressionContexts = context.functionCallArgs().expression();
+        for (JBasicParser.ExpressionContext expression : expressionContexts) {
             JBasicValue value = this.visit(expression);
             ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call MIN", value, context);
             minValue = Math.min(minValue, value.underlyingNumber());
@@ -796,21 +790,17 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         String arrayName = context.variableIdentifier().getText();
         JBasicValue array = this.state.getVariableValue(arrayName, context);
         VariableSafeguard.guaranteeVariableIsDefined(array, arrayName, context.variableIdentifier());
-        if (context.expression().size() > 3 || context.expression().size() == 0) {
-            throw new ArrayDimensionUnsupportedException("Unsupported array dimensions count " + context.expression().size(), context);
-        }
-        ArraySafeguard.guaranteeArrayDimensionsMatch(array, context.expression().size(),
-                context.expression().get(context.expression().size() - 1));
+        ArraySafeguard.guaranteeArrayDimensionCountIsValid(context.expression());
+        ArraySafeguard.guaranteeArrayDimensionsMatch(array, context.expression());
 
         List<Integer> dimensions = new ArrayList<>();
-        for (JBasicParser.ExpressionContext expressionContext : context.expression()) {
+        context.expression().forEach(expressionContext -> {
             JBasicValue dimension = this.visit(expressionContext);
             ArraySafeguard.guaranteeArrayDimensionIsValid(dimension, expressionContext);
             dimensions.add((int) dimension.underlyingNumber() - 1);
-        }
+        });
 
         switch (dimensions.size()) {
-
             case 1:
                 return array.underlyingOneDimensionalArray()[dimensions.get(0)];
             case 2:
@@ -818,6 +808,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             case 3:
                 return array.underlyingThreeDimensionalArray()[dimensions.get(0)][dimensions.get(1)][dimensions.get(2)];
             default:
+                // Unreachable
                 throw new IllegalStateException("Unexpected value: " + context.expression().size());
         }
     }
@@ -851,8 +842,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitNegateExpression(JBasicParser.NegateExpressionContext context) {
-        JBasicValue value = this.visit(context.expression());
-        return value.negate(context);
+        return this.visit(context.expression()).negate(context);
     }
 
     /**

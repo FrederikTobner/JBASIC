@@ -21,7 +21,7 @@
 package org.jbasic.core.guard;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.jbasic.error.labels.InvalidLabelException;
+import org.jbasic.error.labels.InvalidNumericalFormatException;
 
 /**
  * @brief Guarding functions for numerical JBASIC values.
@@ -35,9 +35,10 @@ public class NumericalValueSafeguard {
      * @param underlyingValue The value that is safeguarded
      * @param context The parsing context where the value was used
      */
-    public static void guaranteeIsWhole(String message, double underlyingValue, ParserRuleContext context) {
+    public static void guaranteeIsWhole(String message, double underlyingValue, ParserRuleContext context)
+            throws InvalidNumericalFormatException {
         if (underlyingValue != Math.round(underlyingValue)) {
-            throw new InvalidLabelException(message, context);
+            throw new InvalidNumericalFormatException(message, context);
         }
     }
 }

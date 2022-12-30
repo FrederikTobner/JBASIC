@@ -13,14 +13,27 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-package org.jbasic.error.labels;
+package org.jbasic.letKeyword;
 
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.jbasic.error.InterpreterBaseException;
+import org.jbasic.JBasicBaseTest;
+import org.junit.Assert;
+import org.junit.Test;
 
-@SuppressWarnings("serial")
-public class InvalidLabelException extends InterpreterBaseException {
-    public InvalidLabelException(String message, ParserRuleContext context) {
-        super(message, context);
+public class LetTest extends JBasicBaseTest {
+
+    @Test
+    public void testNumeric() {
+        this.test("let/numeric.bas", (result) -> {
+            Assert.assertTrue(result.interpreter.getState().getVariableValue("numeric", null).isANumericalValue());
+            Assert.assertEquals(123.0, result.interpreter.getState().getVariableValue("numeric", null).underlyingNumber(), 0.0001f);
+        });
+    }
+
+    @Test
+    public void testString() {
+        this.test("let/string.bas", (result) -> {
+            Assert.assertTrue(result.interpreter.getState().getVariableValue("string", null).isAStringValue());
+            Assert.assertEquals("foo", result.interpreter.getState().getVariableValue("string", null).underlyingString());
+        });
     }
 }

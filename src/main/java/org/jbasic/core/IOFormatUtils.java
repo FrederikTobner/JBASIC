@@ -22,14 +22,13 @@ package org.jbasic.core;
 
 import java.text.DecimalFormat;
 
-
 /**
  * @brief IO formatting utilities.
  * @details The IO formatting utilities of the interpreter
  */
 public class IOFormatUtils {
 
-    /// Decimal output format for numerical values (not decimal dot if the number is x.0)
+    /// Decimal output format for numerical values (no decimal dot if the number is x.0)
     public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
 
     /**

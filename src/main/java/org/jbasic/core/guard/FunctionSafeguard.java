@@ -36,9 +36,8 @@ public class FunctionSafeguard {
      * @param context The function call arguments parsing context
      * @param guard The guard function, that is applied to the number of arguments that were used when the function was invoked.
      */
-    public static void guaranteeArityIsNotViolated(String functionName,
-                                                   JBasicParser.FunctionCallArgsContext context,
-                                                   Function<Integer, Boolean> guard) {
+    public static void guaranteeArityIsNotViolated(String functionName, JBasicParser.FunctionCallArgsContext context,
+                                                   Function<Integer, Boolean> guard) throws FunctionArityException {
         if (!guard.apply(context.expression().size())) {
             throw new FunctionArityException(functionName + " can not be called with " + context.expression().size() + " arguments", context);
         }

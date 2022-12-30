@@ -21,7 +21,9 @@
 
 package org.jbasic.interpreter;
 
-import jbasic.JBasicParser;
+import jbasic.JBasicParser.BlockContext;
+import jbasic.JBasicParser.SubroutineDefinitionStatementContext;
+import jbasic.JBasicParser.SubroutineInvocationStatementContext;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.jbasic.error.variable.UndefinedVariableException;
 import org.jbasic.visitor.JBasicVisitor;
@@ -49,14 +51,14 @@ public class JBasicInterpreterState {
     /// Stores the defined functions of the executed script
     private final Map<String, JBasicSubroutine> subroutines = new HashMap<>();
 
-    private final Map<String, JBasicParser.BlockContext> labeledBlocks = new HashMap<>();
+    private final Map<String, BlockContext> labeledBlocks = new HashMap<>();
 
-    public void addLabel(String labelName, JBasicParser.BlockContext blockContext) {
+    public void addLabel(String labelName, BlockContext blockContext) {
         this.labeledBlocks.put(labelName, blockContext);
     }
 
-    public JBasicValue gotoLabel(String labelName, JBasicVisitor visitor, ParserRuleContext context) {
-        JBasicParser.BlockContext blockContext = this.labeledBlocks.get(labelName);
+    public JBasicValue gotoLabel(String labelName, JBasicVisitor visitor, ParserRuleContext context) throws UndefinedLabelException {
+        BlockContext blockContext = this.labeledBlocks.get(labelName);
         if (blockContext == null) {
             throw new UndefinedLabelException("A label called " + labelName + " is not defined", context);
         }
@@ -79,7 +81,8 @@ public class JBasicInterpreterState {
      * @param subroutineName The name of the subroutine
      * @param subroutine     The subroutine that is defined
      */
-    public void defineSubroutine(String subroutineName, JBasicSubroutine subroutine, JBasicParser.SubroutineDefinitionStatementContext context) {
+    public void defineSubroutine(String subroutineName, JBasicSubroutine subroutine, SubroutineDefinitionStatementContext context)
+            throws SubroutineRedefinitionException {
         if (this.subroutines.containsKey(subroutineName)) {
             throw new SubroutineRedefinitionException("A subroutine with the name " + subroutineName + " is already defined in the script", context);
         }
@@ -114,8 +117,9 @@ public class JBasicInterpreterState {
      * Gets a specific variable from memory
      *
      * @param name The name of the variable that is obtained
+     * @note Throws an UndefinedVariableException if the variable is not defined
      */
-    public JBasicValue getVariableValue(String name, ParserRuleContext context) {
+    public JBasicValue getVariableValue(String name, ParserRuleContext context) throws UndefinedVariableException {
         JBasicValue value = this.memory.get(name);
         if(value == null)
             throw new UndefinedVariableException(name + " is not defined", context);
@@ -130,7 +134,8 @@ public class JBasicInterpreterState {
      * @param visitor        The visitor of the subroutine call. Used to visit the subroutine body
      */
     public void invokeSubroutine(String subroutineName, List<JBasicValue> arguments, JBasicVisitor visitor,
-                                 JBasicParser.SubroutineInvocationStatementContext context) {
+                                 SubroutineInvocationStatementContext context)
+                                 throws SubroutineNotDefinedException, SubroutineArityException  {
         if (!this.subroutines.containsKey(subroutineName)) {
             throw new SubroutineNotDefinedException("A subroutine with the name" + subroutineName + " is not defined in the script", context);
         }

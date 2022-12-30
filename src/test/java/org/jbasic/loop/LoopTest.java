@@ -13,18 +13,18 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-package org.jbasic;
+package org.jbasic.loop;
 
+import org.jbasic.JBasicBaseTest;
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class LoopTest extends JBasicBaseTest {
 
     @Test
     public void testForContinue() {
         this.test("loops/for_continue.bas",
-                (result) -> assertEquals("3" + System.lineSeparator() +
+                (result) -> Assert.assertEquals("3" + System.lineSeparator() +
                                 "4" + System.lineSeparator() +
                                 "5" + System.lineSeparator(),
                         result.output));
@@ -33,7 +33,7 @@ public class LoopTest extends JBasicBaseTest {
     @Test
     public void testForExit() {
         this.test("loops/for_exit.bas",
-                (result) -> assertEquals("1" + System.lineSeparator() +
+                (result) -> Assert.assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator(),
                         result.output));
@@ -42,7 +42,7 @@ public class LoopTest extends JBasicBaseTest {
     @Test
     public void testRepeat() {
         this.test("loops/repeat.bas",
-                (result) -> assertEquals("1" + System.lineSeparator() +
+                (result) -> Assert.assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator() +
                                 "4" + System.lineSeparator(),
@@ -52,14 +52,14 @@ public class LoopTest extends JBasicBaseTest {
     @Test
     public void testSimpleFor() {
         this.test("loops/simple_for.bas",
-                (result) -> assertEquals("1" + System.lineSeparator() + "2" + System.lineSeparator() + "3"
+                (result) -> Assert.assertEquals("1" + System.lineSeparator() + "2" + System.lineSeparator() + "3"
                         + System.lineSeparator() + "4" + System.lineSeparator() + "5" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testWhile() {
         this.test("loops/while.bas",
-                (result) -> assertEquals("1" + System.lineSeparator() +
+                (result) -> Assert.assertEquals("1" + System.lineSeparator() +
                                 "2" + System.lineSeparator() +
                                 "3" + System.lineSeparator() +
                                 "4" + System.lineSeparator(),

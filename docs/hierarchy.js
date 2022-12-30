@@ -14,7 +14,7 @@ var hierarchy =
         [ "org.jbasic.error.arrays.ArrayDimensionMismatchException", "classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_mismatch_exception.html", null ],
         [ "org.jbasic.error.arrays.ArrayDimensionUnsupportedException", "classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_unsupported_exception.html", null ],
         [ "org.jbasic.error.functions.FunctionArityException", "classorg_1_1jbasic_1_1error_1_1functions_1_1_function_arity_exception.html", null ],
-        [ "org.jbasic.error.labels.InvalidLabelException", "classorg_1_1jbasic_1_1error_1_1labels_1_1_invalid_label_exception.html", null ],
+        [ "org.jbasic.error.labels.InvalidNumericalFormatException", "classorg_1_1jbasic_1_1error_1_1labels_1_1_invalid_numerical_format_exception.html", null ],
         [ "org.jbasic.error.labels.UndefinedLabelException", "classorg_1_1jbasic_1_1error_1_1labels_1_1_undefined_label_exception.html", null ],
         [ "org.jbasic.error.subroutine.SubroutineArityException", "classorg_1_1jbasic_1_1error_1_1subroutine_1_1_subroutine_arity_exception.html", null ],
         [ "org.jbasic.error.subroutine.SubroutineNotDefinedException", "classorg_1_1jbasic_1_1error_1_1subroutine_1_1_subroutine_not_defined_exception.html", null ],

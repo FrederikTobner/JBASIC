@@ -23,7 +23,10 @@ by the earliest dialects of [BASIC](https://en.wikipedia.org/wiki/BASIC).
 ## Overview
 
 JBASIC is dialect of 'BASIC' (Beginners' All-purpose Symbolic Instruction Code) a family of general-purpose, high-level
-programming languages, that focus on ease of use.
+programming languages, that focus on ease of use. 
+The original version of BASIC was created in 1963 at the Dartmouth College, by  John G. Kemeny and Thomas E. Kurtz.
+JBASIC aims to be all the features from the original version of the language. 
+Additionally some features of later dialects are also included.
 
 Usage:
 
@@ -141,10 +144,10 @@ Arrays are declared using the dim keyword. An array in JBASIC can be either one-
 A specific value in the array can be accessed or altered by specifying the index. The first element in an array has the index '1' in JBASIC.
 
 ```
-DIM array(3)
-array(1) = "Hello"
-array(2) = " World!"
-PRINT array(1) + array(2)
+DIM array[3]
+array[1] = "Hello"
+array[2] = " World!"
+PRINT array[1] + array[2]
 ```
 
 If the array name in a DIM statement ends with '$' it can only store strings and if it ends with '%' it can only store numerical values.

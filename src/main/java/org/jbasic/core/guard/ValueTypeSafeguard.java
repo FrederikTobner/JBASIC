@@ -36,7 +36,7 @@ public class ValueTypeSafeguard {
      * @param value The value that is safeguarded
      * @param context The parsing context where the value was used
      */
-    public static void guaranteeValueIsArray(String message, JBasicValue value, ParserRuleContext context) {
+    public static void guaranteeValueIsArray(String message, JBasicValue value, ParserRuleContext context) throws TypeException {
         if (!value.isAnArrayValue()) {
             throw new TypeException(message + ". Value is not an array", context);
         }
@@ -49,7 +49,7 @@ public class ValueTypeSafeguard {
      * @param value The value that is safeguarded
      * @param context The parsing context where the value was used
      */
-    public static void guaranteeValueIsNumerical(String message, JBasicValue value, ParserRuleContext context) {
+    public static void guaranteeValueIsNumerical(String message, JBasicValue value, ParserRuleContext context) throws TypeException {
         if (!value.isANumericalValue()) {
             throw new TypeException(message + ". Value is not a number", context);
         }
@@ -62,7 +62,7 @@ public class ValueTypeSafeguard {
      * @param value The value that is safeguarded
      * @param context The parsing context where the value was used
      */
-    public static void guaranteeValueIsString(String message, JBasicValue value, ParserRuleContext context) {
+    public static void guaranteeValueIsString(String message, JBasicValue value, ParserRuleContext context) throws TypeException {
         if (!value.isAStringValue()) {
             throw new TypeException(message + ". Value is not a string", context);
         }

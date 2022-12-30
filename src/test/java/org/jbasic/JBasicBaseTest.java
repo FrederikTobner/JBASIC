@@ -27,9 +27,9 @@ public class JBasicBaseTest {
 
     protected static class Result {
 
-        protected JBasicInterpreter interpreter;
+        public JBasicInterpreter interpreter;
         public String output;
-        protected String error;
+        public String error;
 
         public Result(JBasicInterpreter interpreter, String output, String error) {
             this.interpreter = interpreter;

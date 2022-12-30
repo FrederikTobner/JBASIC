@@ -13,22 +13,32 @@
  * License for more details.                                                *
  ****************************************************************************/
 
-package org.jbasic;
+package org.jbasic.arrays;
 
+import org.jbasic.JBasicBaseTest;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
-public class IOTest extends JBasicBaseTest {
+public class ArrayTest extends JBasicBaseTest {
 
     @Test
-    public void testInput() {
-        this.test("IO/input.bas", "JBASIC\n",
-                (result) -> assertEquals("Name:  Hello JBASIC" + System.lineSeparator(), result.output));
+    public void testArrayDimensionsMismatchError() {
+        this.test("arrays/array_dimensions_mismatch.bas",
+                (result) -> Assert.assertEquals("Error at [2, 6]: The dimensions that were specified do not match the dimensions of the array",
+                        result.error.trim()));
     }
 
     @Test
-    public void testPrint() {
-        this.test("IO/output.bas", (result) -> assertEquals("Hello world!" + System.lineSeparator(), result.output));
+    public void testArrayDimensionsUnsupportedError() {
+        this.test("arrays/array_dimension_unsupported.bas",
+                (result) -> Assert.assertEquals("Error at [1, 10]: Dimensions can not have numbers after the digit",
+                        result.error.trim()));
+    }
+
+    @Test
+    public void testSimple() {
+        this.test("arrays/simple.bas",
+                (result) -> Assert.assertEquals("Hello World!" + System.lineSeparator(),
+                        result.output));
     }
 }

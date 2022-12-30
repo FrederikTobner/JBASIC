@@ -22,7 +22,7 @@ var annotated_dup =
             [ "FunctionArityException", "classorg_1_1jbasic_1_1error_1_1functions_1_1_function_arity_exception.html", "classorg_1_1jbasic_1_1error_1_1functions_1_1_function_arity_exception" ]
           ] ],
           [ "labels", "namespaceorg_1_1jbasic_1_1error_1_1labels.html", [
-            [ "InvalidLabelException", "classorg_1_1jbasic_1_1error_1_1labels_1_1_invalid_label_exception.html", "classorg_1_1jbasic_1_1error_1_1labels_1_1_invalid_label_exception" ],
+            [ "InvalidNumericalFormatException", "classorg_1_1jbasic_1_1error_1_1labels_1_1_invalid_numerical_format_exception.html", "classorg_1_1jbasic_1_1error_1_1labels_1_1_invalid_numerical_format_exception" ],
             [ "UndefinedLabelException", "classorg_1_1jbasic_1_1error_1_1labels_1_1_undefined_label_exception.html", "classorg_1_1jbasic_1_1error_1_1labels_1_1_undefined_label_exception" ]
           ] ],
           [ "subroutine", "namespaceorg_1_1jbasic_1_1error_1_1subroutine.html", [

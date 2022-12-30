@@ -72,14 +72,49 @@ $(document).ready(function(){initNavTree('classorg_1_1jbasic_1_1core_1_1guard_1_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a02df706b2664e4a286f34bd715b0a818"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard.html#a02df706b2664e4a286f34bd715b0a818">guaranteeArrayDimensionIsValid</a> (<a class="el" href="classorg_1_1jbasic_1_1language_models_1_1_j_basic_value.html">JBasicValue</a> argument, ParserRuleContext context)</td></tr>
+<tr class="memitem:a02df706b2664e4a286f34bd715b0a818"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard.html#a02df706b2664e4a286f34bd715b0a818">guaranteeArrayDimensionIsValid</a> (<a class="el" href="classorg_1_1jbasic_1_1language_models_1_1_j_basic_value.html">JBasicValue</a> argument, ParserRuleContext context)  throws ArrayDimensionUnsupportedException </td></tr>
 <tr class="separator:a02df706b2664e4a286f34bd715b0a818"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b69a2699f13ef82878dd1034f3b43f9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard.html#a7b69a2699f13ef82878dd1034f3b43f9">guaranteeArrayDimensionsMatch</a> (<a class="el" href="classorg_1_1jbasic_1_1language_models_1_1_j_basic_value.html">JBasicValue</a> array, int specifiedDimensions, ParserRuleContext context)</td></tr>
-<tr class="separator:a7b69a2699f13ef82878dd1034f3b43f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf6d5b0e7e0e2f5f87a3ef1ead0e1b4c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard.html#abf6d5b0e7e0e2f5f87a3ef1ead0e1b4c">guaranteeArrayDimensionCountIsValid</a> (List&lt; JBasicParser.ExpressionContext &gt; expressionContexts)  throws ArrayDimensionUnsupportedException</td></tr>
+<tr class="separator:abf6d5b0e7e0e2f5f87a3ef1ead0e1b4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a066b50f4c24676a41631146094a78e9d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard.html#a066b50f4c24676a41631146094a78e9d">guaranteeArrayDimensionsMatch</a> (<a class="el" href="classorg_1_1jbasic_1_1language_models_1_1_j_basic_value.html">JBasicValue</a> array, List&lt; JBasicParser.ExpressionContext &gt; expressionContexts)</td></tr>
+<tr class="separator:a066b50f4c24676a41631146094a78e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Guarding functions for JBASIC arrays. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abf6d5b0e7e0e2f5f87a3ef1ead0e1b4c" name="abf6d5b0e7e0e2f5f87a3ef1ead0e1b4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf6d5b0e7e0e2f5f87a3ef1ead0e1b4c">&#9670;&#160;</a></span>guaranteeArrayDimensionCountIsValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void org.jbasic.core.guard.ArraySafeguard.guaranteeArrayDimensionCountIsValid </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; JBasicParser.ExpressionContext &gt;&#160;</td>
+          <td class="paramname"><em>expressionContexts</em></td><td>)</td>
+          <td> throws <a class="el" href="classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_unsupported_exception.html">ArrayDimensionUnsupportedException</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >Ensures the array dimension count in an expression is valid</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expressionContexts</td><td>The argument that is safeguarded </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a02df706b2664e4a286f34bd715b0a818" name="a02df706b2664e4a286f34bd715b0a818"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02df706b2664e4a286f34bd715b0a818">&#9670;&#160;</a></span>guaranteeArrayDimensionIsValid()</h2>
 
@@ -104,7 +139,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> throws <a class="el" href="classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_unsupported_exception.html">ArrayDimensionUnsupportedException</a></td>
         </tr>
       </table>
   </td>
@@ -124,8 +159,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7b69a2699f13ef82878dd1034f3b43f9" name="a7b69a2699f13ef82878dd1034f3b43f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b69a2699f13ef82878dd1034f3b43f9">&#9670;&#160;</a></span>guaranteeArrayDimensionsMatch()</h2>
+<a id="a066b50f4c24676a41631146094a78e9d" name="a066b50f4c24676a41631146094a78e9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a066b50f4c24676a41631146094a78e9d">&#9670;&#160;</a></span>guaranteeArrayDimensionsMatch()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,14 +177,8 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>specifiedDimensions</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ParserRuleContext&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
+          <td class="paramtype">List&lt; JBasicParser.ExpressionContext &gt;&#160;</td>
+          <td class="paramname"><em>expressionContexts</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -167,8 +196,7 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>The array that is accessed </td></tr>
-    <tr><td class="paramname">specifiedDimensions</td><td>The amount of specified dimensions when the array was accessed </td></tr>
-    <tr><td class="paramname">context</td><td>The parsing context where the array was accessed </td></tr>
+    <tr><td class="paramname">expressionContexts</td><td>The parsing context of the expressions that specified the dimension </td></tr>
   </table>
   </dd>
 </dl>

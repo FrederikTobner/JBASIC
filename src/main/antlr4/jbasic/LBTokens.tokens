@@ -1,3 +1,18 @@
+/****************************************************************************
+ * Copyright (C) 2022 by Frederik Tobner                                    *
+ *                                                                          *
+ * This file is part of JBASIC.                                             *
+ *                                                                          *
+ * Permission to use, copy, modify, and distribute this software and its    *
+ * documentation under the terms of the GNU General Public License is       *
+ * hereby granted.                                                          *
+ * No representations are made about the suitability of this software for   *
+ * any purpose.                                                             *
+ * It is provided "as is" without express or implied warranty.              *
+ * See the <"https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public  *
+ * License for more details.                                                *
+ ****************************************************************************/
+
 MULTIPLY                    =1
 DIVIDE                      =2
 ADD                         =3
@@ -61,6 +76,8 @@ DIM_KEYWORD                 =60
 PERCENT_SIGN                =61
 DOUBLE_DOT                  =62
 GOTO_KEYWORD                =63
+LEFT_BRACKET                =64
+RIGHT_BRACKET               =65
 '*'                         =1                       // Multiply
 '/'                         =2                       // Divide
 '+'                         =3                       // Add
@@ -77,3 +94,5 @@ GOTO_KEYWORD                =63
 ')'                         =17                      // Right parenthesize
 '$'                         =41                      // Dollar sign
 '%'                         =61                      // Percent sign
+'['                         =64                      // Left bracket
+']'                         =65                      // Right bracket

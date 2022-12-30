@@ -16,18 +16,17 @@
 package org.jbasic.operators;
 
 import org.jbasic.JBasicBaseTest;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.format.DecimalStyle;
-
-import static org.junit.Assert.assertEquals;
 
 public class BinaryOperatorsTest extends JBasicBaseTest {
 
     @Test
     public void testAdd() {
         this.test("operators/binary/add.bas",
-                (result) -> assertEquals("3" + System.lineSeparator() +
+                (result) -> Assert.assertEquals("3" + System.lineSeparator() +
                                 "foobar" + System.lineSeparator(),
                         result.output));
     }
@@ -35,7 +34,7 @@ public class BinaryOperatorsTest extends JBasicBaseTest {
     @Test
     public void testDivide() {
         this.test("operators/binary/divide.bas",
-                (result) -> assertEquals("2" + System.lineSeparator() +
+                (result) -> Assert.assertEquals("2" + System.lineSeparator() +
                                 "3" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() + "5" + System.lineSeparator(),
                         result.output));
     }
@@ -43,18 +42,18 @@ public class BinaryOperatorsTest extends JBasicBaseTest {
     @Test
     public void testModulo() {
         this.test("operators/binary/modulo.bas",
-                (result) -> assertEquals("2" + System.lineSeparator(), result.output));
+                (result) -> Assert.assertEquals("2" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testMultiply() {
         this.test("operators/binary/multiply.bas",
-                (result) -> assertEquals("6" + System.lineSeparator(), result.output));
+                (result) -> Assert.assertEquals("6" + System.lineSeparator(), result.output));
     }
 
     @Test
     public void testSubtract() {
         this.test("operators/binary/subtract.bas",
-                (result) -> assertEquals("1" + System.lineSeparator(), result.output));
+                (result) -> Assert.assertEquals("1" + System.lineSeparator(), result.output));
     }
 }
