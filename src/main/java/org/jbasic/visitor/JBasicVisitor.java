@@ -613,6 +613,17 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'list expression'  in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'list expression' that is visited
+     * @return The Value that is omitted by visiting the list expression
+     */
+    @Override
+    public JBasicValue visitListFunction(JBasicParser.ListFunctionContext context) {
+        return new JBasicValue(this.state.getCurrentScript());
+    }
+
+    /**
      * Visits a 'logarithm' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'log function' that is visited
@@ -814,6 +825,32 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'comparison expression' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'comparison expression' that is visited
+     * @return The Value that is omitted by visiting the 'comparison expression'
+     */
+    @Override
+    public JBasicValue visitComparisonExpression(JBasicParser.ComparisonExpressionContext context) {
+        JBasicValue left = this.visit(context.expression(0));
+        JBasicValue right = this.visit(context.expression(1));
+        switch (context.op.getType()) {
+            case LBExpressionParser.GREATER_THEN:
+                return left.greaterThen(right, context);
+            case LBExpressionParser.GREATER_THEN_EQUAL:
+                return left.greaterThenEqual(right, context);
+            case LBExpressionParser.LESS_THEN:
+                return left.lessThen(right, context);
+            case LBExpressionParser.LESS_THEN_EQUAL:
+                return left.lessThenEqual(right, context);
+            case LBExpressionParser.EQUALS:
+                return left.equal(right, context);
+            default:
+                return left.notEqual(right, context);
+        }
+    }
+
+    /**
      * Visits a 'multiply expression' or a 'divide expression'  in the abstract syntax tree
      *
      * @param context The parsing context of the 'multiply expression' or 'divide expression' that is visited
@@ -870,30 +907,5 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         return left.or(right, context);
     }
 
-    /**
-     * Visits a 'comparison expression' in the abstract syntax tree
-     *
-     * @param context The parsing context of the 'comparison expression' that is visited
-     * @return The Value that is omitted by visiting the 'comparison expression'
-     */
-    @Override
-    public JBasicValue visitComparisonExpression(JBasicParser.ComparisonExpressionContext context) {
-        JBasicValue left = this.visit(context.expression(0));
-        JBasicValue right = this.visit(context.expression(1));
-        switch (context.op.getType()) {
-            case LBExpressionParser.GREATER_THEN:
-                return left.greaterThen(right, context);
-            case LBExpressionParser.GREATER_THEN_EQUAL:
-                return left.greaterThenEqual(right, context);
-            case LBExpressionParser.LESS_THEN:
-                return left.lessThen(right, context);
-            case LBExpressionParser.LESS_THEN_EQUAL:
-                return left.lessThenEqual(right, context);
-            case LBExpressionParser.EQUALS:
-                return left.equal(right, context);
-            default:
-                return left.notEqual(right, context);
-        }
-    }
     //endregion
 }

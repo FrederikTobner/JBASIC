@@ -27,7 +27,7 @@ GREATER_THEN            : '>' ;
 GREATER_THEN_EQUAL      : '>=' ;
 LESS_THEN               : '<' ;
 LESS_THEN_EQUAL         : '<=' ;
-NOT_EQUAL               : '!=' ;
+NOT_EQUAL               : '<>' ;
 
 // other
 COMMA                   : ',' ;
@@ -46,6 +46,7 @@ AVG_FUNCTION            : 'AVG' | 'avg' ;
 COS_FUNCTION            : 'COS' | 'cos' ;
 EXP_FUNCTION            : 'EXP' | 'exp' ;
 LEN_FUNCTION            : 'LEN' | 'len' ;
+LIST_FUNCTION           : 'LIST' | 'list' ;
 LOG_FUNCTION            : 'LOG' | 'log' ;
 MAX_FUNCTION            : 'MAX' | 'max' ;
 MIN_FUNCTION            : 'MIN' | 'min' ;
@@ -96,8 +97,8 @@ DOUBLE_DOT              : ':' ;
 // literals
 PERCENT_SIGN            : '%' ;
 DOLLAR_SIGN             : '$' ;
-IDENTIFIER              : [a-zA-Z][a-zA-Z0-9_]* ;       // match identifiers
-NEWLINE                 :'\r'? '\n' ;                   // return newlines to parser (end-statement signal)
-NUMERIC_LITERAL         : [0-9]+ ('.' [0-9]+)? ;        // match numerical literals
-STRING_LITERAL          : '"' ~ ["\r\n]* '"' ;          // match string literals
-WHITE_SPACE             : [ \t]+ -> skip ;              // toss out whitespace
+IDENTIFIER              : [a-zA-Z][a-zA-Z0-9_]* ;                   // match identifiers
+NEWLINE                 :'\r'? '\n' ;                               // return newlines to parser (end-statement signal)
+NUMERIC_LITERAL         : ('0' .. '9')+ ('.' ('0' .. '9')+)? ;      // match numerical literals
+STRING_LITERAL          : '"' ~ ["\r\n]* '"' ;                      // match string literals
+WHITE_SPACE             : [ \t]+ -> skip ;                          // toss out whitespace

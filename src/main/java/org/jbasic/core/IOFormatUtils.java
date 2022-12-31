@@ -29,7 +29,7 @@ import java.text.DecimalFormat;
 public class IOFormatUtils {
 
     /// Decimal output format for numerical values (no decimal dot if the number is x.0)
-    public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.#");
+    public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.##############");
 
     /**
      * Formats an error message with the line and the position in the line where the error occurred

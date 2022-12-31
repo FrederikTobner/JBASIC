@@ -36,8 +36,8 @@ public class ProgramTest extends JBasicBaseTest {
     }
 
     @Test
-    public void testGreatestCommonDivider() {
-        this.test("program/greatest_common_divider.bas", "9" + System.lineSeparator() + "12" + System.lineSeparator(),
+    public void testGreatestCommonDivisor() {
+        this.test("program/greatest_common_divisor.bas", "9" + System.lineSeparator() + "12" + System.lineSeparator(),
                 (result) -> Assert.assertEquals("First= Second= 3" + System.lineSeparator(), result.output));
     }
 

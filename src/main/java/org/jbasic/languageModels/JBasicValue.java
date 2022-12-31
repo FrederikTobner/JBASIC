@@ -413,7 +413,12 @@ public class JBasicValue {
 
     public JBasicValue printValue(PrintStream printStream) {
         if (this.isANumericalValue()) {
-            printStream.println(IOFormatUtils.numericalOutputFormat.format(this.underlyingNumber()));
+            String formattedValue = IOFormatUtils.numericalOutputFormat.format(this.underlyingNumber());
+            if ("-0".equals(formattedValue)) {
+                printStream.println("0");
+            } else {
+                printStream.println(formattedValue);
+            }
         }
         else if (this.isAnArrayValue()) {
             printStream.print("{ ");

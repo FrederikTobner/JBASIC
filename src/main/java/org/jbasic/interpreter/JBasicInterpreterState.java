@@ -53,6 +53,8 @@ public class JBasicInterpreterState {
 
     private final Map<String, BlockContext> labeledBlocks = new HashMap<>();
 
+    private String currentScript;
+
     public void addLabel(String labelName, BlockContext blockContext) {
         this.labeledBlocks.put(labelName, blockContext);
     }
@@ -155,4 +157,11 @@ public class JBasicInterpreterState {
         this.memory = oldMemoryState;
     }
 
+    public String getCurrentScript() {
+        return this.currentScript;
+    }
+
+    public void setCurrentScript(String currentScript) {
+        this.currentScript = currentScript;
+    }
 }

@@ -1,5 +1,5 @@
 SUB Greet()
-   INPUT "Name=" name
+   INPUT "Name=", name
    PRINT "Hi my name is " + name
 END SUB
 

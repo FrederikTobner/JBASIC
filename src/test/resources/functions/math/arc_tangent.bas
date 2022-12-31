@@ -1,1 +1,1 @@
-PRINT ATN(0.5)
+PRINT ATN(1)

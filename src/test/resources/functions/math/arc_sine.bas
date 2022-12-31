@@ -1,1 +1,1 @@
-PRINT ACS(0.5)
+PRINT ASN(1)

@@ -34,14 +34,16 @@ public class MathFunctionsTest extends JBasicBaseTest {
     @Test
     public void testAcsFunction() {
         this.test("functions/math/arc_cosine.bas",
-                (result) -> Assert.assertEquals("1" + System.lineSeparator(),
+                (result) -> Assert.assertEquals("1" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
+                                "5707963267949" + System.lineSeparator(),
                         result.output));
     }
 
     @Test
     public void testAsnFunction() {
         this.test("functions/math/arc_sine.bas",
-                (result) -> Assert.assertEquals("1" + System.lineSeparator(),
+                (result) -> Assert.assertEquals("1" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
+                                "5707963267949" + System.lineSeparator(),
                         result.output));
     }
 
@@ -49,7 +51,7 @@ public class MathFunctionsTest extends JBasicBaseTest {
     public void testAthFunction() {
         this.test("functions/math/area_tangent_hyperbolicus.bas",
                 (result) -> Assert.assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
-                                "5" + System.lineSeparator(),
+                                "54930614433405" + System.lineSeparator(),
                         result.output));
     }
 
@@ -57,15 +59,14 @@ public class MathFunctionsTest extends JBasicBaseTest {
     public void testAtnFunction() {
         this.test("functions/math/arc_tangent.bas",
                 (result) -> Assert.assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
-                                "5" + System.lineSeparator(),
+                                "78539816339745" + System.lineSeparator(),
                         result.output));
     }
 
     @Test
     public void testCosFunction() {
         this.test("functions/math/cosine.bas",
-                (result) -> Assert.assertEquals("-0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
-                                "4" + System.lineSeparator(),
+                (result) -> Assert.assertEquals("0" + System.lineSeparator(),
                         result.output));
     }
 
@@ -73,7 +74,7 @@ public class MathFunctionsTest extends JBasicBaseTest {
     public void testExpFunction() {
         this.test("functions/math/exponential.bas",
                 (result) -> Assert.assertEquals("22026" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
-                                "5" + System.lineSeparator(),
+                                "465794806718" + System.lineSeparator(),
                         result.output));
     }
 
@@ -92,16 +93,14 @@ public class MathFunctionsTest extends JBasicBaseTest {
     @Test
     public void testNaturalLogFunction() {
         this.test("functions/math/natural_logarithm.bas",
-                (result) -> Assert.assertEquals("2" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
-                                "3" + System.lineSeparator(),
+                (result) -> Assert.assertEquals("1" + System.lineSeparator(),
                         result.output));
     }
 
     @Test
     public void testSinFunction() {
         this.test("functions/math/sine.bas",
-                (result) -> Assert.assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
-                                "9" + System.lineSeparator(),
+                (result) -> Assert.assertEquals("1" + System.lineSeparator(),
                         result.output));
     }
 
@@ -122,8 +121,7 @@ public class MathFunctionsTest extends JBasicBaseTest {
     @Test
     public void testTanFunction() {
         this.test("functions/math/tangent.bas",
-                (result) -> Assert.assertEquals("0" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +
-                                "6" + System.lineSeparator(),
+                (result) -> Assert.assertEquals("1" + System.lineSeparator(),
                         result.output));
     }
 

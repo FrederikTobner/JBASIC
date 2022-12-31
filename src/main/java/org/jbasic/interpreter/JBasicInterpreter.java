@@ -89,6 +89,7 @@ public class JBasicInterpreter {
             ParseTree tree = parser.program();
             // Memory used by the program
             this.state = new JBasicInterpreterState();
+            this.state.setCurrentScript(input.toString());
             // Creating the visitor to visit the nodes in the abstract syntax tree
             JBasicVisitor visitor = new JBasicVisitor(this.state, this.stdin, this.stdoutPrint);
             // Executing the program with the visitor

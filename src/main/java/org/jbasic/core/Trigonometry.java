@@ -24,6 +24,7 @@ package org.jbasic.core;
  * @brief Trigonometric functions.
  */
 public class Trigonometry {
+
     /**
      * Area tangent hyperbolicus, the inverse functions of tangent hyperbolicus
      *
@@ -39,5 +40,28 @@ public class Trigonometry {
             multiplicand = 0.5d;
         }
         return multiplicand * Math.log((1.0d + value) / (1.0d - value));
+    }
+
+    /**
+     * Inverse hyperbolic sine, the inverse functions of the hyperbolic sine function
+     *
+     * @param value The value applied to the function
+     */
+    public static double inverseSineHyperbolicus(double value) {
+        double sgn = 1.0D;
+        if (value < 0.0D) {
+            sgn = -1.0D;
+            value = -value;
+        }
+        return sgn * Math.log(value + Math.sqrt(value * value + 1.0D));
+    }
+
+    /**
+     * Calculate the inverse hyperbolic secant of an angle
+     *
+     * @param value The value applied to the function
+     */
+    public static double inverseSecantHyperbolicus(double value) {
+        return Math.log((Math.sqrt(1 - value * value) + 1) / value);
     }
 }

@@ -14,7 +14,7 @@
  ****************************************************************************/
 
 /**
- * @file VariableSafeguard.java
+ * @file ValueTypeSafeguard.java
  * @brief Guarding functions for JBASIC values.
  */
 

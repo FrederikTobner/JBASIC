@@ -78,12 +78,13 @@ DOUBLE_DOT                  =62
 GOTO_KEYWORD                =63
 LEFT_BRACKET                =64
 RIGHT_BRACKET               =65
+LIST_KEYWORD                =66
 '*'                         =1                       // Multiply
 '/'                         =2                       // Divide
 '+'                         =3                       // Add
 '-'                         =4                       // Subtract
 'MOD'                       =5                       // Modulo
-'!='                        =6                       // Not equal
+'<>'                        =6                       // Not equal
 '>='                        =7                       // greater than equal
 '<='                        =8                       // less than equal
 '>'                         =9                       // greater than

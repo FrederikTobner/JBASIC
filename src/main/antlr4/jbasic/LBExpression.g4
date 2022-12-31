@@ -28,7 +28,7 @@ expression
     | expression AND_KEYWORD expression                                                                         # AndExpression
     | variableIdentifier LEFT_BRACKET (expression (COMMA expression)*) RIGHT_BRACKET                            # ArrayGetAtIndexExpression
     | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # ComparisonExpression
-    | function                                                                                                  # FuncExpression
+    | function                                                                                                  # FunctionExpression
     | variableIdentifier                                                                                        # IdentifierExpression
     | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # MulDivExpression
     | MINUS expression                                                                                          # NegateExpression
@@ -49,6 +49,7 @@ function
     | cosFunction
     | expFunction
     | lenFunction
+    | listFunction
     | logFunction
     | maxFunction
     | minFunction
@@ -102,6 +103,9 @@ expFunction
 
 lenFunction
     : LEN_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
+
+listFunction
+    : LIST_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
 
 logFunction
     : LOG_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;

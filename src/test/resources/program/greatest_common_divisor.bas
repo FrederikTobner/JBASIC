@@ -1,6 +1,6 @@
 REM Greatest common divider
-INPUT "First=" first_input
-INPUT "Second=" second_input
+INPUT "First=", first_input
+INPUT "Second=", second_input
 first_val% = VAL(first_input)
 second_val% = VAL(second_input)
 

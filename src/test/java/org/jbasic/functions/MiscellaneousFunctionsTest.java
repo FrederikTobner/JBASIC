@@ -22,6 +22,13 @@ import org.junit.Test;
 public class MiscellaneousFunctionsTest extends JBasicBaseTest {
 
     @Test
+    public void testListFunction() {
+        this.test("functions/miscellaneous/list.bas",
+                (result) -> Assert.assertEquals("PRINT LIST()" + System.lineSeparator(),
+                        result.output));
+    }
+
+    @Test
     public void testValFunction() {
         this.test("functions/miscellaneous/value.bas",
                 (result) -> Assert.assertEquals("1" + System.lineSeparator() +

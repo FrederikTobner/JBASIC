@@ -41,4 +41,18 @@ public class ArrayTest extends JBasicBaseTest {
                 (result) -> Assert.assertEquals("Hello World!" + System.lineSeparator(),
                         result.output));
     }
+
+    @Test
+    public void testTwoDimensions() {
+        this.test("arrays/two_dimensions.bas",
+                (result) -> Assert.assertEquals("Hello World!" + System.lineSeparator(),
+                        result.output));
+    }
+
+    @Test
+    public void testThreeDimensions() {
+        this.test("arrays/three_dimensions.bas",
+                (result) -> Assert.assertEquals("Hello World!" + System.lineSeparator(),
+                        result.output));
+    }
 }

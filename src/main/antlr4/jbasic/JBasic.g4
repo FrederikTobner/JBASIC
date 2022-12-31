@@ -105,7 +105,7 @@ gotoStatement
     ;
 
 inputStatement
-    : INPUT_KEYWORD stringLiteral (variableIdentifier|expression)
+    : INPUT_KEYWORD stringLiteral COMMA (variableIdentifier|expression)
     ;
 
 ifStatement
