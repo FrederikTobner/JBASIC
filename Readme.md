@@ -34,22 +34,24 @@ Usage:
 
 ### Binary operators
 
-| Operator | Description                                                           |
-|----------|-----------------------------------------------------------------------|
-| +        | Computes the sum of two numerical values or concatenates two strings. |
-| -        | Subtracts the second value from the first value.                      |
-| *        | Multiplies the two values.                                            |
-| /        | Divides the first value with the second value.                        |
-| < and <= | Less than and less than equal.                                        |
-| > and >= | Greater than and greater than equal.                                  |
-| =        | Comparison for equality of two values. 1 if they are equal 0 if not   |
-| <>       | Comparison for equality of two values. 0 if they are equal 1 if not   |
+| Operator | Description                                                           | Example      |
+|----------|-----------------------------------------------------------------------|--------------|
+| +        | Computes the sum of two numerical values or concatenates two strings. | 1 + 2   // 3 |
+| -        | Subtracts the second value from the first value.                      | 2 - 1   // 1 |
+| *        | Multiplies the two values.                                            | 3 * 3   // 9 |
+| /        | Divides the first value with the second value.                        | 9 / 3   // 3 |
+| <        | Less than                                                             | 1 < 2   // 1 |
+| <=       | Less than equal.                                                      | 1 <= 2  // 1 |
+| >        | Greater than                                                          | 1 > 2   // 0 |
+| >=       | Greater than equal.                                                   | 1 >= 2  // 0 |
+| =        | Comparison for equality of two values. 1 if they are equal 0 if not   | 9 = 3   // 0 |
+| <>       | Comparison for equality of two values. 0 if they are equal 1 if not   | 9 <> 3  // 1 |
 
 ### Unary operators
 
-| Operator | Description                |
-|----------|----------------------------|
-| -        | Negates a numerical value. |
+| Operator | Description                | Example |
+|----------|----------------------------|---------|
+| -        | Negates a numerical value. | -5      |
 
 ## Keywords
 
@@ -57,10 +59,10 @@ The language features the following keywords
 
 ### Data manipulation
 
-| Keyword | Description                                                               |
-|---------|---------------------------------------------------------------------------|
-| LET     | Assigns a value (which may be the result of an expression) to a variable. |
-| DIM     | Creates a new array with the specified dimensions                         |
+| Keyword | Description                                                               | Example      |
+|---------|---------------------------------------------------------------------------|--------------|
+| LET     | Assigns a value (which may be the result of an expression) to a variable. | LET I = 1    |  
+| DIM     | Creates a new array with the specified dimensions                         | DIM array[3] |
 
 If the variable name in a Let statement ends with '$' the assigned value needs to be a string and if it ends with '%' a numerical value.
 
@@ -83,51 +85,52 @@ If the array name in a DIM statement ends with '$' it can only store strings and
 
 ### Input and output
 
-| Keyword | Description                                                                                |
-|---------|--------------------------------------------------------------------------------------------|
-| CLS     | Clears the screen                                                                          |
-| INPUT   | Asks the user to enter the value of a variable. The statement may include a prompt message |
-| PRINT   | Displays a message on the screen or other output device                                    |
+| Keyword | Description                                                                                | Example              |
+|---------|--------------------------------------------------------------------------------------------|----------------------|
+| CLS     | Clears the screen                                                                          | CLS                  |
+| INPUT   | Asks the user to enter the value of a variable. The statement may include a prompt message | INPUT "NAME= ", name |
+| PRINT   | Displays a message on the screen or other output device                                    | PRINT "Hello World!" |
 
 ### Logical
 
-| Keyword | Description                                                                   |
-|---------|-------------------------------------------------------------------------------|
-| NOT     | Inverts a logical value.                                                      |
+| Keyword | Description                                                                   | Example              |
+|---------|-------------------------------------------------------------------------------|----------------------|
+| NOT     | Inverts a logical value.                                                      | NOT 1 // 0           |
 
 ### Mathematical
 
-| Keyword | Description                                                                   |
-|---------|-------------------------------------------------------------------------------|
-| MOD     | Returns the remainder of the division of he first value with the second value |
+| Keyword | Description                                                                   | Example      |
+|---------|-------------------------------------------------------------------------------|--------------|
+| MOD     | Returns the remainder of the division of he first value with the second value | 5 MOD 3 // 2 |
 
 ### Miscellaneous
 
-| Keyword | Description                                                                                         |
-|---------|-----------------------------------------------------------------------------------------------------|
-| REM     | holds a programmer's comment or remark used to help identify the purpose of a given section of code |
+| Keyword | Description                                                                                         | Example                        |
+|---------|-----------------------------------------------------------------------------------------------------|--------------------------------|
+| REM     | holds a programmer's comment or remark used to help identify the purpose of a given section of code | REM This is a remark / comment |
+| REM     | holds a programmer's comment or remark used to help identify the purpose of a given section of code | REM This is a remark / comment |
 
 ### Program flow control
 
-| Keyword(s)                      | Description                                                                                                 |
-|---------------------------------|-------------------------------------------------------------------------------------------------------------|
-| IF ... THEN ... {ELSE}          | Used to perform comparisons or make decisions.                                                              |
-| FOR ... TO ... {STEP} ... NEXT  | Repeats a section of code a given number of times.                                                          |
-| WHILE ... END                   | Repeats a section of code a given number of times.                                                          |
-| REPEAT ... UNTIL                | Repeats a section of code a given number of times.                                                          |
-| DO ... WHILE ...                | Repeats a section of code a given number of times, but at least once.                                       |
-| DO ... UNTIL ...                | Repeats a section of code a given number of times, but at least once.                                       |
-| SWITCH ... (CASE ... : ...) END | Allows the use of the value of a variable or expression to change the program execution via search and map. |
-| GOTO                            | Jumps to a numbered or labelled line in the program.                                                        |
+| Keyword(s)                                                           | Description                                                                                                 | Example                                                                                     |
+|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| IF ... THEN <br>...<br> {ELSE IF} <br>...<br> {ELSE} <br>...<br> END | Used to perform comparisons or make decisions.                                                              | IF 1 < 2 THEN<br>&emsp;print "true"<br>ELSE<br>&emsp;print "false"<br>END                   |
+| FOR ... TO ... {STEP} <br>...<br> NEXT                               | Repeats a section of code a given number of times.                                                          | FOR I = 0 TO 5<br>&emsp;print I<br>NEXT                                                     |
+| WHILE ... <br> ...<br> END                                           | Repeats a section of code a given number of times.                                                          | WHILE I < 2 <br>&emsp;print I<br>&emsp;I = I + 1<br>END                                     |
+| REPEAT <br> ... <br> UNTIL                                           | Repeats a section of code a given number of times.                                                          | REPEAT <br>&emsp;print I<br>&emsp;I = I + 1 <br>UNTIL I > 4                                 |
+| DO <br> ... <br> WHILE ...                                           | Repeats a section of code a given number of times, but at least once.                                       | DO <br>&emsp;print I<br>&emsp;I = I + 1<br>WHILE I < 2                                      |
+| DO <br> ... <br> UNTIL ...                                           | Repeats a section of code a given number of times, but at least once.                                       | DO 1 < 2 <br>&emsp;print I<br>&emsp;I = I + 1 <br>UNTIL I > 4                               |
+| SWITCH ...<br> (CASE ... : ...)<br> END                              | Allows the use of the value of a variable or expression to change the program execution via search and map. | SWITCH 1 + 2 <br>&emsp;CASE 1: "one"<br>&emsp;CASE 2: "two"<br>&emsp;CASE 3: "three"<br>end |
+| GOTO                                                                 | Jumps to a numbered or labelled line in the program.                                                        | 10: PRINT "Hi" <br>20:GOTO 10                                                               |
 
 ### Subroutine specific
 
 JBASIC allows the definition of subroutines to accomplish a particular task.
 
-| Keyword(s)        | Description              |
-|-------------------|--------------------------|
-| SUB ... END SUB   | Defines a new subroutine |
-| CALL              | Calls a subroutine       |
+| Keyword(s)           | Description              | Example                                         |
+|----------------------|--------------------------|-------------------------------------------------|
+| SUB(...) ... END SUB | Defines a new subroutine | SUB printSum(a, b) <br>&emsp;PRINT a + b<br>END |
+| CALL                 | Calls a subroutine       | CALL printSum(1, 2)                             |
 
 An example for a simple subroutine would
 be:
@@ -172,11 +175,11 @@ JBASIC offers numerous built-in functions to perform various tasks.
 
 ### Miscellaneous
 
-| Function | Description                                                                | Example Usage         |
-|----------|----------------------------------------------------------------------------|-----------------------|
-| LIST     | Creates a string that contains the full source code of the current program | LIST()      // LIST() |
-| RND      | Creates a random number in the specified range                             | VAL(1, 3)   // 3      |
-| VAL      | Converts a string to a numerical value                                     | VAL("3")    // 3      |
+| Function | Description                                                                | Example Usage           |
+|----------|----------------------------------------------------------------------------|-------------------------|
+| LIST     | Creates a string that contains the full source code of the current program | LIST()      // LIST()   |
+| RND      | Creates a random number in the specified range                             | VAL(1, 3)   // [1 .. 3] |
+| VAL      | Converts a string to a numerical value                                     | VAL("3")    // 3        |
 
 ### Strings
 
