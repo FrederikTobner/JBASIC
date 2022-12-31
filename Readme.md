@@ -85,11 +85,11 @@ If the array name in a DIM statement ends with '$' it can only store strings and
 
 ### Input and output
 
-| Keyword | Description                                                                                | Example              |
-|---------|--------------------------------------------------------------------------------------------|----------------------|
-| CLS     | Clears the screen                                                                          | CLS                  |
-| INPUT   | Asks the user to enter the value of a variable. The statement may include a prompt message | INPUT "NAME= ", name |
-| PRINT   | Displays a message on the screen or other output device                                    | PRINT "Hello World!" |
+| Keyword | Description                                                                                   | Example              |
+|---------|-----------------------------------------------------------------------------------------------|----------------------|
+| CLS     | Clears the screen                                                                             | CLS                  |
+| INPUT   | Asks the user to enter the value of a variable.<br>The statement may include a prompt message | INPUT "NAME= ", name |
+| PRINT   | Displays a message on the screen or other output device                                       | PRINT "Hello World!" |
 
 ### Logical
 
@@ -99,16 +99,15 @@ If the array name in a DIM statement ends with '$' it can only store strings and
 
 ### Mathematical
 
-| Keyword | Description                                                                   | Example      |
-|---------|-------------------------------------------------------------------------------|--------------|
-| MOD     | Returns the remainder of the division of he first value with the second value | 5 MOD 3 // 2 |
+| Keyword | Description                                                                    | Example      |
+|---------|--------------------------------------------------------------------------------|--------------|
+| MOD     | Returns the remainder of the division of the first value with the second value | 5 MOD 3 // 2 |
 
 ### Miscellaneous
 
-| Keyword | Description                                                                                         | Example                        |
-|---------|-----------------------------------------------------------------------------------------------------|--------------------------------|
-| REM     | holds a programmer's comment or remark used to help identify the purpose of a given section of code | REM This is a remark / comment |
-| REM     | holds a programmer's comment or remark used to help identify the purpose of a given section of code | REM This is a remark / comment |
+| Keyword | Description                                                                                             | Example                        |
+|---------|---------------------------------------------------------------------------------------------------------|--------------------------------|
+| REM     | holds a programmer's comment or remark<br> used to help identify the purpose of a given section of code | REM This is a remark / comment |
 
 ### Program flow control
 
