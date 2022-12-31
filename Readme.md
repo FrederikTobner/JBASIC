@@ -24,7 +24,7 @@ JBASIC is dialect of 'BASIC' (Beginners' All-purpose Symbolic Instruction Code) 
 programming languages, that focus on ease of use. 
 The original version of BASIC was created in 1963 at the Dartmouth College, by  John G. Kemeny and Thomas E. Kurtz.
 
-JBASIC is a second generation basic language with structured conditionals and loops, and subroutines.
+JBASIC is a second generation basic language with structured conditionals, loops and subroutines.
 
 Usage:
 
@@ -108,13 +108,15 @@ If the array name in a DIM statement ends with '$' it can only store strings and
 
 ### Program flow control
 
-| Keyword(s)                     | Description                                          |
-|--------------------------------|------------------------------------------------------|
-| IF ... THEN ... {ELSE}         | Used to perform comparisons or make decisions.       |
-| FOR ... TO ... {STEP} ... NEXT | Repeats a section of code a given number of times.   |
-| WHILE ... END                  | Repeats a section of code a given number of times.   |
-| REPEAT ... UNTIL               | Repeats a section of code a given number of times.   |
-| GOTO                           | Jumps to a numbered or labelled line in the program. |
+| Keyword(s)                     | Description                                                           |
+|--------------------------------|-----------------------------------------------------------------------|
+| IF ... THEN ... {ELSE}         | Used to perform comparisons or make decisions.                        |
+| FOR ... TO ... {STEP} ... NEXT | Repeats a section of code a given number of times.                    |
+| WHILE ... END                  | Repeats a section of code a given number of times.                    |
+| REPEAT ... UNTIL               | Repeats a section of code a given number of times.                    |
+| DO ... WHILE ...               | Repeats a section of code a given number of times, but at least once. |
+| DO ... UNTIL ...               | Repeats a section of code a given number of times, but at least once. |
+| GOTO                           | Jumps to a numbered or labelled line in the program.                  |
 
 ### Subroutine specific
 
@@ -202,13 +204,14 @@ General
 * CLS
 * Data Keyword
 * Ranges expressions
+* Set console fore- and background SCF, SCB
 
 Graphics
 * GIW(x, y) - graphics initialize window, 
 * GOC(subroutine) - subroutine that is called when the window is closed, 
 * GRW(x, y) - graphics resize window, 
-* GDR(window, x, y, z) - graphics draw rectangle
-* GDT(x1, y1, x2, y2) - graphics draw triangle
+* GDR(x1, y1, x2, y2) - graphics draw rectangle
+* GDT(x1, y1, x2, y2, x3, y3) - graphics draw triangle
 * GDC(x, y, diameter) - graphics draw circle
 
 ## License

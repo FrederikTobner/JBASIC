@@ -272,6 +272,56 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'do while statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'while statement' that is visited
+     * @return The Value that is omitted by visiting the while statement
+     */
+    @Override
+    public JBasicValue visitDoUntilStatement(JBasicParser.DoUntilStatementContext context) {
+        JBasicValue condition;
+        do {
+            try {
+                this.visit(context.block());
+            }
+            catch (ContinueException ignored) {
+            }
+            catch (ExitException e) {
+                break;
+            }
+            finally {
+                condition = this.visit(context.expression());
+            }
+        } while (condition.isFalsy(context));
+        return new JBasicValue(0);
+    }
+
+    /**
+     * Visits a 'do while statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'while statement' that is visited
+     * @return The Value that is omitted by visiting the while statement
+     */
+    @Override
+    public JBasicValue visitDoWhileStatement(JBasicParser.DoWhileStatementContext context) {
+        JBasicValue condition;
+        do {
+            try {
+                this.visit(context.block());
+            }
+            catch (ContinueException ignored) {
+            }
+            catch (ExitException e) {
+                break;
+            }
+            finally {
+                condition = this.visit(context.expression());
+            }
+        } while (condition.isTruthy(context));
+        return new JBasicValue(0);
+    }
+
+    /**
      * Visits a 'exit statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'exit statement' that is visited
@@ -404,8 +454,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitRepeatStatement(JBasicParser.RepeatStatementContext context) {
-        JBasicValue condition;
-        do {
+        JBasicValue condition = this.visit(context.expression());
+        while (condition.isFalsy(context)) {
             try {
                 this.visit(context.block());
             }
@@ -417,7 +467,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             finally {
                 condition = this.visit(context.expression());
             }
-        } while (condition.isFalsy(context));
+        }
         return new JBasicValue(0);
     }
 

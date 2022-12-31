@@ -79,6 +79,7 @@ GOTO_KEYWORD                =63
 LEFT_BRACKET                =64
 RIGHT_BRACKET               =65
 LIST_KEYWORD                =66
+DO_KEYWORD                  =67
 '*'                         =1                       // Multiply
 '/'                         =2                       // Divide
 '+'                         =3                       // Add

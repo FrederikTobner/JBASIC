@@ -23,6 +23,8 @@ statement
     | arraySetAtIndexStatement
     | COMMENT
     | continueStatement
+    | doUntilStatement
+    | doWhileStatement
     | exitStatement
     | forStatement
     | gotoStatement
@@ -82,6 +84,14 @@ arraySetAtIndexAssignment
 
 continueStatement
     : CONTINUE_KEYWORD
+    ;
+
+doUntilStatement
+    : DO_KEYWORD NEWLINE+ block UNTIL_KEYWORD expression
+    ;
+
+doWhileStatement
+    : DO_KEYWORD NEWLINE+ block WHILE_KEYWORD expression
     ;
 
 elifStatement
