@@ -109,15 +109,16 @@ If the array name in a DIM statement ends with '$' it can only store strings and
 
 ### Program flow control
 
-| Keyword(s)                     | Description                                                           |
-|--------------------------------|-----------------------------------------------------------------------|
-| IF ... THEN ... {ELSE}         | Used to perform comparisons or make decisions.                        |
-| FOR ... TO ... {STEP} ... NEXT | Repeats a section of code a given number of times.                    |
-| WHILE ... END                  | Repeats a section of code a given number of times.                    |
-| REPEAT ... UNTIL               | Repeats a section of code a given number of times.                    |
-| DO ... WHILE ...               | Repeats a section of code a given number of times, but at least once. |
-| DO ... UNTIL ...               | Repeats a section of code a given number of times, but at least once. |
-| GOTO                           | Jumps to a numbered or labelled line in the program.                  |
+| Keyword(s)                      | Description                                                                                                 |
+|---------------------------------|-------------------------------------------------------------------------------------------------------------|
+| IF ... THEN ... {ELSE}          | Used to perform comparisons or make decisions.                                                              |
+| FOR ... TO ... {STEP} ... NEXT  | Repeats a section of code a given number of times.                                                          |
+| WHILE ... END                   | Repeats a section of code a given number of times.                                                          |
+| REPEAT ... UNTIL                | Repeats a section of code a given number of times.                                                          |
+| DO ... WHILE ...                | Repeats a section of code a given number of times, but at least once.                                       |
+| DO ... UNTIL ...                | Repeats a section of code a given number of times, but at least once.                                       |
+| SWITCH ... (CASE ... : ...) END | Allows the use of the value of a variable or expression to change the program execution via search and map. |
+| GOTO                            | Jumps to a numbered or labelled line in the program.                                                        |
 
 ### Subroutine specific
 
@@ -201,12 +202,13 @@ More information about the interpreter can be found at the [technical documentat
 ## To be implemented
 
 General
-* SELECT / SWITCH expression (CASE: expression statement+)+ END
+
 * Data Keyword
 * Ranges expressions
 * Set console fore- and background SCF, SCB
 
 Graphics
+
 * GIW(x, y) - graphics initialize window, 
 * GOC(subroutine) - subroutine that is called when the window is closed, 
 * GRW(x, y) - graphics resize window, 

@@ -60,6 +60,7 @@ VAL_FUNCTION            : 'VAL' | 'val' ;
 
 // base keywords
 CALL_KEYWORD            : 'CALL' | 'call' ;
+CASE_KEYWORD            : 'CASE'| 'case' ;
 CLS_KEYWORD             : 'CLS'  | 'cls' ;
 CONTINUE_KEYWORD        : 'CONTINUE' | 'continue' ;
 DIM_KEYWORD             : 'DIM' | 'dim' ;
@@ -77,6 +78,7 @@ REM_KEYWORD             : 'REM' | 'rem' ;
 REPEAT_KEYWORD          : 'REPEAT' | 'repeat' ;
 SUB_KEYWORD             : 'SUB' | 'sub' ;
 STEP_KEYWORD            : 'STEP' | 'step' ;
+SWITCH_KEYWORD          : 'SWITCH'| 'switch' ;
 THEN_KEYWORD            : 'THEN' | 'then' ;
 TO_KEYWORD              : 'TO' | 'to' ;
 UNTIL_KEYWORD           : 'UNTIL' | 'until' ;

@@ -52,7 +52,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_array_dimension_mismatch_exception_8java.html",
-"core_2guard_2package-info_8java.html"
+"classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#af90ebb4236d220f8ec71c90cf8e86473"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

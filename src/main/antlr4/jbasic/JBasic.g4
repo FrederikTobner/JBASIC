@@ -36,6 +36,7 @@ statement
     | repeatStatement
     | subroutineDefinitionStatement
     | subroutineInvocationStatement
+    | switchStatement
     | whileStatement
     ;
 
@@ -62,6 +63,11 @@ variableIdentifier
 
 variableSuffix
     : (DOLLAR_SIGN|PERCENT_SIGN) ;
+
+// Switch
+
+switchCase
+    : CASE_KEYWORD (numericLiteral|stringLiteral) DOUBLE_DOT block ;
 
 // Statements
 
@@ -121,6 +127,9 @@ subroutineDefinitionStatement
 
 subroutineInvocationStatement
     : CALL_KEYWORD IDENTIFIER LEFT_PARENTHESIS (expression (COMMA expression)*)? RIGHT_PARENTHESIS ;
+
+switchStatement
+    : SWITCH_KEYWORD expression NEWLINE+ (switchCase)+ END_KEYWORD ;
 
 whileStatement
     : WHILE_KEYWORD expression NEWLINE+ block END_KEYWORD ;

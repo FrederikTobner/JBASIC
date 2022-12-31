@@ -519,6 +519,41 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'switch statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'switch statement' that is visited
+     * @return The Value that is omitted by visiting the switch statement
+     */
+    @Override
+    public JBasicValue visitSwitchStatement(JBasicParser.SwitchStatementContext context) {
+        JBasicValue value = this.visit(context.expression());
+        for (JBasicParser.SwitchCaseContext caseContext : context.switchCase()) {
+            if (caseContext.numericLiteral() != null) {
+                JBasicValue o = this.visitNumericLiteral(caseContext.numericLiteral());
+                if (o.equals(value)) {
+                    try {
+                        this.visit(caseContext.block());
+                    }
+                    catch (ExitException e) {
+                        break;
+                    }
+                }
+            }
+            else {
+                if (this.visit(caseContext.stringLiteral()).equals(value)) {
+                    try {
+                        this.visit(caseContext.block());
+                    }
+                    catch (ExitException e) {
+                        break;
+                    }
+                }
+            }
+        }
+        return new JBasicValue(0);
+    }
+
+    /**
      * Visits a 'while statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'while statement' that is visited

@@ -50,6 +50,7 @@ var classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor =
     [ "visitSubroutineDefinitionStatement", "classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#a4fac2534ed986cb3f4f024c6f16b08c3", null ],
     [ "visitSubroutineInvocationStatement", "classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#ac9b7ce720f9ab2d01928e0565b0c2d46", null ],
     [ "visitSumFunction", "classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#a49d0ac43f94467f87acab4afe25f9f72", null ],
+    [ "visitSwitchStatement", "classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#acb63abf5992b7804df5764ddc9252019", null ],
     [ "visitTanFunction", "classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#a395256fbf2e85ae9ba2bdc0742e3561e", null ],
     [ "visitValFunction", "classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#a548befdd1b778c4ccb9872ea46415ce2", null ],
     [ "visitVariableIdentifier", "classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#a22826f954edb6c8648453d9bba6843e6", null ],
