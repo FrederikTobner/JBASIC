@@ -1,18 +1,19 @@
 var annotated_dup =
 [
+    [ "core", "namespacecore.html", [
+      [ "guard", "namespacecore_1_1guard.html", [
+        [ "ArraySafeguard", "classcore_1_1guard_1_1_array_safeguard.html", "classcore_1_1guard_1_1_array_safeguard" ],
+        [ "FunctionSafeguard", "classcore_1_1guard_1_1_function_safeguard.html", "classcore_1_1guard_1_1_function_safeguard" ],
+        [ "NumericalValueSafeguard", "classcore_1_1guard_1_1_numerical_value_safeguard.html", "classcore_1_1guard_1_1_numerical_value_safeguard" ],
+        [ "ValueTypeSafeguard", "classcore_1_1guard_1_1_value_type_safeguard.html", "classcore_1_1guard_1_1_value_type_safeguard" ],
+        [ "VariableSafeguard", "classcore_1_1guard_1_1_variable_safeguard.html", "classcore_1_1guard_1_1_variable_safeguard" ]
+      ] ],
+      [ "IOFormatter", "classcore_1_1_i_o_formatter.html", "classcore_1_1_i_o_formatter" ],
+      [ "RandomNumbersGenerator", "classcore_1_1_random_numbers_generator.html", "classcore_1_1_random_numbers_generator" ],
+      [ "Trigonometry", "classcore_1_1_trigonometry.html", "classcore_1_1_trigonometry" ]
+    ] ],
     [ "org", null, [
       [ "jbasic", "namespaceorg_1_1jbasic.html", [
-        [ "core", "namespaceorg_1_1jbasic_1_1core.html", [
-          [ "guard", "namespaceorg_1_1jbasic_1_1core_1_1guard.html", [
-            [ "ArraySafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_array_safeguard" ],
-            [ "FunctionSafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_function_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_function_safeguard" ],
-            [ "NumericalValueSafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_numerical_value_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_numerical_value_safeguard" ],
-            [ "ValueTypeSafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_value_type_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_value_type_safeguard" ],
-            [ "VariableSafeguard", "classorg_1_1jbasic_1_1core_1_1guard_1_1_variable_safeguard.html", "classorg_1_1jbasic_1_1core_1_1guard_1_1_variable_safeguard" ]
-          ] ],
-          [ "IOFormatUtils", "classorg_1_1jbasic_1_1core_1_1_i_o_format_utils.html", "classorg_1_1jbasic_1_1core_1_1_i_o_format_utils" ],
-          [ "Trigonometry", "classorg_1_1jbasic_1_1core_1_1_trigonometry.html", "classorg_1_1jbasic_1_1core_1_1_trigonometry" ]
-        ] ],
         [ "error", "namespaceorg_1_1jbasic_1_1error.html", [
           [ "arrays", "namespaceorg_1_1jbasic_1_1error_1_1arrays.html", [
             [ "ArrayDimensionMismatchException", "classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_mismatch_exception.html", "classorg_1_1jbasic_1_1error_1_1arrays_1_1_array_dimension_mismatch_exception" ],

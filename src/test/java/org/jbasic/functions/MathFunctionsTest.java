@@ -40,6 +40,13 @@ public class MathFunctionsTest extends JBasicBaseTest {
     }
 
     @Test
+    public void testAshFunction() {
+        this.test("functions/math/arc_sine_hyperbolicus.bas",
+                (result) -> Assert.assertEquals("1" + System.lineSeparator(),
+                        result.output));
+    }
+
+    @Test
     public void testAsnFunction() {
         this.test("functions/math/arc_sine.bas",
                 (result) -> Assert.assertEquals("1" + DecimalStyle.ofDefaultLocale().getDecimalSeparator() +

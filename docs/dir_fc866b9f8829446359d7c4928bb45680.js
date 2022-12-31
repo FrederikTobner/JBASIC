@@ -8,5 +8,5 @@ var dir_fc866b9f8829446359d7c4928bb45680 =
     [ "variable", "dir_d29efe41be9c7d9aab7a34f1127e9e12.html", "dir_d29efe41be9c7d9aab7a34f1127e9e12" ],
     [ "ErrorListener.java", "_error_listener_8java.html", "_error_listener_8java" ],
     [ "InterpreterBaseException.java", "_interpreter_base_exception_8java.html", "_interpreter_base_exception_8java" ],
-    [ "package-info.java", "error_2package-info_8java.html", null ]
+    [ "package-info.java", "org_2jbasic_2error_2package-info_8java.html", null ]
 ];

@@ -12,9 +12,9 @@ then
             cp -avr ../../../docs/html/* ../../../docs
             echo "Removing html folder ..."
             rm -rf ../../../docs/html
-            echo "Sucessfully generated documentation!"
+            echo "Successfully generated documentation!"
         else
-            echo "No html folder inside the docs foulder found"
+            echo "No html folder inside the docs folder found"
             exit 70
         fi
     else

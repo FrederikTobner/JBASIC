@@ -22,8 +22,8 @@ package org.jbasic.languageModels;
 
 import jbasic.JBasicParser.NegateExpressionContext;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.jbasic.core.IOFormatUtils;
-import org.jbasic.core.guard.ValueTypeSafeguard;
+import core.IOFormatter;
+import core.guard.ValueTypeSafeguard;
 
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -95,10 +95,10 @@ public class JBasicValue {
             return new JBasicValue(this.underlyingString() + right.underlyingString());
         }
         else if (this.isAStringValue() && right.isANumericalValue()) {
-            return new JBasicValue(this.underlyingString() + IOFormatUtils.numericalOutputFormat.format(right.underlyingNumber()));
+            return new JBasicValue(this.underlyingString() + IOFormatter.numericalOutputFormat.format(right.underlyingNumber()));
         }
         else if (this.isANumericalValue() && right.isAStringValue()) {
-            return new JBasicValue(IOFormatUtils.numericalOutputFormat.format(this.underlyingNumber()) + right.underlyingString());
+            return new JBasicValue(IOFormatter.numericalOutputFormat.format(this.underlyingNumber()) + right.underlyingString());
         }
         else {
             return this.arithmeticEvaluation(right, Double::sum, context);
@@ -413,7 +413,7 @@ public class JBasicValue {
 
     public JBasicValue printValue(PrintStream printStream) {
         if (this.isANumericalValue()) {
-            String formattedValue = IOFormatUtils.numericalOutputFormat.format(this.underlyingNumber());
+            String formattedValue = IOFormatter.numericalOutputFormat.format(this.underlyingNumber());
             if ("-0".equals(formattedValue)) {
                 printStream.println("0");
             } else {

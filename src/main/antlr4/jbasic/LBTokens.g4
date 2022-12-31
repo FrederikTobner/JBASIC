@@ -39,6 +39,7 @@ RIGHT_BRACKET           : ']' ;
 // functions
 ABS_FUNCTION            : 'ABS' | 'abs' ;
 ACS_FUNCTION            : 'ACS' | 'acs' ;
+ASH_FUNCTION            : 'ASH' | 'ash' ;
 ASN_FUNCTION            : 'ASN' | 'asn' ;
 ATH_FUNCTION            : 'ATH' | 'ath' ;
 ATN_FUNCTION            : 'ATN' | 'atn' ;
@@ -50,6 +51,7 @@ LIST_FUNCTION           : 'LIST' | 'list' ;
 LOG_FUNCTION            : 'LOG' | 'log' ;
 MAX_FUNCTION            : 'MAX' | 'max' ;
 MIN_FUNCTION            : 'MIN' | 'min' ;
+RND_FUNCTION            : 'RND' | 'rnd' ;
 SIN_FUNCTION            : 'SIN' | 'sin' ;
 SQR_FUNCTION            : 'SQR' | 'sqr' ;
 SUM_FUNCTION            : 'SUM' | 'sum' ;
@@ -58,6 +60,7 @@ VAL_FUNCTION            : 'VAL' | 'val' ;
 
 // base keywords
 CALL_KEYWORD            : 'CALL' | 'call' ;
+CLS_KEYWORD             : 'CLS'  | 'cls' ;
 CONTINUE_KEYWORD        : 'CONTINUE' | 'continue' ;
 DIM_KEYWORD             : 'DIM' | 'dim' ;
 DO_KEYWORD              : 'DO' | 'do' ;

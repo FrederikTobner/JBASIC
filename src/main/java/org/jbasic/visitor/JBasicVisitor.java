@@ -25,12 +25,13 @@ import jbasic.JBasicBaseVisitor;
 import jbasic.JBasicParser;
 import jbasic.LBExpressionParser;
 import org.antlr.v4.runtime.RuleContext;
-import org.jbasic.core.Trigonometry;
-import org.jbasic.core.guard.ArraySafeguard;
-import org.jbasic.core.guard.FunctionSafeguard;
-import org.jbasic.core.guard.NumericalValueSafeguard;
-import org.jbasic.core.guard.ValueTypeSafeguard;
-import org.jbasic.core.guard.VariableSafeguard;
+import core.RandomNumbersGenerator;
+import core.Trigonometry;
+import core.guard.ArraySafeguard;
+import core.guard.FunctionSafeguard;
+import core.guard.NumericalValueSafeguard;
+import core.guard.ValueTypeSafeguard;
+import core.guard.VariableSafeguard;
 import org.jbasic.interpreter.JBasicInterpreterState;
 import org.jbasic.languageModels.JBasicSubroutine;
 import org.jbasic.languageModels.JBasicValue;
@@ -269,6 +270,19 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     @Override
     public JBasicValue visitContinueStatement(JBasicParser.ContinueStatementContext context) throws ContinueException {
         throw new ContinueException();
+    }
+
+    /**
+     * Visits a 'continue statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'continue statement' that is visited
+     * @return The Value that is omitted by visiting the continue statement
+     */
+    @Override
+    public JBasicValue visitClsStatement(JBasicParser.ClsStatementContext context) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        return new JBasicValue(0);
     }
 
     /**
@@ -561,6 +575,20 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'arc sine hyperbolicus' function call in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'ath function' that is visited
+     * @return The Value that is omitted by visiting the 'ath function'
+     */
+    @Override
+    public JBasicValue visitAshFunction(JBasicParser.AshFunctionContext context) {
+        FunctionSafeguard.guaranteeArityIsNotViolated("ATH", context.functionCallArgs(), (i -> i == 1));
+        JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call ATH", argument, context);
+        return new JBasicValue(Trigonometry.inverseSineHyperbolicus(argument.underlyingNumber()));
+    }
+
+    /**
      * Visits a 'arc sinus' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'asn function' that is visited
@@ -722,6 +750,22 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             minValue = Math.min(minValue, value.underlyingNumber());
         }
         return new JBasicValue(minValue);
+    }
+
+    /**
+     * Visits a 'random' function call in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'random function' that is visited
+     * @return The Value that is omitted by visiting the 'random function'
+     */
+    @Override
+    public JBasicValue visitRndFunction(JBasicParser.RndFunctionContext context) {
+        FunctionSafeguard.guaranteeArityIsNotViolated("RND", context.functionCallArgs(), (i -> i == 2));
+        JBasicValue minValue = this.visit(context.functionCallArgs().expression().get(0));
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call RND", minValue, context.functionCallArgs().expression().get(0));
+        JBasicValue maxValue = this.visit(context.functionCallArgs().expression().get(1));
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call RND", maxValue, context.functionCallArgs().expression().get(1));
+        return new JBasicValue(RandomNumbersGenerator.doubleRandomWithinRange(minValue.underlyingNumber(), maxValue.underlyingNumber()));
     }
 
     /**

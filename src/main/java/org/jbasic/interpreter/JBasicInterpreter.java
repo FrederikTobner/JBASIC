@@ -29,7 +29,7 @@ import org.antlr.v4.runtime.InputMismatchException;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.jbasic.core.IOFormatUtils;
+import core.IOFormatter;
 import org.jbasic.visitor.JBasicVisitor;
 import org.jbasic.error.ErrorListener;
 import org.jbasic.error.InterpreterBaseException;
@@ -101,7 +101,7 @@ public class JBasicInterpreter {
         catch (ParseCancellationException exception) {
             if (exception.getCause() instanceof InputMismatchException) {
                 InputMismatchException exceptionCause = (InputMismatchException) exception.getCause();
-                String syntaxErrorMessage = IOFormatUtils.formatErrorMessage(
+                String syntaxErrorMessage = IOFormatter.formatErrorMessage(
                         exceptionCause.getOffendingToken().getLine(),
                         exceptionCause.getOffendingToken().getCharPositionInLine(),
                         "Syntax error");

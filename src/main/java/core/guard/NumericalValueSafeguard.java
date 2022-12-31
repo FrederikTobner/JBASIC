@@ -14,32 +14,31 @@
  ****************************************************************************/
 
 /**
- * @file FunctionSafeguard.java
- * @brief Guarding functions for JBASIC functions.
+ * @file NumericalValueSafeguard.java
+ * @brief Guarding functions for numerical JBASIC values.
  */
 
-package org.jbasic.core.guard;
+package core.guard;
 
-import jbasic.JBasicParser;
-import org.jbasic.error.functions.FunctionArityException;
-
-import java.util.function.Function;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.jbasic.error.labels.InvalidNumericalFormatException;
 
 /**
- * @brief Guarding functions for JBASIC functions.
+ * @brief Guarding functions for numerical JBASIC values.
  */
-public class FunctionSafeguard {
+public class NumericalValueSafeguard {
 
     /**
-     * Ensures the arity of a function upon invocation is met
-     * @param functionName The name of the function were the arity is ensured upon invocation
-     * @param context The function call arguments parsing context
-     * @param guard The guard function, that is applied to the number of arguments that were used when the function was invoked.
+     * Ensures that a value is an array
+     *
+     * @param message The first part of the error message that is omitted if the value is not an array
+     * @param underlyingValue The value that is safeguarded
+     * @param context The parsing context where the value was used
      */
-    public static void guaranteeArityIsNotViolated(String functionName, JBasicParser.FunctionCallArgsContext context,
-                                                   Function<Integer, Boolean> guard) throws FunctionArityException {
-        if (!guard.apply(context.expression().size())) {
-            throw new FunctionArityException(functionName + " can not be called with " + context.expression().size() + " arguments", context);
+    public static void guaranteeIsWhole(String message, double underlyingValue, ParserRuleContext context)
+            throws InvalidNumericalFormatException {
+        if (underlyingValue != Math.round(underlyingValue)) {
+            throw new InvalidNumericalFormatException(message, context);
         }
     }
 }

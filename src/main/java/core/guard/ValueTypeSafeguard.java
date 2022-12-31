@@ -18,7 +18,7 @@
  * @brief Guarding functions for JBASIC values.
  */
 
-package org.jbasic.core.guard;
+package core.guard;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.jbasic.error.type.TypeException;

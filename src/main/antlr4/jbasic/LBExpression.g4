@@ -42,6 +42,7 @@ expression
 function
     : absFunction
     | acsFunction
+    | ashFunction
     | asnFunction
     | athFunction
     | atnFunction
@@ -53,6 +54,7 @@ function
     | logFunction
     | maxFunction
     | minFunction
+    | rndFunction
     | sinFunction
     | sqrFunction
     | sumFunction
@@ -82,6 +84,9 @@ absFunction
 
 acsFunction
     : ACS_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
+
+ashFunction
+    : ASH_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
 
 asnFunction
     : ASN_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
@@ -115,6 +120,9 @@ maxFunction
 
 minFunction
     : MIN_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
+
+rndFunction
+    : RND_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
 
 sinFunction
     : SIN_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;

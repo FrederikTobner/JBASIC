@@ -21,7 +21,7 @@
 package org.jbasic.error;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.jbasic.core.IOFormatUtils;
+import core.IOFormatter;
 
 /**
  * @brief Base exception for interpreter runtime errors.
@@ -40,6 +40,6 @@ public abstract class InterpreterBaseException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return IOFormatUtils.formatErrorMessage(this.line, this.positionInLine, super.getMessage());
+        return IOFormatter.formatErrorMessage(this.line, this.positionInLine, super.getMessage());
     }
 }

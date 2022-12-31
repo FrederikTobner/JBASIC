@@ -85,6 +85,7 @@ If the array name in a DIM statement ends with '$' it can only store strings and
 
 | Keyword | Description                                                                                |
 |---------|--------------------------------------------------------------------------------------------|
+| CLS     | Clears the screen                                                                          |
 | INPUT   | Asks the user to enter the value of a variable. The statement may include a prompt message |
 | PRINT   | Displays a message on the screen or other output device                                    |
 
@@ -153,6 +154,7 @@ JBASIC offers numerous built-in functions to perform various tasks.
 |--------------|----------------------------|------------------------------------------------------------------------------|
 | ABS          | Absolute value             | ABS(-2)                                 // 2                                 |
 | ACS          | Arc cosine                 | ACS(0)                                  // 1.5707963267949                   |
+| ASH          | Arc sine hyperbolicus      | ASH(1.1752011936438)                    // 1                                 |
 | ASN          | Arc sine                   | ASN(1)                                  // 1.5707963267949                   |
 | ATH          | Area tangent hyperbolicus  | ATH(1)                                  // ∞                                 |
 | ATN          | Arc tangent                | ATN(1)                                  // 0.78539816339745                  |
@@ -169,10 +171,11 @@ JBASIC offers numerous built-in functions to perform various tasks.
 
 ### Miscellaneous
 
-| Function | Description                                                                | Example Usage   |
-|----------|----------------------------------------------------------------------------|-----------------|
-| LIST     | Creates a string that contains the full source code of the current program | LIST()          |
-| VAL      | Converts a string to a numerical value                                     | VAL("3")   // 3 |
+| Function | Description                                                                | Example Usage         |
+|----------|----------------------------------------------------------------------------|-----------------------|
+| LIST     | Creates a string that contains the full source code of the current program | LIST()      // LIST() |
+| RND      | Creates a random number in the specified range                             | VAL(1, 3)   // 3      |
+| VAL      | Converts a string to a numerical value                                     | VAL("3")    // 3      |
 
 ### Strings
 
@@ -198,10 +201,7 @@ More information about the interpreter can be found at the [technical documentat
 ## To be implemented
 
 General
-* Random numbers
-* More mathematical functions
-* SELECT expression (CASE: expression statement+)+ END
-* CLS
+* SELECT / SWITCH expression (CASE: expression statement+)+ END
 * Data Keyword
 * Ranges expressions
 * Set console fore- and background SCF, SCB

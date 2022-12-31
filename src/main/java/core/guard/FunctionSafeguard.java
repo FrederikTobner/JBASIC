@@ -14,31 +14,32 @@
  ****************************************************************************/
 
 /**
- * @file IOFormatUtils.java
- * @brief IO formatting utility methods.
+ * @file FunctionSafeguard.java
+ * @brief Guarding functions for JBASIC functions.
  */
 
-package org.jbasic.core;
+package core.guard;
 
-import java.text.DecimalFormat;
+import jbasic.JBasicParser;
+import org.jbasic.error.functions.FunctionArityException;
+
+import java.util.function.Function;
 
 /**
- * @brief IO formatting utilities.
- * @details The IO formatting utilities of the interpreter
+ * @brief Guarding functions for JBASIC functions.
  */
-public class IOFormatUtils {
-
-    /// Decimal output format for numerical values (no decimal dot if the number is x.0)
-    public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.##############");
+public class FunctionSafeguard {
 
     /**
-     * Formats an error message with the line and the position in the line where the error occurred
-     *
-     * @param line           The line where the error occurred
-     * @param positionInLine The position in the line where the error occurred
-     * @param message        The error message that is displayed
+     * Ensures the arity of a function upon invocation is met
+     * @param functionName The name of the function were the arity is ensured upon invocation
+     * @param context The function call arguments parsing context
+     * @param guard The guard function, that is applied to the number of arguments that were used when the function was invoked.
      */
-    public static String formatErrorMessage(int line, int positionInLine, String message) {
-        return "Error at [" + line + ", " + positionInLine + "]: " + message;
+    public static void guaranteeArityIsNotViolated(String functionName, JBasicParser.FunctionCallArgsContext context,
+                                                   Function<Integer, Boolean> guard) throws FunctionArityException {
+        if (!guard.apply(context.expression().size())) {
+            throw new FunctionArityException(functionName + " can not be called with " + context.expression().size() + " arguments", context);
+        }
     }
 }

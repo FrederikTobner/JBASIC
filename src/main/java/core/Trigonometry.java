@@ -18,7 +18,7 @@
  * @brief Trigonometric functions.
  */
 
-package org.jbasic.core;
+package core;
 
 /**
  * @brief Trigonometric functions.
@@ -54,14 +54,5 @@ public class Trigonometry {
             value = -value;
         }
         return sgn * Math.log(value + Math.sqrt(value * value + 1.0D));
-    }
-
-    /**
-     * Calculate the inverse hyperbolic secant of an angle
-     *
-     * @param value The value applied to the function
-     */
-    public static double inverseSecantHyperbolicus(double value) {
-        return Math.log((Math.sqrt(1 - value * value) + 1) / value);
     }
 }

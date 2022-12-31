@@ -94,6 +94,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aecaf6de87e2acee960207d7dc5fb476d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbd06b3f7b9d901da9344c8484df3389"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1interpreter_1_1_j_basic_interpreter_state.html#adbd06b3f7b9d901da9344c8484df3389">invokeSubroutine</a> (String subroutineName, List&lt; <a class="el" href="classorg_1_1jbasic_1_1language_models_1_1_j_basic_value.html">JBasicValue</a> &gt; arguments, <a class="el" href="classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html">JBasicVisitor</a> visitor, SubroutineInvocationStatementContext context)  throws SubroutineNotDefinedException, SubroutineArityException  </td></tr>
 <tr class="separator:adbd06b3f7b9d901da9344c8484df3389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b412a07a20723359dc4fa21ada8bce0"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1interpreter_1_1_j_basic_interpreter_state.html#a6b412a07a20723359dc4fa21ada8bce0">getCurrentScript</a> ()</td></tr>
+<tr class="separator:a6b412a07a20723359dc4fa21ada8bce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a125946c24e5c7a49774361a94ac7dd89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1interpreter_1_1_j_basic_interpreter_state.html#a125946c24e5c7a49774361a94ac7dd89">setCurrentScript</a> (String <a class="el" href="classorg_1_1jbasic_1_1interpreter_1_1_j_basic_interpreter_state.html#a9ca2d7e3ba95d34dfc354088c5e24944">currentScript</a>)</td></tr>
+<tr class="separator:a125946c24e5c7a49774361a94ac7dd89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -105,6 +109,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aecd7de6baca0f2c1b03a693f201e1c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7199439c8b7d43c5f4310a8f25544106"><td class="memItemLeft" align="right" valign="top">final Map&lt; String, BlockContext &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1interpreter_1_1_j_basic_interpreter_state.html#a7199439c8b7d43c5f4310a8f25544106">labeledBlocks</a> = new HashMap&lt;&gt;()</td></tr>
 <tr class="separator:a7199439c8b7d43c5f4310a8f25544106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ca2d7e3ba95d34dfc354088c5e24944"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1interpreter_1_1_j_basic_interpreter_state.html#a9ca2d7e3ba95d34dfc354088c5e24944">currentScript</a></td></tr>
+<tr class="separator:a9ca2d7e3ba95d34dfc354088c5e24944"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Stores the state of the interpreter. </p>
@@ -276,6 +282,23 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6b412a07a20723359dc4fa21ada8bce0" name="a6b412a07a20723359dc4fa21ada8bce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b412a07a20723359dc4fa21ada8bce0">&#9670;&#160;</a></span>getCurrentScript()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String org.jbasic.interpreter.JBasicInterpreterState.getCurrentScript </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aecaf6de87e2acee960207d7dc5fb476d" name="aecaf6de87e2acee960207d7dc5fb476d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aecaf6de87e2acee960207d7dc5fb476d">&#9670;&#160;</a></span>getVariableValue()</h2>
 
@@ -395,7 +418,47 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a125946c24e5c7a49774361a94ac7dd89" name="a125946c24e5c7a49774361a94ac7dd89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a125946c24e5c7a49774361a94ac7dd89">&#9670;&#160;</a></span>setCurrentScript()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void org.jbasic.interpreter.JBasicInterpreterState.setCurrentScript </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>currentScript</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9ca2d7e3ba95d34dfc354088c5e24944" name="a9ca2d7e3ba95d34dfc354088c5e24944"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ca2d7e3ba95d34dfc354088c5e24944">&#9670;&#160;</a></span>currentScript</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String org.jbasic.interpreter.JBasicInterpreterState.currentScript</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7199439c8b7d43c5f4310a8f25544106" name="a7199439c8b7d43c5f4310a8f25544106"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7199439c8b7d43c5f4310a8f25544106">&#9670;&#160;</a></span>labeledBlocks</h2>
 
