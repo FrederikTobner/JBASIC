@@ -116,11 +116,11 @@ If the array name in a DIM statement ends with '$' it can only store strings and
 | IF ... THEN <br>...<br> {ELSE IF} <br>...<br> {ELSE} <br>...<br> END | Used to perform comparisons or make decisions.                                                                 | IF 1 < 2 THEN<br>&emsp;print "true"<br>ELSE<br>&emsp;print "false"<br>END                   |
 | FOR ... TO ... {STEP} <br>...<br> NEXT                               | Repeats a section of code a given number of times.                                                             | FOR I = 0 TO 5<br>&emsp;print I<br>NEXT                                                     |
 | WHILE ... <br> ...<br> END                                           | Repeats a section of code a given number of times.                                                             | WHILE I < 2 <br>&emsp;print I<br>&emsp;I = I + 1<br>END                                     |
-| REPEAT <br> ... <br> UNTIL                                           | Repeats a section of code a given number of times.                                                             | REPEAT <br>&emsp;print I<br>&emsp;I = I + 1 <br>UNTIL I > 4                                 |
+| REPEAT <br> ... <br> UNTIL ...                                       | Repeats a section of code a given number of times.                                                             | REPEAT <br>&emsp;print I<br>&emsp;I = I + 1 <br>UNTIL I > 4                                 |
 | DO <br> ... <br> WHILE ...                                           | Repeats a section of code a given number of times,<br> but at least once.                                      | DO <br>&emsp;print I<br>&emsp;I = I + 1<br>WHILE I < 2                                      |
 | DO <br> ... <br> UNTIL ...                                           | Repeats a section of code a given number of times,<br> but at least once.                                      | DO 1 < 2 <br>&emsp;print I<br>&emsp;I = I + 1 <br>UNTIL I > 4                               |
-| SWITCH ...<br> (CASE ... : ...)<br> END                              | Allows the use of the value of a variable or<br>expression to change the program execution via search and map. | SWITCH 1 + 2 <br>&emsp;CASE 1: "one"<br>&emsp;CASE 2: "two"<br>&emsp;CASE 3: "three"<br>end |
-| GOTO                                                                 | Jumps to a numbered or labelled line in the program.                                                           | 10: PRINT "Hi" <br>20:GOTO 10                                                               |
+| SWITCH ...<br> (CASE ... : ...)+<br> END                             | Allows the use of the value of a variable or<br>expression to change the program execution via search and map. | SWITCH 1 + 2 <br>&emsp;CASE 1: "one"<br>&emsp;CASE 2: "two"<br>&emsp;CASE 3: "three"<br>end |
+| GOTO                                                                 | Jumps to a numbered or labelled line in the program.                                                           | 10: PRINT "Hi" <br>20: GOTO 10                                                              |
 
 ### Subroutine specific
 
@@ -129,7 +129,7 @@ JBASIC allows the definition of subroutines to accomplish a particular task.
 | Keyword(s)           | Description              | Example                                         |
 |----------------------|--------------------------|-------------------------------------------------|
 | SUB(...) ... END SUB | Defines a new subroutine | SUB printSum(a, b) <br>&emsp;PRINT a + b<br>END |
-| CALL                 | Calls a subroutine       | CALL printSum(1, 2)                             |
+| CALL(...)            | Calls a subroutine       | CALL printSum(1, 2)                             |
 
 An example for a simple subroutine would
 be:
@@ -200,23 +200,6 @@ The interpretation of a program is performed in the following stages:
 * Execution: To execute a JBASIC program we visit all the nodes in our abstract syntax tree and evaluate them
 
 More information about the interpreter can be found at the [technical documentation](https://frederiktobner.github.io/JBASIC/).
-
-## To be implemented
-
-General
-
-* Data Keyword
-* Ranges expressions
-* Set console fore- and background SCF, SCB
-
-Graphics
-
-* GIW(x, y) - graphics initialize window, 
-* GOC(subroutine) - subroutine that is called when the window is closed, 
-* GRW(x, y) - graphics resize window, 
-* GDR(x1, y1, x2, y2) - graphics draw rectangle
-* GDT(x1, y1, x2, y2, x3, y3) - graphics draw triangle
-* GDC(x, y, diameter) - graphics draw circle
 
 ## License
 
