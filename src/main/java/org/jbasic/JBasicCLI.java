@@ -89,7 +89,7 @@ public class JBasicCLI {
     }
 
     /**
-     * Reads the project version from the pom and displays it in the console
+     * Displays the project version in the console
      */
     private static void showVersion() {
         System.out.println(JBasicCLI.class.getPackage().getImplementationTitle() +
@@ -101,6 +101,10 @@ public class JBasicCLI {
      */
     private static void showHelp() {
         System.out.println(JBasicCLI.class.getPackage().getImplementationTitle() +
-                " Help:\n--help / -h - show help\n--version / -v - show version");
+                " Help:\n" +
+                "Usage: JBASIC (-h|--help|-v|--version|<script>)\n\n" +
+                "Options\n" +
+                "-h, --help\t\tDisplay this help and exit\n" +
+                "-v, --version\t\tShows the version of the installed interpreter and exit\n");
     }
 }
