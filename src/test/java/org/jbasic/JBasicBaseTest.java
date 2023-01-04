@@ -25,24 +25,24 @@ import java.util.function.Consumer;
 
 public class JBasicBaseTest {
 
-    protected static class Result {
+    protected static class TestResult {
 
         public JBasicInterpreter interpreter;
         public String output;
         public String error;
 
-        public Result(JBasicInterpreter interpreter, String output, String error) {
+        public TestResult(JBasicInterpreter interpreter, String output, String error) {
             this.interpreter = interpreter;
             this.output = output;
             this.error = error;
         }
     }
 
-    protected void test(String resource, Consumer<Result> assertions) {
-        this.test(resource, "", assertions);
+    protected void test(String resource, Consumer<TestResult> assertion) {
+        this.test(resource, "", assertion);
     }
 
-    protected void test(String resource, String input, Consumer<Result> assertions) {
+    protected void test(String resource, String input, Consumer<TestResult> assertion) {
         try {
             ByteArrayOutputStream stdout = new ByteArrayOutputStream();
             ByteArrayOutputStream stderr = new ByteArrayOutputStream();
@@ -51,10 +51,10 @@ public class JBasicBaseTest {
             interpreter.run(this.resource(resource));
             String output = stdout.toString();
             String error = stderr.toString();
-            assertions.accept(new Result(interpreter, output, error));
+            assertion.accept(new TestResult(interpreter, output, error));
         }
-        catch (IOException e) {
-            throw new RuntimeException(e);
+        catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
     }
 

@@ -20,13 +20,9 @@
 
 package org.jbasic;
 
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.jbasic.interpreter.JBasicInterpreter;
 
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -47,6 +43,10 @@ public class JBasicCLI {
         }
         if ("--version".equals(args[0]) || "-v".equals(args[0])) {
             showVersion();
+            return;
+        }
+        else if ("--help".equals(args[0]) || "-h".equals(args[0])) {
+            showHelp();
             return;
         }
         runScript(args[0]);
@@ -92,14 +92,15 @@ public class JBasicCLI {
      * Reads the project version from the pom and displays it in the console
      */
     private static void showVersion() {
-        // Reading the version from the pom
-        MavenXpp3Reader reader = new MavenXpp3Reader();
-        try {
-            Model model = reader.read(new FileReader("pom.xml"));
-            System.out.println("Version: " + model.getVersion());
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
-            System.exit(74);
-        }
+        System.out.println(JBasicCLI.class.getPackage().getImplementationTitle() +
+                " Version: " + JBasicCLI.class.getPackage().getImplementationVersion());
+    }
+
+    /**
+     * Displays the help of the interpreter CLI in the console
+     */
+    private static void showHelp() {
+        System.out.println(JBasicCLI.class.getPackage().getImplementationTitle() +
+                " Help:\n--help / -h - show help\n--version / -v - show version");
     }
 }

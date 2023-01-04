@@ -3,19 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.jbasic</groupId>
     <artifactId>JBASIC</artifactId>
     <version>1.0</version>
-
     <properties>
+        <!-- Antlr shall also generate a base visitor and a base listener, that is used for error reporting-->
+        <antlr4.listener>true</antlr4.listener>
+        <antlr4.visitor>true</antlr4.visitor>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <antlr4.visitor>true</antlr4.visitor>
-        <antlr4.listener>true</antlr4.listener>
     </properties>
-
     <build>
         <plugins>
             <plugin>
@@ -33,6 +31,20 @@
                 </configuration>
             </plugin>
             <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>org.jbasic.JBasicCLI</mainClass>
+                        <!-- For retrieving the version from the pom -->
+                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>3.0.0</version>
@@ -44,6 +56,7 @@
                         </goals>
                         <configuration>
                             <sources>
+                                <!-- Target directory of the generated sources -->
                                 <source>target/generated-sources/antlr4</source>
                             </sources>
                         </configuration>
@@ -68,6 +81,7 @@
                                     </manifestEntries>
                                 </transformer>
                             </transformers>
+                            <!-- Final name of the transformed jar-->
                             <finalName>JBASIC</finalName>
                         </configuration>
                     </execution>
@@ -91,7 +105,6 @@
             </plugin>
         </plugins>
     </build>
-
     <dependencies>
         <dependency>
             <groupId>org.antlr</groupId>
@@ -103,11 +116,5 @@
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-model</artifactId>
-            <version>3.8.5</version>
-        </dependency>
     </dependencies>
-
 </project>

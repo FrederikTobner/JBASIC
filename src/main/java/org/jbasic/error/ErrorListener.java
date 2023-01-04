@@ -34,14 +34,23 @@ public class ErrorListener extends BaseErrorListener {
     /// The standard error output stream
     private final PrintStream stderr;
 
-    /// @brief Constructor of the error listener
-    /// @param stderr The standard error output stream the error listener writes to
+    /**
+     * @brief Constructor of the error listener
+     * @param stderr The standard error output stream the error listener writes to
+     */
     public ErrorListener(PrintStream stderr) {
         this.stderr = stderr;
     }
 
-
-     /// @brief Reports a syntax error
+    /**
+     * Reports a syntax error
+     * @param recognizer The recognizer that reported the error
+     * @param offendingSymbol The offending symbol that has led to a syntax error
+     * @param line The line where the offending symbol is located
+     * @param characterPositionInLine The position of the offending symbol in the line
+     * @param message The error message that is displayed
+     * @param exception The RecognitionException that has led to the syntax error
+     */
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer,
                             Object offendingSymbol,

@@ -83,7 +83,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a840a05974adc884ef0f45af539ffa12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the error listener.  <a href="classorg_1_1jbasic_1_1error_1_1_error_listener.html#a840a05974adc884ef0f45af539ffa12f">More...</a><br /></td></tr>
 <tr class="separator:a840a05974adc884ef0f45af539ffa12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74330fc82495b1322201b966c1915d47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1jbasic_1_1error_1_1_error_listener.html#a74330fc82495b1322201b966c1915d47">syntaxError</a> (Recognizer&lt;?, ?&gt; recognizer, Object offendingSymbol, int line, int characterPositionInLine, String message, RecognitionException exception)</td></tr>
-<tr class="memdesc:a74330fc82495b1322201b966c1915d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports a syntax error.  <a href="classorg_1_1jbasic_1_1error_1_1_error_listener.html#a74330fc82495b1322201b966c1915d47">More...</a><br /></td></tr>
 <tr class="separator:a74330fc82495b1322201b966c1915d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -171,8 +170,17 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Reports a syntax error. </p>
+<p >Reports a syntax error </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">recognizer</td><td>The recognizer that reported the error </td></tr>
+    <tr><td class="paramname">offendingSymbol</td><td>The offending symbol that has led to a syntax error </td></tr>
+    <tr><td class="paramname">line</td><td>The line where the offending symbol is located </td></tr>
+    <tr><td class="paramname">characterPositionInLine</td><td>The position of the offending symbol in the line </td></tr>
+    <tr><td class="paramname">message</td><td>The error message that is displayed </td></tr>
+    <tr><td class="paramname">exception</td><td>The RecognitionException that has led to the syntax error </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
