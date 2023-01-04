@@ -14,45 +14,32 @@
  ****************************************************************************/
 
 /**
- * @file Trigonometry.java
- * @brief Trigonometric functions.
+ * @file FunctionSafeguard.java
+ * @brief Guarding functions for JBASIC functions.
  */
 
-package core;
+package org.jbasic.core.guard;
+
+import jbasic.JBasicParser;
+import org.jbasic.error.functions.FunctionArityException;
+
+import java.util.function.Function;
 
 /**
- * @brief Trigonometric functions.
+ * @brief Guarding functions for JBASIC functions.
  */
-public class Trigonometry {
+public class FunctionSafeguard {
 
     /**
-     * Area tangent hyperbolicus, the inverse functions of tangent hyperbolicus
-     *
-     * @param value The value applied to the function
+     * Ensures the arity of a function upon invocation is met
+     * @param functionName The name of the function were the arity is ensured upon invocation
+     * @param context The function call arguments parsing context
+     * @param guard The guard function, that is applied to the number of arguments that were used when the function was invoked.
      */
-    public static double areaTangentHyperbolicus(double value) {
-        final double multiplicand;
-        if (Double.doubleToRawLongBits(value) < 0) {
-            value = Math.abs(value);
-            multiplicand = -0.5d;
+    public static void guaranteeArityIsNotViolated(String functionName, JBasicParser.FunctionCallArgsContext context,
+                                                   Function<Integer, Boolean> guard) throws FunctionArityException {
+        if (!guard.apply(context.expression().size())) {
+            throw new FunctionArityException(functionName + " can not be called with " + context.expression().size() + " arguments", context);
         }
-        else {
-            multiplicand = 0.5d;
-        }
-        return multiplicand * Math.log((1.0d + value) / (1.0d - value));
-    }
-
-    /**
-     * Inverse hyperbolic sine, the inverse functions of the hyperbolic sine function
-     *
-     * @param value The value applied to the function
-     */
-    public static double inverseSineHyperbolicus(double value) {
-        double sgn = 1.0D;
-        if (value < 0.0D) {
-            sgn = -1.0D;
-            value = -value;
-        }
-        return sgn * Math.log(value + Math.sqrt(value * value + 1.0D));
     }
 }

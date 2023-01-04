@@ -29,7 +29,7 @@ import org.antlr.v4.runtime.InputMismatchException;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
-import core.IOFormatter;
+import org.jbasic.core.IOFormatter;
 import org.jbasic.visitor.JBasicVisitor;
 import org.jbasic.error.ErrorListener;
 import org.jbasic.error.InterpreterBaseException;

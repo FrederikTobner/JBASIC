@@ -14,30 +14,45 @@
  ****************************************************************************/
 
 /**
- * @file RandomNumbersGenerator.java
- * @brief Contains utility methods to create random numbers.
+ * @file Trigonometry.java
+ * @brief Trigonometric functions.
  */
 
-package core;
-
-import java.util.Random;
+package org.jbasic.core;
 
 /**
- * @brief Contains utility methods to create random numbers.
+ * @brief Trigonometric functions.
  */
-public class RandomNumbersGenerator {
-
-    /// The underlying random number generator from java.util.Random
-    private static final Random randomNumberGenerator = new Random();
+public class Trigonometry {
 
     /**
-     * Generates a random double precision floating point number
+     * Area tangent hyperbolicus, the inverse functions of tangent hyperbolicus
      *
-     * @param minimalValue The minimal value
-     * @param maximumValue The maximum value
-     * @return The generated random number
+     * @param value The value applied to the function
      */
-    public static double doubleRandomWithinRange(double minimalValue, double maximumValue) {
-        return minimalValue + (maximumValue - minimalValue) * randomNumberGenerator.nextDouble();
+    public static double areaTangentHyperbolicus(double value) {
+        final double multiplicand;
+        if (Double.doubleToRawLongBits(value) < 0) {
+            value = Math.abs(value);
+            multiplicand = -0.5d;
+        }
+        else {
+            multiplicand = 0.5d;
+        }
+        return multiplicand * Math.log((1.0d + value) / (1.0d - value));
+    }
+
+    /**
+     * Inverse hyperbolic sine, the inverse functions of the hyperbolic sine function
+     *
+     * @param value The value applied to the function
+     */
+    public static double inverseSineHyperbolicus(double value) {
+        double sgn = 1.0D;
+        if (value < 0.0D) {
+            sgn = -1.0D;
+            value = -value;
+        }
+        return sgn * Math.log(value + Math.sqrt(value * value + 1.0D));
     }
 }

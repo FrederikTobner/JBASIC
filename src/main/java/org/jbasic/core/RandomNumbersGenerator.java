@@ -14,32 +14,30 @@
  ****************************************************************************/
 
 /**
- * @file FunctionSafeguard.java
- * @brief Guarding functions for JBASIC functions.
+ * @file RandomNumbersGenerator.java
+ * @brief Contains utility methods to create random numbers.
  */
 
-package core.guard;
+package org.jbasic.core;
 
-import jbasic.JBasicParser;
-import org.jbasic.error.functions.FunctionArityException;
-
-import java.util.function.Function;
+import java.util.Random;
 
 /**
- * @brief Guarding functions for JBASIC functions.
+ * @brief Contains utility methods to create random numbers.
  */
-public class FunctionSafeguard {
+public class RandomNumbersGenerator {
+
+    /// The underlying random number generator from java.util.Random
+    private static final Random randomNumberGenerator = new Random();
 
     /**
-     * Ensures the arity of a function upon invocation is met
-     * @param functionName The name of the function were the arity is ensured upon invocation
-     * @param context The function call arguments parsing context
-     * @param guard The guard function, that is applied to the number of arguments that were used when the function was invoked.
+     * Generates a random double precision floating point number
+     *
+     * @param minimalValue The minimal value
+     * @param maximumValue The maximum value
+     * @return The generated random number
      */
-    public static void guaranteeArityIsNotViolated(String functionName, JBasicParser.FunctionCallArgsContext context,
-                                                   Function<Integer, Boolean> guard) throws FunctionArityException {
-        if (!guard.apply(context.expression().size())) {
-            throw new FunctionArityException(functionName + " can not be called with " + context.expression().size() + " arguments", context);
-        }
+    public static double doubleRandomWithinRange(double minimalValue, double maximumValue) {
+        return minimalValue + (maximumValue - minimalValue) * randomNumberGenerator.nextDouble();
     }
 }

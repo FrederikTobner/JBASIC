@@ -18,7 +18,7 @@
  * @brief Guarding functions for JBASIC variables.
  */
 
-package core.guard;
+package org.jbasic.core.guard;
 
 import jbasic.JBasicParser;
 import org.antlr.v4.runtime.ParserRuleContext;

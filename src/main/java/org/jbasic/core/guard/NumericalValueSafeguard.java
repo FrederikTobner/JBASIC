@@ -14,31 +14,31 @@
  ****************************************************************************/
 
 /**
- * @file IOFFormatter.java
- * @brief IO formatting utility methods.
+ * @file NumericalValueSafeguard.java
+ * @brief Guarding functions for numerical JBASIC values.
  */
 
-package core;
+package org.jbasic.core.guard;
 
-import java.text.DecimalFormat;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.jbasic.error.labels.InvalidNumericalFormatException;
 
 /**
- * @brief IO formatting utilities.
- * @details The IO formatting utilities of the interpreter
+ * @brief Guarding functions for numerical JBASIC values.
  */
-public class IOFormatter {
-
-    /// Decimal output format for numerical values (no decimal dot if the number is x.0)
-    public static final DecimalFormat numericalOutputFormat = new DecimalFormat("0.##############");
+public class NumericalValueSafeguard {
 
     /**
-     * Formats an error message with the line and the position in the line where the error occurred
+     * Ensures that a value is an array
      *
-     * @param line           The line where the error occurred
-     * @param positionInLine The position in the line where the error occurred
-     * @param message        The error message that is displayed
+     * @param message The first part of the error message that is omitted if the value is not an array
+     * @param underlyingValue The value that is safeguarded
+     * @param context The parsing context where the value was used
      */
-    public static String formatErrorMessage(int line, int positionInLine, String message) {
-        return "Error at [" + line + ", " + positionInLine + "]: " + message;
+    public static void guaranteeIsWhole(String message, double underlyingValue, ParserRuleContext context)
+            throws InvalidNumericalFormatException {
+        if (underlyingValue != Math.round(underlyingValue)) {
+            throw new InvalidNumericalFormatException(message, context);
+        }
     }
 }

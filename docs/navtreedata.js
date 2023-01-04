@@ -31,7 +31,7 @@ var NAVTREE =
       [ "License", "index.html#license_sec", null ]
     ] ],
     [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", "namespaces_dup" ]
+      [ "Package List", "namespaces.html", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -52,7 +52,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_array_dimension_mismatch_exception_8java.html",
-"classorg_1_1jbasic_1_1visitor_1_1_j_basic_visitor.html#af71d2c2bed1f54fa7d19dba2b53ddea6"
+"error_2type_2package-info_8java.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

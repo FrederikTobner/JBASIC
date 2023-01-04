@@ -21,7 +21,7 @@
 package org.jbasic.error;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import core.IOFormatter;
+import org.jbasic.core.IOFormatter;
 
 /**
  * @brief Base exception for interpreter runtime errors.

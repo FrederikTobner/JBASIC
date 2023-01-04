@@ -22,8 +22,8 @@ package org.jbasic.languageModels;
 
 import jbasic.JBasicParser.NegateExpressionContext;
 import org.antlr.v4.runtime.ParserRuleContext;
-import core.IOFormatter;
-import core.guard.ValueTypeSafeguard;
+import org.jbasic.core.IOFormatter;
+import org.jbasic.core.guard.ValueTypeSafeguard;
 
 import java.io.PrintStream;
 import java.util.Arrays;
