@@ -29,10 +29,16 @@ public class MiscellaneousFunctionsTest extends JBasicBaseTest {
     }
 
     @Test
-    public void testValFunction() {
-        this.test("functions/miscellaneous/value.bas",
-                (result) -> Assert.assertEquals("1" + System.lineSeparator() +
-                                "3" + System.lineSeparator(),
+    public void testNumFunction() {
+        this.test("functions/miscellaneous/num.bas",
+                (result) -> Assert.assertEquals("123" + System.lineSeparator(),
+                        result.output));
+    }
+
+    @Test
+    public void testStrFunction() {
+        this.test("functions/miscellaneous/str.bas",
+                (result) -> Assert.assertEquals("123" + System.lineSeparator(),
                         result.output));
     }
 }

@@ -23,6 +23,10 @@ statement
     | NEWLINE
     ;
 
+/****************************************************************************
+ * Expressions                                                              *
+ ****************************************************************************/
+
 expression
     : expression op=(ADD|MINUS) expression                                                                      # AddSubExpression
     | expression AND_KEYWORD expression                                                                         # AndExpression
@@ -39,6 +43,10 @@ expression
     | stringLiteral                                                                                             # StringLiteralExpression
     ;
 
+/****************************************************************************
+ * Native Functions                                                         *
+ ****************************************************************************/
+
 function
     : absFunction
     | acsFunction
@@ -54,27 +62,14 @@ function
     | logFunction
     | maxFunction
     | minFunction
+    | numFunction
     | rndFunction
     | sinFunction
     | sqrFunction
+    | strFunction
     | sumFunction
     | tanFunction
-    | valFunction
     ;
-
-variableIdentifier
-    : IDENTIFIER variableSuffix?
-    ;
-
-variableSuffix
-    : (DOLLAR_SIGN|PERCENT_SIGN)
-    ;
-
-numericLiteral
-    : NUMERIC_LITERAL ;
-
-stringLiteral
-    : STRING_LITERAL ;
 
 functionCallArgs
     : (expression (COMMA expression)*)? ;
@@ -121,6 +116,9 @@ maxFunction
 minFunction
     : MIN_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
 
+numFunction
+    : NUM_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
+
 rndFunction
     : RND_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
 
@@ -130,11 +128,33 @@ sinFunction
 sqrFunction
     : SQR_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
 
+strFunction
+    : STR_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
+
 sumFunction
     : SUM_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
 
 tanFunction
     : TAN_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
 
-valFunction
-    : VAL_FUNCTION LEFT_PARENTHESIS functionCallArgs RIGHT_PARENTHESIS ;
+/****************************************************************************
+ * Variables                                                                *
+ ****************************************************************************/
+
+variableIdentifier
+    : IDENTIFIER variableSuffix?
+    ;
+
+variableSuffix
+    : (DOLLAR_SIGN|PERCENT_SIGN)
+    ;
+
+/****************************************************************************
+ * Literals                                                                 *
+ ****************************************************************************/
+
+numericLiteral
+    : NUMERIC_LITERAL ;
+
+stringLiteral
+    : STRING_LITERAL ;

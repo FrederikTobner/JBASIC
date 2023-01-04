@@ -40,7 +40,9 @@ statement
     | whileStatement
     ;
 
-// Code blocks
+/****************************************************************************
+ * Code Blocks                                                              *
+ ****************************************************************************/
 
 block
     : (labeledBlock|statement (NEWLINE+ | EOF))* ;
@@ -48,7 +50,9 @@ block
 labeledBlock
     : lab=(NUMERIC_LITERAL|IDENTIFIER) DOUBLE_DOT NEWLINE? block ;
 
-// Subroutines
+/****************************************************************************
+ * Subroutines                                                              *
+ ****************************************************************************/
 
 subroutineBody
     : (statement (NEWLINE+ | EOF))* END_KEYWORD SUB_KEYWORD ;
@@ -56,7 +60,9 @@ subroutineBody
 subroutineSignature
     : SUB_KEYWORD IDENTIFIER LEFT_PARENTHESIS (variableIdentifier (COMMA variableIdentifier)*)? RIGHT_PARENTHESIS NEWLINE ;
 
-// Variables
+/****************************************************************************
+ * Variables                                                                *
+ ****************************************************************************/
 
 variableIdentifier
     : IDENTIFIER variableSuffix? ;
@@ -64,12 +70,16 @@ variableIdentifier
 variableSuffix
     : (DOLLAR_SIGN|PERCENT_SIGN) ;
 
-// Switch
+/****************************************************************************
+ * Switch statements                                                        *
+ ****************************************************************************/
 
 switchCase
     : CASE_KEYWORD (numericLiteral|stringLiteral) DOUBLE_DOT block ;
 
-// Statements
+/****************************************************************************
+ * Statements                                                               *
+ ****************************************************************************/
 
 arrayDeclarationStatement
     : DIM_KEYWORD variableIdentifier LEFT_BRACKET (expression (COMMA expression)*)? RIGHT_BRACKET ;

@@ -177,8 +177,9 @@ JBASIC offers numerous built-in functions to perform various tasks.
 | Function | Description                                                                | Example Usage           |
 |----------|----------------------------------------------------------------------------|-------------------------|
 | LIST     | Creates a string that contains the full source code of the current program | LIST()      // LIST()   |
-| RND      | Creates a random number in the specified range                             | VAL(1, 3)   // [1 .. 3] |
-| VAL      | Converts a string to a numerical value                                     | VAL("3")    // 3        |
+| NUM      | Converts a string to a numerical value                                     | NUM("3")    // 3        |
+| RND      | Creates a random number in the specified range                             | RND(1, 3)   // [1 .. 3] |
+| STR      | Converts a numerical value to a string                                     | STR(3)      // "3"      |
 
 ### Strings
 

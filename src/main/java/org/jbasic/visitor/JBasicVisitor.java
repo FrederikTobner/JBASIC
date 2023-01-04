@@ -25,6 +25,7 @@ import jbasic.JBasicBaseVisitor;
 import jbasic.JBasicParser;
 import jbasic.LBExpressionParser;
 import org.antlr.v4.runtime.RuleContext;
+import org.jbasic.core.IOFormatter;
 import org.jbasic.core.RandomNumbersGenerator;
 import org.jbasic.core.Trigonometry;
 import org.jbasic.core.guard.ArraySafeguard;
@@ -799,6 +800,29 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'num' function call in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'num function' that is visited
+     * @return The Value that is omitted by visiting the 'num function'
+     */
+    @Override
+    public JBasicValue visitNumFunction(JBasicParser.NumFunctionContext context) {
+        FunctionSafeguard.guaranteeArityIsNotViolated("NUM", context.functionCallArgs(),
+                (parameterCount -> parameterCount == 1));
+        JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
+        if (argument.isAStringValue()) {
+            String str = argument.underlyingString();
+            try {
+                return new JBasicValue(Long.parseLong(str));
+            }
+            catch (NumberFormatException e) {
+                return JBasicValue.NullValue;
+            }
+        }
+        return argument;
+    }
+
+    /**
      * Visits a 'random' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'random function' that is visited
@@ -846,6 +870,24 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'str' function call in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'str function' that is visited
+     * @return The Value that is omitted by visiting the 'str function'
+     */
+    @Override
+    public JBasicValue visitStrFunction(JBasicParser.StrFunctionContext context) {
+        FunctionSafeguard.guaranteeArityIsNotViolated("STR", context.functionCallArgs(),
+                (parameterCount -> parameterCount == 1));
+        JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
+        if (argument.isANumericalValue()) {
+            Double number = argument.underlyingNumber();
+            return new JBasicValue(IOFormatter.numericalOutputFormat.format(number));
+        }
+        return argument;
+    }
+
+    /**
      * Visits a 'sum' function call in the abstract syntax tree
      *
      * @param context The parsing context of the 'sum function' that is visited
@@ -877,29 +919,6 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
         ValueTypeSafeguard.guaranteeValueIsNumerical("Could not call TAN",argument, context);
         return new JBasicValue(Math.tan(argument.underlyingNumber()));
-    }
-
-    /**
-     * Visits a 'val' function call in the abstract syntax tree
-     *
-     * @param context The parsing context of the 'val function' that is visited
-     * @return The Value that is omitted by visiting the 'val function'
-     */
-    @Override
-    public JBasicValue visitValFunction(JBasicParser.ValFunctionContext context) {
-        FunctionSafeguard.guaranteeArityIsNotViolated("VAL", context.functionCallArgs(),
-                (parameterCount -> parameterCount == 1));
-        JBasicValue argument = this.visit(context.functionCallArgs().expression().get(0));
-        if (argument.isAStringValue()) {
-            String str = argument.underlyingString();
-            try {
-                return new JBasicValue(Long.parseLong(str));
-            }
-            catch (NumberFormatException e) {
-                return JBasicValue.NullValue;
-            }
-        }
-        return argument;
     }
     //endregion
 

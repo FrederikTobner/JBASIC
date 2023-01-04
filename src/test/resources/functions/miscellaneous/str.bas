@@ -1,0 +1,2 @@
+LET x = STR(123)
+PRINT x
