@@ -32,7 +32,6 @@ function JBASIC {
 
 General
 
-* Data Keyword
 * Ranges expressions
 * Set console fore- and background SCF, SCB
 
@@ -44,3 +43,8 @@ Graphics
 * GDR(x1, y1, x2, y2) - graphics draw rectangle
 * GDT(x1, y1, x2, y2, x3, y3) - graphics draw triangle
 * GDC(x, y, diameter) - graphics draw circle
+
+## Useful resources
+
+* http://vintage-basic.net/index.html
+* http://www.hoist-point.com/applesoft_basic_tutorial.htm

@@ -127,7 +127,7 @@ letStatement
     : LET_KEYWORD? variableIdentifier EQUALS expression ;
 
 printStatement
-    : PRINT_KEYWORD expression ;
+    : PRINT_KEYWORD expression (COMMA expression)* ;
 
 repeatStatement
     : REPEAT_KEYWORD NEWLINE+ block NEWLINE* UNTIL_KEYWORD expression ;

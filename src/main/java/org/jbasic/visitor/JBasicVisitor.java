@@ -70,7 +70,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     /**
      * Constructor of the JBasicVisitor
      *
-     * @param state The interpreter state object the visitor uses
+     * @param state The interpreter state object used by the visitor
      * @param stdin  The standard input stream used by the visitor
      * @param stdout The standard output stream used by the visitor
      */
@@ -457,7 +457,12 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitPrintStatement(JBasicParser.PrintStatementContext context) {
-        return this.visit(context.expression()).printValue(this.printStream);
+
+        for (JBasicParser.ExpressionContext expressionContext :context.expression()) {
+            this.visit(expressionContext).printValue(this.printStream, context.expression().size() != 1);
+            this.printStream.println();
+        }
+        return new JBasicValue(0);
     }
 
     /**

@@ -411,48 +411,64 @@ public class JBasicValue {
         return this.isTruthy(context) || right.isTruthy(context) ? TrueValue : FalseValue;
     }
 
-    public JBasicValue printValue(PrintStream printStream) {
+    /**
+     * Prints the value
+     *
+     * @param printStream The print-stream where the value is printed
+     * @param aligned Determines whether the output shall be aligned using print zones
+     */
+    public void printValue(PrintStream printStream, boolean aligned) {
+        StringBuilder outputBuilder = new StringBuilder();
         if (this.isANumericalValue()) {
             String formattedValue = IOFormatter.numericalOutputFormat.format(this.underlyingNumber());
             if ("-0".equals(formattedValue)) {
-                printStream.println("0");
+                outputBuilder = new StringBuilder("0");
             } else {
-                printStream.println(formattedValue);
+                outputBuilder = new StringBuilder(formattedValue);
             }
         }
         else if (this.isAnArrayValue()) {
-            printStream.print("{ ");
+            outputBuilder = new StringBuilder(outputBuilder.toString().concat("{ "));
             if (this.isAnOneDimensionalArrayValue()){
-                for (int i = 0; i< this.underlyingOneDimensionalArray().length; i++) {
-                    this.underlyingOneDimensionalArray()[i].printValue(printStream);
+                for (int i = 0; i < this.underlyingOneDimensionalArray().length; i++) {
+                    this.underlyingOneDimensionalArray()[i].printValue(printStream, false);
                     if (i > 0) {
-                        printStream.print(", ");
+                        outputBuilder = new StringBuilder(outputBuilder.toString().concat(", "));
                     }
                 }
 
             }
             else if (this.isATwoDimensionalArrayValue()){
-                for (int i = 0; i< this.underlyingTwoDimensionalArray().length; i++) {
-                    new JBasicValue(this.underlyingTwoDimensionalArray()[i]).printValue(printStream);
+                for (int i = 0; i < this.underlyingTwoDimensionalArray().length; i++) {
+                    new JBasicValue(this.underlyingTwoDimensionalArray()[i]).printValue(printStream, false);
                     if (i > 0) {
-                        printStream.print(", ");
+                        outputBuilder = new StringBuilder(outputBuilder.toString().concat(", "));
                     }
                 }
             }
             else{
-                for (int i = 0; i< this.underlyingThreeDimensionalArray().length; i++) {
+                for (int i = 0; i < this.underlyingThreeDimensionalArray().length; i++) {
                     if (i > 0) {
-                        printStream.print(", ");
+                        outputBuilder = new StringBuilder(outputBuilder.toString().concat(", "));
                     }
-                    new JBasicValue(this.underlyingThreeDimensionalArray()[i]).printValue(printStream);
+                    new JBasicValue(this.underlyingThreeDimensionalArray()[i]).printValue(printStream, false);
                 }
             }
-            printStream.println("} ");
+             outputBuilder = new StringBuilder(outputBuilder.toString().concat("} "));
         }
         else {
-            printStream.println(this.underlyingString());
+            outputBuilder = new StringBuilder(this.underlyingString());
         }
-        return this;
+        // Aligns output to the next print zone. A print zone in basic is 14 whitespaces large
+        if(aligned) {
+            if (outputBuilder.length() == 0) {
+                outputBuilder.append(" ".repeat(14));
+            }
+            else if (outputBuilder.length() % 14 != 0) {
+                outputBuilder.append(" ".repeat(outputBuilder.length() % 14));
+            }
+        }
+        printStream.print(outputBuilder);
     }
 
     /**
