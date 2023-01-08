@@ -103,10 +103,10 @@ UNTIL_KEYWORD           : 'UNTIL' | 'until' ;
 WHILE_KEYWORD           : 'WHILE' | 'while' ;
 
 /****************************************************************************
- * Literals, Comments, identifiers newlines and whitespace characters       *
+ * Literals, Comments, identifiers, newlines and whitespace characters      *
  ****************************************************************************/
 
-COMMENT                 : REM_KEYWORD ~[\r\n]* ;
+COMMENT                 : REM_KEYWORD ~[\r\n]* ;                    // Comment / Remark
 IDENTIFIER              : [a-zA-Z][a-zA-Z0-9_]* ;                   // match identifiers
 NEWLINE                 :'\r'? '\n' ;                               // return newlines to parser (marks the end of a statement)
 NUMERIC_LITERAL         : ('0' .. '9')+ ('.' ('0' .. '9')+)? ;      // match numerical literals

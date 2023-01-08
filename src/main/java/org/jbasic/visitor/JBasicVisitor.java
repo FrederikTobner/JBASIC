@@ -938,24 +938,6 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
-     * Visits an 'add expression' or a 'subtract expression'  in the abstract syntax tree
-     *
-     * @param context The parsing context of the 'add expression' or 'subtract expression' that is visited
-     * @return The Value that is omitted by visiting the addition or subtraction expression
-     */
-    @Override
-    public JBasicValue visitAddSubExpression(JBasicParser.AddSubExpressionContext context) {
-        JBasicValue left = this.visit(context.expression(0));
-        JBasicValue right = this.visit(context.expression(1));
-        if (context.op.getType() == LBExpressionParser.ADD) {
-            return left.add(right, context);
-        }
-        else {
-            return left.subtract(right, context);
-        }
-    }
-
-    /**
      * Visits an 'array get at index expression' in the abstract syntax tree
      *
      * @param context The parsing context of the 'array get at index expression' that is visited
@@ -1004,23 +986,35 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
                 return left.greaterThenEqual(right, context);
             case LBExpressionParser.LESS_THEN:
                 return left.lessThen(right, context);
-            case LBExpressionParser.LESS_THEN_EQUAL:
-                return left.lessThenEqual(right, context);
-            case LBExpressionParser.EQUALS:
-                return left.equal(right, context);
             default:
-                return left.notEqual(right, context);
+                return left.lessThenEqual(right, context);
         }
     }
 
     /**
-     * Visits a 'multiply expression' or a 'divide expression'  in the abstract syntax tree
+     * Visits a 'equality expression' in the abstract syntax tree
      *
-     * @param context The parsing context of the 'multiply expression' or 'divide expression' that is visited
-     * @return The Value that is omitted by visiting the multiply or div expression
+     * @param context The parsing context of the 'equality expression' that is visited
+     * @return The Value that is omitted by visiting the 'equality expression'
      */
     @Override
-    public JBasicValue visitMulDivExpression(JBasicParser.MulDivExpressionContext context) {
+    public JBasicValue visitEqualityExpression(JBasicParser.EqualityExpressionContext context) {
+        JBasicValue left = this.visit(context.expression(0));
+        JBasicValue right = this.visit(context.expression(1));
+        if (context.op.getType() == LBExpressionParser.EQUALS) {
+            return left.equal(right, context);
+        }
+        return left.notEqual(right, context);
+    }
+
+    /**
+     * Visits a 'factor expression' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'factor expression' that is visited
+     * @return The Value that is omitted by visiting the 'factor expression'
+     */
+    @Override
+    public JBasicValue visitFactorExpression(JBasicParser.FactorExpressionContext context) {
         JBasicValue left = this.visit(context.expression(0));
         JBasicValue right = this.visit(context.expression(1));
         if (context.op.getType() == LBExpressionParser.MULTIPLY) {
@@ -1068,6 +1062,24 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue left = this.visit(context.expression(0));
         JBasicValue right = this.visit(context.expression(1));
         return left.or(right, context);
+    }
+
+    /**
+     * Visits an 'term expression' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'term expression' that is visited
+     * @return The Value that is omitted by visiting the 'term expression'
+     */
+    @Override
+    public JBasicValue visitTermExpression(JBasicParser.TermExpressionContext context) {
+        JBasicValue left = this.visit(context.expression(0));
+        JBasicValue right = this.visit(context.expression(1));
+        if (context.op.getType() == LBExpressionParser.ADD) {
+            return left.add(right, context);
+        }
+        else {
+            return left.subtract(right, context);
+        }
     }
 
     //endregion

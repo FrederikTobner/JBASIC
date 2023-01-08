@@ -28,19 +28,20 @@ statement
  ****************************************************************************/
 
 expression
-    : expression op=(ADD|MINUS) expression                                                                      # AddSubExpression
-    | expression AND_KEYWORD expression                                                                         # AndExpression
+    : function                                                                                                  # FunctionExpression
     | variableIdentifier LEFT_BRACKET (expression (COMMA expression)*) RIGHT_BRACKET                            # ArrayGetAtIndexExpression
-    | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN|EQUALS|NOT_EQUAL) expression     # ComparisonExpression
-    | function                                                                                                  # FunctionExpression
-    | variableIdentifier                                                                                        # IdentifierExpression
-    | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # MulDivExpression
     | MINUS expression                                                                                          # NegateExpression
     | NOT_KEYWORD expression                                                                                    # NotExpression
-    | numericLiteral                                                                                            # NumericLiteralExpression
-    | expression OR_KEYWORD  expression                                                                         # OrExpression
     | (LEFT_PARENTHESIS expression RIGHT_PARENTHESIS)                                                           # ParenExpression
+    | expression op=(MULTIPLY|DIVIDE|MODULO_KEYWORD) expression                                                 # FactorExpression
+    | expression op=(ADD|MINUS) expression                                                                      # TermExpression
+    | expression op=(GREATER_THEN_EQUAL|GREATER_THEN|LESS_THEN_EQUAL|LESS_THEN) expression                      # ComparisonExpression
+    | expression op=(EQUALS|NOT_EQUAL) expression                                                               # EqualityExpression
+    | expression AND_KEYWORD expression                                                                         # AndExpression
+    | expression OR_KEYWORD  expression                                                                         # OrExpression
+    | numericLiteral                                                                                            # NumericLiteralExpression
     | stringLiteral                                                                                             # StringLiteralExpression
+    | variableIdentifier                                                                                        # IdentifierExpression
     ;
 
 /****************************************************************************

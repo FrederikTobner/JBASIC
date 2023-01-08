@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"error_2package-info_8java.html":[3,0,0,0,1,8],
 "error_2subroutine_2package-info_8java.html":[3,0,0,0,1,3,0],
 "error_2type_2package-info_8java.html":[3,0,0,0,1,4,0],
 "error_2variable_2package-info_8java.html":[3,0,0,0,1,5,0],
@@ -8,8 +9,8 @@ var NAVTREEINDEX1 =
 "functions_func.html":[2,3,1],
 "functions_vars.html":[2,3,2],
 "hierarchy.html":[2,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#intro_sec":[0,0],
 "index.html#license_sec":[0,2],
 "index.html#testing_sec":[0,1],
