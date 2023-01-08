@@ -61,13 +61,13 @@ The language features the following keywords
 
 ### Data manipulation
 
-| Keyword  | Description                                                                                                                                                                                                        | Example            |
-|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| DATA ... | holds a list of values which are assigned sequentially using the READ command                                                                                                                                      | DATA 1, 2, 3, 4, 5 |
-| DIM      | Creates a new array with the specified dimensions                                                                                                                                                                  | DIM array[3]       |
-| LET      | Assigns a value (which may be the result of an expression) to a variable.                                                                                                                                          | LET I = 1          |
-| READ ... | Reads a value from a DATA statement and assigns it to a variable and moves it one position forward with each READ. Multiple variables can be specified as parameters to read several values in a single operation. | READ A, B          |
-| RESTORE  | Resets to the DATA statement to the specified index, allowing the program to begin READing from the value at the specified index.                                                                                  | RESTORE 0          |
+| Keyword  | Description                                                                                                                                                                                                           | Example            |
+|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| DATA ... | holds a list of values which are assigned sequentially using the READ command                                                                                                                                         | DATA 1, 2, 3, 4, 5 |
+| DIM      | Creates a new array with the specified dimensions                                                                                                                                                                     | DIM array[3]       |
+| LET      | Assigns a value (which may be the result of an expression) to a variable.                                                                                                                                             | LET I = 1          |
+| READ ... | Reads a value from a DATA statement and assigns it to a variable and moves it one position forward with each READ.<br>Multiple variables can be specified as parameters to read several values in a single operation. | READ A, B          |
+| RESTORE  | Resets to the DATA statement to the specified index, allowing the program to begin READing from the value at the specified index.                                                                                     | RESTORE 0          |
 
 If the variable name in a Let statement ends with '$' the assigned value needs to be a string and if it ends with '%' a numerical value.
 
@@ -77,7 +77,8 @@ LET ANUMBER% = 10
 ```
 
 An array in JBASIC can be either one-, two- or three-dimensional.
-A specific value in the array can be accessed or altered by specifying the index. The first element in an array has the index '1' in JBASIC.
+A specific value in the array can be accessed or altered by specifying the index. 
+The first element in an array has the index '1', like in most other dialects of BASIC.
 
 ```
 DIM array[3]
@@ -148,9 +149,11 @@ END SUB
 CALL Greet()
 ```
 
-The SUB keyword marks the definition of a subroutine. After that the name of the subroutine and the arguments of the
-subroutine are specified. Then the body of the subroutine follows. The end of the subroutine is marked with the END and
-the SUB keyword. Subroutines are then invoked using the call keyword.
+The SUB keyword marks the definition of a subroutine. 
+After that the name of the subroutine and the arguments of the
+subroutine are specified. Then the body of the subroutine follows. 
+The end of the subroutine is marked with the END and the SUB keyword. 
+Subroutines are then invoked using the call keyword.
 
 ## Functions
 

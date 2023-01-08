@@ -539,7 +539,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue specifiedIndex = this.visit(context.expression());
         ValueTypeSafeguard.guaranteeValueIsNumerical("Index in a restore statement invalid", specifiedIndex, context.expression());
         NumericalValueSafeguard.guaranteeIsWhole("Index in a restore statement invalid", specifiedIndex.underlyingNumber(), context.expression());
-        for (int i = 0; i < this.state.getPoppedDataStack().size() - specifiedIndex.underlyingNumber(); i++) {
+        for (int i = 0; i <= this.state.getPoppedDataStack().size() - (specifiedIndex.underlyingNumber() - 1); i++) {
             this.state.getDataSegment().offerFirst(this.state.getPoppedDataStack().pop());
         }
         return new JBasicValue(0);
