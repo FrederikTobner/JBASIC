@@ -18,6 +18,47 @@ import LBExpression, LBTokens;
 
 program: block EOF;
 
+/****************************************************************************
+ * Code Blocks                                                              *
+ ****************************************************************************/
+
+block
+    : (labeledBlock|statement (NEWLINE+ | EOF))* ;
+
+labeledBlock
+    : lab=(NUMERIC_LITERAL|IDENTIFIER) DOUBLE_DOT NEWLINE? block ;
+
+/****************************************************************************
+ * Subroutines components                                                   *
+ ****************************************************************************/
+
+subroutineBody
+    : (statement (NEWLINE+ | EOF))* END_KEYWORD SUB_KEYWORD ;
+
+subroutineSignature
+    : SUB_KEYWORD IDENTIFIER LEFT_PARENTHESIS (variableIdentifier (COMMA variableIdentifier)*)? RIGHT_PARENTHESIS NEWLINE ;
+
+/****************************************************************************
+ * Variable identifiers                                                     *
+ ****************************************************************************/
+
+variableIdentifier
+    : IDENTIFIER variableSuffix? ;
+
+variableSuffix
+    : (DOLLAR_SIGN|PERCENT_SIGN) ;
+
+/****************************************************************************
+ * Switch statement components                                              *
+ ****************************************************************************/
+
+switchCase
+    : CASE_KEYWORD (numericLiteral|stringLiteral) DOUBLE_DOT block ;
+
+/****************************************************************************
+ * Statements                                                               *
+ ****************************************************************************/
+
 statement
     : arrayDeclarationStatement
     | arraySetAtIndexStatement
@@ -42,47 +83,6 @@ statement
     | switchStatement
     | whileStatement
     ;
-
-/****************************************************************************
- * Code Blocks                                                              *
- ****************************************************************************/
-
-block
-    : (labeledBlock|statement (NEWLINE+ | EOF))* ;
-
-labeledBlock
-    : lab=(NUMERIC_LITERAL|IDENTIFIER) DOUBLE_DOT NEWLINE? block ;
-
-/****************************************************************************
- * Subroutines                                                              *
- ****************************************************************************/
-
-subroutineBody
-    : (statement (NEWLINE+ | EOF))* END_KEYWORD SUB_KEYWORD ;
-
-subroutineSignature
-    : SUB_KEYWORD IDENTIFIER LEFT_PARENTHESIS (variableIdentifier (COMMA variableIdentifier)*)? RIGHT_PARENTHESIS NEWLINE ;
-
-/****************************************************************************
- * Variables                                                                *
- ****************************************************************************/
-
-variableIdentifier
-    : IDENTIFIER variableSuffix? ;
-
-variableSuffix
-    : (DOLLAR_SIGN|PERCENT_SIGN) ;
-
-/****************************************************************************
- * Switch statements                                                        *
- ****************************************************************************/
-
-switchCase
-    : CASE_KEYWORD (numericLiteral|stringLiteral) DOUBLE_DOT block ;
-
-/****************************************************************************
- * Statements                                                               *
- ****************************************************************************/
 
 arrayDeclarationStatement
     : DIM_KEYWORD variableIdentifier LEFT_BRACKET (expression (COMMA expression)*)? RIGHT_BRACKET ;

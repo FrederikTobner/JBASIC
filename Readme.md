@@ -2,8 +2,10 @@
 
 [![Maven CI](https://github.com/FrederikTobner/JBASIC/actions/workflows/maven.yml/badge.svg)](https://github.com/FrederikTobner/JBASIC/actions/workflows/maven.yml)
 [![Code QL](https://github.com/FrederikTobner/JBASIC/actions/workflows/codeql.yml/badge.svg)](https://github.com/FrederikTobner/JBASIC/actions/workflows/codeql.yml)
+[![Java 11+](https://img.shields.io/badge/java-11+-4c7e9f.svg)](http://java.oracle.com)
+[![ANTLR v4](https://img.shields.io/badge/Antlr-v4-4c7e9f)](https://github.com/antlr/antlr4)
 
-Simple Interpreter for the JBASIC programming language written in Java using [ANTLR4](https://www.antlr.org/).
+Simple Interpreter for the JBASIC programming language written in Java using [ANTLR](https://www.antlr.org/).
 
 JBASIC is a simple general purpose, high-level scripting language heavily inspired
 by the earliest dialects of [BASIC](https://en.wikipedia.org/wiki/BASIC).
@@ -24,7 +26,7 @@ JBASIC is dialect of 'BASIC' (Beginners' All-purpose Symbolic Instruction Code) 
 programming languages, that focus on ease of use. 
 The original version of BASIC was created in 1963 at the Dartmouth College, by  John G. Kemeny and Thomas E. Kurtz.
 
-JBASIC combines traits of a first and second generation basic languages. 
+JBASIC combines traits of the first and the second generation of basic languages. 
 
 Usage:
 
@@ -131,8 +133,8 @@ JBASIC allows the definition of subroutines to accomplish a particular task.
 
 | Keyword(s)           | Description              | Example                                         |
 |----------------------|--------------------------|-------------------------------------------------|
-| SUB(...) ... END SUB | Defines a new subroutine | SUB printSum(a, b) <br>&emsp;PRINT a + b<br>END |
 | CALL(...)            | Calls a subroutine       | CALL printSum(1, 2)                             |
+| SUB(...) ... END SUB | Defines a new subroutine | SUB printSum(a, b) <br>&emsp;PRINT a + b<br>END |
 
 An example for a simple subroutine would
 be:
