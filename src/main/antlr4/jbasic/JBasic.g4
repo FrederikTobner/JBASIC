@@ -36,6 +36,7 @@ statement
     | printStatement
     | readStatement
     | repeatStatement
+    | restoreStatement
     | subroutineDefinitionStatement
     | subroutineInvocationStatement
     | switchStatement

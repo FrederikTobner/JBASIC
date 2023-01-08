@@ -49,9 +49,7 @@ public class JBasicBaseTest {
             ByteArrayInputStream stdin = new ByteArrayInputStream(input.getBytes());
             JBasicInterpreter interpreter = new JBasicInterpreter(stdin, stdout, stderr);
             interpreter.run(this.resource(resource));
-            String output = stdout.toString();
-            String error = stderr.toString();
-            assertion.accept(new TestResult(interpreter, output, error));
+            assertion.accept(new TestResult(interpreter, stdout.toString(), stderr.toString()));
         }
         catch (IOException exception) {
             throw new RuntimeException(exception);
