@@ -34,10 +34,13 @@ import org.jbasic.error.subroutine.SubroutineNotDefinedException;
 import org.jbasic.error.subroutine.SubroutineRedefinitionException;
 import org.jbasic.languageModels.JBasicValue;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
 /**
  * @brief Stores the state of the interpreter.
@@ -54,6 +57,14 @@ public class JBasicInterpreterState {
     private final Map<String, BlockContext> labeledBlocks = new HashMap<>();
 
     private String currentScript;
+
+    private final ArrayDeque<JBasicValue> dataSegment = new ArrayDeque<>();
+
+    private final Stack<JBasicValue> poppedDataList = new Stack<>();
+
+    public ArrayDeque<JBasicValue> getDataSegment() {
+        return this.dataSegment;
+    }
 
     public void addLabel(String labelName, BlockContext blockContext) {
         this.labeledBlocks.put(labelName, blockContext);
@@ -163,5 +174,9 @@ public class JBasicInterpreterState {
 
     public void setCurrentScript(String currentScript) {
         this.currentScript = currentScript;
+    }
+
+    public Stack<JBasicValue> getPoppedDataStack() {
+        return this.poppedDataList;
     }
 }

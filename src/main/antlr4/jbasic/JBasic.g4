@@ -24,6 +24,7 @@ statement
     | COMMENT
     | clsStatement
     | continueStatement
+    | dataStatement
     | doUntilStatement
     | doWhileStatement
     | exitStatement
@@ -33,6 +34,7 @@ statement
     | inputStatement
     | letStatement
     | printStatement
+    | readStatement
     | repeatStatement
     | subroutineDefinitionStatement
     | subroutineInvocationStatement
@@ -96,6 +98,9 @@ clsStatement
 continueStatement
     : CONTINUE_KEYWORD ;
 
+dataStatement
+    : DATA_KEYWORD expression (COMMA expression)*;
+
 doUntilStatement
     : DO_KEYWORD NEWLINE+ block UNTIL_KEYWORD expression ;
 
@@ -129,8 +134,14 @@ letStatement
 printStatement
     : PRINT_KEYWORD expression (COMMA expression)* ;
 
+readStatement
+    : READ_KEYWORD variableIdentifier (COMMA variableIdentifier)* ;
+
 repeatStatement
     : REPEAT_KEYWORD NEWLINE+ block NEWLINE* UNTIL_KEYWORD expression ;
+
+restoreStatement
+    : RESTORE_KEYWORD expression ;
 
 subroutineDefinitionStatement
     : subroutineSignature subroutineBody ;

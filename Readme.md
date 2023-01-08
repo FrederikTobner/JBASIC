@@ -24,7 +24,7 @@ JBASIC is dialect of 'BASIC' (Beginners' All-purpose Symbolic Instruction Code) 
 programming languages, that focus on ease of use. 
 The original version of BASIC was created in 1963 at the Dartmouth College, by  John G. Kemeny and Thomas E. Kurtz.
 
-JBASIC is a second generation basic language with structured conditionals, loops and subroutines.
+JBASIC combines traits of a first and second generation basic languages. 
 
 Usage:
 
@@ -59,10 +59,13 @@ The language features the following keywords
 
 ### Data manipulation
 
-| Keyword | Description                                                               | Example      |
-|---------|---------------------------------------------------------------------------|--------------|
-| LET     | Assigns a value (which may be the result of an expression) to a variable. | LET I = 1    |  
-| DIM     | Creates a new array with the specified dimensions                         | DIM array[3] |
+| Keyword  | Description                                                                                                                                                                                                        | Example            |
+|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| DATA ... | holds a list of values which are assigned sequentially using the READ command                                                                                                                                      | DATA 1, 2, 3, 4, 5 |
+| DIM      | Creates a new array with the specified dimensions                                                                                                                                                                  | DIM array[3]       |
+| LET      | Assigns a value (which may be the result of an expression) to a variable.                                                                                                                                          | LET I = 1          |
+| READ ... | Reads a value from a DATA statement and assigns it to a variable and moves it one position forward with each READ. Multiple variables can be specified as parameters to read several values in a single operation. | READ A, B          |
+| RESTORE  | Resets to the DATA statement to the specified index, allowing the program to begin READing from the value at the specified index.                                                                                  | RESTORE 0          |
 
 If the variable name in a Let statement ends with '$' the assigned value needs to be a string and if it ends with '%' a numerical value.
 

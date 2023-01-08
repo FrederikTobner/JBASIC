@@ -9,7 +9,8 @@ public class PrecedenceTest extends JBasicBaseTest {
     @Test
     public void testSimple() {
         this.test("precedence/simple.bas",
-                (result) -> Assert.assertEquals("11" + System.lineSeparator(),
+                (result) -> Assert.assertEquals("11" + System.lineSeparator() +
+                                "11" + System.lineSeparator(),
                         result.output));
     }
 }

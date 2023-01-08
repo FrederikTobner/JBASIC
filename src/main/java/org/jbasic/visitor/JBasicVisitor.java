@@ -284,6 +284,22 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     }
 
     /**
+     * Visits a 'data statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'data statement' that is visited
+     * @return The Value that is omitted by visiting the data statement
+     */
+    @Override
+    public JBasicValue visitDataStatement(JBasicParser.DataStatementContext context) {
+        this.state.getPoppedDataStack().clear();
+        this.state.getDataSegment().clear();
+        for (JBasicParser.ExpressionContext expressionContext :context.expression()) {
+            this.state.getDataSegment().add(this.visit(expressionContext));
+        }
+        return new JBasicValue(0);
+    }
+
+    /**
      * Visits a 'do while statement' in the abstract syntax tree
      *
      * @param context The parsing context of the 'while statement' that is visited
@@ -457,10 +473,32 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitPrintStatement(JBasicParser.PrintStatementContext context) {
-
         for (JBasicParser.ExpressionContext expressionContext :context.expression()) {
             this.visit(expressionContext).printValue(this.printStream, context.expression().size() != 1);
             this.printStream.println();
+        }
+        return new JBasicValue(0);
+    }
+
+    /**
+     * Visits a 'read statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'read statement' that is visited
+     * @return The Value that is omitted by visiting the read statement
+     */
+    @Override
+    public JBasicValue visitReadStatement(JBasicParser.ReadStatementContext context) {
+        for (JBasicParser.VariableIdentifierContext variableIdentifierContext : context.variableIdentifier()) {
+            if(this.state.getDataSegment().size() == 0) {
+                this.printStream.println("!OUT OF DATA in line " + context.getStart().getLine());
+                break;
+            }
+            JBasicValue value = this.state.getDataSegment().remove();
+            this.state.getPoppedDataStack().add(value);
+            if(variableIdentifierContext.variableSuffix() != null) {
+                VariableSafeguard.guaranteeVariableSuffixIsNotViolated(value, variableIdentifierContext.variableSuffix());
+            }
+            this.state.assignToVariable(variableIdentifierContext.getText(), value);
         }
         return new JBasicValue(0);
     }
@@ -486,6 +524,23 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
             finally {
                 condition = this.visit(context.expression());
             }
+        }
+        return new JBasicValue(0);
+    }
+
+    /**
+     * Visits a 'restore statement' in the abstract syntax tree
+     *
+     * @param context The parsing context of the 'restore statement' that is visited
+     * @return The Value that is omitted by visiting the restore statement
+     */
+    @Override
+    public JBasicValue visitRestoreStatement(JBasicParser.RestoreStatementContext context) {
+        JBasicValue specifiedIndex = this.visit(context.expression());
+        ValueTypeSafeguard.guaranteeValueIsNumerical("Index in a restore statement invalid", specifiedIndex, context.expression());
+        NumericalValueSafeguard.guaranteeIsWhole("Index in a restore statement invalid", specifiedIndex.underlyingNumber(), context.expression());
+        for (int i = 0; i < this.state.getPoppedDataStack().size() - specifiedIndex.underlyingNumber(); i++) {
+            this.state.getDataSegment().offerFirst(this.state.getPoppedDataStack().pop());
         }
         return new JBasicValue(0);
     }
