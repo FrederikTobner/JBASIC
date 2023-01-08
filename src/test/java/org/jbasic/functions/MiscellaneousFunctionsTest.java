@@ -9,7 +9,8 @@ public class MiscellaneousFunctionsTest extends JBasicBaseTest {
     @Test
     public void testListFunction() {
         this.test("functions/miscellaneous/list.bas",
-                (result) -> Assert.assertEquals("PRINT LIST()" + System.lineSeparator(),
+                (result) -> Assert.assertEquals("PRINT LIST()" + System.lineSeparator() +
+                                System.lineSeparator(),
                         result.output));
     }
 
