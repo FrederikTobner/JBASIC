@@ -16,7 +16,7 @@
 /**
  * @file JBasicInterpreterState.java
  * @brief Stores the state of the interpreter.
- * @details Used to store variables that are declared in the script and subroutines.
+ * @details Used to store variables that are declared in the script, labeled blocks and subroutines.
  */
 
 package org.jbasic.interpreter;
@@ -39,7 +39,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Stack;
 
 /**
