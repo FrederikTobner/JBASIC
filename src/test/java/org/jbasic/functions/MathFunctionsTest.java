@@ -1,12 +1,12 @@
 package org.jbasic.functions;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.format.DecimalStyle;
 
-public class MathFunctionsTest extends JBasicBaseTest {
+public class MathFunctionsTest extends JBasicEndToEndTest {
 
     @Test
     public void testAbsFunction() {

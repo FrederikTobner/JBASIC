@@ -1,10 +1,10 @@
 package org.jbasic.IO;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class IOTest extends JBasicBaseTest {
+public class IOTest extends JBasicEndToEndTest {
 
     @Test
     public void testInput() {

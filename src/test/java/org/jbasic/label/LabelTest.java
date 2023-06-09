@@ -1,10 +1,10 @@
 package org.jbasic.label;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class LabelTest extends JBasicBaseTest {
+public class LabelTest extends JBasicEndToEndTest {
 
     @Test
     public void testInvalidLabelError() {

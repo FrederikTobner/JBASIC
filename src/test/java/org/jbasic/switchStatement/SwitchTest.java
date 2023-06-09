@@ -1,10 +1,10 @@
 package org.jbasic.switchStatement;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class SwitchTest extends JBasicBaseTest {
+public class SwitchTest extends JBasicEndToEndTest {
 
     @Test
     public void testSimpleNumerical() {

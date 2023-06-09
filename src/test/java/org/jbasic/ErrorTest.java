@@ -3,7 +3,7 @@ package org.jbasic;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ErrorTest extends JBasicBaseTest {
+public class ErrorTest extends JBasicEndToEndTest {
 
     @Test
     public void testSyntaxError() {

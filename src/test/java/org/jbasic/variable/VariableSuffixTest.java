@@ -1,10 +1,10 @@
 package org.jbasic.variable;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class VariableSuffixTest extends JBasicBaseTest {
+public class VariableSuffixTest extends JBasicEndToEndTest {
 
     @Test
     public void testViolatedNumericalSuffixError() {

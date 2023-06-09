@@ -1,4 +1,4 @@
-:: Generates documentation using doxyxgen (https://www.doxygen.nl/)
+:: Generates documentation using doxygen (https://www.doxygen.nl/)
 @ECHO OFF
 IF NOT EXIST ../src/main/java (
     ECHO Can not find source directory

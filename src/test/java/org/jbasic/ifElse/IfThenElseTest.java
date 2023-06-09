@@ -1,10 +1,10 @@
 package org.jbasic.ifElse;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class IfThenElseTest extends JBasicBaseTest {
+public class IfThenElseTest extends JBasicEndToEndTest {
 
     @Test
     public void testSimpleIfTrue() {

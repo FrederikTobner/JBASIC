@@ -1,4 +1,4 @@
-# Generates documentation using doxyxgen (https://www.doxygen.nl/)
+# Generates documentation using doxygen (https://www.doxygen.nl/)
 if [ -d "../src/main/java" ]
 then
     echo "Generating Documentation ..."

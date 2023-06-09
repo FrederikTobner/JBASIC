@@ -1,10 +1,10 @@
 package org.jbasic.variable;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class VariableTest extends JBasicBaseTest {
+public class VariableTest extends JBasicEndToEndTest {
 
     @Test
     public void testUndefinedVariableError() {

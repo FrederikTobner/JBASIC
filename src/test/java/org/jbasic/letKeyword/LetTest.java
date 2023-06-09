@@ -1,10 +1,10 @@
 package org.jbasic.letKeyword;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class LetTest extends JBasicBaseTest {
+public class LetTest extends JBasicEndToEndTest {
 
     @Test
     public void testNumeric() {

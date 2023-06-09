@@ -1,10 +1,10 @@
 package org.jbasic.precedence;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class PrecedenceTest extends JBasicBaseTest {
+public class PrecedenceTest extends JBasicEndToEndTest {
 
     @Test
     public void testSimple() {

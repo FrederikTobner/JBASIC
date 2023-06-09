@@ -1,10 +1,10 @@
 package org.jbasic.functions;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MiscellaneousFunctionsTest extends JBasicBaseTest {
+public class MiscellaneousFunctionsTest extends JBasicEndToEndTest {
 
     @Test
     public void testListFunction() {

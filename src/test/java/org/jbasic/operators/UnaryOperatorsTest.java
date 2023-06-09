@@ -1,10 +1,10 @@
 package org.jbasic.operators;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class UnaryOperatorsTest extends JBasicBaseTest {
+public class UnaryOperatorsTest extends JBasicEndToEndTest {
 
     @Test
     public void testNegate() {

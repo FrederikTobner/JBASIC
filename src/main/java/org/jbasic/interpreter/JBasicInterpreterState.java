@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.stream.IntStream;
 
 /**
  * @brief Stores the state of the interpreter.
@@ -159,9 +160,8 @@ public class JBasicInterpreterState {
         final Map<String, JBasicValue> oldMemoryState = this.memory;
         // Prepare subroutine memory
         this.memory = new HashMap<>();
-        for (int i = 0; i < subroutine.getArity(); i++) {
-            this.assignToVariable(subroutine.getArguments()[i], arguments.get(i));
-        }
+        IntStream.range(0, subroutine.getArity())
+                .forEach(i -> this.assignToVariable(subroutine.getArguments()[i], arguments.get(i)));
         Arrays.stream(subroutine.getSubroutineBody()).forEach(visitor::visit);
         // Reset memory to the old state
         this.memory = oldMemoryState;

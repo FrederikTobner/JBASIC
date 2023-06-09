@@ -1,10 +1,10 @@
 package org.jbasic.subroutines;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class SubroutineTest extends JBasicBaseTest {
+public class SubroutineTest extends JBasicEndToEndTest {
 
     @Test
     public void testSimple() {

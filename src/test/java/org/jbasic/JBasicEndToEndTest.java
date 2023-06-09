@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Consumer;
 
-public class JBasicBaseTest {
+public class JBasicEndToEndTest {
 
     protected static class TestResult {
 

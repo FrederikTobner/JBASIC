@@ -1,10 +1,10 @@
 package org.jbasic.functions;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class StingFunctionsTest extends JBasicBaseTest {
+public class StingFunctionsTest extends JBasicEndToEndTest {
 
     @Test
     public void testLenFunction() {

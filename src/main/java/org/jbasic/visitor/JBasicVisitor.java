@@ -48,6 +48,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @brief The ANTLR visitor.
@@ -293,9 +294,7 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitDataStatement(JBasicParser.DataStatementContext context) {
         this.state.getPoppedDataStack().clear();
         this.state.getDataSegment().clear();
-        for (JBasicParser.ExpressionContext expressionContext :context.expression()) {
-            this.state.getDataSegment().add(this.visit(expressionContext));
-        }
+        context.expression().forEach(expressionContext -> this.state.getDataSegment().add(this.visit(expressionContext)));
         return new JBasicValue(0);
     }
 
@@ -473,10 +472,10 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
      */
     @Override
     public JBasicValue visitPrintStatement(JBasicParser.PrintStatementContext context) {
-        for (JBasicParser.ExpressionContext expressionContext :context.expression()) {
+        context.expression().forEach(expressionContext -> {
             this.visit(expressionContext).printValue(this.printStream, context.expression().size() != 1);
             this.printStream.println();
-        }
+        });
         return new JBasicValue(0);
     }
 
@@ -539,9 +538,8 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
         JBasicValue specifiedIndex = this.visit(context.expression());
         ValueTypeSafeguard.guaranteeValueIsNumerical("Index in a restore statement invalid", specifiedIndex, context.expression());
         NumericalValueSafeguard.guaranteeIsWhole("Index in a restore statement invalid", specifiedIndex.underlyingNumber(), context.expression());
-        for (int i = 0; i <= this.state.getPoppedDataStack().size() - (specifiedIndex.underlyingNumber() - 1); i++) {
-            this.state.getDataSegment().offerFirst(this.state.getPoppedDataStack().pop());
-        }
+        IntStream.iterate(0, i -> i <= this.state.getPoppedDataStack().size() - (specifiedIndex.underlyingNumber() - 1), i -> i + 1)
+                .forEach(i -> this.state.getDataSegment().offerFirst(this.state.getPoppedDataStack().pop()));
         return new JBasicValue(0);
     }
 
@@ -1077,14 +1075,13 @@ public class JBasicVisitor extends JBasicBaseVisitor<JBasicValue> {
     public JBasicValue visitFactorExpression(JBasicParser.FactorExpressionContext context) {
         JBasicValue left = this.visit(context.expression(0));
         JBasicValue right = this.visit(context.expression(1));
-        if (context.op.getType() == LBExpressionParser.MULTIPLY) {
-            return left.multiply(right, context);
-        }
-        else if (context.op.getType() == LBExpressionParser.DIVIDE) {
-            return left.divide(right, context);
-        }
-        else {
-            return left.modulo(right, context);
+        switch (context.op.getType()) {
+            case LBExpressionParser.MULTIPLY:
+                return left.multiply(right, context);
+            case LBExpressionParser.DIVIDE:
+                return left.divide(right, context);
+            default:
+                return left.modulo(right, context);
         }
     }
 

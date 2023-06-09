@@ -1,10 +1,10 @@
 package org.jbasic.data;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DataTest extends JBasicBaseTest {
+public class DataTest extends JBasicEndToEndTest {
 
     @Test
     public void testRestore() {

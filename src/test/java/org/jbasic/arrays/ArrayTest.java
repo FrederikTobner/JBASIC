@@ -1,10 +1,10 @@
 package org.jbasic.arrays;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ArrayTest extends JBasicBaseTest {
+public class ArrayTest extends JBasicEndToEndTest {
 
     @Test
     public void testArrayDimensionsMismatchError() {

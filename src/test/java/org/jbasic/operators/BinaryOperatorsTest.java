@@ -1,12 +1,12 @@
 package org.jbasic.operators;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.format.DecimalStyle;
 
-public class BinaryOperatorsTest extends JBasicBaseTest {
+public class BinaryOperatorsTest extends JBasicEndToEndTest {
 
     @Test
     public void testAdd() {

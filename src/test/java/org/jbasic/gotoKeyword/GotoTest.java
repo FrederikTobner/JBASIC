@@ -1,10 +1,10 @@
 package org.jbasic.gotoKeyword;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class GotoTest extends JBasicBaseTest {
+public class GotoTest extends JBasicEndToEndTest {
 
     @Test
     public void testSimple() {

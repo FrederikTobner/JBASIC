@@ -1,10 +1,10 @@
 package org.jbasic.loop;
 
-import org.jbasic.JBasicBaseTest;
+import org.jbasic.JBasicEndToEndTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class LoopTest extends JBasicBaseTest {
+public class LoopTest extends JBasicEndToEndTest {
 
     @Test
     public void testForContinue() {
